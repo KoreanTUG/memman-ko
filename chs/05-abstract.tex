@@ -1,0 +1,264 @@
+\chapter{Abstracts}
+
+
+    Abstracts\index{abstract} do not normally appear in books but 
+they are often an essential
+part of an article in a technical journal. Reports may or may not
+include an abstract, but if so it will often be called a `Summary'.
+There may be an even shorter abstract as well, often called an 
+`Executive Summary', for those who feel that details are irrelevant.
+
+    In the standard classes appearance of the \Ie{abstract} environment
+is fixed. The class provides a set of controls adjusting the appearance of
+an \Ie{abstract} environment.
+
+    Questions about how to have a 
+one-column\index{column!single} abstract\index{abstract} in a 
+two-column\index{column!double} paper
+seem to pop up fairly regularly on the
+\texttt{comp.text.tex} newsgroup. While an answer based on responses
+on \ctt\ is provided in the FAQ,
+the class provides a more author-friendly means
+of accomplishing this. 
+
+\section{Styling}
+
+\index{abstract!styling|(}
+
+    Much of this part of the class is a reimplementation of the 
+\Lpack{abstract} package~\cite{ABSTRACT}.
+
+   The typeset format of an \Ie{abstract} in a \Lclass{report} or 
+\Lclass{article} class document depends on the class
+options.\footnote{The \texttt{abstract} environment is not 
+available for the \Lclass{book} class.} The formats are:
+\begin{itemize}
+\item \Lopt{titlepage} class option: The abstract 
+    heading\indextwo{heading}{abstract} (i.e., value of 
+   \cmd{\abstractname}) is typeset centered in a bold font; the text is set in
+   the normal font and to the normal width.
+\item \Lopt{twocolumn} class option: The abstract 
+   heading\indextwo{heading}{abstract} is typeset like
+   an unnumbered section; the text is set in the normal font and to the
+   normal width (of a single column\index{column!single}). 
+\item Default (neither of the above class options): The abstract 
+   heading\indextwo{heading}{abstract}
+   is typeset centered in a small bold font; the text is set in a small
+   font and indented like the \Ie{quotation} environment.
+\end{itemize}
+
+   This class provides an \Ie{abstract} environment and
+handles to modify the typesetting of an \Ie{abstract}.
+
+\begin{syntax}
+\senv{abstract} text \eenv{abstract} \\
+\end{syntax}
+\glossary(abstract)%
+  {\senv{abstract}}%
+  {Environment for typesetting an abstract.}
+There is nothing special about using the \Ie{abstract} environment. 
+Formatting is controlled by the macros described below.
+
+\begin{syntax}
+\cmd{\abstractcol} \\
+\cmd{\abstractintoc} \\
+\cmd{\abstractnum} \\
+\cmd{\abstractrunin} \\
+\end{syntax}
+\glossary(abstractcol)%
+  {\cs{abstractcol}}%
+  {Declares that an abstract in a \Popt{twocolumn} document should be
+   typeset like an unnumbered chapter.}
+\glossary(abstractintoc)%
+  {\cs{abstractintoc}}%
+  {Specifies that the abstact's title is to be added to the ToC.} 
+\glossary(abstractnum)%
+  {\cs{abstractnum}}%
+  {Specifies that an abstract is to be typeset like a numbered chapter.}
+\glossary(abstractrunin)%
+  {\cs{abstractrunin}}%
+  {Specifies that the title of an abstract should be set as a run-in heading.}
+
+    The normal format for an abstract is with a centered, bold title
+and the text in a small font, inset from the margins\index{margin}.
+
+The \cmd{\abstractcol} declaration specifies that an abstract in a
+\Lopt{twocolumn} class option document should be typeset like a
+normal, unnumbered chapter.
+The \cmd{\abstractintoc} specifies that the abstract title should
+be added to the \toc. The declaration \cmd{\abstractnum} specifies that the 
+abstract should be typeset like a numbered chapter and 
+\cmd{\abstractrunin} specifies that
+the title of the abstract should look like a run-in heading; these two
+declarations are mutually exclusive. Note that the \cmd{\abstractnum}
+declaration has no effect if the abstract is in the \cmd{\frontmatter}.
+
+\begin{syntax}
+\cmd{\abstractname} \\
+\cmd{\abstractnamefont} \\
+\cmd{\abstracttextfont} \\
+\end{syntax}
+\glossary(abstractname)%
+  {\cs{abstractname}}%
+  {An abstract's title.}
+\glossary(abstractnamefont)%
+  {\cs{abstractnamefont}}%
+  {Font for typesetting and abstract's title (\cs{abstractname}).}
+\glossary(abstracttextfont)%
+  {\cs{abstracttextfont}}%
+  {Font for typesetting the body text of an abstract.}
+\cmd{\abstractname} (default `\abstractname') is used as the title for
+the \Ie{abstract} environment and is set using the \cmd{\abstractnamefont}.
+The body of the abstract is typeset using the \cmd{\abstracttextfont}.
+These two commands can be redefined to change the fonts if you wish.
+The default definitions are 
+\begin{lcode}
+\newcommand{\abstractnamefont}{\normalfont\small\bfseries}
+\newcommand{\abstracttextfont}{\normalfont\small}
+\end{lcode}
+
+\begin{syntax}
+\lnc{\absleftindent} \lnc{\absrightindent} \\
+\lnc{\absparindent} \lnc{\absparsep} \\
+\end{syntax}
+\glossary(absleftindent)%
+  {\cs{absleftindent}}%
+  {Indentation of the left of the \Pe{abstract} text.}
+\glossary(absrightindent)%
+  {\cs{absrightindent}}%
+  {Indentation of the right of the \Pe{abstract} text.}
+\glossary(absparindent)%
+  {\cs{absparindent}}%
+  {Paragraph indent in the \Pe{abstract} environment.}
+\glossary(absparsep)%
+  {\cs{absparsep}}%
+  {Paragraph separation in the \Pe{abstract} environment.}
+   This version of \Ie{abstract} uses a \Ie{list} environment for typesetting
+the text. These four lengths can be changed (via \cmd{\setlength}
+ or \cmd{\addtolength}) to adjust
+the left and right margins\index{margin}, the paragraph indentation\index{paragraph!indentation}, and the vertical skip
+between paragraphs in this environment. 
+The default values depend on whether or not the \Lopt{twocolumn}
+class option is used. The general layout parameters for lists are illustrated
+in \fref{fig:listlay}.
+
+\begin{syntax}
+\cmd{\abslabeldelim}\marg{text} \\
+\end{syntax}
+\glossary(abslabeldelim)%
+  {\cs{abslabeldelim}\marg{text}}%
+  {\meta{text} is typeset immediately after \cs{abstractname} in a run-in
+   heading.}
+If the \cmd{\abstractrunin} declaration has been given, 
+the heading is typeset as a run-in heading. That is, it is the 
+first piece of text on the first line of the abstract text.
+The \meta{text} argument of \cmd{\abslabeldelim} is typeset
+immediately after the heading. By default it is defined to do nothing, but
+if you wanted, for example, the \cmd{\abstractname} to be followed by 
+a colon and some extra space you could specify
+\begin{lcode}
+\abslabeldelim{:\quad}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\absnamepos} \\
+\end{syntax}
+\glossary(absnamepos)%
+  {\cs{absnamepos}}%
+  {Position of a non run-in title for an \Pe{abstract} (\texttt{flushleft}, 
+   \texttt{center}, or \texttt{flushright}).}
+   If the \cmd{\abstractrunin} declaration is not used then the heading 
+is typeset in its own environment, specified by 
+\cmd{\absnamepos}. The default definition is
+\begin{lcode}
+\newcommand{\absnamepos}{center}
+\end{lcode}
+It can be defined to be one of \Ie{flushleft}, \Ie{center},
+or \Ie{flushright} to give a left, centered or right aligned heading; 
+or to any
+other appropriate environment which is supported by a used package\index{package}.
+
+\begin{syntax}
+\lnc{\abstitleskip} \\
+\end{syntax}
+\glossary(abstitleskip)%
+  {\cs{abstitleskip}}
+  {Space around the title of an \Pe{abstract}.}
+   With the \cmd{\abstractrunin} declaration a horizontal space of length 
+\lnc{\abstitleskip} is typeset
+before the heading. For example, if \lnc{\absparindent} is non-zero, then:
+\begin{lcode}
+\setlength{\abstitleskip}{-\absparindent}
+\end{lcode}
+ will typeset the heading flush left.
+
+Without the \cmd{\abstractrunin} declaration, \lnc{\abstitleskip} is 
+aditional vertical 
+space (either positive
+or negative) that is inserted between the abstract name and the text of
+the abstract.
+
+\index{abstract!styling|)}
+
+\section{One column abstracts}
+
+\index{abstract!one column|(}
+
+   The usual advice~\cite{FAQ} about creating a 
+one-column\index{column!double} 
+\Ie{abstract} in a 
+\Lopt{twocolumn} document is to write code like this:
+\begin{lcode}
+\documentclass[twocolumn...]{...}
+...
+\twocolumn[
+   \begin{@twocolumnfalse}
+     \maketitle               need full-width title
+     \begin{abstract}
+        abstract text...
+     \end{abstract}
+   \end{@twocolumnfalse}
+]
+... hand make footnotes for any \thanks commands
+...
+\end{lcode}
+
+\begin{syntax}
+\senv{onecolabstract} text \eenv{onecolabstract} \\
+\cmd{\saythanks} \\
+\end{syntax}
+\glossary(onecolabstract)%
+  {\senv{onecolabstract}}%
+  {Environment for typesetting a one column abstract in a two column document.}
+\glossary(saythanks)%
+  {\cs{saythanks}}%
+  {Following a \Pe{onecolabstract} it ensures that \cs{thanks} are printed.}
+The class provides a \Ie{onecolabstract} environment that you can use
+for a one column\index{column!single} abstract in a \Lopt{twocolumn} document, 
+and it is used like this:
+\begin{lcode}
+\documentclass[twocolumn...]{memoir}
+...
+\twocolumn[
+   \maketitle               need full-width title
+   \begin{onecolabstract}
+     abstract text...
+   \end{onecolabstract}
+]
+\saythanks % typesets any \thanks commands
+...
+\end{lcode}
+The command \cmd{\saythanks} ensures that any \cmd{\thanks} texts from
+an earlier \cmd{\maketitle} are printed out as normal.
+
+    If you want, you can use the \Ie{onecolabstract} environment in place
+of the \Ie{abstract} environment --- it doesn't have to be within the 
+optional argument of the \cmd{\twocolumn} command. In fact, 
+\Ie{onecolabstract} internally uses \Ie{abstract} for the typesetting.
+
+
+\index{abstract!one column|)}
+
+
+%#% extend
+%#% extstart include document-divisions.tex

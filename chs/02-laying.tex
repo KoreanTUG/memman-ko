@@ -1,0 +1,1982 @@
+\chapter{Laying out the page} \label{chap:layingpage}
+
+Up until this chapter the \pstyle{headings} pagestyle\index{pagestyle}
+has been used; pagestyles are described in \Sref{sec:pagestyles}.
+This, and later chapters, are typeset with the \pstyle{ruled} pagestyle.
+
+\section{Introduction}
+
+    The class provides a default page 
+layout\index{page layout}\indextwo{page layout}{default}, 
+in which the page size is the
+same as the stock\index{stock} size and the typeblock\index{typeblock} is 
+roughly in the middle of the page.
+    This chapter describes the commands provided by the class to help you
+produce your own page layout if the default is inappropriate.
+
+    If you are happy with the default layout you may skip the rest of this
+chapter.
+
+\fancybreak{}
+
+    The pages of a book carry the text which is intended to educate, entertain
+and/or amuse the reader. The page must be designed to serve the purposes of
+the author and to ease the reader's task in assimilating the author's ideas.
+A good page design is one which the general reader does not notice. If the
+reader is constantly noticing the page layout, even unconsciously, it distracts
+from the purpose of the book. It is not the job of the designer to 
+shout, or even to murmur, `look at my work'.
+
+    There are three main parts to a page: the page itself, the 
+typeblock\index{typeblock}, and 
+the margins\index{margin} separating the typeblock\index{typeblock} from 
+the edges of the page. Of slightly lesser importance are the running 
+headers\index{header} and footers\index{footer}, 
+and possibly marginal\index{marginalia} notes.
+The art of page design is obtaining a harmonious balance or rhythm between
+all these.
+
+    Although the form is different, the facilities described in this chapter 
+are similar to those provided by the \Lpack{geometry} 
+package~\cite{GEOMETRY}.
+
+\fancybreak{}
+
+\begin{adjustwidth}{3em}{3em}
+  \itshape
+  Note, if your paper choice matches one of the class paper options,
+  then you can skip forward to section~\ref{sec:typeblock2} --
+  \emph{\titleref{sec:typeblock2}}, as you have already chosen your
+  stock size and does not need trimming.
+\end{adjustwidth}
+
+On the other hand, if, say, you are designing a document, that is to
+be printed on one type of paper (the stock), and then trimmed to
+another, please read on.
+
+% Before we start let use summarize what laying out the page
+% involves\fxnote{where did the spacings around enumerate go? Had to add
+% a blank line}
+
+% \begin{enumerate}[(a)]
+% \item Figure out the stock size of your document and whether or not
+%   you need to trim the stock to get the desired paper size.
+  
+%   Most people just specify the stick and paper size via a class option
+%   like \Lopt{a4paper}. Thus you can proceed to
+%   section~\ref{sec:typeblock2}.
+% \item Specify the text block, basically the margins. 
+
+%   The class provide two interfaces for this: (1) Set the margins
+%   around the text block, thereby defining the text block, and (2),
+%   specify the size of the text block directly and then place it on the
+%   page.
+% \item Specify auxiliary layout, like placement of headers, footers and
+%   margin notes.
+% \item At the end (\emph{very important}) we ask the class to put
+%   everything together and check that they make sense.
+% \end{enumerate}
+
+
+
+
+
+
+\section{Stock material}
+\label{sec:stock-material}
+
+Printing is the act of laying symbols onto a piece of
+stock\index{stock} material.  Some print on T-shirts by a process
+called silk screening, where the shapes of the symbols are made in a
+screen and then fluid is squeezed through the screen onto the stock
+material --- in this case the fabric of the T shirt. Whether or not
+this is of general interest it is not the sort of printing or stock
+material that is normally used in book production. Books, except for
+the very particular, are printed on paper\index{paper}.
+
+    In the desktop publishing world the stock\indextwo{stock}{paper}
+paper\indextwo{stock}{size} is usually one from a range of standard sizes. 
+In the USA it is typically
+letterpaper\index{letterpaper}\index{stock!size!letterpaper} 
+(11 by 8.5 inches) and in the 
+rest of the world A4\index{A4 paper}\index{stock!size!A4} paper 
+(297 by 210 mm), with one page per piece of stock\index{stock}. In commercial 
+printing the stock\index{stock!commercial printing} material is 
+much larger with several 
+pages being printed on each stock\index{stock} piece; 
+the stock\index{stock} is then folded, cut and trimmed to form
+the final pages for binding. The class assumes that desktop publishing is 
+the norm.
+
+
+\section{The page}
+\label{sec:page}
+ 
+    The class assumes that there will be only a single page on a side of
+each piece of stock\index{stock}; two sides means that there can be two
+pages, one on the front and the other on the back. 
+
+\begin{figure}
+\centering
+\drawpage
+\caption{\ltx\ page layout parameters for a recto page} \label{fig:anoddpage}
+\end{figure}
+
+    The parameters\index{page layout!LaTeX parameters?\ltx\ parameters} 
+used by \ltx\ itself to define the page layout are 
+illustrated in \fref{fig:anoddpage}. \ltx\ does not actually care about the
+physical size of a page --- it assumes that, with respect to the top lefthand
+corner, the sheet of paper\index{sheet} to be printed is infinitely wide 
+and infinitely long. If you happen to have a typeblock\index{typeblock} 
+that is too wide or too long for the sheet, \ltx\ will merrily position 
+text outside the physical boundaries.
+
+    The \ltx\ parameters are often not particularly convenient if, say, 
+the top of the text must be a certain distance below the top of the page 
+and the \foredge{} margin\index{margin!foredge?\foredge} must be twice 
+the spine margin\index{margin!spine}. It is obviously possible
+to calculate the necessary values for the parameters, but it is
+not a pleasurable task.
+
+    The class provides various means of specifying the page layout, which are
+hopefully more convenient to use than the standard ones. Various
+adjustable parameters\index{page layout!class parameters} are used that 
+define the stock\indextwo{stock}{size} size, page\indextwo{page}{size} size, and so 
+on. These differ in some respects from the parameters in the standard classes,
+although the parameters for marginal notes are the same in both cases.
+Figure~\ref{fig:oddstock} shows the main class layout parameters for a
+recto page.
+These may be changed individually by \cmd{\setlength} or by using the 
+commands described below. Figure~\ref{fig:evenstock} illustrates the
+same parameters on a verso page.
+
+
+\begin{figure}
+\centering
+\oddpagelayoutfalse
+\drawstock
+\caption{The \textsf{memoir} class page layout parameters for a verso page} \label{fig:evenstock}
+\end{figure}
+
+\begin{figure}
+\centering
+%%%\drawmarginparsfalse
+\drawstock
+\caption{The \textsf{memoir} class page layout parameters for a recto page} \label{fig:oddstock}
+\end{figure}
+
+
+\fancybreak{}
+
+
+    The first step in designing the page layout\index{page layout!design} 
+is to decide on the page size\indextwo{page}{size} and then pick an 
+appropriate stock\indextwo{stock}{size} size. Selecting a standard 
+stock\indextwo{stock}{size} size will
+be cheaper than having to order specially sized stock\index{stock} material. 
+
+\begin{syntax}
+\cmd{\setstocksize}\marg{height}\marg{width} \\
+\end{syntax}
+\glossary(setstocksize)%
+  {\cs{setstocksize}\marg{height}\marg{width}}%
+  {Set the stock paper size to be \meta{height} by \meta{width}.}
+\glossary(stockheight)%
+  {\ls{stockheight}}%
+  {Height of the stock paper.}
+\glossary(stockwidth)%
+  {\ls{stockwidth}}%
+  {Width of the stock paper.}
+    The class options\index{stock paper size option} 
+provide for some common stock\indextwo{stock}{size} sizes. 
+So if you have specified the class option \texttt{a4paper} and intend
+to print on A4, then you have no need for \cmd{\setstocksize}, proceed
+directly to section~\ref{sec:typeblock2}. Alternatively, the class
+provide settings for many other standard stock sizes, see
+\tref{tab:sizeoptsmetric} through \tref{tab:sizeoptsbrit}. 
+
+
+If you have some other size that you want to use, the 
+command \cmd{\setstocksize} can be used to
+specify that the stock\index{stock!specifying size} size is 
+\meta{height} \index{stock!height} by \meta{width}\index{stock!width}. 
+For example the following specifies a stock\index{stock!size} of 9 by 4 inches:
+\begin{lcode}
+\setstocksize{9in}{4in}
+\end{lcode}
+
+The size of the page\indextwo{page}{size} must be no larger than the 
+stock\indextwo{stock}{size} but 
+may be smaller which means that after printing
+the stock\index{stock!trimmed} must be trimmed down to the size of the page.
+The page may 
+be positioned anywhere within the bounds of the stock\index{stock}.
+
+    Page layout should be conceived in terms of a double spread\index{spread};
+when you open a book in the middle what you see is a double spread --- 
+a verso page on the left and a recto page on the right with the spine 
+between them. Most books when closed are taller\index{proportion!book} 
+than they are wide; this makes them easier to hold when open
+for reading. A squarish page when opened out into a wide spread 
+makes for discomfort unless the book is supported on a table.
+
+\begin{syntax}
+\cmd{\settrimmedsize}\marg{height}\marg{width}\marg{ratio} \\
+\end{syntax}
+\glossary(settrimmedsize)%
+  {\cs{settrimmedsize}\marg{height}\marg{width}\marg{ratio}}%
+  {Sets the size of the trimmed stock paper.}
+\glossary(paperheight)%
+  {\ls{paperheight}}%
+  {The height of the trimmed stock paper.}
+\glossary(paperwidth)%
+  {\ls{paperwidth}}%
+  {The width of the trimmed stock paper.}
+Initially the page size\indextwo{page}{size} is made the same as the 
+stock\indextwo{stock}{size} size, as set by the 
+paper\index{stock paper size option} size option.
+The command \cmd{\settrimmedsize}\index{page!specifying size} 
+can be used to specify the height\index{page!height} and width\index{page!width} 
+of the page (after any trimming). The \meta{ratio} argument is 
+the amount by which the \meta{height} or the \meta{width} must be multiplied 
+by to give the
+width or the height. Only two out of the three possible arguments must be 
+given values with the other (unvalued) argument given as \verb?*? 
+(an asterisk). The lengths \lnc{\paperheight} and \lnc{\paperwidth} are 
+calculated according to the given arguments. That is, the command enables
+the \lnc{\paperheight} 
+and \lnc{\paperwidth} to be specified directly or as one being in a given
+ratio to the other. The potential combinations of arguments and the 
+corresponding results are listed in \tref{tab:rectsize}.
+
+
+\begin{table}
+\centering
+\caption{Arguments and results for \cs{settrimmedsize} and \cs{settypeblocksize} } \label{tab:rectsize}
+%\begin{tabular}{ccc|l} \hline
+\begin{tabular}{cccl} \toprule
+\meta{height} & \meta{width} & \meta{ratio} & Result \\ \midrule
+ H   & W   & r   & ambiguous \\
+ H   & W   & {*} & $H$, $W$  \\
+ H   & {*} & r   & $W = rH$  \\
+ H   & {*} & {*} & ambiguous \\
+{*}  & W   & r   & $H = rW$  \\
+{*}  & W   & {*} & ambiguous \\
+{*}  & {*} & r   & ambiguous \\
+{*}  & {*} & {*} & ambiguous \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+    If you have used \cmd{\setstocksize} to redefine the stock\index{stock}, 
+then to get the same page size, do:
+\begin{lcode}
+\settrimmedsize{\stockheight}{\stockwidth}{*}
+\end{lcode}
+or for the page dimensions to be 90\% of the stock\index{stock} dimensions:
+\begin{lcode}
+\settrimmedsize{0.9\stockheight}{0.9\stockwidth}{*}
+\end{lcode}
+
+    The following are three different ways of defining an 8 by 5 inch page.
+\begin{lcode}
+\settrimmedsize{8in}{5in}{*}
+\settrimmedsize{8in}{*}{0.625}  % 5 = 0.625 times 8
+\settrimmedsize{*}{5in}{1.6}    % 8 = 1.6 times 5
+\end{lcode}
+
+If you look at a well bound hardback book you
+can see that the sheets are folded so that they are continuous at the spine, 
+where they are sewn together into the binding. The top of the pages should be
+smooth so that when the book is upright on a bookshelf dust has a harder 
+job seeping between the pages than if the top was all raggedy. Thus, if
+the stock\index{stock!trimmed} is trimmed it will be trimmed at the top. 
+It will also have been
+cut at the \foredge s of the pages and at the bottom, otherwise the book
+would be unopenable and unreadable.
+
+\begin{syntax}
+\cmd{\settrims}\marg{top}\marg{foredge} \\
+\end{syntax}
+\glossary(settrims)%
+  {\cs{settrims}\marg{top}\marg{foredge}}%
+  {Sets the amount to be trimmed from the top and \foredge{} of the stock paper.}
+\glossary(trimtop)%
+  {\ls{trimtop}}%
+  {Amount to be trimmed from the top of the stock paper.}
+\glossary(trimedge)%
+  {\ls{trimedge}}%
+  {Amount to be trimmed from the \foredge{} of the stock paper.}
+The command \cmd{\settrims} can be used to specify 
+the amount intended to be removed from the top 
+(\meta{top}) and \foredge{} (\meta{foredge}) of the 
+stock\index{stock!specifying trimming} 
+material to produce the top and \foredge{} of a recto page. 
+Note that the combination of \cmd{\settrims} and \cmd{\settrimmedsize}
+locate the page\index{page} with respect to the stock\index{stock}.
+By default the top and edge trims are zero, which means that if any trimming
+is required it will be at the spine and bottom edges of the stock
+unless \cmd{\settrims} is used to alter this.
+
+    You can either do any trim calculation for youself or let \ltx\ do it for
+you. For example, with an 8in by 5in page on 10in by 7in stock
+\begin{lcode}
+\settrims{2in}{2in}
+\end{lcode}
+specifies trimming 2in from the top and \foredge{} of the stock
+giving the desired page size. Taking a design where, say, the page 
+is 90\% of the stock size it's easy to get \ltx\ to do the calculation:
+\begin{lcode}
+\setlength{\trimtop}{\stockheight}    % \trimtop = \stockheight
+\addtolength{\trimtop}{-\paperheight}  %          - \paperheight
+\setlength{\trimedge}{\stockwidth}    % \trimedge = \stockwidth
+\addtolength{\trimedge}{-\paperwidth} %           - \paperwidth
+\end{lcode}
+which will set all the trimming to be at the top and \foredge. 
+If you wanted, say, equal trims at the top and bottom you could go 
+on and specify
+\begin{lcode}
+\settrims{0.5\trimtop}{\trimedge}
+\end{lcode}
+
+\fancybreak{}
+
+See also section~\ref{sec:predefined-layouts} --
+\emph{\titleref{sec:predefined-layouts}}, where we present some extra
+commands. For example \cmd{\setpagecc} for placing a trimmed page
+centered on the stock.
+
+After trimming the various methods to specify the typeblock, now
+refers to the \emph{trimmed} page, not the stock material.
+
+
+\section{The typeblock} \label{sec:typeblock2}
+
+    Like the page, the typeblock\index{proportion!typeblock} is normally 
+rectangular with the height greater than the width.
+%    Consider a typeblock that includes no illustrations\index{illustration} 
+%or tables\index{table}.
+The lines of text must be laid out so that they are easy to read.
+Common practice, and more recently psychological testing, has shown that
+long lines of text are difficult to read. Thus, there is a physiological
+upper limit to the width of the typeblock. From a practical viewpoint,
+a line should not be too short because then there is difficulty in justifying
+the text.
+
+\subsection{A note on the width of the typeblock}
+
+
+    Experiments have shown that the number of characters in a line of
+single column\index{column} text on a page should be
+in the range 60 to 70 for ease of reading. The range may be as much
+as 45 to 75 characters but 66 characters is often
+considered to be the ideal number. Much shorter and the eye is dashing
+back and forth between each line. Much longer and it is hard to pick up the
+start of the next line if the eye has to jump back too far --- the same line
+may be read twice or the following line may be inadvertently jumped over.
+For double column\index{column!double} text the ideal number of characters 
+is around 45, give or take 5 or so.
+
+    Bringhurst\index{Bringhurst, Robert}~\cite{BRINGHURST99} gives a 
+method for determining the number
+of characters in a line for any font\index{font!measuring}: 
+measure the length of the lowercase alphabet and use a 
+copyfitting\index{copyfitting} 
+table that shows for a given alphabet 
+length and line length, the average number of characters in that line.
+ Table~\ref{tab:copyfitting} is an
+abridged version of Bringhurt's copyfitting table.
+For example, it suggests that a font with a length of 130pt should be
+set on a measure of about 26pc for a single column\index{column!single} 
+or in an 18pc wide column if there are multiple\index{column!multiple} 
+columns.
+ 
+
+\begin{table}
+%%%\DeleteShortVerb{\|}
+\centering
+\caption{Average characters per line} \label{tab:copyfitting}
+\begin{tabular}{r !\quad rrrrrrrr} %|
+  \toprule
+Pts. & \multicolumn{8}{c}{Line length in picas} \\
+\cmidrule{2-9}
+     & 10 & 14 & 18 & 22 & 26  & 30  & 35 & 40 \\ 
+\midrule
+80   & \textit{40} & \textbf{56} & \textbf{72} & 88 & 104 &     &    &    \\
+85   & \textit{38} & \textit{53} & \textbf{68} & 83 & 98 & 113 &    &    \\
+90   & \textit{36} & \textit{50} & \textbf{64} & 79 & 86 & 107 &    &    \\
+95   & 34 & \textit{48} & \textbf{62} & 75 & 89 & 103 &    &    \\
+100  & 33 & \textit{46} & \textbf{59} & \textbf{73} & 86 & 99 & 116 &   \\
+105  & 32 & \textit{44} & 57 & \textbf{70} & 82 & 95 & 111 &   \\
+110  & 30 & \textit{43} & 55 & \textbf{67} & 79 & 92 & 107 &   \\
+115  & 29 & \textit{41} & 53 & \textbf{64} & 76 & 88 & 103 &   \\
+120  & 28 & \textit{39} & \textit{50} & \textbf{62} & 73 & 84 & 98 & 112 \\
+125  & 27 & 38 & \textit{48} & \textbf{59} & \textbf{70} & 81 & 94 & 108 \\
+130  & 26 & 36 & \textit{47} & 57 & \textbf{67} & 78 & 91 & 104 \\
+135  & 25 & 35 & \textit{45} & 55 & \textbf{65} & 75 & 88 & 100 \\
+140  & 24 & 34 & \textit{44} & 53 & \textbf{63} & 73 & 85 & 97 \\
+145  & 23 & 33 & \textit{42} & 51 & \textbf{61} & \textbf{70} & 82 & 94 \\
+150  & 23 & 32 & \textit{41} & \textit{51} & \textbf{60} & \textbf{69} & 81 & 92 \\
+155  & 22 & 31 & \textit{39} & \textit{49} & 58 & \textbf{67} & 79 & 90 \\
+160  & 22 & 30 & 39 & \textit{48} & 56 & \textbf{65} & 76 & 87 \\
+165  & 21 & 30 & 38 & \textit{46} & 55 & \textbf{63} & 74 & 84 \\
+170  & 21 & 29 & 37 & \textit{45} & 53 & \textbf{62} & 72 & 82 \\
+175  & 20 & 28 & 36 & \textit{44} & 52 & \textbf{60} & \textbf{70} & 80 \\
+180  & 20 & 27 & 35 & \textit{43} & 51 & 59 & \textbf{68} & 78 \\
+185  & 19 & 27 & 34 & \textit{42} & \textit{49} & 57 & \textbf{67} & 76 \\
+190  & 19 & 26 & 33 & 41 & \textit{48} & 56 & \textbf{65} & 74 \\
+195  & 18 & 25 & 32 & 40 & \textit{47} & 54 & \textbf{63} & 72 \\
+200  & 18 & 25 & 32 & 39 & \textit{46} & 53 & \textbf{62} & \textbf{70} \\ 
+220  & 16 & 22 & 29 & 35 & \textit{41} & \textit{48} & 56 & \textbf{64} \\
+240  & 15 & 20 & 26 & 32 & 38 & \textit{44} & 51 & 58 \\
+260  & 14 & 19 & 24 & 30 & 35 & 41 & \textit{48} & 54 \\
+280  & 13 & 18 & 23 & 28 & 33 & 38 & \textit{44} & 50 \\
+300  & 12 & 17 & 21 & 26 & 31 & 35 & 41 & \textit{47} \\
+320  & 11 & 16 & 20 & 25 & 29 & 34 & 39 & \textit{45} \\
+340  & 10 & 15 & 19 & 23 & 27 & 32 & 37 & 42 \\
+\bottomrule
+\end{tabular}
+%%%\MakeShortVerb{\|}
+\end{table}
+
+    Morten H{\o}gholm\index{H{\o}gholm, Morten} has done some curve fitting
+to the data. He determined that the expressions
+\begin{equation}
+L_{65} = 2.042\alpha + 33.41 \label{eq:L65}
+\end{equation}
+and
+\begin{equation}
+L_{45} = 1.415\alpha + 23.03 \label{eq:L45}
+\end{equation}
+fitted aspects of the data, where $\alpha$ is the length of the alphabet
+in points, and $L_{i}$ is the suggested width in points, for a line with
+$i$ characters (remember that 1pc = 12pt).
+
+
+
+Table~\ref{tab:cmrlengths} gives the lowercase 
+alphabet\index{alphabet length} lengths for 
+some typefaces over a range of font sizes; this may be used in conjunction
+with \tref{tab:copyfitting} on \pref{tab:copyfitting} when deciding
+on an appropriate textwidth\index{textwidth}. I have grouped the 
+listed typefaces into roman, sans-serif, and monospaced, and they are 
+all available in a standard \ltx\ system. The 
+Computer Modern Roman\facesubseeidx{Computer Modern},
+Concrete Roman\facesubseeidx{Concrete Roman},
+Computer Sans\facesubseeidx{Computer Sans},
+and Typewriter\facesubseeidx{Computer Typewriter}
+typefaces\index{typeface} were all designed by Donald Knuth 
+using\index{font!Metafont} 
+\metafont, specifically for use with \tx. The other font families are
+\pscript{} outline fonts and can be used in many document publishing systems.
+These particular fonts are available for use in \ltx\ via the packages
+in the \Ppack{psnfss}\index{psnfss?\Ppack{psnfss}}
+bundle. Be aware that the Knuthian\index{font!Knuthian} fonts were designed to form a 
+font family --- 
+that is, they were designed to work together and complement each other --- 
+while the listed \pscript{}
+fonts\index{font!PostScript} were designed by different people at different 
+times and for different purposes. Bringhurst~\cite[p. 96]{BRINGHURST99}
+memorably says `Baskerville\facesubseeidx{Baskerville}, 
+Helvetica\facesubseeidx{Helvetica}, 
+Palatino\facesubseeidx{Palatino} and 
+Times Roman\facesubseeidx{Times Roman}, 
+for example --- which are four of the most widely available 
+typefaces --- are four faces with nothing to offer one another except
+public disagreement'.
+
+
+    The monospaced\index{font!monospaced}\index{monospaced font} fonts, 
+Courier\facesubseeidx{Courier} and Typewriter\facesubseeidx{Typewriter}
+have no place in high quality typesetting except when typesetting computer
+code or the like, or when trying to fake text written on a real typewriter.
+Ignoring these, a quick glance at the \tablerefname{} shows that 
+Bookman\facesubseeidx{Bookman} is a broad font while 
+Times\facesubseeidx{Times Roman} is narrow as befits its original 
+design intent for typesetting narrow columns in newspapers. 
+Computer Modern\facesubseeidx{Computer Modern}
+tends towards the narrow end of the range.
+
+
+\begin{syntax}
+\lnc{\xlvchars} \lnc{\lxvchars} \\
+\end{syntax}
+\glossary(xlvchars)%
+  {\ls{xlvchars}}%
+  {Approximate length of 45 characters.}
+\glossary(lxvchars)%
+  {\ls{lxvchars}}%
+  {Approximate length of 65 characters.}
+Based on \tref{tab:cmrlengths}, the two lengths 
+\lnc{\xlvchars} and 
+\lnc{\lxvchars} are initially set to approximately the lengths of a 
+line of text with
+45\index{measure!45 characters} or 
+65\index{measure!65 characters} characters, respectively, for  
+Computer Modern Roman in the type size selected for the document.
+
+    If you are using a different font or size you can use something like the 
+following to calculate and print out the length for you.
+\begin{lcode}
+\newlength{\mylen}                % a length
+\newcommand{\alphabet}{abc...xyz} % the lowercase alphabet
+\begingroup                       % keep font change local
+% font specification e.g., \Large\sffamily
+\settowidth{\mylen}{\alphabet}
+The length of this alphabet is \the\mylen. % print in document
+\typeout{The length of the Large sans alphabet 
+         is \the\mylen}                    % put in log file
+\endgroup                         % end the grouping
+\end{lcode}
+The \cmd{\typeout} macro prints its argument to the terminal and the
+log file. There is, however, an easier method.
+
+\begin{syntax}
+\cmd{\setxlvchars}\oarg{fontspec} \\
+\cmd{\setlxvchars}\oarg{fontspec} \\
+\end{syntax}
+\glossary(setxlvchars)%
+  {\cs{setxlvchars}\oarg{fontspec}}%
+  {Sets \cs{xlvchars} to the length of 45 characters in the \meta{fontspec} 
+   font (default \cs{normalfont}).}
+\glossary(setlxvchars)%
+  {\cs{setlxvchars}\oarg{fontspec}}%
+  {Sets cs{lxvchars} to the length of 65 characters in the \meta{fontspec} 
+   font (default \cs{normalfont}).}
+The macros \cmd{\setxlvchars} and \cmd{\setlxvchars}, which were suggested
+by Morten H{\o}gholm\index{H{\o}gholm, Morten}, 
+set the lengths \lnc{\xlvchars} and \lnc{\lxvchars}
+respecively for the font \meta{fontspec}. The default for \meta{fontspec}
+is \cmd{\normalfont}. For example, the values of \lnc{\lxvchars} and
+\lnc{\xlvchars} after calling:
+\begin{lcode}
+\setlxvchars \setxlvchars[\small\sffamily]
+\end{lcode}
+\begingroup
+are: \setlxvchars\setxlvchars[\small\sffamily]
+\lnc{\lxvchars} = \the\lxvchars, and \lnc{\xlvchars} = \the\xlvchars.
+\endgroup
+
+    Morten H{\o}gholm\footnote{Private communication} also commented:
+\begin{quotation}
+    \ldots I was defining some environments that had to have \lnc{\parindent}
+as their indentation. For some reason I just wrote \verb?1.5em? instead
+of \lnc{\parindent} because I `knew' that was the value. What I had 
+overlooked was that I had loaded the \Lpack{mathpazo} package~\cite{MATHPAZO},
+thus, among other things,  altering \lnc{\parindent}. Conclusion: the
+environment would use 1.5em = 18.0pt, whereas the \lnc{\parindent}
+was only 17.607pt.
+
+    This, and other related situations can be avoided if one places
+\begin{center}
+\cmd{\RequirePackage}\marg{font-package}\cmd{\normalfont}
+\end{center}
+\emph{before} \cmd{\documentclass}.
+\end{quotation}
+Note that, in general, it is inadviseable to put any 
+commands\index{packages before class} before
+\cmd{\documentclass}.
+
+
+
+
+\PWnote{2009/04/01}{Fixed errors in lowercase alphabet lengths for Utopia (2) and Avantgarde (1)}
+\PWnote{2009/04/28}{Corrected font names of Avant Garde Gothic, Times Roman,
+   New Century Schoolbook}
+\begin{table}
+\centering
+\caption{Lowercase alphabet lengths, in points, for various fonts}\label{tab:cmrlengths}
+\begin{tabular}{lrrrrrrrr} \toprule
+                                            & 8pt & 9pt & 10pt & 11pt & 12pt & 14pt & 17pt & 20pt \\ \midrule
+\fontfamily{pbk}\selectfont Bookman         & 113 & 127 & 142 & 155 & 170 & 204 & 245 & 294 \\
+\fontfamily{bch}\selectfont Charter         & 102 & 115 & 127 & 139 & 152 & 184 & 221 & 264 \\
+\fontfamily{cmr}\selectfont Computer Modern & 108 & 118 & 127 & 139 & 149 & 180 & 202 & 242 \\
+\fontfamily{ccr}\selectfont Concrete Roman  & 109 & 119 & 128 & 140 & 154 & 185 & 222 & 266 \\
+\fontfamily{pnc}\selectfont New Century Schoolbook     & 108 & 122 & 136 & 149 & 162 & 194 & 234 & 281 \\ 	
+\fontfamily{ppl}\selectfont Palatino        & 107 & 120 & 133 & 146 & 160 & 192 & 230 & 276 \\ 	
+\fontfamily{ptm}\selectfont Times Roman     &  96 & 108 & 120 & 131 & 143 & 172 & 206 & 247 \\
+\fontfamily{put}\selectfont Utopia          & 107 & 120 & 134 & 146 & 161 & 193 & 232 & 277 \\
+\fontfamily{pag}\selectfont Avant Garde Gothic  & 113 & 127 & 142 & 155 & 169 & 203 & 243 & 293 \\
+\fontfamily{cmss}\selectfont Computer Sans  & 102 & 110 & 120 & 131 & 140 & 168 & 193 & 233 \\
+\fontfamily{phv}\selectfont Helvetica       & 102 & 114 & 127 & 139 & 152 & 184 & 220 & 264 \\
+\fontfamily{pcr}\selectfont Courier         & 125 & 140 & 156 & 170 & 187 & 224 & 270 & 324 \\
+\fontfamily{cmtt}\selectfont Typewriter     & 110 & 122 & 137 & 149 & 161 & 192 & 232 & 277 \\
+\bottomrule
+\facesubseeidx{Bookman}\facesubseeidx{Charter}\facesubseeidx{Computer Modern}%
+\facesubseeidx{Concrete Roman}\facesubseeidx{New Century Schoolbook}
+\facesubseeidx{Palatino}\facesubseeidx{Times Roman}\facesubseeidx{Utopia}%
+\facesubseeidx{Avant Garde Gothic}\facesubseeidx{Computer Sans}
+\facesubseeidx{Helvetica}\facesubseeidx{Courier}%
+\facesubseeidx{Computer Typewriter}%
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Specifying the typeblock size}
+\label{sec:spec-typebl-size}
+
+
+
+
+    The height of the typeblock\index{typeblock!height} should be 
+equivalent to an integral number of lines. The class provides two
+different methods to specify the typeblock. \cmd{\settypeblocksize}
+(below) will set the size of the typeblock, other commands will then
+be used to place it on the paper. Alternatively the typeblock size can
+be determined by setting the margins around it. We present this later
+on in this section (see \cmd{\setlrmarginsandblock} and
+\cmd{\setulmarginsandblock}). 
+
+\begin{syntax}
+\cmd{\settypeblocksize}\marg{height}\marg{width}\marg{ratio} \\
+\end{syntax}
+\glossary(settypeblocksize)%
+  {\cs{settypeblocksize}\marg{height}\marg{width}\marg{ratio}}%
+  {Sets the size of the typeblock.}
+\glossary(textheight)%
+  {\ls{textheight}}%
+  {The height of the typeblock.}
+\glossary(textwidth)%
+  {\ls{textwidth}}%
+  {The width of the typeblock.}
+The command \cmd{\settypeblocksize}\index{typeblock!specifying size} 
+is similar to
+\cmd{\settrimmedsize} except that it sets the \lnc{\textheight} and 
+\lnc{\textwidth} for the typeblock\index{typeblock!height}\index{typeblock!width}. 
+The potential combinations of arguments and the 
+corresponding results are listed in \tref{tab:rectsize} on \pref{tab:rectsize}.
+For instance, here are three ways of specifying
+a 6in by 3in typeblock\index{typeblock}:
+\begin{lcode}
+\settypeblocksize{6in}{3in}{*}
+\settypeblocksize{6in}{*}{0.5}
+\settypeblocksize{*}{3in}{2}
+\end{lcode}
+
+    The typeblock\index{typeblock} has to be located on the page. There is 
+a relationship between the page, typeblock\index{typeblock} and 
+margins\index{margin}. The sum of the spine, or inner, 
+margin\index{margin!spine}\index{margin!inner}, 
+the \foredge, or outer, margin\index{margin!foredge?\foredge}\index{margin!outer} 
+and the width of the 
+typeblock\index{typeblock!width} must equal the width\index{page!width} 
+of the page. 
+Similarly the sum of the upper margin\index{margin!upper}, 
+the lower margin\index{margin!lower} and the height of the 
+typeblock\index{typeblock!height} 
+must equal the height\index{page!height} of the page. 
+The process of locating the 
+typeblock\index{typeblock} with respect to the page can be viewed
+either as positioning the typeblock\index{typeblock} with respect to the edges 
+of the page or as setting the margins\index{margin} between the page and the 
+typeblock\index{typeblock}.
+
+    Remembering that the page layout should be defined in terms of the
+appearance as a spread\index{spread}, the spine margin\index{margin!spine} 
+is normally half the \foredge{} margin\index{margin!foredge?\foredge}, 
+so that the white space is equally distributed around the sides of the text. 
+
+\begin{note}
+  One will often find that using \cmd{\settypeblocksize} without
+  subsequent use of \cmd{\setlrmargins} and \cmd{\setulmargins} will
+  result in errors as the relationships mentioned above are not met
+  (the \lnc{\textwidth} has changed, but not the margins).
+
+  We may add auto adjustments to a future version of \theclass.
+\end{note}
+
+
+    There is more latitude in choosing the 
+proportions\index{proportion!margin} 
+of the upper and lower margins, though usually the upper 
+margin\index{margin!upper} is less than the lower margin\index{margin!lower}
+so the typeblock\index{typeblock!location} is not vertically centered.
+
+    Two methods are provided for setting the horizontal dimensions on a page.
+One is where the width of the typeblock\index{typeblock!width} 
+is fixed and the margins\index{margin} are adjustable. 
+The other method is where the size of the margins\index{margin} determines 
+the width of the typeblock\index{typeblock!width}.
+
+\begin{syntax}
+\cmd{\setlrmargins}\marg{spine}\marg{edge}\marg{ratio} \\
+\end{syntax}
+\glossary(setlrmargins)%
+  {\cs{setlrmargins}\marg{spine}\marg{edge}\marg{ratio}}%
+  {Sets the spine and \foredge{} margins for the current typeblock width.}
+The command \cmd{\setlrmargins}\index{margin!specify width} can be used to specify
+the side margins\footnote{Only the spine margin is noted in
+\fref{fig:oddstock} and~\ref{fig:evenstock}; 
+the \foredge\ margin\index{margin!foredge?\foredge} is at the 
+opposite side of the typeblock.} 
+with the width of the page and the typeblock being fixed.
+ 
+Not more than one one argument value is required, with any
+unvalued arguments being denoted by an asterisk. There are several cases to 
+consider and these are tabulated in \tref{tab:lrmargins}.
+
+    In the \tablerefname, $S$ is the calculated spine 
+margin\index{margin!spine}, 
+$E$ is the calculated \foredge{} margin\index{margin!foredge?\foredge}, 
+and $P_{w}$ and $B_{w}$ are respectively the page\index{page!width} and 
+typeblock\index{typeblock!width} 
+widths. The \cmd{\setlrmargins}\index{margin!specifying size} command maintains the relationship
+\begin{displaymath}
+S + E = K_{w}  = \textrm{constant} \mbox{\space} (= P_{w} - B_{w}).
+\end{displaymath}
+
+
+\begin{table}
+\centering
+\caption{Arguments and results for \cs{setlrmargins} } \label{tab:lrmargins}
+%\begin{tabular}{ccc|l} \hline
+\begin{tabular}{cccl} \toprule
+\meta{spine} & \meta{edge} & \meta{ratio} & Result \\ \midrule
+ S   & E & r & ambiguous \\
+ S   & E & * & ambiguous \\
+ S   & * & r & ambiguous \\
+ S   & * & * & $E = K_{w} - S$ \\
+{*}  & E & r & ambiguous \\
+{*}  & E & * & $S = K_{w} - E$ \\
+{*}  & * & r & $E + S = K_{w}$, $E = rS$ \\
+{*}  & * & * & $E + S = K_{w}$, $E = S$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The cases marked ambiguous in the \tablerefname{} are where the particular combination
+of argument values may make it impossible to guarantee the relationship.
+
+    Assuming that we have a 3in wide typeblock\index{typeblock!width} on a 5in 
+wide page and we want the spine margin\index{margin!spine} to be 0.8in and 
+the \foredge{} margin\index{margin!foredge?\foredge} to be 1.2in 
+(i.e., the \foredge{} margin is half as big again as the spine margin) 
+this can be accomplished in three ways (with the \cmd{\paperwidth} and 
+\lnc{\textwidth} being previously specified and fixed):
+\begin{lcode}
+% specify spine margin
+    \setlrmargins{0.8in}{*}{*}   
+% specify fore-edge margin
+    \setlrmargins{*}{1.2in}{*}   
+% specify fore-edge/spine ratio
+    \setlrmargins{*}{*}{1.5}     
+\end{lcode}
+
+\begin{syntax}
+\cmd{\setlrmarginsandblock}\marg{spine}\marg{edge}\marg{ratio}\\
+\end{syntax}
+\glossary(setlrmarginsandblock)%
+  {\cs{setlrmarginsandblock}\marg{spine}\marg{edge}\marg{ratio}}%
+  {Sets the spine and \foredge{} margins, modifying the typeblock width to match.}
+The command \cmd{\setlrmarginsandblock}\index{margin!specifying size}
+can be used to specify the spine\index{margin!spine} and 
+\foredge\ margins\index{margin!foredge?\foredge}, 
+where the page width\index{page!width} is fixed and the width of the 
+typeblock\index{typeblock!width} 
+depends on the margins\index{margin}. Results
+for this command are given in \tref{tab:lrblock}. The same notation is used,
+but in this case \cmd{\setlrmarginsandblock} maintains the relationship 
+\begin{displaymath}
+S + B_{w} + E = \textrm{constant} \mbox{\space} (= P_{w}).
+\end{displaymath}
+The width of the typeblock\index{typeblock} is calculated 
+from $B_{w} = P_{w} - S - E$.
+
+\begin{table}
+\centering
+\caption{Arguments and results for \cs{setlrmarginsandblock} } \label{tab:lrblock}
+%\begin{tabular}{ccc|l} \hline
+\begin{tabular}{cccl} \toprule
+\meta{spine} & \meta{edge} & \meta{ratio} & Result \\ \midrule
+ S   & E & r & $S$, $E$ \\
+ S   & E & * & $S$, $E$ \\
+ S   & * & r & $E = rS$ \\
+ S   & * & * & $E = S$ \\
+{*}  & E & r & $S = rE$ \\
+{*}  & E & * & $S = E$ \\
+{*}  & * & r & ambiguous \\
+{*}  & * & * & ambiguous \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+    Assuming that we want a 3in wide typeblock\index{typeblock!width} on a 
+5in wide page\index{page!width} and we want the spine 
+margin\index{margin!spine} to be 0.8in and the \foredge{} 
+margin\index{margin!foredge?\foredge} to be 1.2in 
+(i.e., the \foredge\ margin is half as big again as the spine margin) 
+this can be accomplished in the following ways (with the \lnc{\textwidth} 
+being calculated from the previously specified \cmd{\paperwidth} and the 
+specified margins):
+\begin{lcode}
+% specify both margins
+    \setlrmarginsandblock{0.8in}{1.2in}{*}   
+% specify spine & fore-edge/spine ratio
+    \setlrmarginsandblock{0.8in}{*}{1.5}     
+% specify fore-edge & spine/fore-edge ratio
+    \setlrmarginsandblock{*}{1.2in}{0.667}   
+\end{lcode}
+If we wanted the margins\index{margin!specifying size} to be both 1in 
+instead then any of the following 
+will do it:
+\begin{lcode}
+% specify both margins
+    \setlrmarginsandblock{1in}{1in}{*} 
+% specify spine & fore-edge/spine ratio
+    \setlrmarginsandblock{1in}{*}{1}   
+% specify spine (fore-edge = spine)
+    \setlrmarginsandblock{1in}{*}{*}   
+% specify fore-edge & spine/fore-edge ratio
+    \setlrmarginsandblock{*}{1in}{1}   
+% specify fore-edge (spine = fore-edge)
+    \setlrmarginsandblock{*}{1in}{*}   
+\end{lcode}
+
+\begin{syntax}
+\cmd{\setbinding}\marg{length} \\
+\end{syntax}
+\glossary(setbinding)%
+  {\cs{setbinding}\marg{length}}%
+  {Adds a binding allowance to the spine margin.}
+In some cases, for example when doing a Japanese stab binding, it may be 
+desireable to add a small allowance\index{binding allowance} 
+to the spine margin for the binding.
+You can use the command \cmd{\setbinding} for this purpose. It decreases the
+effective page width by \meta{length} and later this length will be added
+on to the spine margin, thus restoring the page width to its original value.
+If you use \cmd{\setbinding} than it must be \emph{after} setting the page 
+width and \emph{before} setting the spine and fore-edge margins.
+
+    That completes the methods for specifying the horizontal spacings. There 
+are similar commands for setting the vertical spacings which are 
+described below.
+
+\begin{syntax}
+\cmd{\setulmargins}\marg{upper}\marg{lower}\marg{ratio} \\
+\end{syntax}
+\glossary(setulmargins)%
+  {\cs{setulmargins}\marg{upper}\marg{lower}\marg{ratio}}%
+  {Sets the upper and lower margins with the current typeblock height.}
+The command \cmd{\setulmargins} can be used to 
+specify\index{margin!specifying size}
+the upper and lower margins\footnote{Only the upper margin is noted in
+\fref{fig:oddstock} and~\ref{fig:evenstock}; 
+the lower margin\index{margin!lower} is the distance between the bottom
+of the typeblock\index{typeblock} and the bottom of the page.} 
+where the heights of the page\index{page!height} and the 
+typeblock\index{typeblock!height} are 
+fixed. This is similar to \cmd{\setlrmargins}. Using a slightly 
+different notation this time, with $U$ being the upper 
+margin\index{margin!upper}, $L$ being the lower margin\index{margin!lower}, 
+and $P_{h}$ and $B_{h}$ being the 
+\emph{height} of the page\index{page!height} and 
+typeblock\index{typeblock!height}, respectively, 
+the results are shown in \tref{tab:ulmargins}.
+The \cmd{\setulmargins} command maintains the relationship
+\begin{displaymath}
+U + L = K_{h}  = \textrm{constant} \mbox{\space} (= P_{h} - B_{h}).
+\end{displaymath}
+
+    Note that in terms of the traditional \ltx\ parameters memoir's 
+\lnc{\uppermargin} is (\lnc{\topmargin} + \lnc{\headheight} + \lnc{\headsep}).
+
+\begin{table}
+\centering
+\caption{Arguments and results for \cs{setulmargins} } \label{tab:ulmargins}
+%\begin{tabular}{ccc|l} \hline
+\begin{tabular}{cccl} \toprule
+\meta{upper} & \meta{lower} & \meta{ratio} & Result \\ \midrule
+ U   & L & r & ambiguous \\
+ U   & L & * & ambiguous \\
+ U   & * & r & ambiguous \\
+ U   & * & * & $L = K_{h} - U$ \\
+{*}  & L & r & ambiguous \\
+{*}  & L & * & $U = K_{h} - L$ \\
+{*}  & * & r & $L + U = K_{h}$, $L = rU$ \\
+{*}  & * & * & $L + U = K_{h}$, $L = U$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{syntax}
+\cmd{\setulmarginsandblock}\marg{upper}\marg{lower}\marg{ratio} \\
+\end{syntax}
+\glossary(setulmarginsandblock)%
+  {\cs{setulmarginsandblock}\marg{upper}\marg{lower}\marg{ratio}}%
+  {Sets the upper and lower margins, modifying the typeblock height to match.}
+The command \cmd{\setulmarginsandblock}
+can be used to specify\index{margin!specifying size} 
+the upper\index{margin!upper} and lower margins\index{margin!lower}, 
+where the page height\index{page!height}
+is fixed and the height of the typeblock\index{typeblock!height} 
+depends on the margins. Results
+for this command are given in \tref{tab:ulblock}. The same notation is used,
+but in this case \cmd{\setulmarginsandblock} maintains the
+relationship 
+\begin{displaymath}
+U + B_{h} + L = \textrm{constant} \mbox{\space} (P_{h}).
+\end{displaymath}
+The height of the typeblock\index{typeblock!specifying size} 
+is calculated from $B_{h} = P_{h} - U - L$.
+
+\begin{table}
+\centering
+\caption{Arguments and results for \cs{setulmarginsandblock} } \label{tab:ulblock}
+%\begin{tabular}{ccc|l} \hline
+\begin{tabular}{cccl} \toprule
+\meta{upper} & \meta{lower} & \meta{ratio} & Result \\ \midrule
+ U   & L & r & $U$, $L$ \\
+ U   & L & * & $U$, $L$ \\
+ U   & * & r & $L = rU$ \\
+ U   & * & * & $L = U$ \\
+{*}  & L & r & $U = rL$ \\
+{*}  & L & * & $U = L$ \\
+{*}  & * & r & ambiguous \\
+{*}  & * & * & ambiguous \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{note}
+  Readers may find several folio designs in \cite{MEMDESIGN}.
+\end{note}
+
+
+
+\fancybreak{}
+
+\begin{syntax}
+\cmd{\setcolsepandrule}\marg{colsep}\marg{thickness} \\
+\end{syntax}
+\glossary(setcolsepandrule)%
+  {\cs{setcolsepandrule}\marg{colsep}\marg{thickness}}%
+  {Sets the width of the gutter and the thickness of the rule in the gutter.}
+\glossary(columnsep)%
+  {\ls{columnsep}}%
+  {Width of the gutter between columns.}
+\glossary(columnseprule)%
+  {\ls{columnseprule}}%
+ {Thickness of the rule in the gutter.}
+    For twocolumn\index{column!double} text the width of 
+the gutter\index{gutter}
+between the columns must be specified. \ltx\ also lets you draw a 
+vertical rule in the middle of the 
+gutter. The macro \cmd{\setcolsepandrule} 
+sets the gutter width\index{gutter!width}, \lnc{\columnsep}, to \meta{colsep} 
+and the thickness of the rule, \lnc{\columnseprule}, 
+to \meta{thickness}. A \meta{thickness} of 0pt means that the rule will be
+invisible. Visible rules usually have a thickness\index{rule!thickness} 
+of about 0.4pt. The total width of the twocolumns\index{column!double} 
+of text and the gutter equals the width of the typeblock\index{typeblock}.
+
+    This completes the methods for specifying the layout of the
+main elements of the page --- the page\index{page!specifying size} 
+size, the size of the typeblock\index{typeblock!specifying size} and the 
+margins\index{margin!specifying size} 
+surrounding the typeblock\index{typeblock!location}. 
+
+\section{Headers, footers and marginal notes}
+\label{sec:head-foot-marg}
+\index{header|(}\index{footer|(}
+
+    A page may have two additional items, and usually has at least one of 
+these. They are the running header and running footer. If the page has a 
+folio\index{folio} then it is located either in the header or in the footer. 
+The word `in' is used rather lightly here as the folio\index{folio}
+may not be actually \emph{in} the header or footer but is always located 
+at some constant relative position. A common position for the 
+folio\index{folio} is towards the \foredge\index{foredge?\foredge}\index{margin!outer} of the 
+page, either in the header or the footer. This makes it easy to spot when 
+thumbing through the book. It may be placed at the center of the footer, 
+but unless you want to really annoy the reader do not place it near
+the spine.
+
+    Often a page header contains the current chapter title, with perhaps a 
+section title on the opposite header, as aids to the reader in navigating 
+around the book. Some books put the book title into one of the headers, 
+usually the verso one, but I see 
+little point in that as presumably the reader knows which particular book he
+is reading, and the space would be better used providing more useful signposts.
+
+\index{header!specifying size|(}
+
+\begin{syntax}
+\cmd{\setheadfoot}\marg{headheight}\marg{footskip} \\
+\end{syntax}
+\glossary(setheadfoot)%
+  {\cs{setheadfoot}\marg{headheight}\marg{footskip}}%
+  {Sets the headheight and footskip.}
+\glossary(headheight)%
+  {\ls{headheight}}%
+  {Height available for a header.}
+\glossary(footskip)%
+  {\ls{footskip}}%
+  {Distance between the bottom of the typeblock and the bottom of a footer.}
+The \cmd{\setheadfoot} macro sets the
+\lnc{\headheight} parameter to the value \meta{headheight} and the
+\lnc{\footskip} parameter to \meta{footskip}. It is usual to set the
+\lnc{\headheight} to at least the value of the \lnc{\baselineskip} of
+the normal body font.
+
+
+\begin{syntax}
+\cmd{\setheaderspaces}\marg{headdrop}\marg{headsep}\marg{ratio} \\
+\end{syntax}
+\glossary(setheaderspaces)%
+  {\cs{setheaderspaces}\marg{headdrop}\marg{headsep}\marg{ratio}}%
+  {Sets the spacing above and below a header.}
+\glossary(headsep)%
+  {\ls{headsep}}%
+  {Distance between the bottom of a header and the top of the typeblock.}
+\glossary(headdrop)%
+  {\ls{headdrop}}%
+  {Distance between the top of the trimmed page and the top of a header.}
+The command \cmd{\setheaderspaces} is similar to \cmd{\setulmargins}.
+Using the notation $U$ for the upper margin\index{margin!upper} (as before), $H_{h}$ for the
+\lnc{\headheight}, $H_{s}$ for the \lnc{\headsep} and $D$ for the
+\lnc{\headdrop}, where the \lnc{\headdrop} is the distance between the top
+of the trimmed page and the top of the header\footnote{The head drop is not
+shown in \fref{fig:oddstock} or~\ref{fig:evenstock}.}, 
+then the macro \cmd{\setheaderspaces} maintains the relationship
+\begin{displaymath}
+D + H_{s} = C_{h}  = \textrm{constant} \mbox{\space} (= U - H_{h}).
+\end{displaymath}
+
+\begin{table}
+\centering
+\caption{Arguments and results for \cs{setheaderspaces} } \label{tab:headspaces}
+%\begin{tabular}{ccc|l} \hline
+\begin{tabular}{cccl} \toprule
+\meta{headdrop} & \meta{headsep} & \meta{ratio} & Result \\ \midrule
+ D   & $H_{s}$ & r & ambiguous \\
+ D   & $H_{s}$ & * & ambiguous \\
+ D   & *       & r & ambiguous \\
+ D   & *       & * & $H_{s} = C_{h} - D$ \\
+{*}  & $H_{s}$ & r & ambiguous \\
+{*}  & $H_{s}$ & * & $D = C_{h} - H_{s}$ \\
+{*}  & *       & r & $H_{s} + D = C_{h}$, $H_{s} = rD$ \\
+{*}  & *       & * & $H_{s} + D = C_{h}$, $H_{s} = D$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The macro \cmd{\setheaderspaces} is for specifying the spacing above and below
+the page header.
+The possible arguments and results are shown in \tref{tab:headspaces}. Typically,
+the \lnc{\headsep} is of more interest than the \lnc{\headdrop}.
+
+\index{header!specifying size|)}
+\index{footer|)}\index{header|)}
+
+\index{marginalia|(}
+   Finally, some works have marginal notes. These really come last in the 
+design scheme, providing the margins have been made big enough to accomodate 
+them. Figure~\ref{fig:evenstock} shows the marginal note parameters on a verso
+page, and also illustrates that some parameters control different 
+positions on the stock\index{stock}.
+
+
+
+\begin{syntax}
+\cmd{\setmarginnotes}\marg{separation}\marg{width}\marg{push} \\
+\end{syntax}
+\glossary(setmarginnotes)%
+  {\cs{setmarginnotes}\marg{separation}\marg{width}\marg{push}}%
+  {Sets the length parameters for marginal notes.}
+\glossary(marginparsep)%
+  {\ls{marginparsep}}%
+  {Horizontal distance between the edge of the typeblock and a marginal note.}
+\glossary(marginparwidth)%
+  {\ls{marginparwidth}}%
+  {Maximum width of marginal note.}
+\glossary(marginparpush)%
+  {\ls{marginparpush}}%
+  {Minimum vertical distance between marginal notes.}
+
+The command \cmd{\setmarginnotes}
+sets the parameters for marginal notes. The distance \lnc{\marginparsep} 
+between the typeblock\index{typeblock} and any note is set 
+to \meta{separation}, the 
+maximum width for a note, \lnc{\marginparwidth}, is set to \meta{width}
+and the minimum vertical distance between notes, \lnc{\marginparpush},
+is set to \meta{push}.
+
+\begin{note}
+  As of \theclass\ v3.6k, we have added an auto adjustment feature for
+  \lnc{\marginparwidth}, such that unless \cmd{\setmarginnotes} have
+  been used to make a specific choice, the \lnc{\marginparwidth} is
+  chosen according to the algorithm described in
+  Section~\ref{sec:auto-csmarg}. The algorithm relies on
+  \cmd{\marginparmargin} (if used) being set \emph{before}
+  \cmd{\checkandfixthelayout}.
+
+  We may add other auto adjusting features to future \theclass\ releases.
+\end{note}
+
+\index{marginalia|)} %|
+
+
+\section{Other}
+\label{sec:other}
+
+
+\begin{syntax}
+\cmd{\setfootins}\marg{length for normal}\marg{length for minipage} \\
+\end{syntax}
+% \glossary(setfootins)%
+% {\cs{setfootins}\marg{length for normal}\marg{length for minipage}}%
+% {Sets \cs{skip}\cs{footins} and its minipage counterpart.}
+
+\noindent
+When footnotes are added to the text block they are added
+\cs{skip}\cs{footins} below the text. Since this is a skip it usually
+needs special syntax to change it. Instead we have provided an
+interface to set it.\footnote{This interface also sets the equivalent
+  lengths used when \cs{twocolumnfootnotes} and friends are being
+  used.} The default sizes are \cs{bigskipamount}.
+
+
+
+
+\section{Putting it together}
+
+    The page layout parameters\index{page layout!class parameters} 
+just discussed are not always the same
+as those that are expected by \ltx, or by \ltx\ packages. The parameters
+that \ltx\ expects are shown in \fref{fig:anoddpage}. You can either use
+the class commands for changing the page layout or change the \ltx\ 
+parameters\index{page layout!LaTeX parameters?\ltx\ parameters}
+directly using either \cmd{\setlength} or \cmd{\addtolength} applied to the
+parameter(s) to be modified. If you choose the latter route, those class 
+parameters which differ from the standard \ltx\ parameters will \emph{not} be
+modified. 
+
+    The general process of setting up your own page layout\index{page layout} 
+is along these lines:
+\begin{itemize}
+\item Decide on the required finished page\indextwo{page}{size} size,
+  and pick a stock\indextwo{stock}{size} size that is at least as
+  large as the page.
+\item If needed, use \cmd{\setstocksize}\index{stock!specifying size}
+  to set the values of \lnc{\stockheight} and \lnc{\stockwidth},
+  followed by \cmd{\settrimmedsize} to specify the values\ of
+  \lnc{\paperheight} and \lnc{\paperwidth}.
+  
+  If you use and print on, say, A4, the \texttt{a4paper} class option
+  is enough, no \cmd{\setstocksize} needed.
+\item Decide on the location of the page\index{page!location} with
+  respect to the stock\index{stock}. If the page and
+  stock\index{stock} sizes are the same, then call
+  \verb?\settrims{0pt}{0pt}?.  If they are not the same size then
+  decide on the appropriate values for \lnc{\trimtop} and
+  \lnc{\trimedge} to position the page on the stock\index{stock}, and
+  then set\index{trim!specifying} these through \cmd{\settrims}.
+\item Decide on the size of the typeblock\indextwo{typeblock}{size}
+  and use \cmd{\settypeblocksize}\index{typeblock!specifying size} to
+  specify the values of \lnc{\textheight} and \lnc{\textwidth}.
+\item If you need a binding\index{binding allowance} allowance, now is
+  the time for \cmd{\setbinding}.
+\item Pick the value for the spine margin\index{margin!spine}, and use
+  \cmd{\setlrmargins}\index{margin!specifying size} to set the values
+  for the \lnc{\spinemargin} and \lnc{\foremargin}.
+
+  An alternative sequence is to use \cmd{\setlrmarginsandblock} to set
+  the \lnc{\textwidth} for a particular choice of side
+  margins\index{margin}.
+
+\item Pick the value for the upper margin\index{margin!upper} and use
+  \cmd{\setulmargins} to set the values\index{margin!specifying size}
+  for the \lnc{\uppermargin} and \cmd{\lowermargin}.
+
+  An alternative sequence is to use \cmd{\setulmarginsandblock} to set
+  the \lnc{\textheight} for a particular choice of upper and lower
+  margins\index{margin}.
+
+  The typeblock is now located\index{typeblock!location} on the page.
+
+\item Pick the values for the \lnc{\headheight} and \lnc{\footskip}
+  and use \cmd{\setheadfoot}\index{header!specifying size} to specify
+  these.
+
+\item Pick your value for \cmd{\headskip} and use
+  \cmd{\setheaderspaces} to set this and \lnc{\headmargin}.
+
+\item If you are going to have any marginal\index{marginalia} notes,
+  use \cmd{\setmarginnotes} to specify the values for
+  \lnc{\marginparsep}, \lnc{\marginparwidth} and \lnc{\marginparpush}.
+
+\end{itemize}
+
+    You can plan and specify your layout in any order that is 
+convenient to you. Each of the page layout commands is independent of the 
+others; also if
+a value is set at one point, say the \lnc{\textwidth}, and is then
+later changed in some way, only the last of the settings is used as the actual
+value.
+
+
+    Comparing \figurerefname s~\ref{fig:oddstock} and~\ref{fig:anoddpage} 
+you can see the different layout\index{page layout!parameters} parameters 
+provided by the class and used by standard
+\ltx. For convenience, and because the figures do not show all
+the parameters, the two sets of parameters are listed in \tref{tab:stockpage}.
+
+\begin{table}
+\centering
+\caption{The class and \ltx\ page layout parameters}\label{tab:stockpage}
+%\begin{tabular}{ll} \hline
+\begin{tabular}{ll} \toprule
+Class & \ltx\ \\ \midrule
+\lnc{\stockheight}    &  \\
+\lnc{\trimtop}        &  \\
+\lnc{\trimedge}       &  \\
+\lnc{\stockwidth}     &  \\
+\lnc{\paperheight}    & \lnc{\paperheight}  \\
+\lnc{\paperwidth}     & \lnc{\paperwidth}  \\
+\lnc{\textheight}     & \lnc{\textheight}  \\
+\lnc{\textwidth}      & \lnc{\textwidth}  \\
+\lnc{\columnsep}      & \lnc{\columnsep}  \\
+\lnc{\columnseprule}  & \lnc{\columnseprule}  \\
+\lnc{\spinemargin}    &  \\
+\lnc{\foremargin}     &  \\
+                      & \lnc{\oddsidemargin}  \\
+                      & \lnc{\evensidemargin}  \\
+\lnc{\uppermargin}    &  \\
+\lnc{\headmargin}     &  \\
+                      & \lnc{\topmargin}  \\
+\lnc{\headheight}     & \lnc{\headheight}  \\
+\lnc{\headsep}        & \lnc{\headsep}  \\
+\lnc{\footskip}       & \lnc{\footskip}  \\
+\lnc{\marginparsep}   & \lnc{\marginparsep}  \\
+\lnc{\marginparwidth} & \lnc{\marginparwidth}  \\
+\lnc{\marginparpush}  & \lnc{\marginparpush}  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+    Unless you are satisfied with the default page layout, after specifying 
+the layout that you want you have to call the \cmd{\checkandfixthelayout}
+command to finally implement your specification.
+
+\begin{syntax}
+\cmd{\checkandfixthelayout}\oarg{algorithm} \\
+\cmd{\checkthelayout}\oarg{algorithm} \\
+\cmd{\fixthelayout} \\
+\lnc{\baselineskip} \lnc{\topskip} \\
+\end{syntax}
+\glossary(checkandfixthelayout)%
+  {\cs{checkandfixthelayout}\oarg{algorithm}}%
+  {Command to check and implement the page layout specifications, adjusting
+   the \cs{textheight} using \meta{algorithm} 
+   (classic, fixed, lines, or nearest, the default being classic) 
+   for the calculation.}%
+\glossary(checkthelayout)%
+  {\cs{checkthelayout}\oarg{algorithm}}%
+  {Command to check the page layout specifications, adjusting
+   the \cs{textheight} using \meta{algorithm} 
+   (classic, fixed, lines, or nearest, the default being classic) 
+   for the calculation.}%
+\glossary(topskip)%
+  {\ls{topskip}}%
+  {The height of the first line of text on a page. This is usually
+   less than the \cs{baselineskip}.}
+\glossary(baselineskip)%
+  {\ls{baselineskip}}%
+  {The normal vertical distance between the baselines of adjacent lines 
+   of text (depends on the size of the font).}
+
+    The \cmd{\checkandfixthelayout} macro uses 
+\cmd{\checkthelayout} to
+check the page layout specification you have given, and then calls
+\cmd{\fixthelayout} to finally implement it.
+
+The \cmd{\checkthelayout} macro checks the class layout 
+parameters\index{page layout!check parameters} to see whether  
+they have `sensible' values (e.g., the \lnc{\textwidth} is not negative)
+and, depending on the \meta{algorithm} argument, it may modify the 
+\lnc{\textheight}. It does not actually implement the layout.
+
+   When using \cmd{\flushbottom} \ltx\ expects that the \lnc{\textheight} 
+is such that an integral number of text lines in the body font will fit
+exactly into the height. If not, then it issues `underfull vbox' messages.
+More precisely, if  $b$ is the \lnc{\baselineskip} and $t$ is the 
+\lnc{\topskip}, $N$ is an integer (the number of lines in the typeblock), 
+and $T$ is the
+\lnc{\textheight} then to avoid underfull vboxes the following relationship
+must hold
+\begin{equation}
+T = (N-1)b + t \label{eq:heightlines}
+\end{equation}
+By default \cmd{\checkthelayout} ensures that the final \lnc{\textheight} 
+meets this criterion. The optional \meta{algorithm} argument lets you control
+just how it does this. In the following $H$ is your requested value for
+the \lnc{\textheight} and the other symbols are as before, with $T$ as
+the adjusted value, and using integer arithmetic.\footnote{In this context 
+`integer arithmetic' means that the result of a division will be rounded down.
+For example $99/10$ in `real arithmetic' results in $9.9$, whereas with
+integer arithmetic the result is 9, not 10.}
+The permissible values for \meta{algorithm} are:
+\begin{itemize}
+\item[\texttt{fixed}] The \lnc{\textheight} is not altered. 
+\begin{equation} T = H \end{equation}
+If you use this option you may find that underfull vboxes are reported
+for \cmd{\flushbottom} pages.
+\item[\texttt{classic}] This is the default and is the one used by the standard
+classes. 
+\begin{equation} T = b \lfloor H/b \rfloor + t \end{equation}
+The relationship (\ref{eq:heightlines}) is maintained. This algorithm
+gets as close to $H$ as possible from below.
+\item[\texttt{lines}] This is similar to \texttt{classic}, but results in a 
+smaller final value.
+\begin{equation} T = b \lfloor (H-b)/b \rfloor + t \end{equation}
+The relationship (\ref{eq:heightlines}) is maintained.
+\item[\texttt{nearest}] The calculated value is the nearest to the given value
+while still maintaining the relationship (\ref{eq:heightlines}).
+\begin{equation} 
+  T = b \lfloor (H - t + b/2)/b \rfloor +  t 
+\end{equation} 
+In contrast to \texttt{classic}, \texttt{nearest}
+will get as close to $H$ as possible even if this means that $T$ ends
+up being slightly larger than $H$.
+\end{itemize}
+
+\begin{table}
+\centering
+\caption{Results from sample \cs{textheight} adjustments} \label{tab:textht}
+\begin{tabular}{ccccc} \toprule
+  & \multicolumn{4}{c}{Algorithm} \\ \cmidrule{2-5}
+  &  fixed & classic & lines & nearest \\ \cmidrule{2-5}
+Requested height & \multicolumn{4}{c}{adjusted height in pts, (lines) } \\ 
+\midrule
+10.0\cs{baselineskip} & 120.0pt, (10) & 130pt, (11) & 118pt, (10) & 118pt, (10) \\ 
+10.2\cs{baselineskip} & 122.4pt, (10) & 130pt, (11) & 118pt, (10) & 118pt, (10) \\ 
+10.4\cs{baselineskip} & 124.8pt, (10) & 130pt, (11) & 118pt, (10) & 130pt, (11) \\ 
+10.6\cs{baselineskip} & 127.2pt, (10) & 130pt, (11) & 118pt, (10) & 130pt, (11) \\ 
+10.8\cs{baselineskip} & 129.6pt, (10) & 130pt, (11) & 118pt, (10) & 130pt, (11) \\ 
+11.0\cs{baselineskip} & 132.0pt, (11) & 142pt, (12) & 130pt, (11) & 130pt, (11) \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+    Table~\ref{tab:textht} shows the results from the various \lnc{\textheight}
+adjustment calculations\footnote{For comparison the optimum heights from 
+equation \ref{eq:heightlines} for 10, 11 and 12 lines are respectively
+118pt, 130pt and 142pt.} where the \lnc{\baselineskip} is 12pt and 
+the \lnc{\topskip} is 10pt, which are the normal values for a Computer 
+Modern 10pt font.
+In all cases the \texttt{fixed} algorithm resulted in 
+underfull vboxes. If you know the number of lines that you want, say 42,
+then requesting
+\begin{lcode}
+%% setting equivalent to \setlength{\textheight}{42\baselineskip}
+\checkandfixthelayout[lines]
+\end{lcode}
+will result in the most appropriate \lnc{\textheight}.
+
+    If you use the \Lpack{calc} package you can use constructs like 
+the following in a page layout specification:
+\begin{lcode}
+\setlength{\textheight}{41\baselineskip + \topskip}
+\settypeblocksize{41\baselineskip + \topskip}{33pc}{*}
+\end{lcode}
+
+    The \cmd{\fixthelayout} macro finally implements the layout,
+making due adjustement for any binding\index{binding allowance} allowance,
+and calculates the values for all the standard \ltx\ layout 
+parameters\index{page layout!LaTeX parameters?\ltx\ parameters} (such
+that packages can use these expected values).
+If you have used the class macros to change
+the layout in any way, you must call \cmd{\checkandfixthelayout} after you have
+made all the necessary changes. As an aid, the final layout parameter values
+are displayed on the terminal and written out to the log file.
+
+\LMnote{2010/09/17}{added \cs{\settypeoutlayoutunit}}
+\begin{syntax}
+\cmd{\typeoutlayout} \\
+\cmd{\typeoutstandardlayout} \\
+\cmd{\settypeoutlayoutunit}\marg{unit} \\
+\end{syntax}
+\glossary(settypeoutlayoutunit)%
+  {\cs{settypeoutlayoutunit}}%
+  {Allows the user to set the unit in which to typeset the layout
+    listing. Supported units: \texttt{pt}, \texttt{mm}, \texttt{cm},
+    \texttt{in}, \texttt{bp}, \texttt{dd} and \texttt{cc}.}
+\glossary(typeoutlayout)%
+  {\cs{typeoutlayout}}%
+  {Outputs the current values of the class layout parameters to the 
+   terminal and log file.}
+\glossary(typeoutstandardlayout)%
+  {\cs{typeoutstandardlayout}}%
+  {Outputs the current values of the standard \ltx\ layout parameters 
+   to the terminal and log file.}
+ \cmd{\typeoutlayout} writes the current class layout
+parameter\index{page layout!class parameters} values to the terminal 
+and the log file. It is called by \cmd{\checkandfixthelayout} but you can 
+use it yourself at any time.
+The macro \cmd{\typeoutstandardlayout} writes the
+standard layout parameter\index{page layout!LaTeX parameters?\ltx\ parameters}
+ values to the terminal and log file so that you can
+compare the two sets of parameter values.
+
+By using the macro \cmd{\settypeoutlayoutunit}, the user can change
+the unit in which the layout list is shown. Very handy when designing
+in, say, centimeters. Supported units are \texttt{pt}, \texttt{pc},
+\texttt{mm}, \texttt{cm}, \texttt{in}, \texttt{bp}, \texttt{dd} and
+\texttt{cc}, default being \texttt{pt}, see \tref{tab:units} for more
+information about the units.
+
+\section{Side margins}
+
+    In \Lopt{twoside} printing the spine margin is normally the same on
+both recto and verso pages and, unless the spine and \foredge{} margins are the
+same, the typeblock is shifted side to side when printing the recto and 
+verso pages. Additionally you can have different headers and footers for the
+recto and verso pages. However, in \Lopt{oneside} printing the typeblock 
+is not moved and the headers and footers are the same for both odd and 
+even pages.
+
+    Some documents are designed to have, say, a very wide righthand margin
+in which to put illustrations; this leads to needing the spine margin on
+verso pages to be much larger than the spine margin on recto pages. This
+can be done with the \Lopt{oneside} option. However, different headers
+and footers are required for the recto and verso pages, which can only be
+done with the \Lopt{twoside} option. The way to get the desired effects
+is like this (\Lopt{twoside} is the default class option):
+\begin{lcode}
+\documentclass{memoir}
+%%% set up the recto page layout
+\checkandfixthelayout%     or perhaps \checkandfixthelayout[lines]
+\setlength{\evensidemargin}{\oddsidemargin}% after \checkandfix...
+...
+\end{lcode}
+
+%\section{Printing and viewing}
+
+\section{Emitting the page size}
+\label{sec:emitting-page-size}
+
+At the start of the document the class will automatically emit the
+chosen stocksize to the output format (DVI or PDF).\footnote{In
+  earlier versions we had macros \cs{fixpdflayout} and
+  \cs{fixdvipslayout} that held some of the code needed to emit this
+  data. With the newer engines like LuaLaTeX, this became unfeasible
+  thus they we discontinued (their use now emit a warning).}
+
+
+%     When \pdfltx\ is used to generate a \pixpdf\ version of a \Pclass{memoir}
+% document some special setup must be done.
+% \begin{syntax}
+% \cmd{\fixpdflayout} \\
+% \end{syntax}
+% \glossary(fixpdflayout)%
+%   {\cs{fixpdflayout}}%
+%   {Sets up page size information for \pdfltx.}
+% The macro \cmd{\fixpdflayout}\index{page layout!PDF} is
+% \emph{automatically}\footnote{That is you do not need to.} called after the preamble when
+% \pdfltx{} is used to generate \pixpdf. The default definition is effectively:
+% \begin{lcode}
+% \newcommand*{\fixpdflayout}{
+%   \pdfpageheight=\the\stockheight
+%   \pdfpagewidth=\the\stockwidth
+%   \ifxetex\else
+%   \ifdim\pdforigin=0pt\pdforigin=1in\fi
+%   \ifdim\pdfhorigin=0pt\pdfhorigin=1in\fi
+%   \fi}
+% \end{lcode}
+% The first settings (\verb?\pdfpage...?) ensure that \pdfltx{} knows
+% the size of the physical sheet\indextwo{stock}{size} for printing. 
+% The \verb?\...origin? settings
+% set the \pdf{} origin per the \tx\ origin, provided that their values are
+% 0pt. If you have set the origin values yourself, either in a \pdfltx{} 
+% configuration\index{configuration file} file or earlier in the preamble, 
+% the \cmd{\fixpdflayout}
+% macro will not alter them (if you need an origin value to be 0 then
+% set it to 1sp, which is visually indistinguishable from 0pt).
+
+% \begin{syntax}
+% \cmd{\fixdvipslayout} \\
+% \end{syntax}
+% \glossary(fixdvipslayout)%
+%   {\cs{fixdvipslayout}}%
+%   {Sets up page size information for dvi processors.}
+
+% The macro \cmd{\fixdvipslayout}\index{page layout!dvips} is automatically 
+% called after the preamble 
+% when \pixpdf{} output is not being produced. It provides the \Lprog{dvips} 
+% processor
+% with information about the stock\indextwo{stock}{size} size, 
+% which a viewer or printer may use.
+
+% The macros \cmd{\fixpdflayout} and \cmd{\fixdvipslayout} are
+% automatically executed at the start of the document, in combinations
+% that make the most sense (i.e., \cmd{\fixpdflayout} when using XeLaTeX
+% or \pdfltx{} and \cmd{fixdvipslayout} for the rest.
+
+
+% \LMnote{2015/02/23}{Next lines outcommented as I do not feel that this
+%   kind of examples belong in a manual like this}
+
+%     With a \Lopt{landscape} document and using the processing route
+% \verb?latex -> dvips? the resulting \file{ps} \pscript{} file may appear 
+% upside-down when viewed with, say, \Lprog{ghostview} 
+% (also known as \Lprog{gsview32}). If this happens
+% try putting the following in your preamble:
+% \begin{lcode}
+% \addtodef{\fixdvipslayout}{}{%
+%   \special{!TeXDict begin /landplus90{true}store end }}
+% \end{lcode}
+% If required, additional code can be added to \cmd{\fixdvipslayout} by repeated
+% applications of \cmd{\addtodef}. Some other potential specials for \pscript{}
+% printing may be\footnote{At least for an HP 5SiMx LaserJet duplex printer.}
+% \begin{lcode}
+% % specify duplex printing 
+% \special{!TeXDict begin <</Duplex true>> setpagedevice end} 
+% % specify short side binding
+% \special{!TeXDict begin <</Tumble true>> setpagedevice end} 
+% \end{lcode}
+% %<< because of emacs ...
+
+\section{Example} \label{sec:pexamp}
+
+    Suppose you want a page that will fit on both A4\index{paper!size!A4} 
+and US letterpaper\index{paper!size!letterpaper} stock\index{stock},
+wanting to do the least amount of trimming. The layout requirements
+are as follows.
+\begin{itemize}\tightlist
+\item The width of the typeblock\index{typeblock} should be such that
+  there are the optimum number of characters per line.
+\item The ratio of the height to the width of the
+  typeblock\index{typeblock} should equal the golden section.
+\item The text has to start 50pt below the top of the page.  We will
+  use the default \lnc{\headheight} and \lnc{\footskip}.
+\item The ratio of the outer margin\index{margin!outer} to the inner
+  margin\index{margin!inner} should equal the golden
+  section\index{golden section}, as should the space above and below
+  the header\index{header}.
+\item There is no interest at all in
+  marginal\index{marginalia} notes, so we can ignore any settings for
+  these.
+\end{itemize}
+    We can either do the maths ourselves or get \ltx\ to do it for us. Let's
+use \ltx. First we will work out the size of the largest sheet that can be
+cut from A4\index{paper!size!A4} and 
+letterpaper\index{paper!size!letterpaper}, 
+whose sizes are \abybm{297}{210}{mm} and 
+\abybm{11}{8.5}{in}; A4 is taller and narrower than letterpaper. 
+\begin{lcode}
+\settrimmedsize{11in}{210mm}{*}
+\end{lcode}
+The stocksize is defined by the class option, which could be either
+\Lopt{letterpaper} or \Lopt{a4paper}, but we have to work out the
+trims to reduce the stock\index{stock} to the page. To make life easier, 
+we will only trim
+the \foredge{} and the bottom of the stock\index{stock}, so the 
+\lnc{\trimtop} is zero.
+The \lnc{\trimtop} and \lnc{\trimedge} are easily specified by 
+\begin{lcode}
+\setlength{\trimtop}{0pt} 
+\setlength{\trimedge}{\stockwidth}
+\addtolength{\trimedge}{-\paperwidth}
+\end{lcode}
+Or if you are using the \Lpack{calc} package, perhaps:
+\begin{lcode}
+\settrims{0pt}{\stockwidth - \paperwidth}
+\end{lcode}
+Specification of the size of the typeblock\index{typeblock} is also easy 
+\begin{lcode}
+\settypeblocksize{*}{\lxvchars}{1.618}
+\end{lcode}
+and now the upper and lower margins\index{margin!upper}\index{margin!lower} 
+are specified by
+\begin{lcode}
+\setulmargins{50pt}{*}{*}
+\end{lcode}
+The spine and \foredge\ margins\index{margin!spine}\index{margin!foredge?\foredge} 
+are specified just by the value of the golden section\index{golden section}, 
+via 
+\begin{lcode}
+\setlrmargins{*}{*}{1.618}
+\end{lcode}
+The only remaining calculation to be done is the \lnc{\headmargin} and 
+\lnc{\headsep}. Again this just involves using a ratio
+\begin{lcode}
+\setheaderspaces{*}{*}{1.618}
+\end{lcode}
+To finish off we have to make sure that the layout is changed 
+\begin{lcode}
+\checkandfixthelayout
+\end{lcode}
+
+
+\subsection{The page layout of this manual}
+
+\begin{figure}
+\setlayoutscale{0.49}
+\currentstock
+\oddpagelayouttrue
+\twocolumnlayoutfalse
+\drawmarginparstrue
+\drawparametersfalse
+\drawstock
+\caption{The recto page layout for this manual}\label{fig:thispagelay}
+\end{figure}
+
+
+
+    The page layout for this manual is defined in the preamble\index{preamble} as:
+\begin{lcode}
+\settrimmedsize{11in}{210mm}{*}
+\setlength{\trimtop}{0pt}
+\setlength{\trimedge}{\stockwidth}
+\addtolength{\trimedge}{-\paperwidth}
+\settypeblocksize{7.75in}{33pc}{*}
+\setulmargins{4cm}{*}{*}
+\setlrmargins{1.25in}{*}{*}
+\setmarginnotes{17pt}{51pt}{\onelineskip}
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+\checkandfixthelayout
+\end{lcode}
+
+An illustration of the layout is shown in \fref{fig:thispagelay} which also
+lists the parameter values resulting from the code above, to the nearest point.
+
+I initially used the layout defined in \S\ref{sec:pexamp}, which I thought
+looked reasonable, but then I decided to use the one above in order
+to save paper\index{paper} when anyone printed out the manual. The wider
+typeblock\index{typeblock} also makes it easier for TeX when dealing with 
+lines that include unhyphenatable text, like the LaTeX code.
+
+    Andreas Mathias, via Rolf Niepraschk,\footnote{Email 
+from \url{niepraschk@ptb.de} on 2002/02/05.}
+has suggested that the following might be better for typesetting the manual
+on A4 paper.
+\begin{lcode}
+\documentclass[a4paper]{memoir}
+...
+\settrimmedsize{297mm}{210mm}{*}
+\setlength{\trimtop}{0pt}
+\setlength{\trimedge}{\stockwidth}
+\addtolength{\trimedge}{-\paperwidth}
+\settypeblocksize{634pt}{448.13pt}{*}
+\setulmargins{4cm}{*}{*}
+\setlrmargins{*}{*}{1.5}
+\setmarginnotes{17pt}{51pt}{\onelineskip}
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+\checkandfixthelayout
+\end{lcode}
+
+    However, the layout that I have provided will print on both letterpaper
+and A4 sized stock even if it might look better if it was designed for always
+being printed on one or the other.
+
+\section{Predefined layouts}
+\label{sec:predefined-layouts}
+
+
+    The class, like the standard classes, will automatically produce 
+working layouts for \Lopt{letterpaper}
+and \Lopt{a4paper} size options. They might be a bit problematic, though,
+when the page is much smaller, particularly with respect to the space 
+alloted for marginal notes. You perhaps will find the \Lpack{layouts}
+package~\cite{LAYOUTS} useful for checking the page layout.
+
+   Some non-default layouts are provided via the commands \cmd{\medievalpage},
+\cmd{\isopage} and \cmd{\semiisopage}; these set the size and position of the
+typeblock with respect to the page. After using any of these commands you
+\emph{must} call \cmd{\checkandfixthelayout} (and after having made any other
+changes to match the new layout).
+
+\begin{figure}[p]
+\begin{leftfullpage}
+\centering
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.3}{1.62}{0.18}{1.13}{1.5}{0}
+\end{minipage}
+\caption{Default layout for letterpaper} \label{fig:pagefirstlay}
+
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.3}{1.19}{0.11}{1.5}{2}{0}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.3}{1.25}{0.08}{1.5}{2}{0}
+\end{minipage}
+\caption{Letterpaper layout: Left \cs{medievalpage}, Right \cs{medievalpage}\texttt{[12]}}
+
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.3}{1.315}{0.11}{1.29}{2}{0}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.3}{1.3}{0.08}{1.4}{2}{0}
+\end{minipage}
+\caption{Letterpaper layout: Left \cs{isopage}, Right \cs{isopage}\texttt{[12]}}
+
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.3}{1.46}{0.11}{1}{2}{0}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.3}{1.4}{0.08}{1}{2}{0}
+\end{minipage}
+\caption{Letterpaper layout: Left \cs{semiisopage}, Right \cs{semiisopage}\texttt{[12]}}
+\end{leftfullpage}
+\end{figure}
+\begin{figure}[p]
+\begin{fullpage}
+\centering
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.41}{1.75}{0.17}{1.22}{1.5}{0}
+\end{minipage}
+\caption{Default layout for a4paper}
+
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.41}{1.38}{0.11}{1.5}{2}{0}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.41}{1.39}{0.08}{1.5}{2}{0}
+\end{minipage}
+\caption{A4paper layout: Left \cs{medievalpage}, Right \cs{medievalpage}\texttt{[12]}}
+
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.41}{1.41}{0.11}{1.42}{2}{0}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.41}{1.41}{0.08}{1.4}{2}{0}
+\end{minipage} 
+\caption{A4paper layout: Left \cs{isopage}, Right \cs{isopage}\texttt{[12]}}
+
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.41}{1.62}{0.11}{1}{2}{0}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{\pwlayi}
+\drawaspread{\pwlayii}{1.41}{1.55}{0.08}{1}{2}{0}
+\end{minipage}
+\caption{A4paper layout: Left \cs{semiisopage}, Right \cs{semiisopage}\texttt{[12]}} \label{fig:pagelastlay}
+\end{fullpage}
+\end{figure}
+
+
+
+
+
+\begin{syntax}
+\cmd{\medievalpage}\oarg{spine} \\
+\end{syntax}
+\glossary(medievalpage)%
+  {\cs{medievalpage}\oarg{spine}}%
+  {Generates a page layout according to the principles of early printers.}
+The \cmd{\medievalpage} command generates the position and size of the 
+typeblock according to the principles of medieval scribes and the early 
+printers, as discovered and described by Jan Tschichold~\cite{TSCHICHOLD91}.
+%%%some details about this were given earlier in \Sref{sec:gutenbergpage}. 
+The basic principle is that the 
+spine, top, \foredge\ and bottom margins 
+around the typeblock are in the ratio 2:3:4:6. Typically the spine margin
+was 1/9 the width of the page, which is what \cmd{\medievalpage} assumes
+by default. This can be changed with the optional \meta{spine} argument. For
+example, to get narrower margins with the spine being 1/12 the page width:
+\begin{lcode}
+\medievalpage[12]
+\end{lcode}
+Note that \meta{spine} must be an integer.
+
+\begin{syntax}
+\cmd{\isopage}\oarg{spine} \\
+\cmd{\semiisopage}\oarg{spine} \\
+\end{syntax}
+\glossary(isopage)%
+  {\cs{isopage}\oarg{spine}}%
+  {Generates a page layout especially suited to ISO proportioned paper.}
+\glossary(semiisopage)%
+  {\cs{semiisopage}\oarg{spine}}%
+  {Generates a page layout especially suited to ISO proportioned paper but with
+   smaller margins than \cs{isopage}.}
+Robert Bringhurst~\cite{BRINGHURST99} presented a page layout that was
+especially suitable for ISO proportioned paper, although it can be applied to
+any page proportion. The \cmd{\isopage} command implements this design. The
+spine margin is normally 1/9 the page width and the top margin is 1/9 the
+page height, and the \foredge\ and bottom margins are respectively twice the
+spine and top margins. 
+
+   The \cmd{\semiisopage} layout is similar where the spine margin by default 
+is 1/9 the page width, but the top margin is the same as the spine margin.
+Again the \foredge\ and bottom margins are respectively twice the
+spine and top margins. 
+
+The size of the spine (and top) margins can be changed by using the optional
+\meta{spine} argument, which must be an integer. To set the spine margin to
+be, for example, 1/8 of the page width:
+\begin{lcode}
+\semiisopage[8]% or \isopage[8]
+\end{lcode}
+The same factor applies to both the spine and top margins in the case
+of \cmd{\isopage}.
+
+    Spreads showing a variety of these layouts are in \fref{fig:pagefirstlay} 
+through \ref{fig:pagelastlay}. These were produced with the aid of the
+\Lpack{layouts} package.
+
+\fancybreak{}
+
+\begin{syntax}
+\cmd{\setpagebl}\marg{height}\marg{width}\marg{ratio} \\
+\cmd{\setpageml}\marg{height}\marg{width}\marg{ratio} \\
+\cmd{\setpagetl}\marg{height}\marg{width}\marg{ratio} \\
+\end{syntax}
+\glossary(setpagebl)%
+  {\cs{setpagebl}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the bottom left
+   of the stock; see \cs{settrimmedsize}.}
+\glossary(setpagebl)%
+  {\cs{setpageml}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the middle left
+   of the stock; see \cs{settrimmedsize}.}
+\glossary(setpagebl)%
+  {\cs{setpagetl}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the top left
+   of the stock; see \cs{settrimmedsize}.}
+When your page is smaller than the stock it has to be positioned on
+the stock by specifying the trims to give the desired size and location.
+The macro \cmd{\setpagebl}, which takes the same arguments as 
+\cmd{\settrimmedsize} (see \tref{tab:rectsize} on \pref{tab:rectsize}),
+calculates the trims so that the page is located at the bottom left of
+the stock. Similarly \cmd{\setpageml} and \cmd{\setpagetl} will locate
+the page at the middle left and the top left, respectively, of the stock.
+For instance, if you are using letterpaper stock but want the final trimmed
+page size to be A5, then this will put page area at the bottom left of the
+stock.
+\begin{lcode}
+\pagebv % sets page height and width for A5 paper
+\setpagebl{\paperheight}{\paperwidth}{*}
+...
+\checkandfixthelayout
+\end{lcode}
+The above macros position the page at the left of the stock because usually 
+trimming of the stock is limited to the top, right, and bottom, the left 
+being the spine when the pages are finally assembled. To reposition the page to
+the center of the stock the following will halve the top and edge
+trims.
+\begin{lcode}
+\settrims{0.5\trimtop}{0.5\trimedge}
+...
+\checkandfixthelayout
+\end{lcode}
+
+\begin{syntax}
+\cmd{\setpagetm}\marg{height}\marg{width}\marg{ratio} \\
+\cmd{\setpagetr}\marg{height}\marg{width}\marg{ratio} \\
+\cmd{\setpagemr}\marg{height}\marg{width}\marg{ratio} \\
+\cmd{\setpagebr}\marg{height}\marg{width}\marg{ratio} \\
+\cmd{\setpagebm}\marg{height}\marg{width}\marg{ratio} \\
+\cmd{\setpagecc}\marg{height}\marg{width}\marg{ratio} \\
+\end{syntax}
+\glossary(setpagetm)%
+  {\cs{setpagetm}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the top middle
+   of the stock; see \cs{settrimmedsize}.}
+\glossary(setpagetr)%
+  {\cs{setpagetr}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the top right
+   of the stock; see \cs{settrimmedsize}.}
+\glossary(setpagemr)%
+  {\cs{setpagemr}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the middle right
+   of the stock; see \cs{settrimmedsize}.}
+\glossary(setpagebr)%
+  {\cs{setpagebr}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the bottom right
+   of the stock; see \cs{settrimmedsize}.}
+\glossary(setpagebm)%
+  {\cs{setpagebm}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the bottom middle
+   of the stock; see \cs{settrimmedsize}.}
+\glossary(setpagecc)%
+  {\cs{setpagecc}\marg{height}\marg{width}\marg{ratio}}%
+  {Specifies a page of the given dimensions positioned at the center
+   of the stock; see \cs{settrimmedsize}.}
+
+    The commands \cmd{\setpagetm}, \cmd{\setpagetr}, \cmd{\setpagemr},
+\cmd{\setpagebr}, \cmd{\setpagebm}, \cmd{\setpagecc} are analagous to the
+earlier ones and they set a page at the top middle, top right, middle right,
+bottom right, bottom middle and centered with respect to the stock.
+
+
+Remember that after you have finished defining the layout you want you
+have to call \cmd{\checkandfixthelayout} for all the changes to take
+effect.
+
+\fancybreak{}
+
+In Figure~\ref{fig:setpage} we show the effect of the nine
+\cmd{\setpageXX}. The code used for the examples is similar to the
+code below, and then the result is scaled down.
+
+\begin{lcode}
+\documentclass[showtrims]{memoir}
+\trimLmarks
+\setstocksize{18cm}{15cm}
+\makeatletter
+\setpagebl{16cm}{12cm}{*}
+\makeatother
+\setlrmarginsandblock{15mm}{15mm}{*}
+\setulmarginsandblock{15mm}{15mm}{*}
+\setheadfoot{5mm}{5mm}
+\checkandfixthelayout[fixed]
+\pagestyle{empty}
+\AtBeginDocument{\LARGE}
+\begin{document}
+\begin{vplace}
+  \centering
+  \cs{setpagebl}\marg{height}\marg{width}\marg{ratio}
+\end{vplace}
+\end{document}
+\end{lcode}
+
+
+
+
+\begin{figure}[htbp]
+  \centering
+  \fboxsep=0pt
+  \fbox{\includegraphics[page=1,scale=0.3]{setpage-example.pdf}}
+  \hfill
+  \fbox{\includegraphics[page=2,scale=0.3]{setpage-example.pdf}}
+  \hfill
+  \fbox{\includegraphics[page=3,scale=0.3]{setpage-example.pdf}}
+
+  \medskip
+  
+  \fbox{\includegraphics[page=4,scale=0.3]{setpage-example.pdf}}
+  \hfill
+  \fbox{\includegraphics[page=5,scale=0.3]{setpage-example.pdf}}
+  \hfill
+  \fbox{\includegraphics[page=6,scale=0.3]{setpage-example.pdf}}
+
+  \medskip
+
+  
+  \fbox{\includegraphics[page=7,scale=0.3]{setpage-example.pdf}}
+  \hfill
+  \fbox{\includegraphics[page=8,scale=0.3]{setpage-example.pdf}}
+  \hfill
+  \fbox{\includegraphics[page=9,scale=0.3]{setpage-example.pdf}}
+
+  \caption{Example of the nine \cs{setpageXX} macros for placing
+    a trimmed page on the stock. These are all odd pages, under
+    \Lopt{twoside}, even pages will have the left/right trims reversed.}
+  \label{fig:setpage}
+\end{figure}
+
+
+
+
+
+%#% extend
+%#% extstart include text-and-fonts.tex

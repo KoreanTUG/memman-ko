@@ -1,0 +1,2006 @@
+
+ \chapter{Rows and columns}
+
+    The class provides extensions to the standard \Ie{array} and \Ie{tabular}
+environments. These are based partly on a merging of the
+ \Lpack{array}~\cite{ARRAY}, 
+ \Lpack{dcolumn}~\cite{DCOLUMN},
+ \Lpack{delarray}~\cite{DELARRAY}, 
+ \Lpack{tabularx}~\cite{TABULARX}, and 
+ \Lpack{booktabs}~\cite{BOOKTABS} 
+ packages. 
+    Much of the material in this chapter strongly reflects the
+documentation of these packages.
+
+\begin{note}
+  As of September 2018: The \Lpack{array}, \Lpack{delarray},
+  \Lpack{tabularx} and \Lpack{dcolumn} packages are no longer embedded
+  into the class, but rather being autoloaded from the \LaTeX\
+  installation.\footnote{As the embedded versions were more or less
+    carbon copies, it makes much more sense to let the \LaTeX-team
+    maintain them, than us having to replace the embedded copy each
+    time they are updated or bug fixed.} As the embededed versions
+  were just carbon copies,\footnote{With edited error messages.} we
+  get the same result but just loading the packages, with less
+  maintenance. Plus these packages are part of the \LaTeX{} core
+  packages and thus is available in all \LaTeX{} installations.
+
+  We have kept the documentation we had written for the manual (and
+  updated it slightly), but refer to \cite{ARRAY}, \cite{DELARRAY}, \cite{TABULARX} and
+  \cite{DCOLUMN} for the 100\% up to date documentation.
+\end{note}
+
+\fancybreak{}
+
+
+ Additionally, new kinds of tabular environments are also provided.
+
+
+\section{General}
+
+\begin{syntax}
+\cmd{\[} \senv{array}\oarg{pos}\marg{preamble} rows \eenv{array} \cmd{\]} \\
+\senv{tabular}\oarg{pos}\marg{preamble} rows \eenv{tabular} \\
+\senv{tabular*}\marg{width}\oarg{pos}\marg{preamble} rows \eenv{tabular*} \\
+\senv{tabularx}\marg{width}\oarg{pos}\marg{preamble} rows \eenv{tabularx} \\
+\end{syntax}
+\glossary(array)%
+  {\senv{array}\oarg{pos}\marg{preamble}}%
+  {Environment for setting math elements in an array form.}
+\glossary(tabular)%
+  {\senv{tabular}\oarg{pos}\marg{preamble}}%
+  {Environment for setting text elements in a tabular form.}
+\glossary(tabular*)%
+  {\senv{tabular*}\marg{width}\oarg{pos}\marg{preamble}}%
+  {Environment for setting text elements in a tabular form within an overall 
+  \meta{width}; intercolumn spacing is adjusted to suit.}
+\glossary(tabularx)%
+  {\senv{tabularx}\marg{width}\oarg{pos}\marg{preamble}}%
+  {Environment for setting text elements in a tabular form within an overall
+   \meta{width}; column widths are adjusted to suit.}
+The \Ie{array} and \Ie{tabular} environments are traditional and the others
+are extensions. The \Ie{array} is for typesetting
+math and has to be within a math environment of some kind. The \Ie{tabular}
+series are for typesetting ordinary text.
+
+    The optional \meta{pos} argument can be one of \texttt{t}, \texttt{c},
+or \texttt{b} (the default is \texttt{c}), and controls the vertical position
+of the array or tabular; either the \texttt{t}op or the \texttt{c}enter,
+or the \texttt{b}ottom is aligned with the baseline. 
+Each row consists of elements separated by
+\&, and finished with \cmd{\\}. There may be as many rows as desired.
+The number and style of the columns is specified by the \meta{preamble}.
+The width of each column is wide enough to contain its longest entry and
+the overall width of the \Ie{array} or \Ie{tabular} is sufficient to contain
+all the columns. However, the \Ie{tabular*} and \Ie{tabularx} environments
+provide more control over the width through their \meta{width} argument.
+
+\section{The preamble}
+
+    You use the \meta{preamble} argument to the array and tabular 
+environments to specify the number of columns and how you want column
+entries to appear. The preamble consists of a sequence of options, which
+are listed in \tref{tab:tabpream}.
+
+ \begin{table}
+\begin{adjustwidth}{-5mm}{-5mm}
+ %\begin{center}
+\centering
+ \caption{The array and tabular preamble options.} \label{tab:tabpream}
+    \setlength{\extrarowheight}{1pt}
+    \begin{tabular}{cp{9cm}} \toprule \texttt{l} & Left adjusted
+      column.
+      \\
+      \texttt{c} & Centered adjusted column.
+      \\
+      \texttt{r} & Right adjusted column.
+      \\
+      \texttt{p}\marg{width} & Equivalent to
+      \verb?\parbox[t]?\marg{width}.
+      \\
+      \texttt{m}\marg{width} & Defines a column of width \meta{width}.
+      Every entry will be centered in proportion to the rest of the
+      line. It is somewhat like \cmd{\parbox}\marg{width}.
+      \\
+      \texttt{b}\marg{width} & Coincides with
+      \verb?\parbox[b]?\marg{width}.
+      \\
+      \texttt{>}\marg{decl} & Can be used before an \texttt{l},
+      \texttt{r}, \texttt{c}, \texttt{p}, \texttt{m} or a \texttt{b}
+      option. It inserts \meta{decl} directly in front of the entry of
+      the column.
+      \\
+      \texttt{<}\marg{decl} & Can be used after an \texttt{l},
+      \texttt{r}, \texttt{c}, \verb?p{..}?, \verb?m{..}? or a
+      \verb?b{..}?  option.  It inserts \meta{decl} right after the
+      entry of the column.
+      \\
+      \texttt{|} & Inserts a vertical line. The distance between two
+      columns will be enlarged by the width of the line.
+      \\
+      \texttt{@}\marg{decl} & Suppresses inter-column space and
+      inserts \meta{decl} instead.
+      \\
+      \texttt{!}\marg{decl} & Can be used anywhere and corresponds
+      with the \texttt{|} option. The difference is that \meta{decl}
+      is inserted instead of a vertical line, so this option doesn't
+      suppress the normally inserted space between columns in contrast
+      to \verb?@{...}?.
+      \\
+      \texttt{*}\marg{num}\marg{opts} & Equivalent to \meta{num}
+      copies of \meta{opts}
+      \\
+      \texttt{w}\marg{align}\marg{width} & \raggedright\arraybackslash
+      \emph{New in \Lpack{array} v2.4h, 2018.} Here \meta{align} is
+      one of \texttt{l}, \texttt{c} or \texttt{r}. The construction
+      corresponds to every cell in the column being formated as
+      \verb|\makebox|\oarg{width}\oarg{align}\marg{cell}. It will
+      silently overprint if the contents are wider than \meta{width}.
+      \\
+
+      \texttt{W}\marg{align}\marg{width} & \emph{New in in \Lpack{array}
+        v2.4h, 2018.} Similar to \texttt{w}, but issues an overfull warning if
+      the contents is too wide.
+      \\
+      \texttt{D}\marg{ssep}\marg{osep}\marg{places} & Column entries aligned
+      on a `decimal point' 
+      \\
+      \bottomrule
+    \end{tabular}
+% \end{center}
+\end{adjustwidth}
+ \end{table}
+
+    Examples of the options include:
+ \begin{itemize}
+    \item A flush left column with bold font can be specified
+          with \verb?>{\bfseries}l?.
+%% Companion, page 106.
+%\begin{egsource}{eg:tabcols}
+\begin{lcode}
+\begin{center}
+\begin{tabular}{>{\large}c >{\large\bfseries}l >{\large\itshape}c} 
+                \toprule
+A   & B  & C \\ 
+100 & 10 & 1 \\ \bottomrule
+\end{tabular}
+\end{center}
+\end{lcode}
+%\end{egsource}
+
+%\begin{egresult}[Different column styles in a \Pe{tabular}]{eg:tabcols}
+\begin{center}
+\begin{tabular}{>{\large}c >{\large\bfseries}l >{\large\itshape}c} 
+                \toprule
+A   & B  & C \\ 
+100 & 10 & 1 \\ \bottomrule
+\end{tabular}
+\end{center}
+%\end{egresult}
+
+    \item
+       In columns which have been generated with \texttt{p}, \texttt{m}
+       or \texttt{b}, the default value of \lnc{\parindent} is
+       0pt.
+
+%Companion, page 106.
+
+\begin{lcode}
+\begin{center}
+\begin{tabular}{m{1cm}m{1cm}m{1cm}} \toprule
+1 1 1 1 1 1 1 1 1 1 1 1 &
+2 2 2 2 2 2 2 2         &
+3 3 3 3                 \\ \bottomrule
+\end{tabular}
+\end{center}
+\end{lcode}
+
+\begin{center}
+\begin{tabular}{m{1cm}m{1cm}m{1cm}} \toprule
+1 1 1 1 1 1 1 1 1 1 1 1 &
+2 2 2 2 2 2 2 2         &
+3 3 3 3                 \\ \bottomrule
+\end{tabular}
+\end{center}
+
+       The \lnc{\parindent} for a particular column can be changed with, 
+for example
+\begin{lcode}
+>{\setlength{\parindent}{1cm}}p
+\end{lcode}
+
+%%Companion, page 107.
+
+\begin{lcode}
+\begin{center}
+\begin{tabular}{>{\setlength{\parindent}{5mm}}p{2cm} p{2cm}} \toprule
+1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 &
+1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 \\ \bottomrule
+\end{tabular}
+\end{center}
+\end{lcode}
+
+\begin{center}
+\begin{tabular}{>{\setlength{\parindent}{5mm}}p{2cm} p{2cm}} \toprule
+1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 &
+1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 \\ \bottomrule
+\end{tabular}
+\end{center}
+
+    \item
+       The specification \verb?>{$}c<{$}? generates a column in math
+       mode in a \Ie{tabular} environment. When used in an \Ie{array}
+       environment the column is in LR mode (because the additional
+       \$'s cancel the existing \$'s).
+    \item
+       Using \verb?c!{\hspace{1cm}}c? you get space between two
+       columns which is enlarged by one centimeter, while
+       \verb?c@\hspace{1cm}}c? gives you exactly one centimeter
+       space between two columns.
+\item Elsewhere reasons are given why you should not use vertical
+      lines (e.g., the \texttt{|} option) in tables. Any examples
+      that use vertical lines are for illustrative purposes only where
+      it is advantageous to denote column boundaries, for example
+      to show different spacing effects.
+ \end{itemize}
+
+\goodbreak
+ 
+ \subsection{D column specifiers} \label{sec:dcolumns}
+
+ \begin{recommended}
+   As an alternative to the \texttt{D} column (through using the
+   \Lpack{dcolumn} package), you can use the \Lpack{siunitx} package
+   which have the added bonus of many more configuration and
+   formatting features. See \cite{SIUNITX} for details.
+ \end{recommended}
+
+
+ 
+    In financial tables dealing with pounds
+and pence or dollars and cents, column entries
+should be aligned on the separator between the numbers. The \texttt{D}
+column specifier is provided for columns which are to be aligned on 
+a `decimal point'. The specifier takes three arguments.
+\begin{syntax}
+ \texttt{D}\marg{ssep}\marg{osep}\marg{places} \\
+\end{syntax}
+\begin{itemize}
+\item[\meta{ssep}] is the single character which is used as the
+ separator in the source \texttt{.tex} file. Thus it will usually 
+be `\texttt{.}' or  `\texttt{,}'.
+
+\item[\meta{osep}] is the separator in the output, this may
+ be the same as the first argument, but may be any math-mode
+ expression, such as \cmd{\cdot}. A \texttt{D} column
+ always uses math mode for the digits as well as the separator.
+
+\item[\meta{places}] should be the maximum number of decimal places
+ in the column (but see below for more on this). 
+If this is negative, any number of decimal places can
+ be used in the column, and all entries will be centred on 
+ (the leading edge of) the 
+ separator. Note that this can cause a column to be too wide; for instance, 
+compare  the first two columns in the example below. 
+\end{itemize}
+
+    Here are some example specifications which, for convenience, employ
+the \cmd{\newcolumntype} macro described later.
+
+\begin{lcode}
+\newcolumntype{d}[1]{D{.}{\cdot}{#1}}
+\end{lcode}
+    This defines \texttt{d} to be a column specifier taking a single argument 
+specifying the number of decimal places, 
+and the \file{.tex} file should use `\texttt{.}' as the separator, with
+\cmd{\cdot} ($\cdot$) being used in the output.
+
+\begin{lcode}
+\newcolumntype{.}{D{.}{.}{-1}}
+\end{lcode}
+The result of this is that `\texttt{.}' specifies a column of entries to 
+be centered on the~`$.$'.
+
+\begin{lcode}
+\newcolumntype{,}{D{,}{,}{2}}
+\end{lcode}
+And the result of this is that `\texttt{,}' specifies a column of 
+entries with at most two decimal places after a~`$,$'.
+
+ \newcolumntype{d}[1]{D{.}{\cdot}{#1}}
+ \newcolumntype{.}{D{.}{.}{-1}}
+ \newcolumntype{,}{D{,}{,}{2}}
+
+ The following table is typeset from this code:
+\begin{lcode}
+\begin{center}
+ \begin{tabular}{|d{-1}|d{2}|.|,|}
+ 1.2   & 1.2   &1.2    &1,2    \\
+ 1.23  & 1.23  &12.5   &300,2  \\
+ 1121.2& 1121.2&861.20 &674,29 \\
+ 184   & 184   &10     &69     \\
+ .4    & .4    &       &,4     \\
+       &       &.4     &
+ \end{tabular}
+ \end{center}
+\end{lcode}
+
+ \begin{center}
+ \begin{tabular}{|d{-1}|d{2}|.|,|}
+ 1.2   & 1.2   &1.2    &1,2    \\
+ 1.23  & 1.23  &12.5   &300,2  \\
+ 1121.2& 1121.2&861.20 &674,29 \\
+ 184   & 184   &10     &69     \\
+ .4    & .4    &       &,4     \\
+       &       &.4     &
+ \end{tabular}
+ \end{center}
+
+ Note that the first column, which had a negative \meta{places}
+ argument is wider than the second column, so that the decimal point
+ appears in the middle of the column.
+
+ The third
+ \meta{places} argument may specify \emph{both} the number of
+ digits to the left and to the right of the decimal place. The third
+ column in the next table below is set with \verb?D{.}{.}{5.1}? and in the
+ second  table,  \verb?D{.}{.}{1.1}?, to specify
+ `five places to the left and one to the right' and `one place to the
+ left and one to the right' respectively.  (You may use `,' or other
+ characters, not necessarily `.' in this argument.) The column of figures
+ is then positioned such that a number with the specified numbers of
+ digits is centred in the column.
+ 
+     Be careful if you have table headings inserted, say, with 
+\begin{lcode}
+\multicolumn{1}{c}{...}
+\end{lcode}
+ to over-ride the \texttt{D} column type, as the overall result may not look
+quite as good as you might expect. In the next pair of tabulars the first
+column is set with
+\begin{lcode}
+D{.}{.}{-1}
+\end{lcode}
+to produce a column centered on the `.', and the second column is set with
+\begin{lcode}
+D{.}{.}{1}
+\end{lcode}
+to produce a right aligned column.
+
+%\begin{lcode}
+\begin{egsource}{eg:tabwidehead}
+\begin{center}\small
+\begin{tabular}[t]{|D..{-1}|D..{1}|D..{5.1}|}
+\multicolumn{1}{|c|}{head} &
+\multicolumn{1}{c|}{head}  &
+\multicolumn{1}{c|}{head}    \\[3pt]
+1       & 2       & 3        \\
+1.2     & 1.2     & 1.2      \\
+11212.2 & 11212.2 & 11212.2  \\
+.4      & .4      & .4         
+\end{tabular}
+\hfill
+\begin{tabular}[t]{|D..{-1}|D..{1}|D..{1.1}|}
+\multicolumn{1}{|c|}{wide heading} &
+\multicolumn{1}{c|}{wide heading} &
+\multicolumn{1}{c|}{wide heading} \\[3pt]
+1       & 2       & 3             \\
+1.2     & 1.2     & 1.2           \\
+.4      & .4      & .4  
+\end{tabular}
+\end{center}
+\end{egsource}
+%\end{lcode}
+
+\begin{egresultplain}[Tabular with narrow and wide headings]{eg:tabwidehead}
+ \begin{center}\small
+ \begin{tabular}[t]{|D..{-1}|D..{1}|D..{5.1}|}
+\multicolumn{1}{|c|}{head}&
+\multicolumn{1}{c|}{head}&
+\multicolumn{1}{c|}{head}\\[3pt]
+1       & 2       & 3        \\
+1.2     & 1.2     &1.2 \\
+11212.2 & 11212.2 &11212.2  \\
+ .4     & .4      &.4         
+ \end{tabular}
+ \hfill
+ \begin{tabular}[t]{|D..{-1}|D..{1}|D..{1.1}|}
+\multicolumn{1}{|c|}{wide heading}&
+\multicolumn{1}{c|}{wide heading}&
+\multicolumn{1}{c|}{wide heading}\\[3pt]
+1       & 2       & 3        \\
+1.2     & 1.2     & 1.2 \\
+.4      & .4      & .4  
+ \end{tabular}
+ \end{center}
+\end{egresultplain}
+
+ In both of these tables the first column is set with \verb?D{.}{.}{-1}?
+ to produce a column centered on the `\texttt{.}', and the second column is
+ set with \verb?D{.}{.}{1}? to produce a right aligned column.
+
+ The centered (first) column produces columns that are wider than necessary
+ to fit in the numbers under a heading as it has to ensure that the
+ decimal point is centered. The right aligned (second) column does not have
+ this drawback, but under a wide heading a column of small right
+ aligned figures is somewhat disconcerting.
+
+ The notation for the \meta{places} argument also enables columns that 
+are centred on the mid-point
+ of the separator, rather than its leading edge; for example 
+\begin{lcode}
+D{+}{\,\pm\,}{3,3}
+\end{lcode}
+ will give a symmetric layout of up to three
+ digits on either side of a $\pm$ sign.
+
+ \subsection{Defining new column specifiers}
+
+     You can easily type
+ \begin{quote}
+   \verb?>{?\meta{some declarations}\verb?}{c}<{?\meta{some more
+   declarations}\verb?}?
+ \end{quote}
+when you have a one-off column in a table, but it gets tedious
+ if you often use columns of this form. 
+The \cmd{\newcolumntype} lets you define a new column option like, say
+ \begin{quote}
+   \verb?\newcolumntype{x}{>{?\meta{some declarations}\verb?}{c}<{?\meta{some
+   more declarations}\verb?}}?\hspace*{-3cm} 
+ \end{quote}
+and you can then use the \texttt{x} column specifier in the preamble wherever
+you want a column of this kind.
+
+\begin{syntax}
+\cmd{\newcolumntype}\marg{char}\oarg{nargs}\marg{spec} \\
+\end{syntax}
+\glossary(newcolumntype)
+  {\cs{newcolumntype}\marg{char}\oarg{nargs}\marg{spec}}%
+  {Creates a new column type \meta{char} according to \meta{spec} (which has
+   \meta{nargs} number of arguments).}
+The \meta{char} argument is the character that identifies the option 
+and \meta{spec}
+is its specification in terms of the regular preamble options.
+The \cmd{\newcolumntype} command is similar to \cmd{\newcommand} --- 
+\meta{spec} itself can take arguments with the optional \meta{nargs}
+argument declaring their number. 
+
+    For example, it is commonly required to have both math-mode and text 
+columns in the same alignment. Defining:
+\begin{lcode}
+\newcolumntype{C}{>{$}c<{$}}
+\newcolumntype{L}{>{$}l<{$}}
+\newcolumntype{R}{>{$}r<{$}}
+\end{lcode}
+ Then \texttt{C} can be used to get centred text in an
+\Ie{array}, or centred math-mode in a \Ie{tabular}. Similarly
+\texttt{L} and \texttt{R} are for left- and right-aligned columns.
+
+ The \meta{spec} in a \cmd{\newcolumntype} command may refer to any of
+ the primitive column specifiers (see table \ref{tab:tabpream} on page
+ \pageref{tab:tabpream}), or to any new letters defined in other
+\cmd{\newcolumntype} commands.
+
+\begin{syntax}
+\cmd{\showcols} \\
+\end{syntax}
+\glossary(showcols)%
+  {\cs{showcols}}%
+  {Writes a list of all \cs{newcolumntype}s to the terminal and log file.}
+   A list of all the currently active
+\cmd{\newcolumntype} definitions is sent to the terminal and log file if
+ the \cmd{\showcols} command is given.
+
+\subsection{Surprises}
+
+ \begin{itemize}
+ \item A preamble of the form \verb?{wx*{0}{abc}yz}? is treated as \verb?{wxyz}?
+
+ \item An incorrect positional argument, such as \texttt{[Q]}, 
+ is treated as \texttt{[t]}.
+
+ \item A preamble such as \verb?{cc*{2}}? with an error in
+ a $*$-form will generate an error message 
+ that is not particularly helpful.
+
+ \item Error messages generated when parsing the column specification
+   refer to the preamble argument \emph{after} it has been re-written
+   by the \cmd{\newcolumntype} system, not to the preamble entered by the
+   user.  
+
+ \item Repeated \texttt{<} or \texttt{>} constructions
+ are allowed.  \texttt{>}\marg{decs1}\texttt{>}\marg{decs2}
+ is treated the same as \texttt{>}\marg{decs2}\marg{decs1}.
+
+   The treatment of multiple \texttt{<} or \texttt{>}
+declarations may seem strange. Using the obvious ordering
+of \texttt{>}\marg{decs1}\marg{decs2} has the disadvantage
+of not allowing the settings of a  \cmd{\newcolumntype} 
+defined using these declarations to be overriden.
+
+ \item The \cmd{\extracolsep} command may be used in \texttt{@}-expressions 
+ as in standard \ltx, and also in \texttt{!}-expressions.
+
+   The use of \cmd{\extracolsep} is subject to the following
+   two restrictions.  There must be at most one \cmd{\extracolsep}
+   command per \texttt{@}, or \texttt{!} expression and the command must be
+   directly entered into the \texttt{@} expression, not as part of a macro
+   definition. Thus
+\begin{lcode}
+\newcommand{\ef}{\extracolsep{\fill}} ... @{\ef}
+\end{lcode}
+ does not work. However you can use
+   something like
+\begin{lcode}
+\newcolumntype{e}{@{\extracolsep{\fill}}
+\end{lcode}
+instead.
+
+ \item As noted by the \ltx\ book~\cite{LAMPORT94}, a 
+   \cmd{\multicolumn}, with the exception of the first column,
+   consists of the entry and the \emph{following} inter-column
+   material. This means that in a tabular with the preamble
+   \verb?|l|l|l|l|? input such as \verb?\multicolumn{2}{|c|}? in
+   anything other than the first column is incorrect.
+
+   In the standard array/tabular implementation this error is not 
+   noticeable as a \verb?|? takes no horizontal space. But in the class the
+   vertical lines take up their natural width and you will see two lines if
+   two are specified --- another reason to avoid using \verb?|?.
+
+ \end{itemize}
+
+\section{The array environment}
+
+    Mathematical arrays are usually produced using the \Ie{array} environment.
+
+\begin{syntax}
+\cmd{\[} \senv{array}\oarg{pos}\marg{preamble} rows \eenv{array} \cmd{\]} \\
+\cmd{\[} \senv{array}\oarg{pos}\meta{left}\marg{preamble}\meta{right} rows \eenv{array} \cmd{\]} \\
+\end{syntax}
+    Math formula are usually centered in the columns, but a column of 
+numbers often looks best flush right, or aligned on some distinctive
+feature. In the latter case the \texttt{D} column scheme is very handy.
+\begin{lcode}
+\[ \begin{array}{lcr}
+   a +b +c & d - e - f & 123 \\
+   g-h     &  j k      & 45 \\
+    l      &   m       & 6
+  \end{array} \]
+\end{lcode}
+
+\[ \begin{array}{lcr}
+   a +b +c & d - e - f & 123 \\
+   g-h     &  j k      & 45 \\
+    l      &   m       & 6
+  \end{array} \]
+
+    Arrays are often enclosed in brackets or vertical lines or brackets 
+or other symbols to
+denote math constructs like matrices. The delimeters are often large and have
+to be indicated using \cmd{\left} and \cmd{\right} commands.
+\begin{lcode}
+\[ \left[ \begin{array}{cc}
+          x_{1} & x_{2} \\
+          x_{3} & x_{4}
+          \end{array} \right] \]
+\end{lcode}
+
+\[ \left[ \begin{array}{cc}
+          x_{1} & x_{2} \\
+          x_{3} & x_{4}
+          \end{array} \right] \]
+
+
+    The class's \Ie{array} environment is an extension of the standard 
+environment in that it provides a system of implicit \cmd{\left} \cmd{\right} 
+pairs. If you want an array surrounded by parentheses, you can enter:
+\begin{lcode}
+ \[  \begin{array}({cc})a&b\\c&d\end{array}   \]
+\end{lcode}
+
+ \[  \begin{array}({cc})a&b\\c&d\end{array}   \]
+
+Or, a litle more complex
+\begin{lcode}
+\[ \begin{array}({c})
+     \begin{array}|{cc}|
+       x_{1} & x_{2} \\
+       x_{3} & x_{4}
+     \end{array} \\
+         y \\
+         z
+   \end{array} \]
+\end{lcode}
+
+\[ \begin{array}({c})
+     \begin{array}|{cc}|
+       x_{1} & x_{2} \\
+       x_{3} & x_{4}
+     \end{array} \\
+         y \\
+         z
+   \end{array} \]
+
+    And you can do things like this:
+\begin{lcode}
+\[ a = {\begin{array}|{*{20}{c}}|
+        x-\lambda & 1         & 0 \\
+        0         & x-\lambda & 1 \\
+        0         &           & x-\lambda \\
+        \end{array}
+       }^{2} \]
+\end{lcode}
+
+\[ a = {\begin{array}|{*{20}{c}}|
+        x-\lambda & 1         & 0 \\
+        0         & x-\lambda & 1 \\
+        0         &           & x-\lambda \\
+        \end{array}
+       }^{2} \]
+
+
+
+ As another example, a construct equivalent to plain \tx's \cmd{\cases} 
+could be defined by:\\
+\begin{lcode}
+ \[  f(x)=\begin{array}\{{lL}.
+           0         & if $x=0$\\
+           \sin(x)/x & otherwise
+           \end{array}  \]
+\end{lcode}
+
+ \newcolumntype{L}{>{$}l<{$}}
+ \[  f(x)=\begin{array}\{{lL}.
+           0         & if $x=0$\\
+           \sin(x)/x & otherwise
+           \end{array}  \]
+
+ Here \texttt{L} denotes a column of left aligned L-R text, as described
+earlier.
+ Note that as the delimiters must always be used in pairs, the  `\texttt{.}'
+ must be used to denote a  `null delimiter'.
+
+ This feature is especially useful if the \verb?[t]? or \verb?[b]?
+ arguments are also used. In these cases the result is not equivalent
+ to surrounding the environment by \cmd{\left}\ldots\cmd{\right}, as
+ can be seen from the following example:
+\begin{lcode}
+ \begin{array}[t]({c}) 1\\2\\3 \end{array}
+ \begin{array}[c]({c}) 1\\2\\3 \end{array}
+ \begin{array}[b]({c}) 1\\2\\3 \end{array}
+ \quad\mbox{not}\quad
+ \left(\begin{array}[t]{c} 1\\2\\3 \end{array}\right)
+ \left(\begin{array}[c]{c} 1\\2\\3 \end{array}\right)
+ \left(\begin{array}[b]{c} 1\\2\\3 \end{array}\right)
+\end{lcode}
+
+
+ \[
+ \begin{array}[t]({c}) 1\\2\\3 \end{array}
+ \begin{array}[c]({c}) 1\\2\\3 \end{array}
+ \begin{array}[b]({c}) 1\\2\\3 \end{array}
+ \quad\mbox{not}\quad
+ \left(\begin{array}[t]{c} 1\\2\\3 \end{array}\right)
+ \left(\begin{array}[c]{c} 1\\2\\3 \end{array}\right)
+ \left(\begin{array}[b]{c} 1\\2\\3 \end{array}\right)
+ \]
+
+
+
+\section{Tables}
+
+    A table is one way of presenting a large amount of information
+in a limited space. Even a simple table can presents facts that could
+require several wordy paragraphs --- it is not only a picture that is worth
+a thousand words.
+
+    A table should have at least two columns, otherwise it is really a list,
+and many times has more. The leftmost column is often called the 
+\emph{stub}\index{table!column!stub}
+and it typically contains a vertical listing of the information categories
+ in the other columns. The columns\index{table!column!head} 
+have \emph{heads} (or \emph{headings}) at
+the top indicating the nature of the entries in the column, although
+it is not always necessary to provide a head for the stub if the
+heading is obvious from the table's caption. Column heads
+may include subheadings, often to specify the unit of measurement for numeric
+data. 
+
+   A less simple table may need two or more levels of headings, in which
+case \emph{decked heads} are used. 
+A decked head\index{table!column!decked head} consists of a 
+\emph{spanner head}\index{table!column!spanner head} and the two or 
+more column heads it applies to. A horizontal 
+\emph{spanner rule}\index{table!column!spanner rule} is set between the  
+spanner and column heads to 
+show which columns belong to the spanner.
+
+  Double decking, and certainly triple decking or more, should be avoided
+as it can make it difficult following them down the table. It may be possible
+to use a \emph{cut-in head}\index{table!column!cut-in head} instead of 
+double decking. A cut-in head is
+one that cuts across the columns of the table and applies to all the 
+matter below it. To try and clarify, the parts of a table
+are shown diagrammatically in \tref{tab:tabparts}.
+
+\begin{table}
+\centering
+\caption{Demonstrating the parts of a table} \label{tab:tabparts}
+\begin{tabular}{lcccc} \toprule
+     &    & \multicolumn{2}{c}{spanner} &  \\ \cmidrule{3-4}
+     & head & head & head & head        \\
+stub & subhead & subhead &       &      \\ \midrule
+A    &   a     &   b     &   c   &   d  \\
+B    &   e     &   f     &   g   &   h  \\ \cmidrule{2-5}
+     & \multicolumn{4}{c}{cut-in head}  \\ \cmidrule{2-5}
+C    &   i     &   j     &   k   &   l  \\
+D    &   m     &   n     &   o   &   p  \\ \bottomrule
+\end{tabular}
+\end{table}
+
+   No mention has been made of vertical\index{table!rule!vertical} 
+rules in a table, and this is
+deliberate. There should be no vertical rules in a table. Rules, 
+if used at all, should be horizontal\index{table!rule!horizontal} only, 
+and these should be single, 
+not double or triple. It's not that ink is expensive, or that practically
+no typesetting is done by hand any more, it is simply that the visual 
+clutter should be eliminated. 
+
+    For example, in \tref{tab:twoviews} which was produced from the code below,
+\tref{tab:before} is from the \ltx\ book and 
+\tref{tab:after} is how Simon Fear~\cite{BOOKTABS} suggests it
+should be cleaned up. Notice how both the revised code and the table 
+are generally simpler than the originals.
+
+\begin{table}
+\centering
+\caption{Two views of one table} \label{tab:twoviews}
+\subtop[Before]{\label{tab:before}%
+ \begin{tabular}{||l|lr||} \hline
+ gnats     & gram      & \$13.65 \\ \cline{2-3}
+           & each      & .01 \\ \hline
+ gnu       & stuffed   & 92.50 \\ \cline{1-1} \cline{3-3}
+ emu       &           & 33.33 \\ \hline
+ armadillo & frozen    & 8.99 \\ \hline
+ \end{tabular}}
+\hfill
+\subtop[After]{\label{tab:after}%
+ \begin{tabular}{@{}llr@{}} \toprule
+ \multicolumn{2}{c}{Item} \\ \cmidrule(r){1-2}
+ Animal & Description & Price (\$)\\ \midrule
+ Gnat  & per gram  & 13.65 \\
+       & each      & 0.01 \\
+ Gnu   & stuffed   & 92.50 \\
+ Emu   & stuffed   & 33.33 \\
+ Armadillo & frozen & 8.99 \\ \bottomrule
+ \end{tabular}
+}
+\end{table}
+
+\begin{lcode}
+\begin{table}
+\centering
+\caption{Two views of one table} \label{tab:twoviews}
+\subtop[Before]{\label{tab:before}%
+ \begin{tabular}{||l|lr||} \hline
+ gnats     & gram      & \$13.65 \\ \cline{2-3}
+           & each      & .01 \\ \hline
+ gnu       & stuffed   & 92.50 \\ \cline{1-1} \cline{3-3}
+ emu       &           & 33.33 \\ \hline
+ armadillo & frozen    & 8.99 \\ \hline
+ \end{tabular}}
+\hfill
+\subtop[After]{\label{tab:after}%
+ \begin{tabular}{@{}llr@{}} \toprule
+ \multicolumn{2}{c}{Item} \\ \cmidrule(r){1-2}
+ Animal & Description & Price (\$)\\ \midrule
+ Gnat   & per gram    & 13.65 \\
+        & each        & 0.01 \\
+ Gnu    & stuffed     & 92.50 \\
+ Emu    & stuffed     & 33.33 \\
+ Armadillo & frozen   & 8.99 \\ \bottomrule
+ \end{tabular}
+}
+\end{table}
+\end{lcode}
+ 
+
+    Columns of numbers often end with a line giving the total or result.
+A horizontal rule\index{table!rule} may be drawn to separate the result 
+from the rest but
+a small amount of white space may do just as well, as in \tref{tab:micawber}.
+
+Some other points are:
+ \begin{itemize}
+   \item Put the units in the column heading (not in the body of
+           the table).
+   \item Always precede a decimal point by a digit; thus 0.1
+       \emph{not} just .1.
+   \item Do not use `ditto' signs or any other such convention to
+       repeat a previous value. In many circumstances a blank
+       will serve just as well. If it won't, then repeat the value.
+ \end{itemize}
+
+    Not every table requires all the elements mentioned above.
+For instance, in Charles Dicken's \emph{David Copperfield} (1849--1850) 
+Mr Wilkins Micawber states:
+\begin{quote}
+`Annual income twenty pounds, annual expenditure nineteen six, 
+result hapiness.
+Annual income twenty pounds, annual expenditure twenty pounds ought and six, 
+result misery.'
+\end{quote}
+This can also be represented in tabular 
+form\footnote{%
+But putting Josh Billings' (Henry Wheeler Shaw) corollary: 
+`Live within your income, even if you have to borrow to do it.'
+into tabular form would not work.}
+ as in \tref{tab:micawber}.
+
+\begin{table}
+\centering
+\caption{Micawber's law} \label{tab:micawber}
+\begin{tabular}{lrr} \toprule
+Income     & \pounds{20-0-0}  & \pounds{20-0-0} \\
+Expenditure & \pounds{19-0-6} & \pounds{20-0-6} \\ \addlinespace
+Result      & happiness & misery \\ \bottomrule
+\end{tabular}
+\end{table}
+
+    Long narrow tables do not look well on the page. In such cases
+the table\index{table!half and half} could be set half and half 
+instead, as in \tref{tab:halfhalf}.
+
+\settowidth{\versewidth}{Relative contents of odd isotopes for heavy elements}
+\addtolength{\versewidth}{2mm}
+\begin{table}
+\begin{adjustwidth}{-5mm}{-5mm}
+\centering \addtolength{\cmidrulekern}{0.25em}
+\caption{A narrow table split half and half} \label{tab:halfhalf}
+\begin{tabularx}{\versewidth}{lclXlcl@{}} 
+\multicolumn{7}{c}{Relative contents of odd isotopes for heavy elements}\\ \toprule
+Element & Z & \multicolumn{1}{c}{$\gamma$} & & 
+Element & Z & \multicolumn{1}{c}{$\gamma$} \\ \cmidrule{1-3}\cmidrule(r){5-7}
+Sm & 62 & 1.480 & & W  & 74 & 0.505 \\
+Gd & 64 & 0.691 & & Os & 76 & 0.811 \\
+Dy & 66 & 0.930 & & Pt & 78 & 1.160 \\
+\ldots & &      & & \ldots & &      \\ \bottomrule
+\end{tabularx}
+\end{adjustwidth}
+\end{table}
+
+\section{Fear's rules}
+
+    Simon Fear disapproves of the default \ltx\ table\index{table!rule} 
+rules and
+wrote the \Lpack{booktabs} package~\cite{BOOKTABS} to provide
+better horizontal rules. Like many typographers, he abhors vertical rules.
+The following is taken almost verbatim from the \Lpack{booktabs} package.
+
+\index{table!rule|(}
+
+ In the simplest of cases a table begins with a top rule, has
+ a single row of column headings, then a dividing rule, 
+and after the columns of data it is finished
+off with a final rule. The top and bottom rules are normally
+set heavier (i.e., thicker or darker) than any intermediate rules.
+
+
+\begin{syntax}
+\cmd{\toprule}\oarg{width} 
+\cmd{\bottomrule}\oarg{width} 
+\lnc{\heavyrulewidth} \\
+\cmd{\midrule}\oarg{width} 
+\lnc{\lightrulewidth} \\
+\lnc{\aboverulesep} \lnc{\belowrulesep} \lnc{\doublerulesep} \\
+\end{syntax}
+\glossary(toprule)%
+  {\cs{toprule}\oarg{width}}%
+  {Draws a rule across a tabular, default width \cs{heavyrulewidth}.}
+\glossary(bottomrule)%
+  {\cs{bottomrule}\oarg{width}}%
+  {Draws a rule across a tabular, default width \cs{heavyrulewidth}.}
+\glossary(midrule)%
+  {\cs{midrule}\oarg{width}}%
+  {Draws a rule across a tabular, default width \cs{lightrulewidth}.}
+\glossary(heavyrulewidth)%
+  {\cs{heavyrulewidth}}%
+  {Default width for a heavy tabular rule.}
+\glossary(lightrulewidth)%
+  {\cs{lightrulewidth}}%
+  {Default width for a light tabular rule.}
+\glossary(aboverulesep)%
+  {\cs{aboverulesep}}%
+  {Space above a tabular rule.}
+\glossary(belowrulesep)%
+  {\cs{belowrulesep}}%
+  {Space below a tabular rule.}
+\glossary(doublerulesep)%
+  {\cs{doublerulesep}}%
+  {Space between adjacent rules in a tabular, or an array.}
+ All the rule commands here go immediately after the closing
+\cmd{\\} of the preceding row (except of course \cmd{\toprule}, which
+ comes right after the start of the environment). Each rule has an optional
+length argument, \meta{width}, which you can use to locally change the default 
+width of the rule.
+
+ \cmd{\toprule} draws a rule (with a default width of \lnc{\heavyrulewidth}), 
+and \lnc{\belowrulesep} vertical space inserted below it.
+
+   \cmd{\midrule} draws a rule (default \lnc{\lightrulewidth} width) 
+with \lnc{\aboverulesep} space above it and \lnc{\belowrulesep}
+below it. 
+
+
+\cmd{\bottomrule} draws a rule with a default width of \lnc{\heavyrulewidth}.
+There is \lnc{\aboverulesep} space above it and \lnc{\belowrulesep} space 
+below it.
+
+   If a rule immediately follows another the space between them is
+\lnc{\doublerulesep}, but as you are not going to use double rules you
+won't be concerned about this.
+
+\begin{syntax}
+\cmd{\cmidrule}\oarg{width}\parg{trim}\marg{m--n} \\
+\lnc{\cmidrulewidth} \lnc{\cmidrulekern} \\
+\end{syntax}
+\glossary(cmidrule)%
+  {\cs{cmidrule}\oarg{width}\parg{trim}\marg{m--n}}%
+  {Draws a rule, default thickness \cs{cmidrulewidth}, across tabular
+   columns \meta{m} to \meta{n}; the ends may be \meta{trim}ed by
+   \cs{cmidrulekern}.}
+\glossary(cmidrulewidth)%
+  {\cs{cmidrulewidth}}%
+  {Default width for a \cs{cmidrule} tabular rule.}
+\glossary(cmidrulekern)
+  {\cs{cmidrulekern}}
+  {Trim amount for \cs{cmidrule}.}
+Spanner rules do not extend the full width of the table, and the
+\cmd{\cmidrule} is provided for that purpose. This draws a rule,
+default thickness \lnc{\cmidrulewidth}, across columns \meta{m}
+to \meta{n} inclusive (where \meta{m} and \meta{n} are column numbers,
+with \meta{m} not greater than \meta{n}).
+
+ Generally, this rule
+ should not come to the full width of the end columns, and this
+ is especially the case if you have to begin a \cmd{\cmidrule}
+ straight after the end of another one. You can use the
+optional trimming argument commands, which are \verb?(r)?, \verb?(l)? and \verb?(rl)?
+ or \verb?(lr)?, indicated whether the right and/or left ends of the
+ rule should be trimmed. Note the exceptional use of parentheses
+ instead of brackets for this optional argument.
+
+
+   \cmd{\cmidrule} draws a rule from column $m$ to $n$ with a default 
+thickness of \lnc{\cmidrulewidth}. Adjacent \cmd{\cmidrule}s,
+for example
+\begin{lcode}
+... \\ \cmidrule{2-3}\cmidrule{5-7}
+\end{lcode}
+have the same vertical alignment. It is best not to leave any space between
+these commands. The space above and below
+is normally \lnc{\aboverulesep} and \lnc{\belowrulesep}.
+
+    If you are forced into having double spanner rules then you will
+reluctantly have
+to insert the command \cmd{\morecmidrules} between the commands for
+the upper and lower rules. For example:
+\begin{lcode}
+... \\ \cmidrule{2-3}\cmidrule{5-7}\morecmidrules\cmidrule{2-3}
+\end{lcode}
+will draw double rules across columns 2 and 3. You must finish off
+the rules for one row before starting the lower set of rules. There
+must not be any space surrounding the \cmd{\morecmidrules} macro.
+The upper and lower rules are separated by \lnc{\cmidrulesep}.
+
+
+\begin{syntax}
+\cmd{\addlinespace}\oarg{width}
+\lnc{\defaultaddspace} \\
+\end{syntax}
+\glossary(addlinespace)%
+  {\cs{addlinespace}\marg{width}}%
+  {Puts extra space, default \cs{defaultaddspace}, between a pair of tabular
+   rows.}
+\glossary(defaultaddspace)%
+  {\cs{defaultaddspace}}%
+  {Default space for \cs{addlinespace}.}
+
+
+ Occasionally extra space between certain rows of a table may be helpful; 
+for example, before the last row if this is a total.
+This is simply a matter of inserting \cmd{\addlinespace}
+ after the \cmd{\\} alignment marker.
+You can think
+ of \cmd{\addlinespace} as being a white rule of width \meta{width}.
+ The default space is \cmd{\defaultaddspace} which gives rather
+ less than a whole line space. If another rule follows 
+the amount of whitespace is increased by \lnc{\doublerulesep}.
+
+\begin{syntax}
+\cmd{\specialrule}\marg{width}\marg{abovespace}\marg{belowspace} \\
+\end{syntax}
+\glossary(specialrule)%
+  {\cs{specialrule}\marg{width}\marg{abovespace}\marg{belowspace}}%
+  {Draws a rule with the given parameters across a tabular.}
+    You can, but should not, generate peculiar spacing between
+rules by using \cmd{\specialrule}. The three required arguments are the
+width, \meta{width}, of the rule and the spaces above (\meta{abovespace})
+and below (\meta{belowspace}). \cmd{\specialrule} ignores a preceding rule
+but if there is a following one then \meta{belowspace}
+will be increased by \lnc{\doublerulesep}.
+
+ The default dimensions are
+ \begin{quote}
+   \lnc{\heavyrulewidth} = 0.08em \\
+   \lnc{\lightrulewidth} = 0.05em \\
+   \lnc{\cmidrulewidth}  = 0.03em \\
+   \lnc{\belowrulesep}   = 0.65ex \\
+   \lnc{\aboverulesep}   = 0.4ex \\
+   \lnc{\defaultaddspace} = 0.5em \\
+   \lnc{\cmidrulekern}   = 0.25em
+ \end{quote}
+ The last of these, \lnc{\cmidrulekern}, is the amount by which a
+ \cmd{\cmidrule} is trimmed at the ends indicated in the \verb?()?
+ option. In the construction
+ \begin{quote}
+   \verb?\cmidrule(r){1-2}\cmidrule(l){3-4}?
+ \end{quote}
+ there is a total of 0.5em separating the two rules. Currently
+ the only way to get special effects is to reset \lnc{\cmidrulekern}
+ as appropriate; the amount of trimming is not available as an
+ argument in the current implementation of \cmd{\cmidrule}.
+
+
+ An example of the commands in use was given by the code to
+ produce \tref{tab:after} on \pref{tab:after}:
+\begin{lcode}
+\begin{tabular}{@{}llr@{}} \toprule
+\multicolumn{2}{c}{Item} \\ \cmidrule(r){1-2}
+Animal & Description & Price (\$)\\ \midrule
+Gnat   & per gram  & 13.65 \\
+       & each      & 0.01 \\
+Gnu    & stuffed   & 92.50 \\
+Emu    & stuffed   & 33.33 \\
+Armadillo & frozen & 8.99 \\ \bottomrule
+\end{tabular}
+\end{lcode}
+
+\index{table!rule|)}
+
+\subsection{Fills}
+
+\index{table!row fill|(}
+\index{array!row fill|(}
+
+    The rules described previously go between rows. Sometimes it may be 
+desirable to to put a rule or something similar within a 
+row.
+    
+\begin{syntax}
+\cmd{\downbracefill} \cmd{\hrulefill} \cmd{\upbracefill} \\
+\end{syntax}
+\glossary(downbracefill)%
+  {\cs{downbracefill}}%
+  {Fills a tabular column with a down brace.}
+\glossary(hrulefill)%
+  {\cs{hrulefill}}%
+  {Fills a tabular column with a rule.}
+\glossary(upbracefill)%
+  {\cs{upbracefill}}%
+  {Fills a tabular column with an up brace.}
+
+Examples of \cmd{\downbracefill}, \cmd{\hrulefill}, and \cmd{\upbracefill}
+are illustrated in \tref{tab:fills}, typeset from the code below. 
+Surprisingly these are
+ordinary text commands, not math mode commands.
+
+
+\begin{lcode}
+\begin{table}
+\centering
+\caption{Example table with fills} \label{tab:fills}
+\begin{tabular}{rrrrr}
+1 & 2   & 3   & 4    & 5 \\
+Q &     & fgh & jklm & qwerty \\
+v & as  & x   &    y &      z \\
+g & nnn & \multicolumn{3}{c}{\upbracefill} \\
+\multicolumn{3}{c}{\downbracefill} & pq & dgh \\
+k & j   & t   & co   & ytrewq \\
+1 & 2   & 3   & \multicolumn{2}{c}{\hrulefill}
+\end{tabular}
+\end{table}
+\end{lcode}
+
+\begin{table}
+\centering
+\caption{Example table with fills} \label{tab:fills}
+\begin{tabular}{rrrrr}
+1 & 2   & 3   & 4    & 5 \\
+Q &     & fgh & jklm & qwerty \\
+v & as  & x   &    y &      z \\
+g & nnn & \multicolumn{3}{c}{\upbracefill} \\
+\multicolumn{3}{c}{\downbracefill} & pq & dgh \\
+k & j   & t   & co   & ytrewq \\
+1 & 2   & 3   & \multicolumn{2}{c}{\hrulefill}
+\end{tabular}
+\end{table}
+
+    Here are the same fills, but this time in an \Ie{array} environment.
+are shown afterwards. Notice the \texttt{\$}s in the array surrounding
+the fills. Normally \verb?$...$? is used to typeset a small
+amount of math mode material
+in the middle of text. In this case, as the \Ie{array} is already in math mode
+the \verb?$...$? are used to typeset a small amount of text material
+within math mode.
+
+\begin{lcode}
+\begin{displaymath}
+\begin{array}{rrrrr}
+1 & 2   & 3   & 4    & 5 \\
+Q &     & fgh & jklm & qwerty \\
+v & as  & x   &    y &      z \\
+g & nnn & \multicolumn{3}{c}{$\upbracefill$} \\
+\multicolumn{3}{c}{$\downbracefill$} & pq & dgh \\
+k & j   & t   & co   & ytrewq \\
+1 & 2   & 3   & \multicolumn{2}{c}{\hrulefill}
+\end{array}
+\end{displaymath}
+\end{lcode}
+
+\begin{displaymath}
+\begin{array}{rrrrr}
+1 & 2   & 3   & 4    & 5 \\
+Q &     & fgh & jklm & qwerty \\
+v & as  & x   &    y &      z \\
+g & nnn & \multicolumn{3}{c}{$\upbracefill$} \\
+\multicolumn{3}{c}{$\downbracefill$} & pq & dgh \\
+k & j   & t   & co   & ytrewq \\
+1 & 2   & 3   & \multicolumn{2}{c}{\hrulefill}
+\end{array}
+\end{displaymath}
+
+    You can define your own `fill'. For example:
+\begin{lcode}
+\newcommand*{\upbracketfill}{%
+  \vrule height 4pt depth 0pt\hrulefill%
+  \vrule height 4pt depth 0pt}
+\end{lcode}
+is a fill that has the appearance of a (horizontal) bracket. It can
+be used like this:
+\begin{lcode}
+\begin{displaymath}
+\begin{array}{cccc}
+1 & 2 & 3 & 4 \\
+a & \multicolumn{2}{c}{\upbracketfill} & d \\
+A & B & C & D
+\end{array}
+\end{displaymath}
+\end{lcode}
+
+\newcommand*{\upbracketfill}{%
+  \vrule height 4pt depth 0pt\hrulefill\vrule height 4pt depth 0pt}
+
+\begin{displaymath}
+\begin{array}{cccc}
+1 & 2 & 3 & 4 \\
+a & \multicolumn{2}{c}{\upbracketfill} & d \\
+A & B & C & D
+\end{array}
+\end{displaymath}
+
+\index{array!row fill|)}
+\index{table!row fill|)}
+
+\section{Tabular environments}
+
+\index{tabular|(}
+
+\begin{syntax}
+\senv{tabular}\oarg{pos}\marg{format} rows \eenv{tabular} \\
+\senv{tabular*}\marg{width}\oarg{pos}\marg{format} rows \eenv{tabular*} \\
+\senv{tabularx}\marg{width}\oarg{pos}\marg{format} rows \eenv{tabularx} \\
+\end{syntax}
+
+    A table created using the \Ie{tabular} environment comes out as
+wide as it has to be to accomodate the entries. On the other hand,
+both the \Ie{tabular*} and \Ie{tabularx} environments let you specify
+the overall width\index{tabular!controlling width} 
+of the table via the additional \meta{width} atrgument.
+
+    The \Ie{tabular*} environment makes any necessary adjustment by altering
+the intercolumn\index{tabular!intercolumn space} spaces while the 
+\Ie{tabularx} environment alters
+the column\index{tabular!column width} widths. Those columns that can 
+be adjusted are noted by
+using the letter \texttt{X}\index{tabular!X column} as the column 
+specifier in the \meta{format}.
+Once the correct column widths have been calculated the \texttt{X}
+columns are converted to \texttt{p} columns.
+
+ \subsection{Examples}
+
+    The following code is used for a regular \Ie{tabular}.
+\begin{lcode}
+\begin{figure}
+\centering
+\caption{Example of a regular \texttt{tabular}}
+\begin{tabular}{|c|p{5.5pc}|c|p{5.5pc}|}  \hline
+\multicolumn{2}{|c|}{Multicolumn entry!} & THREE & FOUR \\ \hline
+one &
+\raggedright\arraybackslash The width of this column is fixed 
+(5.5pc). & three &
+\raggedright\arraybackslash Column four will act in the same 
+way as column two, with the same width.\\
+\hline
+\end{tabular}
+\end{figure}
+\end{lcode}
+
+\begin{figure}
+\centering
+\caption{Example of a regular \texttt{tabular}}
+\begin{tabular}{|c|p{5.5pc}|c|p{5.5pc}|}   \hline
+\multicolumn{2}{|c|}{Multicolumn entry!} & THREE & FOUR \\  \hline
+one &
+\raggedright\arraybackslash The width of this column is fixed (5.5pc). &
+three &
+\raggedright\arraybackslash Column four will act in the same way as
+  column two, with the same width.\\
+ \hline
+\end{tabular}
+\end{figure}
+
+
+    The following examples use virtually the same contents, the major
+differences are the specifications of the environment.
+
+
+\begin{figure}
+\centering
+\caption{Example \texttt{tabularx} and \texttt{tabular*} with widths of 250pt}
+\verb?\begin{tabularx}{250pt}{|c|X|c|X|}?
+
+ \begin{tabularx}{250pt}{|c|X|c|X|}
+ \hline
+ \multicolumn{2}{|c|}{Multicolumn entry!}&
+ THREE&
+ FOUR\\
+ \hline
+ one&
+ \raggedright\arraybackslash The width of this column depends on the
+ width of the table.\footnote{You can use footnotes in a \texttt{tabularx}!}
+&
+ three&
+ \raggedright\arraybackslash Column four will act in the same way as
+ column two, with the same width.\\
+ \hline
+ \end{tabularx}
+\vspace{\onelineskip}
+
+\verb? \begin{tabular*}{250pt}{|c|p{5.5pc}|c|p{5.5pc}|}? 
+
+ \begin{tabular*}{250pt}{|c|p{5.5pc}|c|p{5.5pc}|}
+ \hline
+ \multicolumn{2}{|c|}{Multicolumn entry!}&
+ THREE&
+ FOUR\\
+ \hline
+ one&
+ \raggedright\arraybackslash The width of this column is fixed (5.5pc). &
+ three &
+ \raggedright\arraybackslash Column four will act in the same way as
+ column two, with the same width.\\
+ \hline
+ \end{tabular*}
+\end{figure}
+
+Note that the horizontal rules\index{tabular!rule} extend beyond the 
+last column.
+There are no \texttt{X} columns and the total width required to set
+the \Ie{tabular*} is less than the 250pt specified for the width.
+
+
+Compare the previous narrow \Ie{tabular*} with the next one which is set with 
+\begin{lcode}
+ \begin{tabular*}{300pt}%
+       {|@{\extracolsep{\fill}}c|p{5.5pc}|c|p{5.5pc}|}
+\end{lcode}
+
+\begin{figure}
+\centering
+\caption{Example \texttt{tabularx} and \texttt{tabular*} with widths of 300pt}
+\verb?\begin{tabularx}{300pt}{|c|X|c|X|}?
+
+ \begin{tabularx}{300pt}{|c|X|c|X|}
+ \hline
+ \multicolumn{2}{|c|}{Multicolumn entry!}&
+ THREE&
+ FOUR\\
+ \hline
+ one&
+ \raggedright\arraybackslash The width of this column depends on the
+ width of the table.&
+ three&
+ \raggedright\arraybackslash Column four will act in the same way as
+ column two, with the same width.\\
+ \hline
+ \end{tabularx}
+
+\vspace{\onelineskip}
+\verb?\begin{tabular*}{300pt}%? \\
+\verb?      {|@{\extracolsep{\fill}}c|p{5.5pc}|c|p{5.5pc}|}?
+ 
+ \begin{tabular*}{300pt}{|@{\extracolsep{\fill}}c|p{5.5pc}|c|p{5.5pc}|}
+ \hline
+ \multicolumn{2}{|c|}{Multicolumn entry!}&
+ THREE&
+ FOUR\\
+ \hline
+ one&
+ \raggedright\arraybackslash The width of this column's text is fixed (5.5pc). &
+ three &
+ \raggedright\arraybackslash Column four will act in the same way as
+ column two, with the same width.\\
+ \hline
+ \end{tabular*}
+\end{figure}
+
+
+
+     The main differences between the \Ie{tabularx} and \Ie{tabular*}
+environments are:
+ \begin{itemize}
+ \item \Ie{tabularx} modifies the widths\index{tabular!column width} 
+ of the \emph{columns},
+ whereas \Ie{tabular*} modifies the widths of the 
+ intercolumn\index{tabular!intercolumn space}  \emph{spaces}.
+ \item \Ie{tabular} and \Ie{tabular*} environments may be
+ nested with no restriction, however if one \Ie{tabularx}
+ environment occurs inside another, then the inner one \emph{must} be
+ enclosed by \verb?{ }?.
+ \item The body of the \Ie{tabularx} environment is in fact the
+ argument to a command, and so certain constructions which are not
+ allowed in command arguments (like \cmd{\verb}) may not be used.\footnote
+ {Actually, \cs{verb} and \cs{verb*} may be used, but they may 
+ treat spaces incorrectly, and the
+ argument can not contain an unmatched {\ttfamily\char`\{} or
+ {\ttfamily\char`\}}, or a  {\ttfamily\char`\%} character.}
+ \item \Ie{tabular*} uses a primitive capability of \tx\ to
+ modify the inter column space of an alignment. \Ie{tabularx}
+ has to set the table several times as it searches for the best column
+ widths, and is therefore much slower. Also the fact that the body is
+ expanded several times may break certain \tx\ constructs.
+ \end{itemize}
+
+\begin{syntax}
+\cmd{\tracingtabularx} \\
+\end{syntax}
+\glossary(tracingtabularx)%
+  {\cs{tracingtabularx}}%
+  {Writes information about the changing column widths while setting
+   a \texttt{tabularx}.}
+Following the \cmd{\tracingtabularx} declaration all
+later \Ie{tabularx} environments will print information
+ about column widths as they repeatedly re-set the tables to find the
+ correct widths.
+
+
+ By default the \texttt{X} specification is turned into
+ \verb?p?\marg{some value}. Such narrow columns often
+ require a special format, which can be achieved by using the \verb?>? syntax.
+For example, \verb?>{\small}X?. Another format which is useful in narrow 
+columns is  raggedright\index{tabular!raggedright}, 
+however \ltx's \cmd{\raggedright} macro redefines
+\cmd{\\} in a way which conflicts with its use in  \Ie{tabular} or 
+\Ie{array}  environments.
+
+\begin{syntax}
+\cmd{\arraybackslash} \\
+\end{syntax}
+\glossary(arraybackslash)%
+  {\cs{arraybackslash}}%
+  {Use instead of \Vprint{\\} in a tabular column.}
+ For this reason the command \cmd{\arraybackslash} is provided;
+this may be used after a \cmd{\raggedright}, \cmd{\raggedleft}  or
+\cmd{\centering} declaration. Thus a \Ie{tabularx} format may include
+\begin{lcode}
+>{\raggedright\arraybackslash}X
+\end{lcode}
+ These format specifications may of course be saved using the
+ command, \cmd{\newcolumntype}\index{tabular!new column type}. 
+After specifying, say,
+\begin{lcode}
+\newcolumntype{Y}{>{\small\raggedright\arraybackslash}X}
+\end{lcode}
+then \texttt{Y} could be used in the \Ie{tabularx} format
+ argument.
+
+ 
+\begin{syntax}
+\cmd{\tabularxcolumn} \\
+\end{syntax}
+\glossary(tabularxcolumn)%
+  {\cs{tabularxcolumn}}%
+  {Column type for an \texttt{X} column in a \texttt{tabularx}.}
+ The \texttt{X} columns are set using the \texttt{p} column, which
+ corresponds  to \cmd{\parbox}\verb?[t]?. You may want them set using, say, the
+\texttt{m} column, which corresponds to \cmd{\parbox}\verb?[c]?. It is not
+ possible to change the column type using the \texttt{>} syntax, so another
+ system is provided.  \cmd{\tabularxcolumn} should be defined to be a macro
+ with one argument, which expands to the \Ie{tabular} format
+ specification that you want to correspond to \texttt{X}. The
+ argument will be replaced by the calculated width of a column.
+
+ The default definition is
+\begin{lcode}
+\newcommand{\tabularxcolumn}[1]{p{#1}}
+\end{lcode}
+This may be changed, for instance
+\begin{lcode}
+\renewcommand{\tabularxcolumn}[1]{>{\small}m{#1}}
+\end{lcode}
+so that \texttt{X} columns will be typeset as \texttt{m} columns using
+the \cmd{\small} font.
+
+ Normally all \texttt{X} columns\index{tabular!X column} 
+in a single table are set to the
+ same width, however it is possible to make \Ie{tabularx} set
+ them to different widths.
+ A format argument of 
+\begin{lcode}
+{>{\hsize=.5\hsize}X>{\hsize=1.5\hsize}X}
+\end{lcode}
+ specifies two columns, where the second will be three times as wide as the
+ first. If you think you need to do things like this try and redesign 
+your table. However, if you must you should follow these two rules.
+ \begin{itemize}
+ \item Make sure that the sum of the widths of all the \texttt{X}
+ columns is unchanged. (In the above example, the new widths still add
+ up to twice the default width, the same as two standard \texttt{X}
+ columns.)
+ \item Do not use \cmd{\multicolumn} entries which cross any \texttt{X}
+ column.
+ \end{itemize}
+
+
+ \Ie{tabularx} will not set \texttt{X} columns to a negative width.
+If the widths of the `normal' columns of the table already total more 
+than the requested total width you will get the warning 
+`\texttt{X columns too narrow (table too wide)}'.\index{X columns too narrow (table too wide)}
+ The \texttt{X} columns will be set to a width of 1em
+ and so the table itself will be wider than the requested total width
+ given in the argument to the environment.
+% This behaviour of the package can be customised slightly
+% as noted in the documentation of the code section.
+
+    The standard \cmd{\verb} macro does not work inside a \Ie{tabularx},
+just as it does not work in the argument to any macro.
+
+\begin{syntax}
+\cmd{\TX@verb} \\
+\end{syntax}
+\glossary(TX@verb)%
+  {\cs{TX@verb}}%
+  {A poor man's \cs{verb} for use in a \texttt{tabularx}.}
+The `poor man's \cmd{\verb}' (and
+ \cmd{\verb*}) defined here is based on page 382 of the \btitle{\tx book}. As
+ explained there, doing verbatim this way means that spaces are not
+ treated correctly, and so \cmd{\verb*} may well be useless. 
+ The mechanism is quite general, and any macro which wants to allow a
+ form of \cmd{\verb} to be used within its argument may
+\begin{lcode}
+\let\verb=\TX@verb
+\end{lcode}
+It must ensure that the real definition is restored afterwards.
+
+    This version of \cmd{\verb} and \cmd{\verb*} are subject to the 
+following restictions:
+ \begin{enumerate}
+ \item Spaces in the argument are not read verbatim, but may be skipped
+       according to \tx's usual rules.
+ \item Spaces will be added to the output after control words, even if
+       they were not present in the input.
+ \item Unless the argument is a single space, any trailing space,
+       whether in the original argument, or added as in (2),
+       will be omitted.
+ \item The argument must not end with \verb?\?, so \verb?\verb|\|? is not
+      allowed, however, because of (3), \verb?\verb|\ |? produces
+      \verb?\?.
+ \item The argument must be balanced with respect to \verb?{? and \verb?}?. So
+      \verb?\verb|{|? is not allowed.
+ \item A comment character like \verb?%? will not appear verbatim. It will
+       act as usual, commenting out the rest of the input line!
+ \item The combinations \verb=?`= and \verb?!`? will appear as
+       {\ttfamily?`} and {\ttfamily!`} if the Computer Typewriter\index{Typewriter}
+       font is  being used.
+ \end{enumerate}
+
+
+\index{tabular|)}
+
+\section{Spaces and rules}
+
+\subsection{Spacing}
+
+    Sometimes tabular rows appear vertically challenged.
+
+\begin{syntax}
+\cmd{\arraystretch} \\
+\end{syntax}
+\glossary(arraystretch)%
+  {\cs{arraystretch}}%
+  {Multiplication factor for the normal row spacing in tabulars and arrays.}
+The macro \cmd{\arraystretch} controls the spacing between 
+rows.\index{array!row spacing}\index{tabular!row spacing} The normal
+space is multiplied by the value of \cmd{\arraystretch}, whose default
+definition is
+\begin{lcode}
+\newcommand{\arraystretch}{1.0}
+\end{lcode}
+If this is changed to 1.25, for example, the row spacing is increased by 25\%.
+
+\begin{syntax}
+\lnc{\extrarowheight} \\
+\end{syntax}
+\glossary(extrarowheight)%
+  {\cs{extrarowheight}}%
+  {Length added to the normal row height in tabulars and arrays.}
+If the length \lnc{\extrarowheight} is positive, its value is added
+to the normal height of every row of the array or table, while
+the depth will remain the same. This is important for tables
+with horizontal lines because those lines normally touch the
+capital letters. For example
+\begin{lcode}
+\begin{table}
+\centering
+\caption{The array and tabular format options.}%
+ \label{tab:tabpream}
+    \setlength{\extrarowheight}{1pt}
+\begin{tabular}{cp{9cm}} \toprule
+...
+\end{lcode}
+was used for \tref{tab:tabpream}.
+
+\begin{syntax}
+\lnc{\arraycolsep} \lnc{\tabcolsep} \\
+\end{syntax}
+\glossary(arraycolsep)%
+  {\cs{arraycolsep}}%
+  {Half the space between columns in an array.}
+\glossary(tabcolsep)%
+  {\cs{tabcolsep}}%
+  {Half the space between columns in a tabular.}
+The length \lnc{\arraycolsep} is half the width of the horizontal space
+between columns\index{array!intercolumn space} in an \Ie{array} environment 
+and similarly the length
+\lnc{\tabcolsep} is half the space between 
+columns\index{tabular!intercolumn space} in an \Ie{tabular}
+or \Ie{tabular*} environment.
+
+\begin{syntax}
+\lnc{\arrayrulewidth} \lnc{\doublerulesep} \\
+\end{syntax}
+\glossary(arrayrulewidth)%
+  {\cs{arrayrulewidth}}%
+  {Width of lines (e.g., \cs{hline}, \cs{vline}, etc.) in an array or tabular.}
+The length \lnc{\arrayrulewidth} is the width of the line created by
+a \verb?|? in the format, or by an \cmd{\hline}, \cmd{\cline} or
+\cmd{\vline} command. The length \lnc{\doublerulesep} is the space
+between lines created by two successive \verb?|? options in the format
+or by successive \cmd{\hline} commands.
+
+
+\subsection{Special variations on horizontal lines}
+
+ The family of \texttt{tabular} environments allows
+vertical positioning\index{tabular!vertical position} 
+with respect to the baseline of
+the text in which the environment appears.  By default the
+environment appears centered, but this can be changed to
+align with the first or last line in the environment by
+supplying a \texttt{t} or \texttt{b} value to the
+optional position argument. However, this does not work
+when the first or last element in the environment is a
+\cmd{\hline} command --- in that case the environment is
+aligned at the horizontal rule.
+
+ \pagebreak[3]
+
+ Here is an example:
+ \begin{center}
+ \begin{minipage}[t]{.4\linewidth}
+ Tables
+ \begin{tabular}[t]{l}
+   with no\\ hline\\ commands 
+ \end{tabular} versus \\ tables
+ \begin{tabular}[t]{|l|}
+  \hline
+  with some\\ hline\\ commands\\
+  \hline
+ \end{tabular} used.
+ \end{minipage}
+ \begin{minipage}[t]{.52\linewidth}
+ \begin{verbatim}
+ Tables
+ \begin{tabular}[t]{l}
+  with no\\ hline\\ commands
+ \end{tabular} versus tables
+ \begin{tabular}[t]{|l|}
+  \hline
+  with some\\ hline\\ commands\\
+  \hline
+ \end{tabular} used.
+ \end{verbatim}
+ \end{minipage}
+\end{center}
+
+\begin{syntax}
+\cmd{\firsthline} \cmd{\lasthline} \\
+\lnc{\extratabsurround} \\
+\end{syntax}
+\glossary(firsthline)%
+  {\cs{firsthline}}%
+  {An \cs{hline} (the first) that does not effect vertical alignment of an 
+   array or tabular.}
+\glossary(lasthline)%
+  {\cs{lasthline}}%
+  {An \cs{hline} (the last) that does not effect vertical alignment of an 
+   array or tabular.}
+\glossary(extratabsurround)%
+  {\cs{extratabsurround}}
+  {Adds additional space for \cs{firsthline} and \cs{lasthline}.}
+
+ Using \cmd{\firsthline} and \cmd{\lasthline} will 
+ cure the problem, and the tables will align properly as long
+ as their first or last line does not contain extremely large
+ objects.
+ \begin{center}
+ \begin{minipage}[t]{.4\linewidth}
+ Tables
+ \begin{tabular}[t]{l}
+   with no\\ line \\ commands 
+ \end{tabular} versus \\ tables
+ \begin{tabular}[t]{|l|}
+  \firsthline
+   with some\\ line \\ commands \\
+  \lasthline
+ \end{tabular} used.
+ \end{minipage} 
+ \begin{minipage}[t]{.52\linewidth}
+ \begin{verbatim}
+ Tables
+ \begin{tabular}[t]{l}
+   with no\\ line\\ commands
+ \end{tabular} versus tables
+ \begin{tabular}[t]{|l|}
+  \firsthline
+   with some\\ line\\ commands\\
+  \lasthline
+ \end{tabular} used.
+ \end{verbatim}
+ \end{minipage}
+ \end{center}
+
+ The implementation of these two commands contains an extra
+ dimension, which is called \cmd{\extratabsurround}, to add some
+ additional space at the top and the bottom of such an environment.
+ This is useful if such tables are nested.
+
+ \subsection{Handling of rules}
+ 
+ There are two possible approaches to the handling of horizontal and
+ vertical rules in tables:
+ \begin{enumerate}
+   \item rules can be placed into the available space without
+   enlarging the table, or
+   \item rules can be placed between columns or rows thereby enlarging
+   the table.
+ \end{enumerate}
+ The class implements the second possibility while the
+ default implementation in the \ltx\ kernel implements the first
+ concept. 
+
+   With standard \ltx\ adding rules to a table will not affect the
+   width or height of the table (unless double rules are used), e.g.,
+   changing a format from \verb?lll? to \verb?l|l|l? does not
+   affect the document other than adding rules to the table. In
+   contrast, with the class a table that just fits the
+   \lnc{\textwidth} might now produce an overfull box.
+(But you shouldn't have vertical rules in the first place.)
+
+
+\section{Free tabulars}
+
+\index{tabular!free|(}
+
+    All the tabular environments described so far put the table
+into a box\index{box}, which \ltx\ treats like a large complex
+character, and characters are not broken across\index{page!break} pages. 
+If you
+have a long table\index{table!long} that runs off the bottom of 
+the page you can turn
+to, say, the \Lpack{longtable}~\cite{LONGTABLE} or \Lpack{xtab}~\cite{XTAB}
+packages which will automatically break tables across page boundaries.
+These have various bells and whistles, such as automatically putting
+a caption at the top of each page, repeating the column heads, and 
+so forth. 
+
+\subsection{Continuous tabulars}
+
+\index{tabular!continuous}
+
+\begin{syntax}
+\senv{ctabular}\oarg{pos}\marg{format} rows \eenv{ctabular} \\
+\end{syntax}
+\glossary(ctabular)%
+  {\senv{ctabular}\oarg{pos}\marg{format}}%
+  {Like \texttt{tabular} except that it will continue over a page break.}
+The \Ie{ctabular} environment is similar to \Ie{tabular}, but with a 
+couple of differences, the main one 
+being that the table will merrily continue across page\index{page!break} 
+breaks.
+The \meta{format} argument is the same as for the previous \Ie{array}
+and \Ie{tabular} environments, but the optional \meta{pos} argument
+controls the horizontal position\index{tabular!continuous!position} 
+of the table, not the vertical. The
+possible argument value is one of the following characters:
+\begin{itemize}
+\item[\pixposarg{l}] left justified, 
+\item[\pixposarg{c}] centered, or
+\item[\pixposarg{r}] right justified; 
+\end{itemize}
+the default is \pixposarg{c}.
+
+\begin{lcode}
+\begin{ctabular}{lcr}  \toprule
+LEFT & CENTER & RIGHT \\  \midrule
+l & c & r \\
+l & c & r \\
+l & c & r \\
+l & c & r \\  \bottomrule
+\end{ctabular}
+\end{lcode}
+  
+\begin{ctabular}[c]{lcr}  \toprule
+LEFT & CENTER & RIGHT \\  \midrule
+l & c & r \\
+l & c & r \\
+l & c & r \\
+l & c & r \\  \bottomrule
+\end{ctabular}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    The \Ie{ctabular*} has an extra \meta{width} argument. The table will be
+placed within \meta{width} from the lefthand margin. Essentially
+the following are equivalent:
+\begin{lcode}
+\begin{ctabular}[c]{...}
+\begin{ctabular*}[c]{\textwidth}{...}
+\end{lcode}
+but \ldots
+\begin{lcode}
+\begin{ctabular*}[c]{0.5\textwidth}{lcr}  \toprule
+LEFT & CENTER & RIGHT \\  \midrule
+l & c & r \\
+l & c & r \\
+l & c & r \\
+l & c & r \\  \bottomrule
+\end{ctabular*}
+\end{lcode}
+
+\begin{ctabular*}[c]{0.5\textwidth}{lcr}  \toprule
+LEFT & CENTER & RIGHT \\  \midrule
+l & c & r \\
+l & c & r \\
+l & c & r \\
+l & c & r \\  \bottomrule
+\end{ctabular*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+An example use is for setting two texts\index{parallel texts} in parallel, 
+for instance a
+poem and it's translation, without having to be concerned about page
+breaks.
+
+\begin{ctabular}{lcl}
+Je suis Fran\c{c}oys, dont il me pois, &
+\index[lines]{Je suis Fran\c{c}oys, dont il me pois}%
+\index[lines]{I am Fran\c{c}ois, which is unfortunate}& 
+I am Fran\c{c}ois, which is unfortunate, \\
+N\'{e} de Paris empr\`{e}s Pointoise, & & born in Paris near Pointoise, \\
+Et de la corde d'une toise            & & and with a six-foot stretch of rope, \\
+S\c{c}aura mon col que mon cul poise. & & my neck will know my arse's weight. \\
+\multicolumn{3}{r}{Fran\c{c}ois Villon, 1431--1463?}
+\end{ctabular}
+
+    The \Ie{ctabular} environment will probably not be used within
+a \Ie{table} environment (which defeats the possibility of the table
+crossing page boundaries). To caption a \Ie{ctabular} you can define a 
+fixed\index{tabular!free!caption} caption\index{caption!fixed}. 
+For example:
+\begin{lcode}
+\newfixedcaption{\freetabcaption}{table}
+\end{lcode}
+And then \cmd{\freetabcaption} can be used like the normal \cmd{\caption}
+within a \Ie{table} float.
+\newfixedcaption{\freetabcaption}{table}
+
+
+\subsection{Automatic tabulars}
+
+    A tabular format may be used just to list things, for example the
+names of the members of a particular organisation, or the names of
+\ltx\ environments. 
+
+\index{tabular!automatic|(}
+
+    Especially when drafting a document, or when the number of entries
+is likely to change, it is convenient to be able to tabulate a list
+of items without having to explicitly mark the end of each row.
+
+\index{tabular!automatic!by row}
+\begin{syntax}
+\cmd{\autorows}\oarg{width}\marg{pos}\marg{num}\marg{style}\marg{entries} \\
+\end{syntax}
+\glossary(autorows)%
+  {\cs{autorows}\oarg{width}\marg{pos}\marg{num}\marg{style}\marg{entries}}%
+  {Lists the \meta{entries} in rows across \meta{num} columns in a tabular 
+   fashion.}
+The \cmd{\autorows} macro lists the \meta{entries} in rows; that is,
+the entries are typeset left to right and top to bottom. The
+\meta{num} argument is the number of columns.
+The \meta{entries} argument is a comma-separated list of the names to be
+tabulated; there must be no comma after the last of the names before the
+closing brace.
+Table~\ref{tab:autorows} was set by \cmd{\autorows} using:
+\begin{lcode}
+\begin{figure}
+\freetabcaption{Example automatic row ordered table}
+               \label{tab:autorows}
+\autorows{c}{5}{c}{one, two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+\end{figure}
+\end{lcode}
+
+\begin{figure}
+\freetabcaption{Example automatic row ordered table} \label{tab:autorows}
+\autorows{c}{5}{c}{one, two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+\end{figure}
+
+    The \meta{pos} argument controls the horizontal 
+position\index{tabular!automatic!position} of the
+tabular and the \meta{style} argument specifies the location of the
+entries in the columns; each column\index{tabular!automatic!column style} 
+is treated identically. The value
+of a \meta{pos} or \meta{style} argument is one of the following
+characters:
+\begin{itemize}
+\item[\pixposarg{l}] left justified, 
+\item[\pixposarg{c}] centered, or
+\item[\pixposarg{r}] right justified. 
+\end{itemize}
+
+ Each column is normally the same 
+width,\index{tabular!automatic!column width}\index{tabular!automatic!table width}
+which is large enough to accomodate
+the widest entry in the list.
+A positive \meta{width} (e.g., \verb?{0.8\textwidth}?), defines the overall
+width of the table, and the column width is calculated by dividing \meta{width}
+by the number of columns. Any negative value for the \meta{width} width lets 
+each column be wide enough for the widest entry in that column; 
+the column width is no longer a constant. 
+
+   The examples in \fref{fig:arw} illustrate the effect of the \meta{width} 
+argument (the default value is 0pt). The principal elements of the code
+for the \figurerefname{} are:
+\begin{lcode}
+\begin{figure}
+...
+\autorows[-1pt]{c}{5}{c}{one, two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+...
+\autorows[0pt]{c}{5}{c}{one, two, three, 
+                            ... fourteen }
+...
+\autorows[0.9\textwidth]{c}{5}{c}{one, two, three, 
+                                      ... fourteen }
+\caption{Changing the width of a row ordered table} 
+         \label{fig:arw}
+\end{figure}
+\end{lcode}
+
+\begin{figure}
+\centering
+\meta{width} = \verb?-1pt? 
+\autorows[-1pt]{c}{5}{c}{one, two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+
+\meta{width} = \verb?0pt? (the default)
+ \autorows[0pt]{c}{5}{c}{one, two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+
+\meta{width} = \verb?0.9\textwidth? 
+\autorows[0.9\textwidth]{c}{5}{c}{one, two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+\caption{Changing the width of a row ordered table} \label{fig:arw}
+\end{figure}
+
+
+\begin{syntax}
+\cmd{\autocols}\oarg{width}\marg{pos}\marg{num}\marg{style}\marg{entries} \\
+\end{syntax}
+\glossary(autocols)%
+  {\cs{autocols}\oarg{width}\marg{pos}\marg{num}\marg{style}\marg{entries}}%
+  {Lists the \meta{entries} down \meta{num} columns in a tabular 
+   fashion.}
+The \cmd{\autocols} macro lists its \meta{entries} in 
+columns,\index{tabular!automatic!by column} proceeding
+top to bottom and left to right. The arguments, 
+are the same as for \cmd{\autorows}, except that a negative
+\meta{width} is treated as if it were zero. The column 
+width\index{tabular!automatic!column width}\index{tabular!automatic!table width}
+is always constant 
+throughout the table and is normally sufficient for the
+widest entry. A positive or zero \meta{width} has the same effect as for 
+\cmd{\autorows}.
+
+    If you need to include a comma within one of the entries in the list
+for either \cmd{\autorows} or \cmd{\autocols} you have to use a macro. 
+For instance:
+\begin{lcode}
+\newcommand*{\comma}{,}
+\end{lcode}
+\newcommand*{\comma}{,}
+
+The examples in \fref{fig:acw}, from the following code elements, 
+illustrate these points.
+
+\begin{lcode}
+\begin{figure}
+...
+\autocols{c}{5}{c}{one\comma{} two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+...
+\autocols[0.9\textwidth]{c}{5}{c}{one\comma{} two, three, 
+                                            ... fourteen }
+\caption{Changing the width of a column ordered table} 
+\label{fig:acw}
+\end{figure}
+\end{lcode}
+
+\begin{figure}
+\begin{adjustwidth}{-10mm}{-10mm}
+\centering
+\meta{width} = \verb?0pt? (the default)
+\autocols{c}{5}{c}{one\comma{} two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+
+\meta{width} = \verb?0.9\textwidth? 
+\autocols[0.9\textwidth]{c}{5}{c}{one\comma{} two, three, four, five,
+                   six, seven, eight, nine, ten,
+                   eleven, twelve, thirteen, fourteen }
+\caption{Changing the width of a column ordered table} \label{fig:acw}
+\end{adjustwidth}
+\end{figure}
+
+\index{tabular!automatic|)}
+\index{tabular!free|)}
+
+%#% extend
+%#% extstart include page-notes.tex

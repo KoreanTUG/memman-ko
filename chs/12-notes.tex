@@ -1,0 +1,1956 @@
+\chapter{Page notes} \label{chap:mnotes}
+
+   The standard classes provide the \cmd{\footnote} command for notes
+at the bottom of the page. The class provides several styles of footnotes
+and you can also have several series of footnotes for when the material
+gets complicated. The normal \cmd{\marginpar} command puts notes into
+the margin, which may float around a little if there are other
+\cmd{\marginpar}s on the page. The class additionally supplies commands
+for fixed marginal notes and sidebars.
+
+
+\section{Footnotes}
+
+    A footnote can be considered to be a special kind of float\index{float} 
+that is put at the bottom of a page.
+
+\begin{syntax}
+\cmd{\footnote}\oarg{num}\marg{text} \\
+\end{syntax}
+\glossary(footnote)
+  {\cs{footnote}\oarg{num}\marg{text}}%
+  {Put \meta{text} as a footnote.}
+In the main text, the \cmd{\footnote} command puts a marker at the
+point where it is called, and puts the \meta{text}, preceded by the same
+mark, at the bottom of the page. If the optional \meta{num} is used
+then its value is used for the mark, otherwise the \Icn{footnote}
+counter is stepped and provides the mark's value. The \cmd{\footnote}
+command should be used in paragraph mode where it puts the note at the
+bottom of the page, or in a \Ie{minipage} where it puts the note
+at the end of the \Ie{minipage}. Results are likely to be peculiar if
+it is used anywhere else (like in a \Ie{tabular}).
+
+\begin{syntax}
+\cmd{\footnotemark}\oarg{num} \\
+\cmd{\footnotetext}\oarg{num}\marg{text} \\
+\end{syntax}
+\glossary(footnotemark)%
+  {\cs{footnotemark}\oarg{num}}%
+  {Typesets a footnote mark.}
+\glossary(footnotetext)%
+  {\cs{footnotetext}\oarg{num}\marg{text}}%
+  {Typesets \meta{text} as a footnote at the bottom of the page but does 
+   not put a mark in the main text.}
+    You can use \cmd{\footnotemark} to put a marker in the main text; the value
+is determined just like that for \cmd{\footnote}. Footnote text can be put 
+at the bottom of the page via \cmd{\footnotetext}; if the optional \meta{num}
+is given it is used as the mark's value, otherwise the value of the
+\Icn{footnote} counter is used.
+   It may be helpful, but completely untrue, to think of \cmd{\footnote} being
+defined like:
+\begin{lcode}
+\newcommand{\footnote}[1]{\footnotemark\footnotetext{#1}}
+\end{lcode}
+In any event, you can use a combination of \cmd{\footnotemark} and 
+\cmd{\footnotetext} to do footnoting where \ltx\ would normally get upset.
+
+\begin{syntax}
+\cmd{\footref}\marg{label} \\
+\end{syntax}
+\glossary(footref)%
+  {\cs{footref}{labstr}}%
+  {Reference a labelled footnote.}
+    On occasions it may be desireable to make more than one reference
+to the text of a footnote\index{footnote!reference}. This can be done by 
+putting a \cmd{\label} in the footnote and then using \cmd{\footref} to refer 
+to the label; this prints the footnote mark. For example:
+\begin{comment}
+%%% in memdesign, not memman
+\begin{lcode}
+...\footnote{... adults or babies.\label{fn:rabbits}}
+...
+... The footnote\footref{fn:rabbits} on \pref{fn:rabbits} ...
+\end{lcode}
+In this manual, the last line above prints:
+\begin{syntax}
+... The footnote\footref{fn:rabbits} on \pref{fn:rabbits} ... \\
+\end{syntax}
+\end{comment}
+\begin{lcode}
+...\footnote{...values for the kerning.\label{fn:kerning}} ...
+...
+... The footnote\footref{fn:kerning} on \pref{fn:kerning} ... \\
+\end{lcode}
+In this manual, the last line above prints:
+\begin{syntax}
+... The footnote\footref{fn:kerning} on \pref{fn:kerning} ... \\
+\end{syntax}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% from membook
+
+\begin{syntax}
+\cmd{\multfootsep} \\
+\end{syntax}
+\glossary(multfootsep)%
+  {\cs{multfootsep}}%
+  {Separator between adjacent footnote marks.}
+In the standard classes if two or more footnotes are applied 
+sequentially\footnote{One footnote}\footnote{Immediately followed by another}
+then the markers in the text are just run together. The class, like the
+\Lpack{footmisc}~\cite{FOOTMISC} and \Lpack{ledmac} packages, inserts a 
+separator\index{footnote!marker separator}
+between the marks. In the class the macro \cmd{\multfootsep} is used as
+the separator. Its default definition is:
+\begin{lcode}
+\newcommand*{\multfootsep}{\textsuperscript{\normalfont,}}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\feetabovefloat} \\
+\cmd{\feetbelowfloat} \\
+\end{syntax}
+\label{interest:feetbelowfloat}
+\glossary(feetabovefloat)%
+  {\cs{feetabovefloat}}%
+  {Typeset footnotes above bottom floats (the default).}
+\glossary(feetbelowfloat)%
+  {\cs{feetbelowfloat}}%
+  {Typeset footnotes below bottom floats.}
+In the standard classes, footnotes on a page that has a float at the
+bottom are typeset before the float. I think that this looks
+peculiar. Following the \cmd{\feetbelowfloat} declaration footnotes 
+will be typeset at the bottom of the page below any bottom 
+floats;\index{footnote!bottom float} 
+they will also be typeset at the bottom of \cmd{\raggedbottom} pages 
+as opposed to being
+put just after the bottom line of text. The standard positioning is
+used following the \cmd{\feetabovefloat} declaration, which is the default.
+
+
+
+\LMnote{2018/09/19}{Removed \cs{feetatbottom} from the manual. It does not
+  actually do anything. The footnotes are always at the bottom}
+% \begin{syntax}
+% \cmd{\feetatbottom} \\
+% \end{syntax}
+% \glossary(feetatbottom)%
+%   {\cs{feetatbottom}}%
+%   {Place footnotes at the very bottom of the text block whenever we
+%     are in a non \cs{flushbottom} context.}
+% Then\Added{2015/04/22} we use \cs{raggedbottom} or similar, \LaTeX{}
+% will by default attach the footnotes just below the text. In many
+% cases it may look better if the footnotes are being build from the
+% bottom of the texst block up. Issuing \cs{feetatbottom} does
+% this. Please note that \cs{feetatbottom} has no effect whenever
+% \cs{flushbottom} is active.
+
+
+
+\subsection{A variety of footnotes}
+
+ \begin{syntax}
+ \cmd{\verbfootnote}\oarg{num}\marg{text} \\
+ \end{syntax}
+\glossary(verbfootnote)%
+  {\cs{verbfootnote}\oarg{num}\marg{text}}%
+  {Like \cs{footnote} except that \meta{text} can contain verbatim material.}
+ The macro \cmd{\verbfootnote} is like the normal \cmd{\footnote}
+except that its \meta{text} agument\index{footnote!verbatim text} 
+can contain verbatim material.
+For example, the next two paragraphs are typeset by this code:
+ \begin{lcode}
+    Below, footnote~\ref{fn1} is a \verb?\footnote? while
+footnote~\ref{fn2} is a \verb?\verbfootnote?.
+
+    The \verb?\verbfootnote? command should 
+appear\footnote{There may be some problems if color is
+		 used.\label{fn1}}
+to give identical results as the normal \verb?\footnote?, 
+but it can include some verbatim 
+text\verbfootnote{The \verb?\footnote? macro, like all 
+                  other macros except for \verb?\verbfootnote?, 
+                  can not contain verbatim text in its 
+                  argument.\label{fn2}}
+in the \meta{text} argument.
+\end{lcode}
+
+     Below, footnote~\ref{fn1} is a \verb?\footnote? while
+ footnote~\ref{fn2} is a \verb?\verbfootnote?.
+
+     The \verb?\verbfootnote? command should 
+ appear\footnote{There may be some problems if color is
+		 used.\label{fn1}}
+ to give identical results as the normal \verb?\footnote?, but it
+ can include some verbatim 
+ text\verbfootnote{The \verb?\footnote? macro, like all other macros
+		   except for \verb?\verbfootnote?, can not contain
+		   verbatim text in its argument.\label{fn2}}
+ in the \meta{text} argument.
+
+
+
+\begin{syntax}
+\cmd{\plainfootnotes} \\
+\cmd{\twocolumnfootnotes} \\
+\cmd{\threecolumnfootnotes} \\
+\cmd{\paragraphfootnotes} \\
+\end{syntax}
+\glossary(plainfootnotes)%
+  {\cs{plainfootnotes}}%
+  {Typeset footnotes as separate marked paragraphs (the default).}
+\glossary(twocolumnfootnotes)%
+  {\cs{twocolumnfootnotes}}%
+  {Typeset footnotes in two columns.}
+\glossary(threecolumnfootnotes)%
+  {\cs{threecolumnfootnotes}}%
+  {Typeset footnotes in three columns.}
+\glossary(paragraphfootnotes)%
+  {\cs{paragraphfootnotes}}%
+  {Typeset footnotes as a single paragraph.}
+
+Normally, each footnote\index{footnotes!as paragraphs} 
+starts a new paragraph. The class provides three
+other\index{footnote!styles} styles, making four in all. 
+Following the \cmd{\twocolumnfootnotes}\index{footnotes!as two columns}
+declaration footnotes will be typeset in two columns, and similarly
+they are typeset in three columns\index{footnotes!as three columns} 
+after the \cmd{\threecolumnfootnotes}
+declaration. Footnotes are run together as a single 
+paragraph\index{footnotes!as a paragraph} after the
+\cmd{\paragraphfootnotes} declaration. The default style is used after
+the \cmd{\plainfootnotes} declaration. 
+
+   The style can be changed at any 
+time but there may be odd effects if the change is made in the middle of
+a page when there are footnotes before and after the declaration. You may
+find it interesting to try changing styles in an article type document 
+that uses \cmd{\maketitle} and \cmd{\thanks}, and some footnotes on the 
+page with the title:
+\begin{lcode}
+\title{...\thanks{...}}
+\author{...\thanks{...}...}
+...
+\begin{document}
+\paragraphfootnotes
+\maketitle
+\plainfootnotes
+...
+\end{lcode}
+
+\begin{syntax}
+\cmd{\footfudgefiddle} \\
+\end{syntax}
+\glossary(footfudgefiddle)%
+  {\cs{footfudgefiddle}}%
+  {Integer number (default 64) to help when typesetting \cs{paragraphfootnotes}.}
+Paragraphed footnotes may overflow\index{footnote!too long} 
+the bottom of a page. \tx\ has
+to estimate the amount of space that the paragraph will require once
+all the footnotes are assembled into it. It then chops off the main text
+to leave the requisite space at the bottom of the page, following which
+it assembles and typesets the paragraph. If it underestimated the size
+then the footnotes will run down the page too far. If this happens then
+you can change \cmd{\footfudgefiddle} to make \tx\ be more generous in
+its estimation. The default is 64 and a value about 10\% higher should
+fix most overruns.
+\begin{lcode}
+\renewcommand*{\footfudgefiddle}{70}
+\end{lcode}
+You must use an integer in the redefinition as the command is going to be 
+used in a place where \tx\ expects an integer.
+
+\LMnote{2010/09/17}{removed the text below, I see no reason for adding
+this to memoir, so it is now removed from the manual}
+% \begin{syntax}
+% \cmd{\footnoteA}\marg{text} \\
+% \cmd{\footnoteB}\marg{text} \\
+% \cmd{\footnoteC}\marg{text} \\
+% \end{syntax}
+% \glossary(footnoteA)%
+%   {\cs{footnoteA}\marg{text}}%
+%   {A series A footnote.}
+% \glossary(footnoteB)%
+%   {\cs{footnoteB}\marg{text}}%
+%   {A series B footnote.}
+% \glossary(footnotec)%
+%   {\cs{footnoteC}\marg{text}}%
+%   {A series C footnote.}
+%
+%     In addition to the regular \cmd{\footnote} the class provides 
+% three further\index{footnote!series} series 
+% of footnotes, namely the `A', `B', and `C' series which are
+% distinguished by appending the series' uppercase letter at the end of
+% the command, like \cmd{\footnoteB} for the `B' series.
+% Perhaps the normal footnotes are required, 
+% marked\index{footnote!marker} flagged with arabic numerals, and another 
+% kind of footnote flagged with roman numerals. Each series has its own
+% \cmd{\footnotemarkB}, \cmd{\footnotetextB} and so on matching the regular
+% commands.
+
+
+\begin{syntax}
+\cmd{\newfootnoteseries}\marg{series} \\
+\cmd{\plainfootstyle}\marg{series} \\
+\cmd{\twocolumnfootstyle}\marg{series} \\
+\cmd{\threecolumnfootstyle}\marg{series} \\
+\cmd{\paragraphfootstyle}\marg{series} \\
+\end{syntax}
+\glossary(newfootnoteseries)%
+  {\cs{newfootnoteseries}\marg{series}}%
+  {Create a new footnote \meta{series}.}
+\glossary(plainfootstyle)%
+  {\cs{plainfootstyle}\marg{series}}%
+  {Set the \meta{series} footnotes to be typeset plain style.}
+\glossary(twocolumnfootstyle)%
+  {\cs{twocolumnfootstyle}\marg{series}}%
+  {Set the \meta{series} footnotes to be typeset in two column style.}
+\glossary(threecolumnfootstyle)%
+  {\cs{threecolumnfootstyle}\marg{series}}%
+  {Set the \meta{series} footnotes to be typeset in three column style.}
+\glossary(paragraphfootstyle)%
+  {\cs{paragraphfootstyle}\marg{style}}%
+  {Set the \meta{series} footnotes to be typeset in single paragraph style.}
+
+    If you need further series you can create you own.
+A new footnote series\index{footnote!new series} is
+created by the \cmd{\newfootseries} macro, where \meta{series} is an
+alphabetic identifier for the series. This is most conveniently a 
+single (upper case) letter, for example \texttt{P}. 
+
+    Calling, say, \verb?\newfootnoteseries{Q}? creates a set of macros
+equivalent to those for the normal \cmd{\footnote} but with the \meta{series}
+appended. These include \cs{footnoteQ}, \cs{footnotemarkQ},
+\cs{footnotetextQ} and so on. These are used just like the normal
+\cmd{\footnote} and companions.
+
+    By default, a series is set to typeset using the normal style
+of a paragraph per note. The series' style can be changed by using one
+of the \cs{...footstyle} commands.\index{footnote!style}
+
+    For example, to have a `P' (for paragraph) series using roman numerals 
+as markers which, in the main text are superscript with a closing parenthesis
+and at the foot are on the baseline followed by an endash, and the text is
+set in italics at the normal footnote size:
+\begin{lcode}
+\newfootnoteseries{P}
+\paragraphfootstyle{P}
+\renewcommand{\thefootnoteP}{\roman{footnoteP}}
+\footmarkstyleP{#1--}
+\renewcommand{\@makefnmarkP}{%
+              \hbox{\textsuperscript{\@thefnmarkP)}}}
+\renewcommand{\foottextfontP}{\itshape\footnotesize}
+\end{lcode}
+This can then be used like:
+\begin{lcode}
+.... this sentence\footnoteP{A `p' footnote\label{fnp}} 
+includes footnote~\footrefP{fnp}.
+\end{lcode}
+
+   The \cmd{\newfootnoteseries} macro does not create series versions
+of the footnote-related length commands, such as \lnc{\footmarkwidth}
+and \lnc{\footmarksep}, nor does it create versions of \cmd{\footnoterule}.
+
+   At the foot of the page footnotes are grouped according to their series;
+all ordinary footnotes are typeset, then all the first series footnotes 
+(if any), then the second series, and so on. The ordering corresponds to
+the order of \cmd{\newfootnoteseries} commands.
+
+     If you can't specify a particular footnote style using the
+class facilities the \Lpack{footmisc}
+package~\cite{FOOTMISC} provides a range of styles. 
+A variety of styles also comes with the \Lpack{ledmac} package~\cite{LEDMAC} 
+which additionally provides several classes of footnotes that can be mixed
+on a page.
+
+
+
+\subsection{Styling}
+
+\index{footnote!styling|(}
+     The parameters controlling the vertical spacing of footnotes are 
+ illustrated in \fref{fig:fn}.
+
+ \begin{figure}
+ \centering
+ \drawparameterstrue
+ \setlayoutscale{0.4}
+ \drawfootnote
+ \caption{Footnote layout parameters}\label{fig:fn}
+ \end{figure}
+
+     There is a discussion in \Sref{sec:thanks} starting on
+\pref{sec:thanks} about how to style the \cmd{\thanks} command; footnotes
+can be similarly styled. 
+
+    The \cmd{\footnote} macro (and its relations) essentially does three 
+things:
+\begin{itemize}
+\item Typesets a marker\index{footnote!marker} at the point where 
+      \cmd{\footnote} is called;
+\item Typesets a marker\index{footnote!marker} at the bottom of the page 
+      on which \cmd{\footnote} is called;
+\item Following the marker at the bottom of the page, typesets the 
+      text \index{footnote!text} of the footnote.
+\end{itemize}
+
+\begin{syntax}
+\cmd{\@makefnmark} \\
+\cmd{\@thefnmark} \\
+\end{syntax}
+\glossary(@makefnmark)%
+  {\cs{@makefnmark}}%
+  {Typesets the footnote marker where \cs{footnote} is called.}
+\glossary(@thefnmark)%
+  {\cs{@thefnmark}}%
+  {Value of the footnote marker.}
+
+The \cmd{\footnote} macro calls the kernel command \cmd{\@makefnmark} to
+typeset the footnote marker at the point where \cmd{\footnote} is called
+(the value of the marker is kept in the macro \cmd{\@thefnmark}
+which is defined by the \cmd{\footnote} or \cmd{\footnotemark} macros). 
+The default definition typesets the mark\index{footnote!marker!styling} 
+as a superscript and is effectively
+\LMnote{2014/05/07}{\cs{@makefnmark} does not take arguments}
+\begin{lcode}
+\newcommand*{\@makefnmark}{\hbox{\textsuperscript{\@thefnmark}}}
+\end{lcode}
+You can change this if, for example,
+ you wanted the marks to be in parentheses at the baseline.
+\LMnote{2014/05/07}{\cs{@makefnmark} does not take arguments}
+ \begin{lcode}
+ \renewcommand*{\@makefnmark}{{\footnotesize (\@thefnmark)}}
+ \end{lcode}
+ or, somewhat better to take account of the size of the surrounding text
+\LMnote{2014/05/07}{\cs{@makefnmark} does not take arguments}
+ \begin{lcode}
+ \renewcommand*{\@makefnmark}{\slashfracstyle{(\@thefnmark)}}
+ \end{lcode}
+
+
+
+\begin{syntax}
+\cmd{\footfootmark} \\
+\cmd{\footmarkstyle}\marg{arg} \\
+\end{syntax}
+\glossary(footfootmark)%
+  {\cs{footfootmark}}%
+  {Typsets the footnote mark at the bottom of the page.}
+\glossary(footmarkstyle)%
+  {\cs{footmarkstyle}\marg{style}}%
+  {Style of the footnote mark at the bottom of the page.}
+The class macro for typesetting the marker at the foot of the page is
+\cmd{\footfootmark}.  The appearance of the mark is controlled by
+\cmd{\footmarkstyle}. The default specification is
+\begin{lcode}
+\footmarkstyle{\textsuperscript{#1}}
+\end{lcode}
+where the \verb?#1? indicates the position of \cmd{\@thefnmark} in the style.
+The default results in the mark being set as a superscript.
+For example, to have the marker set on the baseline 
+and followed by a right parenthesis, do
+\begin{lcode}
+\footmarkstyle{#1) }
+\end{lcode}
+
+\begin{syntax}
+\lnc{\footmarkwidth} \lnc{\footmarksep} \lnc{\footparindent} \\
+\end{syntax}
+\glossary(footmarkwidth)%
+  {\cs{footmarkwidth}}%
+  {Width of footnote mark box.}
+\glossary(footmarksep)%
+  {\cs{footmarksep}}%
+  {Offset from the footnote mark box for lines after the first.}
+\glossary(footparindent)%
+  {\cs{footparindent}}%
+  {Paragraph indent for multiparagraph footnote text.}
+The mark is typeset in a box of width \lnc{\footmarkwidth}
+If this is negative, the mark is outdented
+into the margin, if zero the mark is flush left, and when positive
+the mark is indented. The mark is followed by the 
+text\index{footnote!text} of the footnote. Second and later lines of the
+text are offset by the length \lnc{\footmarksep} from the end of the box.
+The first line of a paragraph within a footnote is indented by
+\lnc{\footparindent}. 
+ The default values for these lengths are:
+\begin{lcode}
+\setlength{\footmarkwidth}{1.8em}
+\setlength{\footmarksep}{-\footmarkwidth}
+\setlength{\footparindent}{1em}
+\end{lcode}
+
+
+\begin{syntax}
+\cmd{\foottextfont} \\
+\end{syntax}
+\glossary(foottextfont)%
+  {\cs{foottextfont}}%
+  {Font for footnote text.}
+The text in the footnote\index{footnote!text!font} is typeset using 
+the \cmd{\foottextfont} font. The default is \cmd{\footnotesize}.
+
+
+    Altogether, the class specifies
+\begin{lcode}
+\footmarkstyle{\textsuperscript{#1}}
+\setlength{\footmarkwidth}{1.8em}
+\setlength{\footmarksep}{-1.8em}
+\setlength{\footparindent}{1em}
+\newcommand{\foottextfont}{\footnotesize}
+\end{lcode}
+to replicate the standard footnote layout. 
+
+    You might like to try the
+combinations of \lnc{\footmarkwidth} and \lnc{\footmarksep} listed
+in \tref{tab:fnstyle} to see which you might prefer.
+Not listed in the \tablerefname, to get the marker flushleft and then 
+the text set as a block paragraph you can try:
+\begin{lcode}
+\setlength{\footmarkwidth}{1.8em}
+\setlength{\footmarksep}{0em}
+\footmarkstyle{#1\hfill}
+\end{lcode}
+
+\begin{table}
+\begin{adjustwidth}{-5mm}{-5mm}
+\centering
+\caption{Some footnote text styles}\label{tab:fnstyle}
+\begin{tabular}{cc>{\raggedright\arraybackslash}p{0.5\textwidth}} \toprule
+\lnc{\footmarkwidth} & \lnc{\footmarksep} & Comment \\ \midrule
+1.8em & -1.8em & Flushleft, regular indented paragraph (the default) \\
+1.8em & 0em    & Indented, block paragraph hung on the mark \\
+%1.8em & 1.8em  & Indented, outdented paragraph \\
+%0em   & -1.8em & Regular indented paragraph, first line flushleft \\
+0em   & 0em    & Flushleft, block paragraph \\
+%0em   & 1.8em  & Outdented paragraph, first line flushleft \\
+%-1.8em & -1.8em & Regular indented paragraph, starting in the margin \\
+%-1.8em & 0em & \\
+-1.8em & 1.8em & Block paragraph, flushleft, mark in the margin \\
+\LMnote{2010/02/05}{added -1sp trick}
+-1sp   & 0em   & Block paragraph, flushleft, mark in the margin but
+flush against the text
+\\
+\bottomrule
+\end{tabular}
+\end{adjustwidth}
+\end{table}
+
+    As an example of a rather different scheme, in at least one discipline
+the footnoted text in the main body has a 
+marker\index{footnote!marker!multiple} at each end. It is possible 
+to define a macro to do this:
+\begin{lcode}
+\newcommand{\wrapfootnote}[1]{\stepcounter\@mpfn%
+  %  marks in the text
+  \protected@xdef\@thefnmark{\thempfn}% 
+  \@footnotemark #1\@footnotemark%
+  %  marks at the bottom
+  \protected@xdef\@thefnmark{\thempfn--\thempfn}% 
+  \@footnotetext}
+\end{lcode}
+\makeatletter
+\newcommand{\wrapfootnote}[1]{\stepcounter\@mpfn%
+  % marks in the text
+  \protected@xdef\@thefnmark{\thempfn}% 
+  \@footnotemark #1\@footnotemark%
+  % marks at the bottom
+  \protected@xdef\@thefnmark{\thempfn--\thempfn}%
+  \@footnotetext}
+\makeatother
+The macro is based on a posting to \ctt{} by Donald 
+Arseneau\index{Arseneau, Donald} in November 2003, 
+and is used like this:
+\begin{lcode}
+Some 
+\wrapfootnote{disciplines}{For example, Celtic studies.} 
+require double marks in the text.
+\end{lcode}
+Some 
+\wrapfootnote{disciplines}{For example, Celtic studies.} 
+require double marks in the text.
+
+
+\begin{syntax}
+\cmd{\fnsymbol}\marg{counter} \\
+\cmd{\@fnsymbol}\marg{num} \\
+\end{syntax}
+\glossary(fnsymbol)%
+  {\cs{fnsymbol}\marg{counter}}%
+  {Typesets the representation of the footnote marker.}
+\glossary(@fnsymbol)%
+  {\cs{@fnsymbol}\marg{num}}%
+  {Converts \meta{num} to the footnote marker representation.}
+
+    Any footnotes after this point will be set according to:
+\begin{lcode}
+\setlength{\footmarkwidth}{-1.0em}
+\setlength{\footmarksep}{-\footmarkwidth}
+\footmarkstyle{#1}
+\end{lcode}
+\setlength{\footmarkwidth}{-1.0em}
+\setlength{\footmarksep}{-\footmarkwidth}
+\footmarkstyle{#1}
+
+The \cmd{\fnsymbol} macro typesets the representation of the 
+counter \meta{counter} like a footnote\index{footnote!symbol} symbol. 
+Internally it uses the kernel \cmd{\@fnsymbol} macro which converts 
+a positive integer \meta{num} to a symbol. If you are not fond of
+the standard ordering\index{footnote!symbol!order} of the footnote 
+symbols, this is the macro to change. Its
+original definition is:
+\begin{lcode}
+\def\@fnsymbol#1{\ensuremath{%
+  \ifcase#1\or *\or \dagger\or \ddagger\or 
+  \mathsection\or \mathparagraph\or \|\or **\or 
+  \dagger\dagger \or \ddagger\ddagger \else\@ctrerr\fi}}
+\end{lcode}
+\makeatletter
+\let\m@mold@fnsymbol\@fnsymbol
+\def\@fnsymbol#1{\ensuremath{%
+  \ifcase#1\or *\or \dagger\or \ddagger\or 
+  \mathsection\or \mathparagraph\or \|\or **\or 
+  \dagger\dagger \or \ddagger\ddagger \else\@ctrerr\fi}}
+\makeatother
+This, as shown by \verb?\@fnsymbol{1},...\@fnsymbol{9}? produces the series:
+\begin{center}
+ \makeatletter
+\@fnsymbol{1},
+\@fnsymbol{2},
+\@fnsymbol{3},
+\@fnsymbol{4},
+\@fnsymbol{5},
+\@fnsymbol{6},
+\@fnsymbol{7},
+\@fnsymbol{8}, and
+\@fnsymbol{9}.
+%\@fnsymbol{10}  % out of bounds
+\makeatother 
+\end{center}
+
+\makeatletter
+\renewcommand*{\@fnsymbol}[1]{\ensuremath{%
+  \ifcase#1\or *\or \dagger\or \ddagger\or
+  \mathsection\or \|\or \mathparagraph\or **\or \dagger\dagger
+  \or \ddagger\ddagger \else\@ctrerr\fi}}
+\makeatother
+    Robert Bringhurst quotes the following as the traditional 
+ordering\index{footnote!symbol!order} (at least up
+to \makeatletter\@fnsymbol{6}\makeatother):
+\begin{center}
+ \makeatletter
+\@fnsymbol{1},
+\@fnsymbol{2},
+\@fnsymbol{3},
+\@fnsymbol{4},
+\@fnsymbol{5},
+\@fnsymbol{6},
+\@fnsymbol{7},
+\@fnsymbol{8}, and
+\@fnsymbol{9}.
+\makeatother 
+\end{center}
+You can obtain this sequence by redefining \cmd{\@fnsymbol} as:
+\begin{lcode}
+\renewcommand*{\@fnsymbol}[1]{\ensuremath{%
+  \ifcase#1\or *\or \dagger\or \ddagger\or
+  \mathsection\or \|\or \mathparagraph\or **\or \dagger\dagger
+  \or \ddagger\ddagger \else\@ctrerr\fi}}
+\end{lcode}
+not forgetting judicious use of \cmd{\makeatletter} and \cmd{\makeatother}
+if you do this in the preamble\index{preamble}. Other authorities or publishers
+may prefer other sequences and symbols.
+\makeatletter\let\@fnsymbol\m@mold@fnsymbol\makeatother
+
+    To get the footnote reference marks\index{reference mark} set with
+symbols use:
+\begin{lcode}
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\end{lcode}
+or to use roman numerals instead of the regular arabic numbers:
+\begin{lcode}
+\renewcommand*{\thefootnote}{\roman{footnote}}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\footnoterule} \\
+\end{syntax}
+\glossary(footnoterule)%
+{\cs{footnoterule}}%
+{Rule separating footnotes from the main text.}
+
+    The rule separating footnotes from the main text is specified 
+by \cmd{\footnoterule}:
+\begin{lcode}
+\newcommand*{\footnoterule}{%
+  \kern-3pt%
+  \hrule width 0.4\columnwidth
+  \kern 2.6pt}
+\end{lcode}
+If you don't want a rule (but you might later), then the easiest method is:
+\begin{lcode}
+\let\oldfootnoterule\footnoterule
+\renewcommand*{\footnoterule}{}
+\end{lcode}
+and if you later want rules you can write:
+\begin{lcode}
+\let\footnoterule\oldfootnoterule
+\end{lcode} 
+
+
+\fancybreak{}
+
+
+In \fref{fig:fn} we see that the footnotes are separated from the text
+by \cs{skip}\cs{footins}. We provide a special interface to set this skip:\Added{2015/04/22}
+\begin{syntax}
+\cmd{\setfootins}\marg{length for normal}\marg{length for minipage} \\
+\end{syntax}
+\glossary(setfootins)%
+{\cs{setfootins}\marg{length for normal}\marg{length for minipage}}%
+{Sets \cs{skip}\cs{footins} and its minipage counterpart.}
+The default is similar to
+\begin{lcode}
+  \setfootins{\bigskipamount}{\bigskipamount}
+\end{lcode}
+Internally \cmd{\setfootins} also sets the skips being used by
+\cmd{\twocolumnfootnotes} and friends.
+
+
+
+\index{footnote!styling|)}
+
+\index{footnote|)}
+
+ \section{Marginal notes}
+
+\LMnote{2010/01/**}{added a reference back to \cs{setmarginnotes}}
+     Some marginalia can also be considered to be kinds of floats. 
+The class provides the standard margin notes\index{margin note} 
+via \cmd{\marginpar}. Remember that the width of the margin note, the
+separation from the text, and the separation from one \cmd{\marginpar}
+to another is controlled by \cmd{\setmarginnotes}, see
+Section~\ref{sec:head-foot-marg} on
+page~\pageref{sec:head-foot-marg}. 
+
+ \begin{syntax}
+ \cmd{\marginpar}\oarg{left-text}\marg{text} \\
+ \cmd{\marginparmargin}\marg{placement}\\
+ \cmd{\reversemarginpar} \\
+ \cmd{\normalmarginpar} \\
+ \end{syntax}
+\glossary(marginpar)%
+  {\cs{marginpar}\oarg{left-text}\marg{text}}%
+  {Puts \meta{text} into the margin; if given, \meta{left-text} will be
+   used instead of \meta{text} for the left margin.}
+\glossary(marginparmargin)%
+  {\cs{marginparmargin}\marg{placement}}%
+  {Provides a more textual
+    interface for the user to specify in which margin the margin note
+    should be placed.}
+\glossary(reversemarginpar)%
+  {\cs{reversemarginpar}}%
+  {Reverses the normal margins used by \cs{marginpar}.}
+\glossary(normalmarginpar)%
+  {\cs{normalmarginpar}}%
+  {Sets the normal margins used by \cs{marginpar}(the default).}
+ Just as a reminder, the \cmd{\marginpar} macro puts \meta{text} into
+the margin alongside the typeblock --- the particular margin depends
+on the document style and the particular page. 
+
+\LMnote{2010/01/**}{explained why the need for the
+  \cs{marginparmargin} macro}
+The interface for specifying which margin \cmd{\marginpar} (and
+friends) write to, have long been quite cluttered, so we have in 2010 
+adopted a more textual and natural interface. For \cmd{\marginpar} the
+macro is named \cmd{\marginparmargin}\marg{placement} with possible
+placements: \emph{left}, \emph{right}, \emph{outer}, and
+\emph{inner}. The interpretation of which is explained in \fref{fig:xmargin}.
+The default corresponds to \verb?\marginparmargin{outer}?.
+
+
+\LMnote{2010/01/**}{instead of explaining the algorithm, each time the
+  algorithm is explaine donce and for all in a figure, then we can
+  simply refer to it}
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.9\linewidth}
+    \cs{Xmargin}\marg{placement} for possible placements: \emph{left},
+    \emph{right}, \emph{outer}, and \emph{inner}\\
+    \renewcommand\descriptionlabel[1]{\hspace\labelsep\normalfont\sffamily\bfseries #1}
+    \begin{description}
+     \small
+    \item[Two column document] If the note is placed in the first
+      column, to the left, otherwise  to the right, irrespective the
+      document being one- or two-side and of the users choices
+\item[One sided document] If user specified \emph{left}, notes are
+  placed to the left, otherwise to the right. 
+\item[Two sided document] depends on whether a recto or verso page:
+   \begin{description}
+   \item[Recto (odd) page] note is placed on the right if the user
+     specified \emph{right} or \emph{outer}, otherwise the note is
+     placed on the left.
+   \item[Verso (even) page] note is placed on the left if the user
+     specified \emph{left} or \emph{outer}, otherwise the note is
+     placed on the right.
+   \end{description}
+\end{description}
+  \end{minipage}
+  \caption{Interpretation of the arguments to the \cs{Xmargin}
+    commands for specifying the side in which to place side note like
+    material. \texttt{X} here equals \texttt{marginpar},
+    \texttt{sidepar}, \texttt{sidebar}, or \texttt{sidefoot}.} 
+  \label{fig:xmargin}
+\end{figure}
+
+\fancybreak{}
+
+\LMnote{2010/02/07}{Removed the explanation of the old interface for
+  specifying the margin the \cs{marginpar} should go to. The original
+  text is still available via subversion.}
+The original convoluted methods of specifying the margin for
+\cmd{\marginpar} is deprecated, although still supported; if you need
+to know what they are then you can read all about them in \texttt{memoir.dtx}.
+
+     Sometimes \ltx\ gets confused near a page break and a note just after
+a break may get put into the wrong\index{margin note!wrong margin} margin 
+(the wrong margin for the current 
+page but the right one if the note fell on the previous page). If this occurs
+then inserting the \cmd{\strictpagecheck} declaration before 
+any \cmd{\marginpar}
+command is used will prevent this, at the cost of at least one additional
+\ltx\ run.
+
+
+\section{Side notes}
+
+    The vertical position of margin notes\index{margin note!moved} 
+specified via \cmd{\marginpar}
+is flexible so that adjacent notes are prevented from overlapping.
+
+\LMnote{2010/01/**}{side note section extended with \cs{sidenotefont}
+  and \cs{sidenotemargin}}
+\begin{syntax}
+\cmd{\sidepar}\oarg{left}\marg{right} \\
+\cmd{\sideparmargin}\marg{placement}\\
+\cmd{\sideparfont}\\
+\cmd{\sideparform}\\
+\lnc{\sideparvshift} \\
+\end{syntax}
+\glossary(sidepar)%
+  {\cs{sidepar}\oarg{left}\marg{right}}%
+  {Like \cs{marginpar} except that the note does not move vertically.}
+\glossary(sideparvshift)%
+  {\cs{sideparvshift}}%
+  {Move a \cs{sidepar} up/down by this amount.}
+\glossary(sideparmargin)%
+{\cs{sideparmargin}\marg{placement}}%
+{Specify into which margin the \cs{sidepar} goes.}
+\glossary(sideparfont)%
+{\cs{siderparfont}}%
+{The font which the \cs{sidepar}s are typeset.}
+\glossary(sideparform)
+{\cs{sideparform}}%
+{Macro holding placement like \cs{raggedright} and such.}
+
+    The \cmd{\sidepar} macro is similar to \cmd{\marginpar} except that
+it produces side notes\index{side note} that do not float --- 
+they may overlap. 
+
+The same spacing is used for both \cmd{\marginpar} and \cmd{\sidepar},
+namely the lengths \lnc{\marginparsep} and \lnc{\marginparwidth}. See
+\cmd{\setmarginnotes}, in Section~\ref{sec:head-foot-marg} on
+page~\pageref{sec:head-foot-marg}.
+
+The length
+\lnc{\sideparvshift} can be used to make vertical 
+adjustments\index{side note!adjust position} to the
+position of \cmd{\sidepar} notes. By default this is set to a value
+of 0pt which should align the top of the note with the text line.
+
+The command \cmd{\sideparfont} is used to specify the font used for
+the \cmd{\sidepar}, default is \cmd{\normalfont}\cmd{\normalsize}.
+
+\LMnote{2010/02/05}{added description of \cs{sideparform}}
+While \cmd{\sideparfont} holds the font settings for the sidepar, the
+local adjustment is kept in \cmd{\sideparform}, the default is
+\begin{lcode}
+  \newcommand*{\sideparform}{%
+    \ifmemtortm\raggedright\else\raggedleft\fi}
+\end{lcode}
+Which is a special construction the makes the text go flush against the
+text block on side specified via \cmd{\sideparmargin}. Since the
+margin par area is usually quite narrow it might be an idea to use a
+ragged setup which enables hyphenation. This can be achieved by
+\begin{lcode}
+  \usepackage{ragged2e}
+  \newcommand*{\sideparform}{%
+    \ifmemtortm\RaggedRight\else\RaggedLeft\fi}
+\end{lcode}
+
+
+\LMnote{2010/01/**}{Fixed the typo, such that it IS now stated that
+  the default is left, not right as was earlier stated}
+The macro \cmd{\sideparmargin}\marg{placement} can be used to specify
+which margin the side note should go to. \meta{placement} should be
+one of \emph{left}, \emph{right}, \emph{outer}, or
+\emph{inner}. Interpretation of which is explained in
+\fref{fig:xmargin}. For some now forgotten reason the default
+corresponds to \verb?\sideparmargin{left}?.\footnote{As not to change
+  existing documents, we have decided to leave it like that.}
+
+
+    By default the \meta{right} argument is put in the 
+%right
+left%
+\index{side note!text for particular margin} margin. When
+the \Lopt{twoside} option is used the \meta{right} argument is put into
+the %left 
+right 
+margin on the verso (even numbered) pages; however, for these pages
+the optional \meta{left} argument is used instead if it is present. For
+two column text the relevent argument is put into the `outer' margin with 
+respect to the column.
+
+\fancybreak{}
+
+\LMnote{2010/02/07}{Removed the explanation of the old interface for
+  specifying the margin the \cs{sidepar} should go to. The original
+  text is still available via subversion.}  The original convoluted
+methods of specifying the margin for \cmd{\sidepar} is deprecated,
+although still supported; if you need to know what they are then you
+can read all about them in \texttt{memoir.dtx}.
+
+
+\begin{syntax}
+\cmd{\parnopar} \\
+\end{syntax}
+\glossary(parnopar)%
+  {\cs{parnopar}}%
+  {Forces a new paragraph, but with no apparent break in the text.}
+    When \ltx\  is deciding where to place the side notes it checks whether
+it is on an odd or even page and sometimes TeX doesn't realise that it has just
+moved onto the next page. Effectively TeX typesets paragraph by paragraph 
+(including any side notes) and at the end of each paragraph sees if there
+should have been a page break in the middle of the paragraph. If there was
+it outputs the first part of the paragraph, inserts the page break, and retains
+the second part of the paragraph, without retypesetting it, for eventual
+output at the top of the new page. This means that side notes for any given
+paragraph are in the same margin, either left or right. A side note at the
+end of a paragraph may then end up in the wrong margin. The macro 
+\cmd{\parnopar} forces a new paragraph\index{paragraph break!invisible} 
+but without appearing to (the first
+line in the following paragraph follows immediately after the last element
+in the prior paragraph with no line break). You can use \cmd{\parnopar}
+to make TeX to do its page break calculation when you want it to, by splitting
+what appears to be one paragraph into two paragraphs.
+
+\LMnote{2010/02/09}{Moved the veelo example to the new sniplet chapter}
+    Bastiaan Veelo\index{Veelo, Bastiaan} has kindly provided example code 
+for another form of a side note, the code is shown in
+\snipletref{snip:veelo}. 
+
+    Bastiaan also noted that it provided an example of using the
+\lnc{\foremargin} length.
+    If you want to try it out, either put the code in your preamble,
+or put it into a package (i.e., \file{.sty} file) without the 
+\cs{makeat...} commands. 
+
+
+\section{Sidebars}
+
+    Sidebars\index{sidebar} are typeset in the margin and usually 
+contain material that is ancilliary to the main text. They may be long 
+and extend for more than one page.\footnote{Donald 
+Arseneau's\index{Arseneau, Donald} help has been invaluable in getting
+the sidebar code to work.}
+
+
+\begin{syntax}
+\cmd{\sidebar}\marg{text} \\
+\end{syntax}
+\glossary(sidebar)%
+  {\cs{sidebar}\marg{text}}%
+  {Typesets \meta{text} in a sidebar.}
+The \cmd{\sidebar} command is like \cmd{\marginpar} in that it sets
+the \meta{text} in the margin. However, unlike \cmd{\marginpar} the
+\meta{text} will start near the top of the page, and may continue onto
+later pages if it is too long to go on a single page. If multiple
+\cmd{\sidebar} commands are used on a page, the several \meta{text}s
+are set one after the other.
+
+\LMnote{2010/02/07}{dropped \cs{ifsidebaroneside} as it is not used anymore}
+\begin{syntax}
+\cmd{\sidebarmargin}\marg{margin} \\
+\end{syntax}
+\glossary(sidebarmargin)%
+  {\cs{sidebarmargin}\marg{margin}}%
+  {Specifies the \meta{margin}(s) for sidebars.}
+
+\LMnote{2010/02/07}{just adapted the explanation from the other
+  \cs{Xmargin} macros}
+The macro \cmd{\sidebarmargin}\marg{placement} can be used to specify
+which margin the side note should go to. \meta{placement} should be
+one of \emph{left}, \emph{right}, \emph{outer}, or
+\emph{inner}. Interpretation of which is explained in
+\fref{fig:xmargin}. The default corresponds to \verb?\sidebarmargin{outer}?.
+
+
+\begin{syntax}
+\cmd{\sidebarfont} \cmd{\sidebarform} \\
+\end{syntax}
+\glossary(sidebarfont)%
+  {\cs{sidebarfont}}%
+  {Font used for sidebars.}
+\glossary(sidebarform)%
+  {\cs{sidebarform}}%
+  {Form (e.g., \cs{raggedright}) used for sidebars.}
+The sidebar \meta{text} is typeset using the \cmd{\sidebarfont}, whose initial
+definition is
+\begin{lcode}
+\newcommand{\sidebarfont}{\normalsize\normalfont}
+\end{lcode}
+Sidebars\index{sidebar!styling} are normally narrow so the text is 
+set raggedright\index{raggedright} to 
+reduce hyphenation\index{hyphenation}
+problems and stop items in environments like \Ie{itemize} from overflowing. 
+\LMnote{2010/02/05}{added description of \cs{sidebarform}}
+\LMnote{2010/02/06}{fixed typo}
+More accurately, the text is set according to \cmd{\sidebarform} which is 
+defined as:
+\begin{lcode}
+  \newcommand*{\sidebarform}{%
+    \ifmemtortm\raggedright\else\raggedleft\fi}
+\end{lcode}
+Which is a special construction the makes the text go flush against the
+text block on side specified via \cmd{\sideparmargin}. Since the
+margin par area is usually quite narrow it might be an idea to use a
+ragged setup which enables hyphenation. This can be achieved by
+\begin{lcode}
+  \usepackage{ragged2e}
+  \newcommand*{\sidebarform}{%
+    \ifmemtortm\RaggedRight\else\RaggedLeft\fi}
+\end{lcode}
+
+
+
+% which is ragged right but with less raggedness than \cmd{\raggedright}
+% would allow. As usual, you can change \cmd{\sidebarform}, for example:
+% \begin{lcode}
+% \renewcommand{\sidebarform}{}            % justified text
+% \end{lcode}
+
+
+
+
+
+    You may run into problems if the \cmd{\sidebar} command comes near 
+a pagebreak, or if the sidebar text gets typeset alongside main text that
+has non-uniform line spacing (like around a \cmd{\section}). Further,
+the contents of sidebars may not be typeset if they are too near to the
+end of the document.
+
+\begin{syntax}
+\lnc{\sidebarwidth} \lnc{\sidebarhsep} \lnc{\sidebarvsep} \\
+\end{syntax}
+\glossary(sidebarwidth)%
+  {\cs{sidebarwidth}}%
+  {Width of sidebars.}
+\glossary(sidebarhsep)%
+  {\cs{sidebarhsep}}%
+  {Space between the edge of the main text and sidebars.}
+\glossary(sidebarvsep)%
+  {\cs{sidebarvsep}}%
+  {Vertical space between sidebars that fall on the same page.}
+The \meta{text} of a \cmd{\sidebar} is typeset in a column of width 
+\lnc{\sidebarwidth} and there is a horizontal gap of \lnc{\sidebarhsep}
+between the main text and the sidebar. The length \lnc{\sidebarvsep}
+is the vertical gap between sidebars that fall on the same page; it also
+has a role in controlling the start of sidebars with respect to the
+top of the page.
+
+\begin{syntax}
+\lnc{\sidebartopsep} \\
+\cmd{\setsidebarheight}\marg{height} \\
+\end{syntax}
+\glossary(sidebartopsep)%
+  {\cs{sidebartopsep}}%
+  {Controls the vertical position of a sidebar. The default is 0pt which
+   aligns the tops of the typeblock and the sidebar.}
+\glossary(setsidebarheight)%
+  {\cs{setsidebarheight}\marg{height}}%
+  {Sets the height of sidebars. The default is \cs{textheight}.}
+The length \lnc{\sidebartopsep} controls the vertical position of the top
+of a sidebar. The default is 0pt which aligns it with the top of the
+typeblock.
+The command \cmd{\setsidebarheight} sets the height of sidebars to
+\meta{height}, without making any allowance for \lnc{\sidebartopsep}.
+The \meta{length} argument should be equivalent to an integral number 
+of lines. For example:
+\begin{lcode}
+\setsidebarheight{15\onelineskip}
+\end{lcode}
+The default is the \lnc{\textheight}.
+
+    Perhaps you would like sidebars to start two lines below the top of
+the typeblock but still end at the bottom of the typeblock? If so, and
+you are using the \Lpack{calc} package~\cite{CALC}, then the following
+will do the job:
+\begin{lcode}
+\setlength{\sidebartopskip}{2\onelineskip}
+\setsidebarheight{\textheight-\sidebartopskip}
+\end{lcode}
+
+
+    The alignment of the text in a sidebar with the main text may not
+be particularly good and you may wish to do some experimentation
+(possibly through a combination of \lnc{\sidebarvsep} and 
+\cmd{\setsidebarheight}) to improve matters.
+
+    Although you can set the parameters for your sidebars individually it
+is more efficient to use the \cmd{\setsidebars} command; it \emph{must} be 
+used if you change the font and/or the height.
+\begin{syntax}
+\cmd{\setsidebars}\marg{hsep}\marg{width}\marg{vsep}\marg{topsep}\marg{font}\marg{height} \\
+\end{syntax}
+\glossary(setsidebars)%
+  {\cs{setsidebars}\marg{hsep}\marg{width}\marg{vsep}\marg{topsep}\marg{font}\marg{height}}%
+  {Sets the several sidebar parameters.}
+
+The \cmd{\setsidebars} command can be used to set the sidebar parameters.
+\lnc{\sidebarhsep} is set to \meta{hsep}, \lnc{\sidebarwidth} is set to
+\meta{width}, \lnc{\sidebarvsep} is set to \meta{vsep}, \lnc{\sidebartopsep}
+is set to \meta{topsep}, \cmd{\sidebarfont} is set to \meta{font}, 
+and finally \cmd{\setsidebarheight} is used to set the height to \meta{height}.
+The default is:
+\LMnote{2010/02/07}{the default was wrong compared to the class}
+\begin{lcode}
+\setsidebars{\marginparsep}{\marginparwidth}{\onelineskip}%
+            {0pt}{\normalsize\normalfont}{\textheight}
+\end{lcode}
+Any, or all, of the arguments can be a \verb?*?, in which case the parameter
+corresponding to that argument is unchanged. Repeating the above example of 
+changing the topskip and the height, assuming that the other defaults are 
+satisfactory except that the width should be 3cm and an italic font should 
+be used:
+\begin{lcode}
+\setsidebars{*}{3cm}{*}{2\onelineskip}{\itshape}%
+            {\textheight-\sidebartopsep}
+\end{lcode}
+
+   Changing the marginpar parameters, for example with \cmd{\setmarginnotes},
+will not affect the sidebar parameters.
+
+   Note that \cmd{\checkandfixthelayout} neither checks nor fixes any of
+the sidebar parameters. This means, for instance, that if you change the
+\lnc{\textheight} from its default value and you want sidebars to have 
+the same height then after changing the \lnc{\textheight} you have to 
+call \cmd{\checkandfixthelayout}  and then call \cmd{\setsidebars} with
+the (new) \lnc{\textheight}. For instance:
+\begin{lcode}
+...
+\settypeblocksize{40\baselineskip}{5in}{*}
+...
+\checkandfixthelayout
+\setsidebars{...}{...}{...}{...}{...}{\textheight}
+\end{lcode}
+
+    Unfortunately if a sidebar is on a double column page that either includes
+a double column float or starts a new chapter then the top of the sidebar
+comes below the float or the chapter title. I have been unable to eliminate 
+this `feature'.
+
+
+\section{Side footnotes}
+\label{sec:side-footnotes}
+
+Besides three already mentioned macros for writing in the margin
+(\cmd{\marginpar}, \cmd{\sidepar}, and \cmd{\sidebar}) \theclass\ also
+provide a functionality to add side footnotes. Actually two ways: one
+is to internally make \cmd{\footnote} use \cmd{\marginpar} to write
+in the margin, the other is to collect all side footnotes bottom up in
+the margin.
+\begin{syntax}
+  \cmd{\footnotesatfoot}\\
+  \cmd{\footnotesinmargin}\\
+\end{syntax}
+\cmd{\footnotesatfoot} (the default) causes \cmd{\footnote} to place
+its text at the bottom of the page. By issuing \cmd{footnotesinmargin}
+\cmd{\footnote} (and friends like \cmd{\footnotetext})will internally
+use \cmd{\marginpar} to write the footnote to the page.
+
+
+
+\subsection{Bottom aligned side footnotes}
+\label{sec:bottom-aligned-side}
+
+Bottom aligned footnotes works just like regular footnotes, just with
+a separate macro \cmd{\sidefootenote}\marg{text}, and here the side
+footnotes are placed at the bottom of the specified margin (more or
+like as if one had taken the footnotes from the bottom of the page and
+moved it to the margin instead). All the major functionality is the
+same as for the normal \cmd{\footnote}
+command.\footnote{\cs{sidefootnote} does not make sense inside
+  minipages\dots}
+\begin{syntax}
+  \cmd{\sidefootnote}\oarg{num}\marg{text}\\
+  \cmd{\sidefootnotemark}\oarg{num}\\
+  \cmd{\sidefootnotetext}\oarg{num}\marg{text}\\
+\end{syntax}
+
+By default the regular footnotes and the side footnotes use different
+counters. If one would like them to use the same counter, issue the
+following in the preamble:
+\begin{lcode}
+  \letcountercounter{sidefootnote}{footnote}
+\end{lcode}
+
+
+\subsection{Setting the layout for
+  \texorpdfstring{\cs{sidefootnote}}{sidefootnote}} 
+\label{sec:sett-layo-texorpdfst}
+
+
+
+There are several possibilities to change the appearance of the
+\cmd{\sidefootnote}:
+
+Specifying the margin in which the side footnote should go, is done by 
+\begin{syntax}
+  \cmd{\sidefootmargin}\marg{keyword}\\
+\end{syntax}
+where \meta{keyword} can be \emph{left}, \emph{right}, \emph{outer}, and
+\emph{inner}, and their meaning is explained in
+\fref{fig:xmargin}. The default is \emph{outer}.
+
+\begin{syntax}
+  \lnc{\sidefoothsep}\\
+  \lnc{\sidefootwidth}\\
+  \lnc{\sidefootvsep}\\
+\end{syntax}
+\cmd{\sidefoothsep} is a length controlling the separation from the
+text to the side footnote column, default
+\cmd{\marginparsep}. \cmd{\sidefootwidth} is length controlling the
+width of the side footnote column, default \cmd{\marginparwidth}, and
+\cmd{\sidefootvsep} is the vertical distance between two side
+footnotes, default \cmd{\onelineskip}.
+
+\begin{syntax}
+  \lnc{\sidefootadjust}\\
+  \cmd{\setsidefootheight}\marg{height}\\
+  \cmd{\sidefootfont}\\
+\end{syntax}
+\cmd{\sidefootadjust} is a length which specifies the placement of the
+side footnote column in relation to the bottom of the text block, the
+default is 0pt. \cmd{\setsidefootheight} sets the maximal height of
+the side footnote column, default \cmd{textwidth}. Lastly
+\cmd{\sidefootfont} holds the general font setting for the side
+footnote,\footnote{There is a similar macro to control the font of the
+  text alone.} default \verb?\normalfont\footnotesize?.
+
+
+The macro
+\begin{syntax}
+   \cmd{\setsidefeet}\marg{hsep}\marg{width}\marg{vsep}\marg{adj}\marg{font}\marg{height}\\
+\end{syntax}
+sets the specifications all six settings above in one go.. An `*'
+means `use the current value'. So \theclass\ internally use the
+following default
+\begin{lcode}
+  \setsidefeet{\marginparsep}{\marginparwidth}%
+  {\onelineskip}{0pt}%
+  {\normalfont\footnotesize}{\textheight}%
+\end{lcode}
+It is recommended to use this macro along with the other macros in the
+preamble to specify document layout.
+
+\subsection{Styling 
+  \texorpdfstring{\cs{sidefootnote}}{sidefootnote}} 
+
+
+\begin{syntax}
+  \cmd{\sidefootmarkstyle}\marg{code}\\
+\end{syntax}
+controls how the side footnote counter is typeset in the side
+footnote. The default is
+\begin{lcode}
+  \sidefootmarkstyle{\textsuperscript{#1}}
+\end{lcode}
+
+The mark is typeset in a box of width \lnc{\sidefootmarkwidth}
+If this is negative, the mark is outdented
+into the margin, if zero the mark is flush left, and when positive
+the mark is indented. The mark is followed by the 
+text\index{side footnote!text} of the footnote. Second and later lines of the
+text are offset by the length \lnc{\sidefootmarksep} from the end of the box.
+The first line of a paragraph within a footnote is indented by
+\lnc{\sidefootparindent}. The default values for these lengths are:
+\begin{lcode}
+  \setlength{\sidefootmarkwidth}{0em}
+  \setlength{\sidefootmarksep}{0em}
+  \setlength{\sidefootparindent}{1em}
+\end{lcode}
+
+
+\fancybreak{}
+
+Caveat: It is natural to specify a length as \lnc{\sidefootparindent}
+as a \LaTeX\ length, but it has a down side. If, as we do here, set
+the value to 1em, then since the size of the em unit changes with the
+current font size, one will actually end up with an indent
+corresponding to the font size being used when the
+\begin{lcode}
+  \setlength{\sidefootparindent}{1em}
+\end{lcode}
+was issued, not when it has used (where the font size most often will
+be \cmd{\footnotesize}).
+
+At this point we consider this to be a \emph{feature} not an
+error. One way to get pass this problem it the following
+\begin{lcode}
+\begingroup% keep font change local
+\sidefoottextfont
+\global\setlength\sidefootparindent{1em}
+\endgroup  
+\end{lcode}
+Then it will store the value of em corresponding to the font being
+used. 
+
+
+\LMnote{2010/02/07}{explained the rest, left the side footnote hook
+  out of it for now}
+\begin{syntax}
+  \cmd{\sidefoottextfont}\\
+\end{syntax}
+holds the font being used by the side footnote, default
+\verb+\normalfont\footnotesize+. 
+\begin{syntax}
+  \cmd{\sidefootform}\\
+\end{syntax}
+is used to specify the raggedness of the text. Default
+\begin{lcode}
+  \newcommand*{\sidefootform}{\rightskip=\z@ \@plus 2em}
+\end{lcode}
+which is much like \cs{raggedright} but allows some hyphenation. One
+might consider using
+\begin{lcode}
+  \usepackage{ragged2e}
+  \newcommand*{\sidefootform}{\RaggedRight}
+\end{lcode}
+Which does something similar.
+
+
+
+
+
+\subsection{Side footnote example}
+\label{sec:side-footn-example}
+
+
+
+In the margin you will find the result of the following code:
+\begin{verbatim}
+  Testing\sidefootnote{This is test} bottom aligned
+  footnotes.\sidefootnote{This is another side 
+  footnote, spanning several lines.
+
+  And several paragraphs}\sidefootnote{And number three}
+\end{verbatim}
+  Testing\sidefootnote{This is test} bottom aligned
+  footnotes.\sidefootnote{This is another side 
+  footnote, spanning several lines.
+
+  And several paragraphs}\sidefootnote{And number three}
+
+
+\LMnote{2013/05/02}{Moved here from backmatter.tex}
+
+\section{Endnotes}
+\label{sec:endnotes}
+
+\LMnote{2010/10/28}{several \cs{printpagenotes} was spelled wrong}
+
+\reimplemented{December 2010}{The former implementation had some
+  difficulties handling certain types of input. A few of the macros
+  used to format the output are no longer supported/used in the new
+  implementation.}
+
+
+    Endnotes are often used instead of footnotes so as not to interrupt the
+flow of the main text. Although endnotes are normally put at the end of 
+the document, they may instead be put at the end of each chapter.
+
+    The \Lpack{endnotes} package already uses the command \cmd{\endnote} for
+an endnote, so the class uses \cmd{\pagenote} for an endnote so as not 
+to clash if you prefer to use the package. 
+\LMnote{2011/01/23}{The implementation has nothing to do with the
+  current pagenote package, thus the remark is removed}
+% The following was originally supplied as the \Lpack{pagenote}
+% package~\cite{PAGENOTE}. 
+
+\begin{syntax}
+\cmd{\makepagenote} \\
+\cmd{\pagenote}\oarg{id}\marg{text} \\
+\cmd{\printpagenotes} \cmd{\printpagenotes*} \\
+\end{syntax}
+\glossary(makepagenote)%
+  {\cs{makepagenote}}%
+  {Preamble command for enabling page/end notes.}%
+\glossary(printpagenotes)%
+  {\cs{printpagenotes}}%
+  {Input the pagenote \file{ent} file for printing, then close it to any 
+   more notes.}%
+\glossary(printpagenotes*)%
+  {\cs{printpagenotes*}}%
+  {Input the pagenote \file{ent} file for printing, then empty it ready for 
+   further notes.}%
+
+   The general principle is that notes are written out to a file which
+is then input at the place where the notes are to be printed. The note 
+file has an \pixfile{ent} extension, like the table of contents file
+has a \pixfile{toc} extension.
+
+    You have to put \cmd{\makepagenote} in your preamble if you want 
+endnotes. This will open the \pixfile{ent} note file which is called
+\verb?\jobname.ent?.
+
+   In the body of the text use use \cmd{\pagenote} to create an endnote, just
+as you would use \cmd{\footnote} to create a footnote. In the books that I have
+checked there are two common methods of identifying an endnote:
+\begin{enumerate}
+\item Like a footnote, put a number in the text at the location 
+of the note and use the same number to identify the note when it
+finally gets printed.\label{pagenote:id1}
+\item Put no mark in the text, but when it is finally 
+      printed\pagenote[Put no mark \ldots finally printed]{This manual uses
+      both footnotes and endnotes. For identifying the endnotes I have used the
+      `words' method for identifying the parent location of an endnote, so as not
+      to start confusing the reader with two sets of note marks in the body of the
+      text. Typically either footnotes or endnotes are used, not both, so the
+      question of distinguishing them does not normally arise.}
+use a few words from the text to identify the origin of the note. The page number
+is often used as well with this method.\label{pagenote:id2}
+\end{enumerate}
+The \meta{text} argument of \cmd{\pagenote} is the contents of the note and
+if the optional \meta{id} argument is not used the
+result is similar to having used \cmd{\footnote} --- a number in the main text
+and the corresponding number in the endnotes listing (as 
+in \ref{pagenote:id1} above). For the second reference style 
+(\ref{pagenote:id2} above) use the 
+optional \meta{id} argument for the `few words', and no mark will be put
+into the main text but \meta{id} will be used as the identification in
+the listing.
+
+   For one set of endnotes covering the whole document put 
+\cmd{\printpagenotes} where you want them printed, typically before
+any bibliography or index. The \cmd{\printpagenotes} macro inputs the
+\pixfile{ent} endnote file for printing and then closes it to any further
+notes.
+
+For notes
+at the end of each chapter put \cmd{\printpagenotes*}, which inputs
+the \pixfile{ent} file for printing then empties it ready for more notes,
+at the end of each chapter.
+
+   The simple use is like this:
+\begin{lcode}
+\documentclass[...]{memoir}
+...
+\makepagenote
+...
+\begin{document}
+\chapter{One}
+...\pagenote{An end note.} ...
+...\pagenote{Fascinating information.}
+...
+\chapter{Last}% chapter 9
+...\pagenote{Another note.}% 30th note
+...
+...
+\printpagenotes
+...
+\end{document}
+\end{lcode}
+This will result in an endnote listing looking like \fref{fig:endnote}.
+
+\begin{figure}
+\centering
+\begin{minipage}{0.8\textwidth}
+\begin{framed}
+\noindent{\bfseries\Large Notes}\\[\baselineskip]
+{\bfseries Chapter 1 One} \\[\baselineskip]
+1. An end note \\
+2. Fascinating information. \\
+.............. \\[\baselineskip]
+{\bfseries Chapter 9 Last} \\[\baselineskip]
+1. Another note \\[\baselineskip]
+\end{framed}
+\end{minipage}
+\caption{Example endnote listing}\label{fig:endnote}
+\end{figure}
+
+For notes at the end of each chapter:
+\begin{lcode}
+\documentclass[...]{memoir}
+...
+\makepagenote
+...
+\begin{document}
+\chapter{One}
+...\pagenote{An end note.} ...
+...
+\printpagenotes*
+\chapter{Last}
+...\pagenote{Another note.} ...
+...
+\printpagenotes*
+%%% no more chapters
+...
+\end{document}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\continuousnotenums} \\
+\cmd{\notepageref} \\
+\end{syntax}
+\glossary(continuousnotenums)%
+  {\cs{continuousnotenums}}%
+  {Declaration to make the numbering of endnotes continuous throughout the
+   document.}%
+\glossary(notepageref)%
+  {\cs{notepageref}}%
+  {Declaration that page numbers are available to notes in the endnote listing.}
+   The \Icn{pagenote} counter is used for the notes. By default the endnotes 
+are numbered per chapter. If you want the numbering
+to be continuous throughout the document use the \cmd{\continuousnotenums}
+declaration. Normally the information on which page a note was created is
+discarded but will be made available to notes in the endnote listing
+following the \cmd{\notepageref} declaration.  Both
+\cmd{\continuousnotenums} and \cmd{\notepageref} can only be used in
+the preamble.
+
+\LMnote{2011/01/23}{Because of the new implementation this is no
+  longer needed as the writing to file is no longer delayed.}
+% Because of how TeX writes information to files, when the
+% \cmd{\notepageref} declaration is used there must be no notes on the
+% page where \cmd{\printpagenotes} or \cmd{\printpagenotes*} closes the
+% \pixfile{ent} file.  If necessary, a \cmd{\clearpage} or similar must
+% be used before the print command.
+
+\begin{syntax}
+\cmd{\notesname} \\
+\cmd{\notedivision} \\
+\end{syntax}
+\glossary(notesname)%
+  {\cs{notesname}}%
+  {Name for endnotes, default \texttt{Notes}.}%
+\glossary(notedivision)%
+  {\cs{notedivision}}%
+  {Heading printed by the \cs{printpagenotes} and \cs{printpagenotes*} macros.}
+
+  When \cmd{\printpagenotes} (or \cmd{\printpagenotes*}) is called the
+  first thing it does is call the macro \cmd{\notedivision}. By
+  default this is defined as:
+\begin{lcode}
+\newcommand*{\notedivision}{\chapter{\notesname}}
+\end{lcode}
+with
+\begin{lcode}
+  \newcommand*{\notesname}{Notes}
+\end{lcode}
+In other words, it will print out a heading for the notes that will be read
+from the \file{ent} file. \verb?\print...? then closes the \pixfile{ent} file 
+for writing and after this \verb?\input?s it to get and process the notes.
+
+
+\subsection{Changing the appearance}
+
+\subsubsection{In the text}
+\label{sec:in-the-text}
+
+
+\begin{syntax}
+\cmd{\notenumintext}\marg{num} \\
+\end{syntax}
+\glossary(notenumintext)%
+  {\cs{notenumintext}\marg{num}}%
+  {Typesets the number \meta{num} of a page note in the main text.}%
+The \Icn{pagenote} counter is used for pagenotes. The macro
+\cmd{\notenumintext} is called by \cmd{\pagenote} with the value of the
+\Icn{pagenote} counter as the \meta{num} argument to print the
+value of the \Icn{pagenote} counter in the main text. By default it is 
+printed as a 
+superscript, but this can be changed, or even eliminated.
+\begin{lcode}
+\newcommand*{\notenumintext}[1]{\textsuperscript{#1}}
+\end{lcode}
+
+\subsubsection{In the page note list}
+\label{sec:page-note-list}
+
+  
+\LMnote{2011/01/23}{Added to make the formating code easier to understand}
+
+To better understand how a page note entry is formatted in the page
+note list, we start with the following  pseudo code (it is not exactly
+what you will see in the \texttt{.ent} file, but macros will end up
+being called in this manner)
+\begin{syntax}
+\cmd{\prenoteinnotes}\\
+\cmd{\noteidinnotes}\marg{notenum}\marg{id}\\
+\cmd{\pageinnotes}\marg{auto generated note label key}\\
+\cmd{\prenotetext}\\
+\quad\meta{Page note text}\\
+\cmd{\postnotetext}\\
+\cmd{\postnoteinnotes}
+\end{syntax}
+At the start and end we have the two macros \cmd{\prenoteinnotes} and
+\cmd{\postnoteinnotes}, they take care of preparing for and ending an
+entry in the list. The list is typeset in a manner where each item is
+(at least) a paragraph, so the default definition is
+\begin{lcode}
+\newcommand{\prenoteinnotes}{\par\noindent}
+\newcommand{\postnoteinnotes}{\par}
+\end{lcode}
+\glossary(prenoteinnotes)%
+  {\cs{prenoteinnotes}}%
+  {Called by \cs{noteentry} to initialise the printing of an endnote.}%
+\glossary(postnoteinnotes)%
+  {\cs{postnoteinnotes}}%
+  {Called by \cs{noteentry} to finish the printing of an endnote.}%
+A user could change this to make it look a bit more like a list
+construction. For example the following would give a hanging
+indentation
+\begin{lcode}
+\renewcommand{\prenoteinnotes}{\par\noindent\hangindent 2em}
+\end{lcode}
+
+\fancybreak{}
+
+
+The \cmd{\noteidinnotes} calls \cmd{\idtextinnotes} to print the note \meta{id}
+if it was given as the optional argument to \cmd{pagenote}, 
+otherwise it calls \cmd{\notenuminnotes} to print the note number.
+\begin{syntax}
+\cmd{\noteidinnotes}\marg{notenum}\marg{id} \\
+\cmd{\idtextinnotes}\marg{id} \\
+\cmd{\notenuminnotes}\marg{num} \\
+\end{syntax}
+\glossary(noteidinnotes)%
+  {\cs{noteidinnotes}\marg{notenum}\marg{id}}%
+  {Prints an endnote's number or id in the endnote listing.}%
+\glossary(idtextinnotes)%
+  {\cs{idtextinnotes}\marg{id}}%
+  {Prints an endnote's \meta{id} text}%
+\glossary(notenuminnotes)%
+  {\cs{notenuminnotes}\marg{num}}%
+  {Typesets the number \meta{num} of a page note in the note listing.}%
+These are defined respectively as:
+\begin{lcode}
+\newcommand*{\idtextinnotes}[1]{[#1]\space}
+\newcommand*{\notenuminnotes}[1]{\normalfont #1.\space}
+\end{lcode}
+
+\fancybreak{}
+
+Next we execute \cmd{\pageinnotes}\marg{note label key} which does
+nothing by default. But if \cmd{\notepageref} is issued in the
+preamble two things happen, (1) each page note issues a label such
+that we can refer back to its page, and (2) \cmd{\pageinnotes} calls
+\cmd{\printpageinnotes} (or if \Lpack{hyperref} is loaded
+\cmd{\printpageinnoteshyperref}) 
+\begin{syntax}
+\cmd{\pageinnotes}\marg{auto generated note label key}\\
+\cmd{\printpageinnotes}\marg{auto generated note label key}\\  
+\cmd{\printpageinnoteshyperref}\marg{auto generated note label key}\\
+\cmd{\pagerefname}
+\end{syntax}
+\glossary(pageinnotes)%
+{\cs{pageinnotes}\marg{pagenum}}%
+{Controls the printing of an endnote's page reference number.}%
+\glossary(printpageinnotes)%
+{\cs{printpageinnotes}\marg{pagenum}}%
+{Prints an endnote's page reference number.}%
+\glossary(printpageinnoteshypreref)%
+{\cs{printpageinnoteshyperref}\marg{pagenum}}%
+{Prints an endnote's page reference number whenever the
+  \protect\Lpack{hyperref} package is used, it will include a
+  hyperlink back to the page in question.}%
+\glossary(pagerefname)%
+{\cs{pagerename}}%
+{Holds the name prefix when referring to a page number, defaults to \texttt{page}.}%
+Default definitions
+\begin{lcode}
+\newcommand*{\printpageinnotes}[1]{%
+    (\pagerefname\ \pageref{#1})\space}
+\newcommand\printpageinnoteshyperref[1]{%
+   (\hyperref[#1]{\pagerefname\ \pageref*{#1}})\space}
+\end{lcode}
+That is if \Lpack{hyperref} is loaded the entire text \meta{page 3}
+will be the text of a hyperlink.
+
+\bigskip
+
+\begin{syntax}
+  \cmd{\prenotetext}\\
+  \cmd{\postnotetext}\\
+\end{syntax}
+\glossary(prenotetext)%
+  {\cs{prenotetext}}%
+  {Called within a page note list entry to initialise the printing
+    of the text part of an endnote.}%
+\glossary(postnotetex)%
+  {\cs{postnotetext}}%
+  {Called within a page note list entry to finish the printing of an
+    endnote.}%
+The actual text part of the page note is enclosed by
+\cmd{\prenotetext} and \cmd{postnotetext}. By default they do nothing,
+but could easily be redefined such that (only) the entry text would be
+in italic: 
+\begin{lcode}
+\renewcommand\prenotetext{\begingroup\itshape}
+\renewcommand\postnotetext{\endgroup}
+\end{lcode}
+
+
+
+%%%%%%%%%%%
+
+
+\LMnote{2011/01/25}{Covered above}
+% \begin{syntax}
+% \cmd{\notenuminnotes}\marg{num} \\
+% \end{syntax}
+% \glossary(notenuminnotes)%
+%   {\cs{notenuminnotes}\marg{num}}%
+%   {Typesets the number \meta{num} of a page note in the note listing.}%
+% In the note listing \cmd{\notenuminnotes} is used to print the number
+% of a note. The default definitions are:
+
+% \begin{lcode}
+% \newcommand*{\notenuminnotes}[1]{\normalfont #1.\space}
+% \end{lcode}
+
+
+
+\LMnote{2011/01/25}{Covered above, \cmd{\noteentry} is not used anymore}
+% \begin{syntax}
+% \cmd{\noteentry}\marg{notenum}\marg{id}\marg{text}\marg{pagenum} \\
+% \cmd{\prenoteinnotes} \\
+% \cmd{\postnoteinnotes} \\
+% \end{syntax}
+% \glossary(noteentry)%
+%   {\cs{noteentry}\marg{notenum}\marg{id}\marg{text}\marg{pagenum}}%
+%   {Typesets a pagenote with number \meta{notenum}, identifier \meta{id},
+%    contents \meta{text}, created on page \meta{pagenum}.}
+% \glossary(prenoteinnotes)%
+%   {\cs{prenoteinnotes}}%
+%   {Called by \cs{noteentry} to initialise the printing of an endnote.}
+% \glossary(postnoteinnotes)%
+%   {\cs{postnoteinnotes}}%
+%   {Called by \cs{noteentry} to finish the printing of an endnote.}
+% The \cmd{\pagenote} macro writes \cmd{\noteentry}, with the appropriate 
+% values for the arguments, to the \pixfile{ent} file, 
+% where \meta{notenum} is the note number (from the \Icn{pagenote} counter),
+% \meta{id} and \meta{text} are as supplied to
+% \cmd{\pagenote}, and if the \cmd{\notepageref} declaration option is used, 
+% \meta{pagenum} is the page number, otherwise it is empty. 
+% The \cmd{\noteentry} macro controls the typesetting of the note.
+
+% The default definition of \cmd{\noteentry} is
+% \begin{lcode}
+% \newcommand{\notentry}[4]{%
+%   \prenoteinnotes
+%   \noteidinnotes{#1}{#2}\pageinnotes{#4}\noteinnotes{#3}%
+%   \postnoteinnotes}
+% \end{lcode}
+% and the definitions of other macros are:
+% \begin{lcode}
+% \newcommand{\prenoteinnotes}{\par\noindent}
+% \newcommand{\postnoteinnotes}{\par}
+% \end{lcode}
+% so that (the first paragraph of) each note is printed as a non-indented 
+% paragraph.
+
+%     If you would prefer, say, hanging paragraphs try:
+% \begin{lcode}
+% \renewcommand{\prenoteinnotes}{\par\noindent\hangindent 2em}
+% \end{lcode}
+
+% \begin{syntax}
+% \cmd{\noteidinnotes}\marg{notenum}\marg{id} \\
+% \cmd{\idtextinnotes}\marg{id} \\
+% \cmd{\notenuminnotes}\marg{num} \\
+% \end{syntax}
+% \glossary(noteidinnotes)%
+%   {\cs{noteidinnotes}\marg{notenum}\marg{id}}%
+%   {Prints an endnote's number or id in the endnote listing.}%
+% \glossary(idtextinnotes)%
+%   {\cs{idtextinnotes}\marg{id}}%
+%   {Prints an endnote's \meta{id} text}%
+% The \cmd{\noteidinnotes} calls \cmd{\idtextinnotes} to print the note \meta{id}
+% if it was given as the optional argument to \cmd{pagenote}, 
+% otherwise it calls \cmd{\notenuminnotes} to print the note number.
+% These are defined respectively as:
+% \begin{lcode}
+% \newcommand*{\idtextinnotes}[1]{[#1]\space}
+% \newcommand*{\notenuminnotes}[1]{\normalfont #1.\space}
+% \end{lcode}
+
+% \begin{syntax}
+% \cmd{\pageinnotes}\marg{pagenum} \\
+% \cmd{\printpageinnotes}\marg{pagenum} \\
+% \end{syntax}
+% \glossary(pageinnotes)%
+%   {\cs{pageinnotes}\marg{pagenum}}%
+%   {Controls the printing of an endnote's page reference number.}%
+% \glossary(printpageinnotes)%
+%   {\cs{printpageinnotes}\marg{pagenum}}%
+%   {Prints an endnote's page reference number.}%
+% The macro \cmd{\pageinnotes} controls the printing of a note's page 
+% reference. If the
+% \cmd{\notepageref} declaration has been used it calls
+% \cmd{\printpageinnotes} to do the actual printing. Its definition is:
+% \begin{lcode}
+% \newcommand*{\printpageinnotes}[1]{%
+%   (\pagerefname\ #1)\space}
+% \end{lcode}
+
+% \begin{syntax}
+% \cmd{\noteinnotes}\marg{text} \\
+% \end{syntax}
+% \glossary(noteinnotes)%
+%   {\cs{noteinnotes}\marg{text}}%
+%   {Prints the text of an endnote.}%
+% The macro \cmd{\noteinnotes}\marg{text} is simply:
+% \begin{lcode}
+% \newcommand{\noteinnotes}[1]{#1}
+% \end{lcode}
+% and is used to print the text of a note.
+
+
+
+
+\bigskip
+
+
+
+\LMnote{2011/01/25}{rewritten a bit}
+\begin{syntax}
+\cmd{\addtonotes}\marg{text} \\
+\end{syntax}
+\glossary(addtonotes)%
+  {\cs{addtonotes}\marg{text}}%
+  {Inserts \meta{text} into the endnotes \file{ent} file.}%
+The macro \cmd{\addtonotes} inserts \meta{text} into the \pixfile{ent}
+file. 
+
+\begin{note}
+  As the argument to \cmd{\pagenote} and \cmd{\addtonotes} is moving
+  you may have to \cmd{\protect} any fragile commands. If you get
+  strange error messages, try using \cmd{\protect} and see if they go
+  away.
+\end{note}
+\fancybreak{}
+
+Internally in \cmd{\pagenote} \cmd{\addtonotes} is used to provide
+chapter devisions into the note list. It will detect both numbered and
+unnumbered chapters. The actual text is provided using
+\begin{syntax}
+\cmd{\pagenotesubhead}\marg{chapapp}\marg{num}\marg{title} \\
+\cmd{\pagenotesubheadstarred}\marg{chapapp}\marg{num}\marg{title} \\
+\cmd{\pnchap} \cmd{\pnschap} \\
+\end{syntax}
+\glossary(pagenotesubhead)%
+  {\cs{pagenotesubhead}\marg{chapapp}\marg{num}\marg{title}}%
+  {Typesets a subheading for notes from chapter or appendix \meta{chapapp} 
+   \meta{num} called \meta{title}.}%
+\glossary(pagenotesubheadstarred)%
+  {\cs{pagenotesubheadstarred}\marg{chapapp}\marg{num}\marg{title}}%
+  {Typesets a subheading for notes from unnumbered chapter or appendix
+    \meta{chapapp}  \meta{num} called \meta{title}.}%
+\glossary(pnchap)%
+  {\cs{pnchap}}%
+  {Chapter title for \cs{pagenotesubhead}. Defaults to the ToC entry.}
+\glossary(pnschap)%
+{\cs{pnschap}}%
+{Starred chapter title for \cs{pagenotesubhead}. Defaults to the regular title.}
+  
+The macro \cmd{\pagenotesubhead} typesets the subheadings in an
+endnote list.  The \meta{chapapp} argument is normally
+\cmd{\chaptername} but if the notes are from an appendix then
+\cmd{\appendixname} is used instead. \meta{num} is the number of the
+chapter, or blank if there is no number. Lastly, \meta{title} is
+\cmd{\pnchap} for regular chapters which defaults to the ToC entry, or
+\cmd{\pnschap} for starred chapters which defaults to the normal
+title. The default definition of \cmd{\pagenotesubhead} is very
+simply:
+\begin{lcode}
+\newcommand*{\pagenotesubhead}[3]{%
+  \section*{#1 #2 #3}}
+\newcommand\pagenotesubheadstarred{\pagenotesubhead} % i.e. the same
+\end{lcode}
+By default this means that the header for starred chapters will be
+something like >>Chapter Title<<, which may look odd. In that case
+redefine \cmd{\pagenotesubheadstarred} to something similar to 
+\begin{lcode}
+\renewcommand\pagenotesubheadstarred[3]{\section*{#3}}
+\end{lcode}
+Just remember that unless you have specified \cmd{\continuousnotenums}
+in the preamble the note counter (\Icn{pagenote}) will only be reset
+at the start of any numbered chapters (because it is tied to changes
+in the chapter counter).
+
+The scheme is set up under the assumption that notes will only be
+printed at the end of the document. If you intend to put them at the
+end of each chapter, then you will probably want to change the
+definitions of the \cmd{\notedivision} and \cmd{\pagenotesubhead}
+macros. For example:
+\begin{lcode}
+\renewcommand*{\notedivision}{\section*{\notesname}}
+\renewcommand*{\pagenotesubhead}[3]{}
+\end{lcode}
+and remember to use \cmd{\printpagenotes*} at each place you want the
+current set of notes to be printed.
+
+\fancybreak{}
+
+Say you have written a document with footnotes, but later on decide on
+using end notes (page notes) instead. In that case you can use
+\cmd{\foottopagenote} to make \cmd{\footnote}, \cmd{\footnotemark} and
+\cmd{\footnotetext} works as if it was implemented using end notes. On
+the other hand \cmd{\pagetofootnote} makes all  page notes into
+footnotes (note that this might not work, because there are places
+where page notes can be issued but foot notes cannot).
+
+\begin{syntax}
+\cmd{\foottopagenote}\\ \cmd{\pagetofootnote} \\
+\end{syntax}
+\glossary(foottopagenote)%
+  {\cs{foottopagenote}}%
+  {Declaration which turns \cs{footnote}s into \cs{pagenote}s.}%
+\glossary(pagetofootnote)%
+  {\cs{pagetofootnote}}%
+  {Declaration which turns \cs{pagenote}s into \cs{footnote}s.}%
+  % You can have both footnotes and endnotes in the same
+  % document. However you may start with all footnotes and later
+  % decide you would have preferred endnotes instead, or
+  % \emph{vice-versa}. The \cmd{\foottopagenote} declaration makes
+  % \cmd{\footnote}s behave as \cmd{\pagenote}s, and
+  % \cmd{\pagetofootnote} has the opposite effect.
+In either conversion the optional argument will be
+ignored as for \cmd{\pagenote} it can be arbitrary text whereas for
+\cmd{\footnote} it must be a number.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% start membook
+
+
+%#% extend
+%#% extstart include decorative-text.tex

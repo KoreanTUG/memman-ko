@@ -1,0 +1,1848 @@
+%\chapter{Preface}
+\chapter{프레훠스}
+%
+%    From personal experience and also from lurking on the \url{comp.text.tex}
+%newsgroup the major problems with using \ltx\ are related to document
+%design. Some years ago most questions on \ctt\ were answered by
+%someone providing a piece of code that solved a particular problem, and
+%again and again. More recently these questions are answered along the
+%lines of `Use the ---------{} package', and again and again.
+개인적 경험으로나 \url{comp.tex.tex} 뉴스그룹을 보거나 \ltx 을 사용함에 있어 주요 문제는 
+문서 디자인에 관련된 것이다.
+몇 년 전만 하더라도 \ctt 에 질문이 올라오면 누군가 주어진 특정 문제를 해결하는 
+짧은 코드를 제공하여 답변했고 이 일이 반복되었다.
+더 최근에는 답변이 ‘----------{} 패키지를 사용하라’는 것으로 바뀌었고 역시
+이런 상황이 반복되고 있다.
+
+%    I have used many of the more common of these packages but my filing system
+%is not always well ordered and I tend to mislay the various user manuals,
+%even for the packages I have written. The \Pclass{memoir} class is an attempt
+%to integrate some of the more design-related packages with the LaTeX
+%\Pclass{book} class. I chose the \Pclass{book} class as the \Pclass{report} class
+%is virtually identical to \Pclass{book}, except that \Pclass{book} does
+%not have an \Ie{abstract} environment while \Pclass{report} does; however it is 
+%easy to fake an \Ie{abstract} if it is needed. With a little bit of tweaking,
+%\Pclass{book} class documents can be made to look just like \Pclass{article}
+%class documents, and the \Pclass{memoir} class is designed with tweaking very
+%much in mind.
+너무 많은 패키지를 사용하다 보니 순서도 뒤죽박죽이 되고 각 패키지의 사용설명서를 어디에 두었는지 잊어버리게 되었는데, 심지어 내가 작성한 패키지마저 그런 상태가 되었다.
+\Pclass{memoir}는 \Pclass{book} 클래스에서의 디자인 관련 패키지를 통합하려는 시도이다.
+필자는 \Pclass{report}가 아니라 \Pclass{book} 클래스를 문제삼았다. 이 둘은 사실상 거의 동일한 클래스이고 유일한 차이는 \Pclass{book}에 \Ie{abstract} 환경이 없다는 점이다. 
+사실 \Ie{abstract}를 필요하다면 가져다 쓰는 것은 어려운 일도 아니다. 
+심지어 조금 손을 보면 \Pclass{book} 클래스 문서를 \Pclass{article} 문서처럼 보이게 하는 것도 가능하다. 이런 관점에서 여러 상황에 맞도록 손보는 일을 유념하여 \Pclass{memoir} 클래스를 작성하였다.
+
+%
+%    The \Pclass{memoir} class effectively incorporates the facilties that
+%are usually accessed by using external packages. In most cases the class
+%code is new code reimplementing package functionalities. The exceptions
+%tend to be where I have cut and pasted code from some of my packages.
+%I could not have written the \Pclass{memoir} class without the excellent 
+%work presented by the implementors of \ltx\ and its many packages.
+\Pclass{memoir} 클래스는 외부 패키지와도 대부분 잘 동작한다. 이 클래스로 들여온 각 패키지의 코드는 대부분 새롭게 손을 본 것이다.
+다만 필자 자신이 작성한 패키지는 단순히 복사--붙여넣기하였다. 
+\ltx 과 여러 패키지의 도움이 없었다면 이 클래스는 작성될 수 없었을 것이다.
+
+
+%
+%    Apart from packages that I happen to have written I have gained many
+%ideas from the other packages listed in the \bibname. One way or another
+%their authors have all contributed, albeit unknowingly. 
+%The participants in the
+%\url{comp.text.tex} newsgroup have also provided valuable input, partly
+%by questioning how to do something in \ltx, and partly by providing
+%answers. It is a friendly and educational forum.
+%
+직접 활용한 패키지 말고도 \bibname 에 열거된 다양한 패키지의 아이디어를 빌어온 것도 많다.
+이 패키지의 저자들은 스스로 인식하지 못하더라도 어떤 식으로든 이 클래스에 기여한 바가 있다.
+\url{comp.text.tex} 뉴스그룹의 참여자들 또한 귀중한 기여를 하였는데,
+한편으로는 \ltx 에 관한 뭔가를 질문함으로써, 다른 한편으로 답변을 제공함으로써 그리하였다.
+매우 분위기좋고 공부가 되는 포럼이었다.
+
+
+%{\raggedleft{\scshape Peter Wilson} \\ Seattle, WA \\ June 2001\par}
+{\raggedleft{\scshape Peter Wilson} \\ Seattle, WA \\ June 2001\par}
+
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{comment}
+%\chapter{Introduction to the first edition}
+%
+%    This is not a guide to the general use of LaTeX but rather concentrates
+%on where the \index{class}\Lclass{memoir} class differs from the standard LaTeX
+%\Lclass{book} and \Lclass{report} classes. There are other sources that deal with LaTeX in 
+%general, some of which are listed in the \bibname. Lamport~\cite{LAMPORT94}
+%is of course the original user manual for LaTeX, while the Companion
+%series, for example~\cite{COMPANION}, go into further details and auxiliary
+%programs. The Comprehensive TeX Archive Network (CTAN) is a valuable source
+%of free information and the LaTeX system itself. For general questions see
+%the FAQ~\cite{FAQ} which also has pointers to information sources. Among
+%these are \btitle{The Not So Short Introduction to LaTeX2e}~\cite{LSHORT},
+%Keith Reckdahl's \btitle{Using imported graphics in LaTeX2e}~\cite{EPSLATEX}
+%and Piet van Oostrum's \btitle{Page layout in LaTeX}~\cite{FANCYHDR}.
+%The question of how to use different fonts with LaTeX is left strictly alone;
+%Alan Hoenig's book~\cite{HOENIG98} is the best guide to this that I know of
+%although Philipp Lehman's \btitle{The Font Installation Guide}~\cite{FONTINST} 
+%has much information.
+%
+%
+%    The first part of the manual discusses briefly some aspects of book
+%design and typography, independently of the means of typesetting. Among
+%the several books on the subject listed in the \bibname{} I prefer
+%Bringhurst's \btitle{The Elements of Typographic Style}~\cite{BRINGHURST99}.
+%I have used the LaTeX \Lclass{book} design, which is the default
+%\Lclass{memoir} class style, in typesetting Part~\ref{part:art}.
+%
+%    The second part then goes into some detail on how the \Lclass{memoir}
+%class can be used to implement a particular design.
+%
+%    With two exceptions, the \Lclass{memoir} class has all the capabilities
+%of the standard LaTeX \Lclass{book} class. These exceptions are:
+%\begin{itemize}
+%\item The old LaTeX v2.09 font commands --- 
+%      \cmd{\rm} (roman), 
+%      \cmd{\tt} (\texttt{typewriter}), 
+%      \cmd{\sf} (\textsf{sans}),
+%      \cmd{\bf} (\textbf{bold}), 
+%      \cmd{\sl} (\textsl{slanted}), 
+%      \cmd{\it} (\textit{italic}),
+%      and \cmd{\sc} (\textsc{small caps}) ---
+%      are not supported and will give error messages if used.
+% 
+%      The \cmd{\em} (\emph{emphasis}) command is supported but gives 
+%a warning message if used.
+%
+%\item There are no commands for making titles. This is because title pages are
+%      usually designed individually for each book. The 
+%     \index{package}\Lpack{titling}
+%      package~\cite{TITLING} can be used if you want the titling commands.
+%      The package
+%      provides extended titling facilities when compared to those in the
+%      standard LaTeX classes.
+%
+%\end{itemize}
+%I hope that, apart from these, the class supports everything that the 
+%\Lclass{book} class provides.
+%
+%    The major extra functions provided by the class include:
+%\begin{itemize}
+%\item Font sizes for the main text of 9, 10, 11, 12 and 14pt.
+%\item A reasonably intuitive means of setting the page, text and margin sizes.
+%\item Page trimming marks.
+%\item If really required, typesetting as though in the olden typewriter days
+%      (double spaced, raggedright, no hyphenation, typewriter font).
+%\item Configurable sectional headings, with several predefined styles for
+%      chapter headings and simple methods for defining new ones.
+%\item `Anonymous' section breaks (e.g., a blank or decorated line or two).
+%\item Configurable page headers and footers, with several predefined styles
+%      and simple methods for defining new ones.
+%\item Configurable captions, with several predefined captioning styles and
+%      methods for defining new ones.
+%\item Ability to define new `\listofx' and new floats with their accompanying
+%      captions and `\listofx'.
+%\item Control over whether the `\listofx', bibliography, index, etc., appear
+%      in the Table of Contents.
+%\item Support for epigraphs.
+%\end{itemize}
+%Also, along the way you will find other more minor but still useful things.
+%
+%    As Part~\ref{part:practice} progresses I demonstrate some of the changes
+%that the \Lclass{memoir} class lets you easily make to the normal LaTeX
+%page and titling style.
+%
+%\section{Type conventions}
+%
+%    The following conventions are used in the manual:
+%\begin{itemize}
+%\item \Pclass{The names of LaTeX classes\index{class} and 
+%              packages\index{package} are typeset in this font,
+%             as are class and package options\index{option}.}
+%\item \Ppstyle{The names of chapterstyles\index{chapterstyle} and 
+%               pagestyles\index{pagestyle} are typeset in this font.}
+%\item \texttt{LaTeX code is typeset in this font.}
+%\end{itemize}
+%
+%\section{Caveats}
+%
+%    At the moment both this manual and the class code are in a beta state.
+%That is, they hopefully serve the purposes they are intended for, but 
+%it is probable that there are errors, poor explanations and missing
+%elements. So, be warned that I'm sure that there will be further releases
+%and these may not be entirely compatible with the current release.
+%
+%    That said, I will be grateful for any constructive comments that 
+%anyone\footnote{I have received valuable comments from
+%Javier Bezos (\url{jbezos@wanadoo.es}), 
+%Sven Bovin (\url{sven.bovin@chem.kuleuven.ac.be}),
+%Scott Pakin (\url{pakin@uiuc.edu}),
+%and
+%Paul Stanley (\url{pstanley@essexcourt-chambers.co.uk}).}
+%may have, especially regarding errors, mispeaking, and desireable 
+%enhancements. I can be reached by posting to \url{comp.text.tex}.
+%
+%    TeX was designed principally for typesetting documents containing a 
+%lot of mathematics. In such works the mathematics breaks up the flow
+%of the text on the page, and the vertical space required for displayed
+%mathematics is arbitrary. Most non-technical books are typeset on a fixed
+%grid as they do not have arbitrary insertions into the text.
+%
+%    TeX is designed to handle arbitrary sized inserts in an elegant manner,
+%and does this by allowing vertical spaces to stretch and shrink a little
+%so that the actual height of the typeblock is constant. Therefore LaTeX, being
+%built on top of TeX, does not typeset on a fixed grid, and it would be a 
+%very major task to try and make it do so; this has been tried but as far as 
+%I know nobody has been successful. Experimental work, though, is still ongoing.
+%
+%    The manual includes many unbreakable names of LaTeX commands,
+%some of which stick out into the margin. The way of getting rid of these
+%is to rewrite the text so that they don't come at the end of a typeset
+%line. This is tedious and I haven't done it because I expect the manual
+%to be revised and that would throw off any hand tweaking done now.
+%
+%
+%\chapter{Introduction to the second edition}
+%
+%    Since the first edition of the manual was published the \Lclass{memoir}
+%class has undergone some changes and extensions. The changes, to remove
+%some unfortunate errors, are upwards compatible. The extensions, by 
+%their nature, are not upward compatible.
+%
+%    The main extensions and changes include:
+%\begin{itemize}
+%\item A \index{option}\Lopt{subfigure} option to counteract an unfortunate 
+%      interplay\footnote{Discovered by Ignasi Furi\'{o} Caldentey 
+%      (\url{ignasi@ipc4.uib.es}).}
+%      if the \Lpack{subfigure} package is used with the class.
+%
+%\item An \Lopt{article} option so that \Lclass{article} class typesetting
+%      may be \emph{simulated}.
+%
+%\item Incorporation of the essential code from the \Lpack{titling}
+%      package~\cite{TITLING} (to support the \Lopt{article} option).
+%
+%\item Incorporation of the essential code from the \Lpack{abstract}
+%      package~\cite{ABSTRACT} (to support the \Lopt{article} option).
+%
+%\end{itemize}
+%
+%    The description of how to modify the \prtoc, \prlof{} and \prlot{} headings
+%in the first edition was completely wrong, as was the corresponding
+%description of the \cmd{\newlistof} macro. No noticeable
+%changes have been made to the class code but the descriptions now
+%reflect reality. I must have been a few bricks short of a full load when
+%I wrote the original.
+%
+%    There are other more minor changes and extensions\footnote{With thanks
+%to, among others, Kevin Lin (\url{kevinlin@runtop.com.tw}) and
+%Adriano Pascoletti (\url{pascolet@dimi.uniud.it}).} 
+%which you may find if you recall the first edition.
+%
+%    There was no mention of typesetting verse in the first edition,
+%although the class does provide the normal LaTeX \Ie{verse}
+%environment. A poem
+%is usually individually typeset as the appearance often has an
+%effect on the emotional response when reading it. The \Lpack{verse}
+%package~\cite{VERSE} may be useful when typesetting poetry.
+%
+%\chapter{Introduction to the third edition}
+%
+%    Since the second  edition of the manual was published the \Lclass{memoir}
+%class has been upgraded from beta code to a production release. Extensions
+%have been made to both the class and this manual.
+%
+%    The main extensions and changes include:
+%\begin{itemize}
+%\item An \Lopt{openleft} option to enable chapters to start
+%      on verso pages.
+%
+%\item Incorporation of the essential code from the \Lpack{verse}
+%      package~\cite{VERSE} for more flexibility when typesetting
+%      poetry.
+%
+%\item Replacement of the macro called \cmd{\makepshook} by
+%      \cmd{\makepsmarks}. Note that this is a non-upward compatible
+%      change.
+%
+%\item The first part of the manual has been reorganised and
+%      extended, principally
+%      by providing more typesetting examples.
+%
+%\item As usual, minor glitches have been removed from both the code
+%      and the manual; each revision, of course, eliminates the gap between
+%      advertisement and reality.
+%
+%\end{itemize}
+%
+%
+%    There are other more minor changes and extensions\footnote{With thanks
+%to, among others, Ignasi Furi\'{o} Caldentey (\url{ignasi@ipc4.uib.es}),
+%Daniel Richard G. (\url{skunk@mit.edu}) and
+%Vladimir G. Ivanovi\'c (\url{vladimir@acm.org}).} 
+%which you may find if you recall the second edition.
+%
+%\chapter{Introduction to the fourth edition}
+%
+%    Since the third edition of the manual was published the \Lclass{memoir}
+%class has been upgraded from version~1.0 to version~1.1. Modifications 
+%have been made to both the class and this manual.
+%
+%    The main extensions and changes include:
+%\begin{itemize}
+%\item The \Lopt{subfigure} option is no longer required.
+%
+%\item Subfloats have been added to the class. Steve Cochran kindly gave
+%      permission for me to use some of his \Lpack{subfigure} package
+%      code for this.
+%
+%\item Some packages still use the old, deprecated LaTeX version~2.09
+%      font commands. I have reluctantly introduced an option
+%      to enable the old, deprecated font commands to be used.
+%
+%\item The class now works harmoniously with the \Lpack{natbib}
+%      package~\cite{NATBIB}.
+%
+%\item As usual, minor glitches have been removed from both the code
+%      and the manual; each revision hopefully eliminates the gap between
+%      advertisement and reality.
+%
+%\end{itemize}
+%
+%
+%    There are other more minor changes and extensions\footnote{With thanks
+%to, among others, 
+%William Adams (\url{WillAdams@aol.com})
+%Ignasi Furi\'{o} Caldentey (\url{ignasi@ipc4.uib.es}),
+%Steven Douglas Cochran (\url{sdc+@cs.cmu.edu}),
+%Henrik Holm (\url{henrik@tele.ntnu.no}),
+%and Rolf Niepraschk (\url{niepraschk@ptb.de}).
+%}
+%which you may find if you have used earlier editions.
+%
+%\chapter{Introduction to the fifth edition}
+%
+%    Since the fourth edition of the manual was published the \Lclass{memoir}
+%class has been upgraded from version~1.1 to version~1.2. Modifications 
+%have been made to both the class and this manual.
+%
+%    The main extensions and changes include:
+%\begin{itemize}
+%\item The size options have been extended\footnote{At the
+%      request of Vittorio De Martino whose children use LaTeX
+%      for their school projects.}
+%      to include a \Lopt{17pt} option.
+%
+%\item A few font sizes corresponding to the font size commands (e.g., \verb?\Large?)
+%      have been changed to give regular steps between sizes.
+%
+%\item Boxes that can break over pages and/or contain verbatim text.
+%
+%\item Several ways of dealing with verbatim text, including footnotes
+%      that can contain verbatim text.
+%
+%\item Some control over the typesetting of footnotes. Unfortunately
+%      this necessitated some changes in the methods for styling
+%      thanks notes.
+%
+%\item Comment environments.
+%
+%\item Convenient methods for file input and output.
+%
+%\item Additional \verb?\provide...? commands.
+%
+%\item The \Ie{description} environment has been modified to match
+%      the appearance of the standard environment. The original
+%      \Lclass{memoir} form is still available as the \Ie{blockdescription}
+%      environment.
+%
+%\item A new optional argument has been added to the \cmd{\chapter} and 
+%      \cmd{\chapter*} commands for setting header texts.
+%
+%\end{itemize}
+%
+%     As usual, minor glitches have been removed from both the code
+%and the manual. Hopefully, new ones have not been introduced.
+%
+%\chapter{Introduction to the sixth edition}
+%
+%    Since the fifth edition of the manual was published the \Lclass{memoir}
+%class has been upgraded from version~1.2 to version~1.6. 
+%Many new functions have
+%been added to the class and this manual has been updated to reflect all
+%the additions.
+%
+%    The main extensions and changes include:
+%\begin{itemize}
+%
+%\item Major extensions for typesetting arrays and tabulars, including
+%      continuous tabulars and automatic tabulation.
+%
+%\item Major extensions to footnote styles and the ability to have
+%      multiple series of footnotes.
+%
+%\item Major extensions for indexing, including one column and multiple indexes.
+%
+%\item Major extensions to crop marks. 
+%
+%\item \verb?\tableofcontents? and friends can be used multiple times.
+%
+%\item Section titles (as well as numbers) can be referenced.
+%
+%\item Sheet numbers and access to the numbers of the last sheet and last page.
+%
+%\item Various methods for formatting numbers.
+%
+%\item Better cooperation with the \Lpack{chapterbib} and \Lpack{natbib} packages.
+%
+%\end{itemize}
+%
+%     There are many more minor additions.
+%     As usual, glitches have been removed from both the code
+%and the manual. Hopefully, new ones have not been introduced.
+%
+%
+%     Many people have contributed to the \Lclass{memoir} class and this manual
+%in the forms of code, solutions to problems, suggestions for new functions, 
+%bringing my attention to errors and infelicities in the code 
+%and manual, and last but not least in simply being encouraging. 
+%I am very grateful to the following for all they have done, whether they
+%knew it or not:
+%Paul Abrahams,
+%William Adams,
+%Donald Arseneau,
+%Jens Berger,
+%Karl Berry,
+%Javier Bezos,
+%Sven Bovin,
+%Alan Budden,
+%Ignasi Furi\'{o} Caldentey,
+%Ezequiel Mart\'{\i}n C\'{a}mara,
+%David Carlisle,
+%Steven Douglas Cochran,
+%Michael Downes,
+%Victor Eijkhout,
+%Danie Els,
+%Robin Fairbairns,
+%Simon Fear,
+%Kai von Fintel,
+%Daniel Richard G,
+%Romano Giannetti,
+%Kathryn Hargreaves,
+%Sven Hartrumpf,
+%Florence Henry,
+%Cartsten Heinz,
+%Peter Heslin,
+%Morton H\o{}gholm,
+%Henrik Holm,
+%Vladimir Ivanovich,
+%Stefan Kahrs,
+%J\o{}gen Larsen,
+%Kevin Lin,
+%Matthew Lovell,
+%Daniel Luecking,
+%Lars Madsen,
+%Vittorio De Martino,
+%Frank Mittelbach,
+%Rolf Niepraschk,
+%Patrik Nyman,
+%Heiko Oberdiek, 
+%Scott Pakin,
+%Adriano Pascoletti,
+%Bernd Raichle,
+%Robert,
+%Chris Rowley,
+%Doug Schenck,
+%Rainer Sch\"{o}pf,
+%Paul Stanley,
+%Reuben Thomas,
+%Bastiaan Niels Veelo,
+%Emanuele Vicentini,
+%J\"{u}rgen Vollmer,
+%and others.
+%
+%If I have inadvertently left anyone off the list I apologise, 
+%and please let me know so that I can correct the omisssion.
+%
+%    Of course, none of this would have been possible without Donald Knuth's
+%TeX system and the subsequent development of LaTeX by Leslie Lamport.
+%
+%\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{comment}
+%\chapter{Introduction to the seventh edition}
+%
+%    The \Lclass{memoir} class and this manual have seen many changes since
+%they first saw the light of day. The major functions, and extensions to
+%them, were listed in the various
+%introductions to the previous editions of this manual and it would now be 
+%tedious to read them.
+%
+%The \Mname\ class was first released in 2001 and since then has proven
+%to be reasonably popular. The class can be used as a replacement for
+%the \Lclass{book} and \Lclass{report} classes, by default generating
+%documents virtually indistinguisable from ones produced by those
+%classes.  The class includes some options to produce documents with
+%other appearances; for example an \Lclass{article} class look or one
+%that looks as though the document was produced on a typewriter with a
+%single font, double spacing, no hyphenation, and so on. In the
+%following I use the term `standard class'\index{standard class} to
+%denote the \Lclass{book} and \Lclass{report} classes and, when
+%appropriate, the \Lclass{article} class as well.
+%
+%    The \Mname\ class includes the functionality of many packages, for
+%instance the \Lpack{tocloft} package for controlling the table of contents or
+%methods similar to the \Lpack{fancyhdr} package for designing your own
+%headers. The built-in package functions are mainly related to document
+%design and layout; \Mname\ does not touch upon areas like those that are 
+%covered by the \Lpack{babel} or \Lpack{hyperref} packages or any related to 
+%typesetting mathematics. On the other hand it is easy to configure a work
+%produced with \Mname\ 
+%to meet a university's thesis layout requirements.
+%
+%    \Mname\ has improved substantially since it was first released ---
+%over 50 \ltx ers have provided code or suggestions for improvements.
+%The class is included in the \TeXUG\ \tx\ distributions and the latest 
+%version of the class and its supporting documentation is always
+%available from %
+%\ctan\ at \url{latex/contrib/memoir}.
+%
+%    This is not a guide to the general use of \ltx\ but rather concentrates
+%on where the \index{class}\Lclass{memoir} class differs from the standard \ltx\
+%\Lclass{book} and \Lclass{report} classes. There are other sources that deal 
+%with \ltx\ in general, some of which are noted later.
+%I assume that you have already used \ltx\ and therefore know how to prepare
+%a \ltx\ manuscript, how to run \ltx\ and print the resulting document,
+%and that you can also use auxiliary programs like \Lmakeindex\ 
+%and \Lbibtex.
+%
+%
+%\section{General considerations}
+%
+%    The class is a large one consisting of about 10,000 lines of \ltx\ code
+%documented in a 400 page report; there is no need for most users to look at 
+%this~\cite{MEMCODE}. However if you want to see exactly how some part, 
+%or all of, \Mname\ is defined it is there for you to peruse.
+%The document you are now reading is the separate comprehensive 
+%User Manual~\cite{MEMMAN} which runs to about 500 pages, and from time to 
+%time an Addendum~\cite{MEMADD} is released noting extensions to the class.
+%Again, if you want to see how something was done in this Manual, which
+%of course was prepared using \Mname\ itself, the source
+%is available for you to read.
+%There is also the \Lpack{memexsupp} package by Lars Madsen~\cite{MEMEXSUPP} 
+%which provides some extra facilities for the class.
+%
+%
+%The first part of this Manual discusses some aspects of book design 
+%and typography in
+%general, something that I haven't come across in the usual \ltx\ books
+%and manuals. This is intended to provide a little background for when
+%you design your own printed documents.
+%
+%    The second, and by far the longer part, describes the capabilities
+%of \Mname\ and how to use them. This manual is not a \ltx\ tutorial; I assume
+%that you already know the basics. If you don't then there are several 
+%free tutorials available. In some instances I show you the internal code
+%for the class which may involve \ltx\ commands that you won't come
+%across in the tutorials and also sometimes basic \tx\ commands. Information
+%on these, if you want it, is obtained from reading the \ltx\ source itself
+%and the \txbook, and perhaps one of the free \tx\ manuals such as
+%\btitle{TeX for the Impatient}~\cite{IMPATIENT} or 
+%\btitle{TeX by Topic}~\cite{TEXBYTOPIC}.
+%
+%\section{Class options}
+%
+%    The standard classes provide point options of 10, 11, or 12 points for the
+%main body font. \Mname\ extends this by also providing a 9 point option, and 
+%options ranging from 14 to 60 points.
+%The width of the text block is automatically adjusted according to 
+%the selected point size to try and keep within generally accepted 
+%typographical limits for line lengths; you can override this if you wish. 
+%The class also provides easy methods for specifying the 
+%page layout parameters such as the margins --- both the side margins and 
+%those at 
+%the top and bottom of the page; the methods are similar to those of the
+%\Lpack{geometry} package.
+%
+%    The page layout facilities also include methods, like those provided
+%by the \Lpack{fancyhdr} package, for defining your own
+%header and footer styles, and you can have as many different ones as you wish.
+%In fact the class provides seven styles to choose from before having to
+%create your own if none of the built-in styles suit you. 
+%
+%   Sometimes it is useful, or even required, to place trimming marks on
+%each page showing the desired size of the final page with respect to the sheet
+%of paper that is used in the printer. This is provided by the \Lopt{showtrims}
+%option. A variety of trim marks are provided and you can define your own 
+%if you need some other kind.
+%
+%\section{Sectioning styles}
+%
+%    Handles are provided for designing and using your own styles for chapter
+%titles and such. The class comes with over 20 predefined chapter styles ranging
+%from the default look to a style that mimics that used in the 
+%\emph{Companion} series of \ltx\ books. There are even a couple which use
+%words instead of numerals for chapter numbers.
+%% The Manual shows 
+%%examples of these styles and about 30 are shown in Lars 
+%%Madsen's collection~\cite{MEMCHAPS}.
+%
+%   For those who like putting quotations near chapter titles the 
+%\Ie{epigraph} environment can be used.
+%
+%    The options for changing \cs{section} and lower level titles
+%are more constrained, but generally speaking document design, unless for
+%advertisements or other eye-catching ephemera, should be constrained.
+%The class does provide 9 integrated sets of sectional heading styles instead
+%of the usual single set.
+%
+%    Sometimes, but particularly in novels, a sectional division is indicated
+%by just leaving a blank line or two between a pair of paragraphs, or there 
+%might be some decorative item like three or four asterisks, or a fleuron
+%or two. (A \emph{fleuron}\index{fleuron} is a printers ornament looking 
+%like a leaf, such as \ding{166} or \ding{167}.) Commands
+%are available for typesetting such anonymous divisions.
+%
+%   In the standard classes the sectioning commands have an optional argument
+%which can be used to put a short version of the section title into the 
+%table of contents and the page header. \Mname\ extends this with a second 
+%optional argument so you can specify one short version for the contents and 
+%an even shorter one for page headers where space is at a premium.
+%
+%\section{Captions}
+%
+%    \Mname\ incorporates the code from my \Lpack{ccaption} package which
+%lets you easily modify the appearance of figure and table captions; bilingual
+%captions are available if required, as are captions placed at the side of
+%a figure or table or continuation captions from, say, one illustration to
+%another. Captioning can also be applied
+%to `non-floating' illustrations or as legends (i.e., unnumbered captions) to
+%the regular floats. The captioning system
+%also supports subfigures and subtables along the lines of the \Lpack{subfig}
+%package, plus letting you define your own new kinds of floats together
+%with the corresponding `\listofx'. 
+%
+%\section{Tables}
+%
+%    Code from the \Lpack{array}, \Lpack{dcolumn}, \Lpack{delarray} and
+%\Lpack{tabularx} packges is integrated within the class. To improve
+%the appearance of rules in tabular material the \Lpack{booktabs}
+%package is also included.
+%
+%    Multipage tabulations are often set with the \Lpack{longtable} or
+%\Lpack{xtab} packages, which can of course be used with the class. For
+%simple tabulations that may continue from one page to the next, \Mname\
+%offers a `continuous tabular' environment. This doesn't have all the 
+%flexibility provided by the packages but can often serve instead
+%of using them.
+%
+%    More interestingly, but more limited, the class provides `automatic 
+%tabulars'. For these you provide a list of simple entries, like a set of names,
+% and a number of
+%columns and the entries are automatically put into the appropriate column.
+%You choose whether the entries should be added row-by-row, like this with
+%the \cs{autorows} command:
+%
+%\begin{lcode}
+%\autorows{c}{5}{l}{one, two, three, four,
+%    five, six, seven, eight, nine, ten,
+%    eleven, twelve, thirteen }
+%\end{lcode}
+%
+%\showit{
+%{\centering
+%\begin{tabular}{lllll}
+%one & two & three & four & five \\
+%six & seven & eight & nine & ten \\
+%eleven & twelve & thirteen \\
+%\end{tabular} 
+%\par}
+%}
+%
+% Or if you use the \cs{autocols} command the entries are listed 
+%column-by-column, like this :
+%
+%\begin{lcode}
+%\autocols{c}{5}{l}{one, two, three, four,
+%    five, six, seven, eight, nine, ten,
+%    eleven, twelve, thirteen }
+%\end{lcode}
+%
+%\showit{
+%{\centering
+%\begin{tabular}{lllll}
+%one &    four & seven & ten & thirteen \\
+%two &    five & eight & eleven &  \\
+%three &  six  & nine  & twelve &  \\
+%\end{tabular} 
+%\par}
+%}
+%
+%\section{Verse}
+%
+%    The standard classes provide a very simple \Ie{verse} environment for
+%typesetting poetry. This is greatly extended in \Mname. For example in the
+%standard classes the verse stanzas are at a fixed indentation from the 
+%left margin whereas \Mname\ lets you control the amount of indentation so 
+%that you can make a poem appear optically centered within the textwidth.
+%
+%    Stanzas may be numbered, as can individual lines within a poem. There is
+%a special environment for stanzas where lines are alternately indented. Also
+%you can define an indentation pattern for stanzas when this is not regular 
+%as, for example, in a limerick where the 3rd and 4th of the five lines are 
+%indented with respect to the other three as shown below. 
+%
+%\begin{lcode}
+%\indentpattern{00110}
+%\begin{verse}
+%\begin{patverse}
+%There was a young man of Quebec \\
+%Who was frozen in snow to his neck. \\
+%When asked: `Are you friz?' \\
+%He replied: `Yes, I is, \\
+%But we don't call this cold in Quebec.'
+%\end{patverse}
+%\end{verse}
+%\end{lcode}
+%
+%\showit{
+%\begin{verse}
+%There was a young man of Quebec \\
+%Who was frozen in snow to his neck. \\
+%\hspace*{2em}When asked: `Are you friz?' \\
+%\hspace*{2em}He replied: `Yes, I is, \\
+%But we don't call this cold in Quebec.'
+%\end{verse}
+%}
+%
+%    It is not always possible to fit
+%a line into the available space and you can specify the particular indentation
+%to be used when a `logical' verse line spills over the available textwidth, 
+%thus forming two or more typeset `physical' lines. On other occasions
+%where there are two half lines the poet might want the second half line
+%to start where the first one finished, like this:
+%
+%\begin{lcode}
+%\begin{verse}
+%Come away with me. \\
+%\vinphantom{Come away with me.} Impossible!
+%\end{verse}
+%\end{lcode}
+%
+%\showit{
+%\begin{verse}
+%Come away with me. \\
+%\leavevmode\phantom{Come away with me.} Impossible!
+%\end{verse}
+%}
+%
+%
+%\section{End matter}
+%
+%    Normally appendices come after the main body of a book. The class provides
+%various methods for introducing appendices at the end, or you can place one or 
+%more appendices at the end of selected chapters if that suits you better.
+%
+%    \Mname\ also lets you have more than one index and an index can be set in 
+%either the normal double column style or as a single column which would be more
+%appropriate, say, for an index of first lines in a book of poetry. The titles
+%of any bibliography or indexes are added to the table of contents, but you
+%can prevent this if you wish.
+%
+%    The class provides a set of tools for making glossaries or lists of 
+%symbols, the appearance of which can, of course, be easily altered. The 
+%\Lmakeindex\ program is used to sort the entries. 
+%%An example is
+%%shown in the current version of the Addendum. A recent addition
+%Also, the class provides configurable end notes which can be used as well as, 
+%or instead of, footnotes. 
+%
+%
+%\section{Miscellaneous}
+%
+%%    As already noted, the Manual for \Mname\ runs to some 300 pages and it
+%%is impossible to cover everything in a short article. 
+%%Suffice it to say that 
+%Hooks and macros are provided for most aspects of document layout; 
+%for instance,
+%footnotes can be as normal, typeset in two or three columns, or all run 
+%into a single paragraph. There is a \cs{sidepar} macro which
+%is a non-floating \cs{marginpar} as well as the \cs{sidebar} macro for
+%typesetting sidebars in the margin, starting at the top of the text block. 
+%You can create new verbatim-like environments, read 
+%and write information in external files, design your own style of 
+%\cs{maketitle}, convert numbers to words, reserve space at the bottom of a 
+%page, and so on and so forth.
+%
+%
+%%% \appendix
+%\section{Packages}
+%
+%    Most packages work with the \Mname\ class, the main exception being
+%the \Lpack{hyperref} package. This package modifies
+%many of the internals of the standard classes but does not cater for all of
+%the differences between \Mname\ and the standard ones. If you wish to use
+%\Lpack{hyperref} with \Mname\ then you must use the \Lpack{memhfixc}
+%package\footnote{\Lpack{memhfixc} is supplied as part of the \Mname\
+%distribution.} after using \Lpack{hyperref}. For example like:
+%\begin{lcode}
+%\documentclass[...]{memoir}
+%...
+%\usepackage[...]{hyperref}
+%\usepackage{memhfixc}
+%...
+%\begin{document}
+%\end{lcode}
+%However, if you have a version of \Lpack{hyperref} dated 2006/11/15 or after, 
+%\Lpack{hyperref}
+%will automatically call in \Lpack{memhfixc} so that you don't have to do 
+%anything.
+%
+%The \Mname\ class includes code either equivalent to, or extensions of, the 
+%following packages; that is, the set of commands and environments is at least
+%the same as those in the packages: 
+%%\begin{itemize}%\item 
+%\begin{lineitems}
+%      \Lpack{abstract}
+%\item \Lpack{appendix}
+%\item \Lpack{array}
+%\item \Lpack{booktabs}
+%\item \Lpack{ccaption}
+%\item \Lpack{chngcntr}
+%\item \Lpack{chngpage}
+%\item \Lpack{dcolumn}
+%\item \Lpack{delarray}
+%\item \Lpack{enumerate}
+%\item \Lpack{epigraph}
+%\item \Lpack{framed}
+%\item \Lpack{ifmtarg}
+%\item \Lpack{ifpdf}
+%\item \Lpack{index}
+%\item \Lpack{makeidx}
+%\item \Lpack{moreverb}
+%\item \Lpack{needspace}
+%\item \Lpack{newfile}
+%\item \Lpack{nextpage}
+%\item \Lpack{parskip}
+%\item \Lpack{patchcmd}
+%\item \Lpack{setspace}
+%\item \Lpack{shortvrb}
+%\item \Lpack{showidx}
+%\item \Lpack{tabularx}
+%\item \Lpack{titleref}
+%\item \Lpack{titling}
+%\item \Lpack{tocbibind}
+%\item \Lpack{tocloft}
+%\item \Lpack{verbatim}
+%\item \Lpack{verse}.
+%\end{lineitems}
+%%\end{itemize}
+%The class automatically ignores any 
+%\verb?\usepackage? or \verb?\RequirePackage? related to these. However, if
+%you want to specifically use one of these packages rather than the integrated
+%version then you can do so. For arguments sake, assuming you really want 
+%to use the \Lpack{titling} the package you can do this:
+%\begin{lcode}
+%\documentclass[...]{memoir}
+%\DisemulatePackage{titling}
+%\usepackage{titling}
+%\end{lcode}
+%
+%    The \Mname\ class incorporates a version of the \Lpack{setspace} package, 
+%albeit using different names for the macros. The package enables documents
+%to be set double spaced but leaves some document elements, 
+%like captions for example, single spaced. To do this it has to make some 
+%assumptions about how the document class works. I felt that this kind
+%of capability should be part of the class and not depend on assumptions.
+%In the particular case of the \Lpack{setspace} package, even with the
+%standard classes, there can be some unexpected spacing around displayed
+%material; this has not occured with \Mname's implementation. 
+%
+%The class also provides functions similar to those provided by the following 
+%packages, although the commands are different: 
+%%\begin{itemize}%\item 
+%\begin{lineitems}%\item 
+%\Lpack{crop}
+%\item \Lpack{fancyhdr}
+%\item \Lpack{geometry}
+%\item \Lpack{sidecap}
+%\item \Lpack{subfigure}
+%\item \Lpack{titlesec}.
+%\end{lineitems}
+%%\end{itemize}
+%You can use these packages 
+%if you wish, or just use the capabilities of the \Mname\ class.
+%
+%
+%\section{Resources} \label{sec:resources}
+%
+%
+%    Scattered throughout
+%%, but mainly in Part~\ref{part:art},
+%are comments about aspects of book design and typography, in some cases
+%accompanied by examples of better and poorer practice. If you want more
+%authorative remarks there are several books on the subject listed in 
+%the \bibname;  I prefer
+%Bringhurst's \textit{The Elements of Typographic Style}~\cite{BRINGHURST99}.
+%
+%
+%    \ltx\ is based on the \tx\ program which was designed principally 
+%for typesetting documents containing a 
+%lot of mathematics. In such works the mathematics breaks up the flow
+%of the text on the page, and the vertical space required for displayed
+%mathematics is highly dependent on the mathematical particularities. 
+%Most non-technical books are typeset on a fixed
+%grid as they do not have arbitrary insertions into the text; it is these
+%kinds of publications that typographers are most comfortable talking about.
+%
+%    There are other sources that deal with \ltx\ in 
+%general, some of which are listed in the \bibname. Lamport~\cite{LAMPORT94}
+%is of course the original user manual for \ltx, while the Companion
+%series~\cite{COMPANION,GCOMPANION,WCOMPANION} go into further 
+%details and auxiliary
+%programs. George Gr\"{a}tzer's \textit{Math into \ltx} is valuable if you
+%typeset a lot of mathematics with excellent coverage of the American
+%Mathematical Society's packages.
+%
+%   The \cTeXan{} (\pixctan) is an invaluable source
+%of free information and of the \ltx\ system itself. For general questions see
+%the FAQ (Frequently Asked Questions, and answers) maintained by
+%Robin Fairbairns~\cite{FAQ}, which also has pointers to many information 
+%sources. Among
+%these are \textit{The Not So Short Introduction to \ltxe}~\cite{LSHORT},
+%Keith Reckdahl's \textit{Using imported graphics in \ltxe}~\cite{EPSLATEX}
+%and Piet van Oostrum's \textit{Page layout in \ltx}~\cite{FANCYHDR}.
+%Peter Flynn's \textit{Formatting information}~\cite{FLYNN02} is unique 
+%in that it describes how to install a \ltx\ system and editors for 
+%writing your documents as well as how to use \ltx. There are a myriad
+%of packages and software tools freely available to enhance any \ltx\ system;
+%the great majority of these are listed in Graham Williams' magnificent 
+%on line searchable catalogue~\cite{CATALOGUE}, which also links directly
+%to \pixctan. This is just one of the services offered by the \TeXUG{} (\pixtug)
+%and information on how to access it is available 
+%at \url{http://www.tug.org}
+%which is the homepage for the \TeXUG.
+%
+%    The most recent crops of messages on the \url{comp.text.tex}
+%newsgroup (\pixctt) show an increasing interest in using a wider range
+%of fonts with \ltx. This is a question that I have left alone.
+%Alan Hoenig's book~\cite{HOENIG98} is the best guide to this that I know of.
+%\pixctan\ hosts Philipp Lehman's font installation guide~\cite{FONTINST}; 
+%this is well worth looking at just as an example of fine typesetting.
+%
+%    The source code for the \Lclass{memoir} class is, of course,
+%freely available from \pixctan\ if you wish to see exactly what it does
+%and how it does it.
+%
+%    For a more interactive resource you can ask questions on the
+%\url{comp.text.tex} newsgroup. If you are a newcomer to \pixctt\
+%please read the FAQ~\cite{FAQ} before asking a question, and also read
+%a few day's worth of messages to check that your question hasn't just
+%been answered.
+%
+%\end{comment}
+%
+%%#% extend
+%
+%%#% extstart include intro-8.tex
+%
+%\svnidlong
+%{$Ignore: $}
+%{$LastChangedDate: 2015-04-22 17:17:51 +0200 (Wed, 22 Apr 2015) $}
+%{$LastChangedRevision: 527 $}
+%{$LastChangedBy: daleif $}
+%
+%\chapter{Introduction to the eighth edition}
+%
+%The \Mname\ class and this manual have seen many changes since they
+%first saw the light of day. The major functions, and extensions to
+%them, were listed in the various introductions to the previous
+%editions of this manual and it would now be tedious to read them.
+%
+%The \Mname\ class was first released in 2001 and since then has proven
+%to be reasonably popular. The class can be used as a replacement for
+%the \Lclass{book} and \Lclass{report} classes, by default generating
+%documents virtually indistinguisable from ones produced by those
+%classes.  The class includes some options to produce documents with
+%other appearances; for example an \Lclass{article} class look or one
+%that looks as though the document was produced on a typewriter with a
+%single font, double spacing, no hyphenation, and so on. In the
+%following I use the term `standard class'\index{standard class} to
+%denote the \Lclass{book} and \Lclass{report} classes and, when
+%appropriate, the \Lclass{article} class as well.
+%
+%    The \Mname\ class includes the functionality of many packages, for
+%instance the \Lpack{tocloft} package for controlling the table of contents or
+%methods similar to the \Lpack{fancyhdr} package for designing your own
+%headers. The built-in package functions are mainly related to document
+%design and layout; \Mname\ does not touch upon areas like those that are 
+%covered by the \Lpack{babel} or \Lpack{hyperref} packages or any related to 
+%typesetting mathematics. On the other hand it is easy to configure a work
+%produced with \Mname\ 
+%to meet a university's thesis layout requirements.
+%
+%    \Mname\ has improved substantially since it was first released ---
+%over 50 \ltx ers have provided code or suggestions for improvements.
+%The class is included in the \TeXUG\ \tx\ distributions and the latest 
+%version of the class and its supporting documentation is always
+%available from %
+%\ctan\ at \url{latex/contrib/memoir}.
+%
+%    This is not a guide to the general use of \ltx\ but rather concentrates
+%on where the \index{class}\Lclass{memoir} class differs from the standard \ltx\
+%\Lclass{book} and \Lclass{report} classes. There are other sources that deal 
+%with \ltx\ in general, some of which are noted later.
+%I assume that you have already used \ltx\ and therefore know how to prepare
+%a \ltx\ manuscript, how to run \ltx\ and print the resulting document,
+%and that you can also use auxiliary programs like \Lmakeindex\ 
+%and \Lbibtex.
+%
+%
+%\section{General considerations}
+%
+%    The class is a large one consisting of about 10,000 lines of \ltx\ code
+%documented in a 400 page report; there is no need for most users to look at 
+%this~\cite{MEMCODE}. However if you want to see exactly how some part, 
+%or all of, \Mname\ is defined it is there for you to peruse.
+%The document you are now reading is the separate comprehensive 
+%User Manual~\cite{MEMMAN} which runs to about 500 pages, and from time to 
+%time an Addendum %\cite{MEMADD} 
+%is released noting extensions to the class.\footnote{Currently not in use.}
+%Again, if you want to see how something was done in this Manual, which
+%of course was prepared using \Mname\ itself, the source
+%is available for you to read.
+%% There is also the \Lpack{memexsupp} package by Lars Madsen~\cite{MEMEXSUPP} 
+%% which provides some extra facilities for the class.
+%
+%    The previous editions of the Manual consisted of two parts. The first
+%discussing some aspects of book design and typography in
+%general, something that I hadn't come across in the usual \ltx\ books
+%and manuals. That was intended to provide a little background for when
+%you design your own printed documents. The second, and by far the longest
+%part, described the capabilities of \Mname\ and how to use them. 
+%
+%    The Manual kept growing until it was approaching 700 pages and I decided
+%that it was better to put the original discussion on typography into a
+%separate document~\cite{MEMDESIGN}, which is independent of \Mname, and in this
+%edition concentrate on how to use \Mname. This has reduced the size of
+%this document, but it is still large.
+%
+%This manual is not a \ltx\ tutorial; I assume
+%that you already know the basics. If you don't then there are several 
+%free tutorials available. In some instances I show you the internal code
+%for the class which may involve \ltx\ commands that you won't come
+%across in the tutorials and also sometimes basic \tx\ commands. Information
+%on these, if you want it, is obtained from reading the \ltx\ source itself
+%and the \txbook, and perhaps one of the free \tx\ manuals such as
+%\btitle{TeX for the Impatient}~\cite{IMPATIENT} or 
+%\btitle{TeX by Topic}~\cite{TEXBYTOPIC}.
+%
+%\section{Class options}
+%
+%    The standard classes provide point options of 10, 11, or 12 points for the
+%main body font. \Mname\ extends this by also providing a 9 point option, and 
+%options ranging from 14 to 60 points.
+%The width of the text block is automatically adjusted according to 
+%the selected point size to try and keep within generally accepted 
+%typographical limits for line lengths; you can override this if you wish. 
+%The class also provides easy methods for specifying the 
+%page layout parameters such as the margins --- both the side margins and 
+%those at 
+%the top and bottom of the page; the methods are similar to those of the
+%\Lpack{geometry} package.
+%
+%    The page layout facilities also include methods, like those provided
+%by the \Lpack{fancyhdr} package, for defining your own
+%header and footer styles, and you can have as many different ones as you wish.
+%In fact the class provides seven styles to choose from before having to
+%create your own if none of the built-in styles suit you. 
+%
+%   Sometimes it is useful, or even required, to place trimming marks on
+%each page showing the desired size of the final page with respect to the sheet
+%of paper that is used in the printer. This is provided by the \Lopt{showtrims}
+%option. A variety of trim marks are provided and you can define your own 
+%if you need some other kind.
+%
+%\section{Sectioning styles}
+%
+%    Handles are provided for designing and using your own styles for chapter
+%titles and such. The class comes with over 20 predefined chapter styles ranging
+%from the default look to a style that mimics that used in the 
+%\emph{Companion} series of \ltx\ books. There are even a couple which use
+%words instead of numerals for chapter numbers.
+%% The Manual shows 
+%%examples of these styles and about 30 are shown in Lars 
+%%Madsen's collection~\cite{MEMCHAPS}.
+%
+%   For those who like putting quotations near chapter titles the 
+%\Ie{epigraph} environment can be used.
+%
+%    The options for changing \cs{section} and lower level titles
+%are more constrained, but generally speaking document design, unless for
+%advertisements or other eye-catching ephemera, should be constrained.
+%The class does provide 9 integrated sets of sectional heading styles instead
+%of the usual single set.
+%
+%    Sometimes, but particularly in novels, a sectional division is indicated
+%by just leaving a blank line or two between a pair of paragraphs, or there 
+%might be some decorative item like three or four asterisks, or a fleuron
+%or two. (A \emph{fleuron}\index{fleuron} is a printers ornament looking 
+%like a leaf, such as \ding{166} or \ding{167}.) Commands
+%are available for typesetting such anonymous divisions.
+%
+%   In the standard classes the sectioning commands have an optional argument
+%which can be used to put a short version of the section title into the 
+%table of contents and the page header. \Mname\ extends this with a second 
+%optional argument so you can specify one short version for the contents and 
+%an even shorter one for page headers where space is at a premium.
+%
+%\section{Captions}
+%
+%    \Mname\ incorporates the code from my \Lpack{ccaption} package which
+%lets you easily modify the appearance of figure and table captions; bilingual
+%captions are available if required, as are captions placed at the side of
+%a figure or table or continuation captions from, say, one illustration to
+%another. Captioning can also be applied
+%to `non-floating' illustrations or as legends (i.e., unnumbered captions) to
+%the regular floats. The captioning system
+%also supports subfigures and subtables along the lines of the \Lpack{subfig}
+%package, plus letting you define your own new kinds of floats together
+%with the corresponding `\listofx'. 
+%
+%\section{Tables}
+%
+%    Code from the \Lpack{array}, \Lpack{dcolumn}, \Lpack{delarray} and
+%\Lpack{tabularx} packges is integrated within the class. To improve
+%the appearance of rules in tabular material the \Lpack{booktabs}
+%package is also included.
+%
+%    Multipage tabulations are often set with the \Lpack{longtable} or
+%\Lpack{xtab} packages, which can of course be used with the class. For
+%simple tabulations that may continue from one page to the next, \Mname\
+%offers a `continuous tabular' environment. This doesn't have all the 
+%flexibility provided by the packages but can often serve instead
+%of using them.
+%
+%    More interestingly, but more limited, the class provides `automatic 
+%tabulars'. For these you provide a list of simple entries, like a set of names,
+% and a number of
+%columns and the entries are automatically put into the appropriate column.
+%You choose whether the entries should be added row-by-row, like this with
+%the \cs{autorows} command:
+%
+%\begin{lcode}
+%\autorows{c}{5}{l}{one, two, three, four,
+%    five, six, seven, eight, nine, ten,
+%    eleven, twelve, thirteen }
+%\end{lcode}
+%
+%\showit{
+%{\centering
+%\begin{tabular}{lllll}
+%one & two & three & four & five \\
+%six & seven & eight & nine & ten \\
+%eleven & twelve & thirteen \\
+%\end{tabular} 
+%\par}
+%}
+%
+% Or if you use the \cs{autocols} command the entries are listed 
+%column-by-column, like this :
+%
+%\begin{lcode}
+%\autocols{c}{5}{l}{one, two, three, four,
+%    five, six, seven, eight, nine, ten,
+%    eleven, twelve, thirteen }
+%\end{lcode}
+%
+%\showit{
+%{\centering
+%\begin{tabular}{lllll}
+%one &    four & seven & ten & thirteen \\
+%two &    five & eight & eleven &  \\
+%three &  six  & nine  & twelve &  \\
+%\end{tabular} 
+%\par}
+%}
+%
+%\section{Verse}
+%
+%    The standard classes provide a very simple \Ie{verse} environment for
+%typesetting poetry. This is greatly extended in \Mname. For example in the
+%standard classes the verse stanzas are at a fixed indentation from the 
+%left margin whereas \Mname\ lets you control the amount of indentation so 
+%that you can make a poem appear optically centered within the textwidth.
+%
+%    Stanzas may be numbered, as can individual lines within a poem. There is
+%a special environment for stanzas where lines are alternately indented. Also
+%you can define an indentation pattern for stanzas when this is not regular 
+%as, for example, in a limerick where the 3rd and 4th of the five lines are 
+%indented with respect to the other three as shown below. 
+%
+%\begin{lcode}
+%\indentpattern{00110}
+%\begin{verse}
+%\begin{patverse}
+%There was a young man of Quebec \\
+%Who was frozen in snow to his neck. \\
+%When asked: `Are you friz?' \\
+%He replied: `Yes, I is, \\
+%But we don't call this cold in Quebec.'
+%\end{patverse}
+%\end{verse}
+%\end{lcode}
+%
+%\showit{
+%\begin{verse}
+%There was a young man of Quebec \\
+%Who was frozen in snow to his neck. \\
+%\hspace*{2em}When asked: `Are you friz?' \\
+%\hspace*{2em}He replied: `Yes, I is, \\
+%But we don't call this cold in Quebec.'
+%\end{verse}
+%}
+%
+%    It is not always possible to fit
+%a line into the available space and you can specify the particular indentation
+%to be used when a `logical' verse line spills over the available textwidth, 
+%thus forming two or more typeset `physical' lines. On other occasions
+%where there are two half lines the poet might want the second half line
+%to start where the first one finished, like this:
+%
+%\begin{lcode}
+%\begin{verse}
+%Come away with me. \\
+%\vinphantom{Come away with me.} Impossible!
+%\end{verse}
+%\end{lcode}
+%
+%\showit{
+%\begin{verse}
+%Come away with me. \\
+%\leavevmode\phantom{Come away with me.} Impossible!
+%\end{verse}
+%}
+%
+%
+%\section{End matter}
+%
+%    Normally appendices come after the main body of a book. The class provides
+%various methods for introducing appendices at the end, or you can place one or 
+%more appendices at the end of selected chapters if that suits you better.
+%
+%    \Mname\ also lets you have more than one index and an index can be set in 
+%either the normal double column style or as a single column which would be more
+%appropriate, say, for an index of first lines in a book of poetry. The titles
+%of any bibliography or indexes are added to the table of contents, but you
+%can prevent this if you wish.
+%
+%    The class provides a set of tools for making glossaries or lists of 
+%symbols, the appearance of which can, of course, be easily altered. The 
+%\Lmakeindex\ program is used to sort the entries. 
+%%An example is
+%%shown in the current version of the Addendum. A recent addition
+%Also, the class provides configurable end notes which can be used as well as, 
+%or instead of, footnotes. 
+%
+%
+%\section{Miscellaneous}
+%
+%%    As already noted, the Manual for \Mname\ runs to some 300 pages and it
+%%is impossible to cover everything in a short article. 
+%%Suffice it to say that 
+%Hooks and macros are provided for most aspects of document layout; 
+%for instance,
+%footnotes can be as normal, typeset in two or three columns, or all run 
+%into a single paragraph. There is a \cs{sidepar} macro which
+%is a non-floating \cs{marginpar} as well as the \cs{sidebar} macro for
+%typesetting sidebars in the margin, starting at the top of the text block. 
+%You can create new verbatim-like environments, read 
+%and write information in external files, design your own style of 
+%\cs{maketitle}, convert numbers to words, reserve space at the bottom of a 
+%page, and so on and so forth.
+%
+%
+%%% \appendix
+%\section{Packages}
+%
+%    Most packages work with the \Mname\ class, the main exception being
+%the \Lpack{hyperref} package. This package modifies
+%many of the internals of the standard classes but does not cater for all of
+%the differences between \Mname\ and the standard ones. If you wish to use
+%\Lpack{hyperref} with \Mname\ then you must use the \Lpack{memhfixc}
+%package\footnote{\Lpack{memhfixc} is supplied as part of the \Mname\
+%distribution.} after using \Lpack{hyperref}. For example like:
+%\begin{lcode}
+%\documentclass[...]{memoir}
+%...
+%\usepackage[...]{hyperref}
+%\usepackage{memhfixc}
+%...
+%\begin{document}
+%\end{lcode}
+%However, if you have a version of \Lpack{hyperref} dated 2006/11/15 or after, 
+%\Lpack{hyperref}
+%will automatically call in \Lpack{memhfixc} so that you don't have to do 
+%anything.
+%
+%The \Mname\ class includes code either equivalent to, or extensions of, the 
+%following packages; that is, the set of commands and environments is at least
+%the same as those in the packages: 
+%%\begin{itemize}%\item 
+%\begin{lineitems}
+%      \Lpack{abstract}
+%\item \Lpack{appendix}
+%\item \Lpack{array}
+%\item \Lpack{booktabs}
+%\item \Lpack{ccaption}
+%\item \Lpack{chngcntr}
+%\item \Lpack{chngpage}
+%\item \Lpack{dcolumn}
+%\item \Lpack{delarray}
+%\item \Lpack{enumerate}
+%\item \Lpack{epigraph}
+%\item \Lpack{framed}
+%\item \Lpack{ifmtarg}
+%\item \Lpack{ifpdf}
+%\item \Lpack{index}
+%\item \Lpack{makeidx}
+%\item \Lpack{moreverb}
+%\item \Lpack{needspace}
+%\item \Lpack{newfile}
+%\item \Lpack{nextpage}
+%\item \Lpack{parskip}
+%\item \Lpack{patchcmd}
+%\item \Lpack{setspace}
+%\item \Lpack{shortvrb}
+%\item \Lpack{showidx}
+%\item \Lpack{tabularx}
+%\item \Lpack{titleref}
+%\item \Lpack{titling}
+%\item \Lpack{tocbibind}
+%\item \Lpack{tocloft}
+%\item \Lpack{verbatim}
+%\item \Lpack{verse}.
+%\end{lineitems}
+%%\end{itemize}
+%The class automatically ignores any 
+%\verb?\usepackage? or \verb?\RequirePackage? related to these. However, if
+%you want to specifically use one of these packages rather than the integrated
+%version then you can do so. For arguments sake, assuming you really want 
+%to use the \Lpack{titling} package you can do this:
+%\begin{lcode}
+%\documentclass[...]{memoir}
+%\DisemulatePackage{titling}
+%\usepackage{titling}
+%\end{lcode}
+%
+%    The \Mname\ class incorporates a version of the \Lpack{setspace} package, 
+%albeit using different names for the macros. The package enables documents
+%to be set double spaced but leaves some document elements, 
+%like captions for example, single spaced. To do this it has to make some 
+%assumptions about how the document class works. I felt that this kind
+%of capability should be part of the class and not depend on assumptions.
+%In the particular case of the \Lpack{setspace} package, even with the
+%standard classes, there can be some unexpected spacing around displayed
+%material; this has not occured with \Mname's implementation. 
+%
+%The class also provides functions similar to those provided by the following 
+%packages, although the commands are different: 
+%%\begin{itemize}%\item 
+%\begin{lineitems}%\item 
+%\Lpack{crop}
+%\item \Lpack{fancyhdr}
+%\item \Lpack{geometry}
+%\item \Lpack{sidecap}
+%\item \Lpack{subfigure}
+%\item \Lpack{titlesec}.
+%\end{lineitems}
+%%\end{itemize}
+%You can use these packages 
+%if you wish, or just use the capabilities of the \Mname\ class.
+%
+%    The class has built in support for the \Lpack{bidi} package for 
+%bidirectional typesetting~\cite{BIDI}.
+%
+%
+%\section{Resources} \label{sec:resources}
+%
+%
+%    Scattered throughout
+%%, but mainly in Part~\ref{part:art},
+%are comments about aspects of book design and typography, in some cases
+%accompanied by examples of better and poorer practice. If you want more
+%comments and examples there are some notes on the topic~\cite{MEMDESIGN},
+%and for 
+%authorative remarks there are several books on the subject listed in 
+%the \bibname;  I prefer
+%Bringhurst's \textit{The Elements of Typographic Style}~\cite{BRINGHURST99},
+%while Derek Birdsall's \textit{notes on book design}~\cite{BIRDSALL04}
+%is much more oriented to illustrated works, like museum
+%catalogues and art books.
+%
+%
+%    \ltx\ is based on the \tx\ program which was designed principally 
+%for typesetting documents containing a 
+%lot of mathematics. In such works the mathematics breaks up the flow
+%of the text on the page, and the vertical space required for displayed
+%mathematics is highly dependent on the mathematical particularities. 
+%Most non-technical books are typeset on a fixed
+%grid as they do not have arbitrary insertions into the text; it is these
+%kinds of publications that typographers are most comfortable talking about.
+%
+%    There are other sources that deal with \ltx\ in 
+%general, some of which are listed in the \bibname. Lamport~\cite{LAMPORT94}
+%is of course the original user manual for \ltx, while the Companion
+%series~\cite{COMPANION,GCOMPANION,WCOMPANION} go into further 
+%details and auxiliary
+%programs. George Gr\"{a}tzer's \textit{Math into \ltx} is valuable if you
+%typeset a lot of mathematics with excellent coverage of the American
+%Mathematical Society's packages.
+%
+%   The \cTeXan{} (\pixctan) is an invaluable source
+%of free information and of the \ltx\ system itself. For general questions see
+%the FAQ (Frequently Asked Questions, and answers) maintained by
+%Robin Fairbairns~\cite{FAQ}, which also has pointers to many information 
+%sources. Among
+%these are \textit{The Not So Short Introduction to \ltxe}~\cite{LSHORT},
+%Keith Reckdahl's \textit{Using imported graphics in \ltxe}~\cite{EPSLATEX}
+%and Piet van Oostrum's \textit{Page layout in \ltx}~\cite{FANCYHDR}.
+%Peter Flynn's \textit{Formatting information}~\cite{FLYNN02} is unique 
+%in that it describes how to install a \ltx\ system and editors for 
+%writing your documents as well as how to use \ltx. There are a myriad
+%of packages and software tools freely available to enhance any \ltx\ system;
+%the great majority of these are listed in Graham Williams' magnificent 
+%on line searchable catalogue~\cite{CATALOGUE}, which also links directly
+%to \pixctan. This is just one of the services offered by the \TeXUG{} (\pixtug)
+%and information on how to access it is available 
+%at \url{http://www.tug.org}
+%which is the homepage for the \TeXUG.
+%
+%    The most recent crops of messages on the \url{comp.text.tex}
+%newsgroup (\pixctt) show an increasing interest in using a wider range
+%of fonts with \ltx. This is a question that I have left alone.
+%Alan Hoenig's book~\cite{HOENIG98} is the best guide to this that I know of.
+%\pixctan\ hosts Philipp Lehman's font installation guide~\cite{FONTINST}; 
+%this is well worth looking at just as an example of fine typesetting.
+%
+%    The source code for the \Lclass{memoir} class is, of course,
+%freely available from \pixctan\ if you wish to see exactly what it does
+%and how it does it.
+%
+%    For a more interactive resource you can ask questions on the
+%\url{comp.text.tex} newsgroup. If you are a newcomer to \pixctt\
+%please read the FAQ~\cite{FAQ} before asking a question, and also read
+%a few day's worth of messages to check that your question hasn't just
+%been answered.
+%
+%\section{Type conventions}
+%
+%    The following conventions are used:
+%\begin{itemize}
+%\item \Pclass{The names of \ltx\ classes\index{class} and 
+%              packages\index{package} are typeset in this font.}
+%\item \Popt{Class options\index{option} are typeset in this font.}
+%\item \Ppstyle{The names of chapterstyles\index{chapterstyle} and 
+%               pagestyles\index{pagestyle} are typeset in this font.}
+%\item \texttt{\ltx\ code is typeset in this font.}
+%\item \Pprog{The names of programs are in this font.}
+%\end{itemize}
+%\begin{syntax}
+%Macro command syntax is enclosed in a rectangular box.\\
+%For referential purposes, arguments are denoted by \meta{arg} \\
+%\end{syntax}
+%
+%
+%\section{Acknowledgements}
+%
+%     Many people have contributed to the \Lclass{memoir} class and this manual
+%in the forms of code, solutions to problems, suggestions for new functions, 
+%bringing my attention to errors and infelicities in the code 
+%and manual, and last but not least in simply being encouraging. 
+%I am very grateful to the following for all they have done, whether they
+%knew it or not:
+%Paul Abrahams,      % code
+%William Adams,      % typography
+%Tim Arnold,         % among other things, \leavespergathering in general
+%Donald Arseneau,    % code
+%Stephan von Bechtolsheim,
+%Jens Berger,
+%Karl Berry,         % code
+%Ingo Beyritz,       % bug report (tabularx in subtable)
+%Javier Bezos,
+%Stefano Bianchi,    % chaptersytyle
+%Sven Bovin,
+%Alan Budden,
+%Ignasi Furi\'{o} Caldentey,
+%Ezequiel Mart\'{\i}n C\'{a}mara,
+%David Carlisle,     % code
+%Gustafo Cevolani, 
+%Jean-C{\^o}me Charpentier,   % memmanadd typo fix
+%Michael A. Cleverly,       % code
+%Steven Douglas Cochran,    % code
+%Frederic Connes,           % code
+%\v{Z}arko F. \v{C}u\v{c}ej, % bug report (contcaption & hyperref)
+%Christopher Culver,       % chapterstyle
+%Iain Dalton,              % typos
+%Michael W. Daniels,       % code
+%Michael Downes,           % code
+%Christopher Dutchyn,
+%Thomas Dye,               % code, typos
+%Victor Eijkhout,          % code
+%Roman Eisele,             % fix of \parnopar (2008/09/13)
+%Danie Els,                % code
+%Robin Fairbairns,         % code
+%Simon Fear,               % code
+%Ant\'{o}nio Ferreira,     % many typos (2008/08/29)
+%Kai von Fintel,
+%Ivars Finvers,            % bug report
+%Ulrike Fischer,           % general code ideas
+%Matthew Ford,
+%Musa Furber,
+%Daniel Richard G,
+%Ignacio Fern{\'a}ndez Galv{\'a}n,
+%Gerardo Garcia,          % chapterstyle
+%Romano Giannetti,        % code
+%Kheng-Swee Goh,          % manual typo `docotoral' should be `doctoral'
+%Donald Goodman,          % manual typo (1/2 title page should be in pagination)
+%Gabriel Guernik,         % bug report & suggested fix
+%Matthias Haldiman,       % bug report, fixed by Heiko
+%Kathryn Hargreaves,      % code
+%Sven Hartrumpf,
+%hazydirk,                % code
+%Carsten Heinz,           % code
+%Florence Henry,
+%Peter Heslin,
+%Timo Hoenig,             % thank you letter
+%Morten H{\o}gholm,       % code
+%Henrik Holm,
+%Vladimir G. Ivanovi\'c,
+%Martin J{\o}rgensen,     % bug report
+%Stefan Kahrs,
+%Christian Keil,          % typos
+%Marcus Kohm,             % algorithm
+%Flavian Lambert,         % float type bug
+%J\o{}gen Larsen,         % bug reports and fix
+%Kevin Lin,
+%Matthew Lovell,
+%Daniel Luecking,         % codef
+%Anders Lyhne,            % chapterstyle
+%Lars Hendrik Gam Madsen, % extra space in Part title in ToC
+%Lars~Madsen,             % code
+%Vittorio De Martino,
+%Ben McKay,               % errors in pagenote instructions
+%Frank~Mittelbach,        % code
+%Wilhelm M\"{u}ller,      % bugs & suggested extensions
+%Vilar~Camara~Neto,
+%Rolf Niepraschk,
+%Patrik Nyman,    
+%Heiko~Oberdiek,          % code
+%Scott~Pakin,
+%Adriano~Pascoletti,
+%Paul,                    % bug report
+%Ted Pavlic,              % typo report
+%Troels Pedersen,         % chapterstyle
+%Steve Peter,
+%Fran\c{c}ois Poulain,    % typo in Magellan's voyage title
+%Erik Quaeghebeur,        % bug report
+%Bernd Raichle,           % code
+%Martin Reinders,         % requested titleref extensions
+%Aaron Rendahl,           % bug report and fix
+%Ren{\'e},                % correction (paper folding)
+%Alan Ristow,             % request for \leavespergathering
+%Robert,
+%Chris Rowley,
+%Gary Ruben,              % bug report
+%Robert Schlicht,         % code
+%Doug Schenck,
+%Dirk Schlimm,
+%Arnaud Schmittbuhl,
+%Rainer Sch\"{o}pf,       % code
+%Paul Stanley,
+%Per Starb{\"a}ck,        % boxedverbatim in narrow text bug, documentation
+%James Szinger,           % code
+%Jens Taprogge,
+%Ajit Thakkar,            % reference to an appendix, typo
+%Scott Thatcher,          % chapterstyle
+%Reuben Thomas,
+%Bastiaan Niels Veelo,    % code
+%Guy Verville,            % chapterstyle
+%Emanuele Vicentini,
+%J{\"o}rg Vogt,           % suggestion re verse
+%J\"{u}rgen Vollmer,
+%M J Williams,            % \input in tabular bug
+%and 
+%David Wilson.
+%
+%
+%
+%
+%If I have inadvertently left anyone off the list I apologise, 
+%and please let me know so that I can correct the 
+%omisssion.% \footnote{Peter is currently occasionably reachable via email
+%% at \texttt{herries dot press (at) earthlink dot net}, otherwise write
+%% the maintainer at \texttt{daleif at math dot au dot dk}}
+%\footnote{Please write the maintainer at \texttt{daleif at math dot au
+%    dot dk}} Along those lines, if you have any questions you may
+%direct them to the \url{comp.text.tex} newsgroup or post them on
+%\url{http://tex.stackexchange.com} as you are likely to get a
+%satisfactory and timely response.
+%
+%    Of course, none of this would have been possible without Donald Knuth's
+%\tx\ system and the subsequent development of \ltx\ by Leslie Lamport.
+%
+%\PWnote{2009/07/26}{Added `Remarks to the user' chapter}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter{Remarks to the user}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    The \Lclass{memoir} class gives you many ways to change the appearance of your
+%document, and also provides some ready-made styles that might be
+%appropriate for your purposes.
+%
+%    As you can see, this manual is not slim and attempts to describe in
+%some detail how the various aspects of \Lclass{memoir} work and gives
+%examples of how you can change these to better match your needs. However,
+%there are a myriad of different things that users might wish to do and
+%it is not possible either for the class to provide ready made simple, 
+%or even complex, methods to directly support these, or for this manual
+%to give examples of how everything might be accomplished.
+%
+%    If many want a particular facility that is not available, then it 
+%may be possible to add that. If it is only one who wishes it then, unless
+%the one is the author, it is unlikely to be provided. But don't let this stop
+%you from asking, especially if you can provide the necessary code.
+%
+%    The complete documented code for the class is available in the file
+%\file{memoir.dtx}. If you want to know how something is done then you
+%can read the code for \emph{all} the details. If you want to do something
+%different, then the code is there for you to look at and experiment with.
+%You should, though, not change any of the code in the class. If you need
+%to do so, then copy the code you wish to change into the document's preamble
+%or a package of your own or a class of your own (with a different name)
+%and make the changes there. Do not expect any help if you change the
+%\Lclass{memoir} class code directly.
+%
+%\fancybreak{}
+%
+%As the years go by support for \Lclass{memoir} will devolve from one
+%person to another.\footnote{This is currently (July 2009) happening as
+%  Lars Madsen is taking over from Peter Wilson.}  Therefore it is
+%probably safer to ask questions, complain, make suggestions, etc., on
+%a Q\&A site like \url{http://tex.stackexchange.com} or on the the
+%newsgroup \url{comp.text.tex}, which is archived and read by many,
+%than correspond directly with the maintainer, who might well be away
+%for some considerable time and perhaps not notice your email after
+%having returned to base.
+%
+%In either case please include the word \texttt{\theclass} in the
+%subject, and if possible, please \emph{tag} the question with the
+%\texttt{\theclass} tag.  That will help the memoir maintainer keep
+%track of memoir related matters.
+%
+%\fancybreak{}
+%
+%\textit{From the maintainer:} It seems that traffic on
+%\url{comp.text.tex} is less frequent. So most \theclass\ related
+%questions should go to \url{http://tex.stackexchange.com}, please
+%remember to tag them properly, that really helps locating the
+%\theclass\ related questions. If no-one comes up with an answer, you
+%can also write me directly via \texttt{daleif (at) math dot au dot dk}.
+%
+%
+%
+%%#% extend
+%
+%
+%%#% extstart include terminology.tex
+%
+%\svnidlong
+%{$Ignore: $}
+%{$LastChangedDate: 2013-04-24 17:14:15 +0200 (Wed, 24 Apr 2013) $}
+%{$LastChangedRevision: 442 $}
+%{$LastChangedBy: daleif $}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter{Terminology}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    Like all professions and trades, typographers and printers have their
+%specialised vocabulary.
+%
+%    First there is the question of pages, leaves and sheets. 
+%The trimmed sheets of paper\index{paper} that make up a book are called 
+%\emph{leaves}\index{leaf},
+%and I will call the untrimmed sheets the \emph{stock}\index{stock} material. 
+%A leaf
+%has two sides, and a \emph{page}\index{page} is one side of a leaf. 
+%If you think of a book
+%being opened flat, then you can see two leaves. The front of the righthand
+%leaf, is called the \emph{recto}\index{recto} page of that leaf, 
+%and the side of the
+%lefthand leaf that you see is called the \emph{verso}\index{verso} page 
+%of that leaf. 
+%So, a leaf has a recto and a verso page. Recto pages are the odd-numbered 
+%pages and verso pages are even-numbered.
+%
+%   Then there is the question of folios. The typographical term for
+%the number of a page is \emph{folio}\index{folio}.
+%This is not to be confused with
+%the same term as used in `Shakespeare's First Folio' where the reference is
+%to the height and width of the book, nor to its use in the phrase
+%`\emph{folio} signature'\index{signature} where the term refers to the 
+%number of times a printed sheet is folded. 
+%Not every page in a book has a printed
+%folio, and there may be pages that do not have a folio at all. Pages with
+%folios, whether printed or not, form the \emph{pagination}\index{pagination} 
+%of the book. Pages
+%that are not counted in the pagination have no folios.
+%
+% I have not been able to find what I think is a good
+%definition for `type' as it seems to be used in different contexts with
+%different meanings. It appears to be a kind of generic word; for instance
+%there are type designers, type cutters, type setters, type foundries,...
+%For my purposes I propose that \emph{type}\index{type|seealso{typeface}} is 
+%one or more printable characters (or variations or extensions to this idea).  
+%Printers use the term \emph{sort}\index{sort} to refer to one piece of lead
+%type.
+%
+%   A \emph{typeface}\index{typeface} is a set of one or more fonts, in one
+%or more sizes, designed as a stylistic whole. 
+%
+%   A \emph{font}\index{font} is a set of characters. In the days of 
+%metal type and hot lead a font meant a complete alphabet and auxiliary
+%characters in a given size. More recently it is taken to mean a complete
+%set of characters regardless of size. A font of roman type normally
+%consists of CAPITAL LETTERS, \textsc{small capitals}, lowercase letters,
+%numbers, punctuation marks, ligatures (such as `fi' and `ffi'), and a
+%few special symbols like \&.
+%
+%   A \emph{font family}\index{font!family} is a set of fonts designed to
+%work harmoniously together, such as a pair of roman and italic fonts.
+%
+%   The size of a font\index{font} is expressed in points\index{point} 
+%(72.27 points equals 1 inch
+%equals 25.4 millimeters). The size is a rough indication of the height
+%of the tallest character, but different fonts with the same size may have
+%very different actual heights. Traditionally font sizes were referred to
+%by names (see \tref{tab:fontsizes}) but nowadays just the number of points 
+%is used.
+%
+%
+%\begin{table}
+%\centering
+%\caption{Traditional font size designations} \label{tab:fontsizes}
+%\begin{tabular}{cl@{\hspace{2em}}cl} \toprule
+%Points & Name & Points & Name \\ \midrule
+%%%3      & Excelsior \\
+%\phantom{0}3      & Excelsior &
+%11     &  Small Pica \\
+%\phantom{0}3\rlap{\slashfrac{1}{2}} & Brilliant &
+%12     & Pica \\
+%\phantom{0}4      & Diamond &
+%14     & English \\
+%\phantom{0}5      & Pearl &
+%18     & Great Primer \\
+%\phantom{0}5\rlap{\slashfrac{1}{2}} & Agate &
+%24     & Double (or Two Line) Pica \\
+%\phantom{0}6      & Nonpareil &
+%28     & Double (or Two Line) English \\
+%\phantom{0}6\rlap{\slashfrac{1}{2}} & Mignonette &
+%36     & Double (or Two Line) Great Primer \\
+%\phantom{0}7      & Minion &
+%48     & French Canon (or Four Line Pica) \\
+%\phantom{0}8      & Brevier &
+%60     & Five Line Pica \\
+%\phantom{0}9      & Bourgeois &
+%72     & Six line Pica \\
+%10     & Long Primer &
+%%%16     & Columbian \\
+%%%20     & Paragon \\
+%%%22     & Double Small Pica \\
+%%%32     & Four Line Brevier \\
+%%%40     & Double Paragon \\
+%%%44     & Meridian \\
+%96     & Eight Line Pica \\ \bottomrule
+%\end{tabular}
+%\end{table}
+%
+%
+%
+%    The typographers' and printers' term for the vertical space between
+%the lines of normal text is \emph{leading}\index{leading}, which is also
+%usually expressed in points and is usually larger than the font size.
+%A convention for describing the font and leading is to give the font size 
+%and leading separated by a slash; for instance $10/12$ for a
+%10pt font set with a 12pt leading, or $12/14$ for a 12pt font set with a
+%14pt leading.
+%
+%    The normal length of a line of text is often called the 
+%\emph{measure}\index{measure} and is normally specified in terms of
+%picas\index{pica} where 1 pica equals 12 points (1pc = 12pt).
+%
+%    Documents may be described as being typeset with a particular font
+%with a particular size and a particular leading on a particular measure;
+%this is normally given in a shorthand form. 
+%A 10pt font with 11pt leading on a 20pc measure is described as
+%\abyb{10/11}{20}, and \abyb{14/16}{22} describes a 14pt font
+%with 16pt leading set on a a 22pc measure.
+%
+%\section{Units of measurement}
+%
+%    Typographers and printers use a mixed system of units, some of which
+%we met above. The fundamental unit is the point; \tref{tab:units} lists 
+%the most common units employed.
+%
+%\begin{table}
+%\centering
+%\caption{Printers units} \label{tab:units}
+%\begin{tabular}{ll} \toprule
+%Name (abbreviation) & Value \\ \midrule
+%point (pt)\index{point}\index{pt}          &            \\
+%pica (pc)\index{pica}\index{pc}           & 1pc = 12pt \\
+%inch (in)\index{inch}\index{in}           & 1in = 72.27pt \\
+%centimetre (cm)\index{centimetre}\index{cm}     & 2.54cm = 1in \\
+%millimetre (mm)\index{millimetre}\index{mm}     & 10mm = 1cm \\ 
+%big point (bp)\index{big point}\index{bp}      & 72bp = 72.27pt \\
+%didot point (dd)\index{didot point}\index{dd}    & 1157dd = 1238pt \\
+%cicero (cc)\index{cicero}\index{cc}         & 1cc = 12dd \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+%
+%    Points\index{point} and picas\index{pica} 
+%are the traditional printers units used in English-speaking countries. 
+%The didot point\index{didot point} and cicero\index{cicero} are the 
+%corresponding units used in continental Europe. In Japan `kyus'\index{kyus}
+%(a quarter of a millimetre) may be used as the unit of measurement.
+%Inches\index{inch} and centimetres\index{centimetre} are the units that we
+%are all, or should be, familiar with.
+%
+%    The point system was invented by Pierre Fournier le jeune in 1737 with
+%a length of 0.349mm. Later in the same century Fran\c{c}ois-Ambroise Didot
+%introduced his point system with a length of 0.3759mm. This is the value
+%still used in Europe. Much later, in 1886, the American Type Founders
+%Association settled on 0.013837in as the standard size for the point, and
+%the British followed in 1898. Conveniently for those who are not entirely
+%metric in their thinking this means that 
+%six picas are approximately equal to one inch.
+%
+%    The big point\index{big point} 
+%is somewhat of an anomaly in that it is a recent
+%invention. It tends to be used
+%in page markup languages, like \pscript\footnote{\pscript{} is a 
+%registered trademark of Adobe Systems Incorporated.\label{fn:ps}},
+%in order to make calculations quicker and easier.
+%
+%    The above units are all constant in value. There are also some units
+%whose value depends on the particular font\index{font} being used. 
+%The \textit{em}\index{em}
+%is the nominal height of the current font; it is used as a width measure.
+%An \textit{en}\index{en} is half an em.
+%The \textit{ex}\index{ex} is
+%nominally the height of the letter `x' in the current font. You may also
+%come across the term \textit{quad}\index{quad}, often as in a phrase
+%like `starts with a quad space'. It is a length defined in terms of
+%an em, often a quad is 1em.
+%
+%
+%%#% extend
+%

@@ -1,0 +1,629 @@
+
+\chapter{Starting off} \label{chap:starting}
+
+
+    As usual, the \Lclass{memoir} class is called by 
+\cmd{\documentclass}\oarg{options}\texttt{\{memoir\}}. The \meta{options}\index{class options}
+include being able to select a paper\indextwo{paper}{size} size from among a range of sizes, 
+selecting a type size, selecting the kind of manuscript, and some related
+specifically to the typesetting of mathematics.
+
+\section{Stock paper size options}
+
+    The stock\indextwo{stock}{size} size is the size of a single sheet of the 
+paper\index{paper} you expect to put through the printer. There is a range of 
+stock\indextwo{stock}{size} paper sizes from which to make a selection. 
+These are listed in\index{class options!stock size} \tref{tab:sizeoptsmetric} 
+through \tref{tab:sizeoptsbrit}. Also 
+included in the tables are commands that will set the stock size or paper size to 
+the same dimensions.
+
+\begin{table}
+\centering
+\caption{Class stock metric paper size options, and commands}\label{tab:sizeoptsmetric}
+\begin{tabular}{llll} \toprule
+Option & Size & stock size command & page size command \\ \midrule
+\Lopt{a6paper}\index{paper!size!A6}\index{stock!size!A6} 
+   & \abybm{148}{105}{mm} & \cmd{\stockavi} & \cmd{\pageavi} \\
+\Lopt{a5paper}\index{paper!size!A5}\index{stock!size!A5}
+   & \abybm{210}{148}{mm} & \cmd{\stockav} & \cmd{\pageav} \\
+\Lopt{a4paper}\index{paper!size!A4}\index{stock!size!A4} 
+    & \abybm{297}{210}{mm} & \cmd{\stockaiv} & \cmd{\pageaiv} \\
+\Lopt{a3paper}\index{paper!size!A3}\index{stock!size!A3}
+    & \abybm{420}{297}{mm} & \cmd{\stockaiii} & \cmd{\pageaiii} \\
+\Lopt{b6paper}\index{paper!size!B6}\index{stock!size!B6} 
+   & \abybm{176}{125}{mm} & \cmd{\stockbvi} & \cmd{\pagebvi} \\
+\Lopt{b5paper}\index{paper!size!B5}\index{stock!size!B5} 
+   &  \abybm{250}{176}{mm} & \cmd{\stockbv} & \cmd{\pagebv} \\
+\Lopt{b4paper}\index{paper!size!B4}\index{stock!size!B4} 
+   & \abybm{353}{250}{mm} & \cmd{\stockbiv} & \cmd{\pagebiv} \\
+\Lopt{b3paper}\index{paper!size!B3}\index{stock!size!B3} 
+   & \abybm{500}{353}{mm} & \cmd{\stockbiii} & \cmd{\pagebiii} \\
+\Lopt{mcrownvopaper}\index{paper!size!metric crown octavo}\index{stock!size!metric crown octavo}
+   & \abybm{186}{123}{mm} & \cmd{\stockmetriccrownvo} & \cmd{\pagemetriccrownvo} \\
+\Lopt{mlargecrownvopaper}\index{paper!size!metric large crown octavo}\index{stock!size!metric large crown octavo}
+   & \abybm{198}{129}{mm} & \cmd{\stockmlargecrownvo} & \cmd{\pagemlargecrownvo} \\
+\Lopt{mdemyvopaper}\index{paper!size!metric demy octavo}\index{stock!size!metric demy octavo}
+   & \abybm{216}{138}{mm} & \cmd{\stockmdemyvo} & \cmd{\pagemdemyvo} \\
+\Lopt{msmallroyalvopaper}\index{paper!size!metric small royal octavo}\index{stock!size!metric small royal octavo}
+   & \abybm{234}{156}{mm} & \cmd{\stockmsmallroyalvo} & \cmd{\pagemsmallroyalvo} \\
+\bottomrule
+\end{tabular}
+\glossary(a6paperco)%
+  {\Popt{a6paper}}%
+  {Class option for A6 stock paper size.}%
+\glossary(a5paperco)%
+  {\Popt{a5paper}}%
+  {Class option for A5 stock paper size.}%
+\glossary(a4paperco)%
+  {\Popt{a4paper}}%
+  {Class option for A4 stock paper size.}%
+\glossary(a3paperco)%
+  {\Popt{a3paper}}%
+  {Class option for A3 stock paper size.}%
+\glossary(b6paperco)%
+  {\Popt{b6paper}}%
+  {Class option for B6 stock paper size.}%
+\glossary(b5paperco)%
+  {\Popt{b5paper}}%
+  {Class option for B5 stock paper size.}%
+\glossary(b4paperco)%
+  {\Popt{b4paper}}%
+  {Class option for B4 stock paper size.}%
+\glossary(b3paperco)%
+  {\Popt{b3paper}}%
+  {Class option for B3 stock paper size.}%
+\glossary(mcrownvopaperco)%
+  {\Popt{mcrownvopaper}}%
+  {Class option for metric crown octavo stock paper size.}%
+\glossary(mlargecrownvopaperco)%
+  {\Popt{mlargecrownvopaper}}%
+  {Class option for metric large crown octavo stock paper size.}%
+\glossary(mdemyvopaperco)%
+  {\Popt{mdemyvopaper}}%
+  {Class option for metric demy octavo stock paper size.}%
+\glossary(msmallroyalvopaperco)%
+  {\Popt{msmallroyalvopaper}}%
+  {Class option for metric small royal octavo stock paper size.}%
+\end{table}
+
+
+
+
+
+\begin{table}
+\centering
+\caption{Class stock US paper size options, and commands}\label{tab:sizeoptsus}
+\begin{tabular}{llll} \toprule
+Option & Size & stock size command & page size command \\ \midrule
+\Lopt{dbillpaper}\index{paper!size!dollar bill}\index{stock!size!dollar bill} 
+   & \abybm{7}{3}{in} & \cmd{\stockdbill} & \cmd{\pagedbill} \\
+\Lopt{statementpaper}\index{paper!size!statement}\index{stock!size!statement} 
+   & \abybm{8.5}{5.5}{in} & \cmd{\stockstatement} & \cmd{\pagestatement} \\
+\Lopt{executivepaper}\index{paper!size!executive}\index{stock!size!executive} 
+   & \abybm{10.5}{7.25}{in} & \cmd{\stockexecutive} & \cmd{\pageexecutive} \\
+\Lopt{letterpaper}\index{paper!size!letterpaper}\index{stock!size!letterpaper} 
+   & \abybm{11}{8.5}{in} & \cmd{\stockletter} & \cmd{\pageletter} \\
+\Lopt{oldpaper}\index{paper!size!old}\index{stock!size!old} 
+   & \abybm{12}{9}{in} & \cmd{\stockold} & \cmd{\pageold} \\
+\Lopt{legalpaper}\index{paper!size!legal}\index{stock!size!legal} 
+   & \abybm{14}{8.5}{in} & \cmd{\stocklegal} & \cmd{\pagelegal} \\
+\Lopt{ledgerpaper}\index{paper!size!ledger}\index{stock!size!ledger} 
+   & \abybm{17}{11}{in} & \cmd{\stockledger} & \cmd{\pageledger} \\
+\Lopt{broadsheetpaper}\index{paper!size!broadsheet}\index{stock!size!broadsheet} 
+   & \abybm{22}{17}{in} & \cmd{\stockbroadsheet} & \cmd{\pagebroadsheet} \\
+\bottomrule
+\end{tabular}
+\glossary(dbillpaperco)%
+  {\Popt{dbillpaper}}%
+  {Class option for dollar bill stock paper size.}%
+\glossary(statementpaperco)%
+  {\Popt{statementpaper}}%
+  {Class option for statement stock paper size.}%
+\glossary(executivepaperco)%
+  {\Popt{executivepaper}}%
+  {Class option for executive-paper stock paper size.}%
+\glossary(letterpaperco)%
+  {\Popt{letterpaper}}%
+  {Class option for letterpaper stock paper size.}%
+\glossary(oldpaperco)%
+  {\Popt{oldpaper}}%
+  {Class option for old stock paper size.}%
+\glossary(legalpaperco)%
+  {\Popt{legalpaper}}%
+  {Class option for legal-paper stock paper size.}%
+\glossary(ledgerpaperco)%
+  {\Popt{ledgerpaper}}%
+  {Class option for ledger stock paper size.}%
+\glossary(broadsheetpaperco)%
+  {\Popt{broadsheetpaper}}%
+  {Class option for broadsheet stock paper size.}%
+\end{table}
+
+
+\begin{table}
+\centering
+\caption{Class stock British paper size options, and commands}\label{tab:sizeoptsbrit}
+\begin{tabular}{llll} \toprule
+Option & Size & stock size command & page size command \\ \midrule
+\Lopt{pottvopaper}\index{paper!size!pott octavo}\index{stock!size!pott octavo} 
+   & \abybm{6.25}{4}{in} & \cmd{\stockpottvo} & \cmd{\pagepottvo} \\
+\Lopt{foolscapvopaper}\index{paper!size!foolscap octavo}\index{stock!size!foolscap octavo} 
+   & \abybm{6.75}{4.25}{in} & \cmd{\stockfoolscapvo} & \cmd{\pagefoolscapvo} \\
+\Lopt{crownvopaper}\index{paper!size!crown octavo}\index{stock!size!crown octavo} 
+   & \abybm{7.5}{5}{in} & \cmd{\stockcrownvo} & \cmd{\pagecrownvo} \\
+\Lopt{postvopaper}\index{paper!size!post octavo}\index{stock!size!post octavo} 
+   & \abybm{8}{5}{in} & \cmd{\stockpostvo} & \cmd{\pagepostvo} \\
+\Lopt{largecrownvopaper}\index{paper!size!large crown octavo}\index{stock!size!large crown octavo} 
+   & \abybm{8}{5.25}{in} & \cmd{\stocklargecrownvo} & \cmd{\pagelargecrown
+vo} \\
+\Lopt{largepostvopaper}\index{paper!size!large post octavo}\index{stock!size!large post octavo} 
+   & \abybm{8.25}{5.25}{in} & \cmd{\stocklargepostvo} & \cmd{\pagelargepostvo} \\
+\Lopt{smalldemyvopaper}\index{paper!size!small demy octavo}\index{stock!size!small demy octavo} 
+   & \abybm{8.5}{5.675}{in} & \cmd{\stocksmalldemyvo} & \cmd{\pagesmalldemyvo} \\
+\Lopt{demyvopaper}\index{paper!size!demy octavo}\index{stock!size!demy octavo} 
+   & \abybm{8.75}{5.675}{in} & \cmd{\stockdemyvo} & \cmd{\pagedemyvo} \\
+\Lopt{mediumvopaper}\index{paper!size!medium octavo}\index{stock!size!medium octavo} 
+   & \abybm{9}{5.75}{in} & \cmd{\stockmediumvo} & \cmd{\pagemediumvo} \\
+\Lopt{smallroyalvopaper}\index{paper!size!small royal octavo}\index{stock!size!small royal octavo} 
+   & \abybm{9.25}{6.175}{in} & \cmd{\stocksmallroyalvo} & \cmd{\pagesmallroyalvo} \\
+\Lopt{royalvopaper}\index{paper!size!royal octavo}\index{stock!size!royal octavo} 
+   & \abybm{10}{6.25}{in} & \cmd{\stockroyalvo} & \cmd{\pageroyalvo} \\
+\Lopt{superroyalvopaper}\index{paper!size!super royal octavo}\index{stock!size!super royal octavo} 
+   & \abybm{10.25}{6.75}{in} & \cmd{\stocksuperroyalvo} & \cmd{\pagesuperroyalvo} \\
+\Lopt{imperialvopaper}\index{paper!size!imperial octavo}\index{stock!size!imperial octavo} 
+   & \abybm{11}{7.5}{in} & \cmd{\stockimperialvo} & \cmd{\pageimperialvo} \\
+\bottomrule
+\end{tabular}
+\glossary(pottvopaperco)%
+  {\Popt{pottvopaper}}%
+  {Class option for pott octavo stock paper size.}%
+\glossary(foolscapvopaperco)%
+  {\Popt{foolscapvopaper}}%
+  {Class option for foolscap octavo stock paper size.}%
+\glossary(crownvopaperco)%
+  {\Popt{crownvopaper}}%
+  {Class option for crown octavo stock paper size.}%
+\glossary(postvopaperco)%
+  {\Popt{postvopaper}}%
+  {Class option for post octavo stock paper size.}%
+\glossary(largecrownvopaperco)%
+  {\Popt{largecrownvopaper}}%
+  {Class option for large crown octavo stock paper size.}%
+\glossary(largepostvopaperco)%
+  {\Popt{largepostvopaper}}%
+  {Class option for large post octavo stock paper size.}%
+\glossary(smalldemyvopaperco)%
+  {\Popt{smalldemyvopaper}}%
+  {Class option for small demy octavo stock paper size.}%
+\glossary(demyvopaperco)%
+  {\Popt{demyvopaper}}%
+  {Class option for demy octavo stock paper size.}%
+\glossary(mediumvopaperco)%
+  {\Popt{mediumvopaper}}%
+  {Class option for medium octavo stock paper size.}%
+\glossary(smallroyalvopaperco)%
+  {\Popt{smallroyalvopaper}}%
+  {Class option for small royal octavo stock paper size.}%
+\glossary(royalvopaperco)%
+  {\Popt{royalvopaper}}%
+  {Class option for royal octavo stock paper size.}%
+\glossary(superroyalvopaperco)%
+  {\Popt{superroyalvopaper}}%
+  {Class option for super royal octavo stock paper size.}%
+\glossary(imperialvopaperco)%
+  {\Popt{imperialvopaper}}%
+  {Class option for imperial octavo stock paper size.}%
+\end{table}
+
+
+There are two options that don't really fit into the tables.
+
+\begin{itemize}
+\item[\Lopt{ebook}]\index{stock!size!ebook}  
+     for a stock size of \abybm{6}{9}{inches}, principally
+                    for `electronic books' intended to be displayed
+                    on a computer monitor
+\glossary(ebookco)%
+  {\Popt{ebook}}%
+  {Class option for elecronic book stock size.}
+\item[\Lopt{landscape}] to interchange the height and width of the stock.
+\glossary(landscapeco)%
+  {\Popt{landscape}}%
+  {Class option to interchange height and width of stock paper size.}
+\end{itemize}
+
+    All the options, except for \Lopt{landscape}, are mutually exclusive.
+The default stock\indextwo{stock}{default} paper\indextwo{paper}{size} size is 
+\Lopt{letterpaper}\index{paper!size!letterpaper}\index{stock!size!letterpaper}.
+
+   If you want to use a stock size that is not listed there are methods for doing this,
+which will be described later.
+
+\section{Type size options}
+
+    The type size option sets the default font size throughout the document. The class 
+offers a wider range of type sizes\index{type size} than usual. These are:\index{class options!type size}
+\begin{itemize}
+\item[\Lopt{9pt}] for 9pt as the normal type size
+\glossary(9ptco)%
+  {\Popt{9pt}}%
+  {Class option for a 9pt body font.}
+\item[\Lopt{10pt}] for 10pt as the normal type size
+\glossary(10ptco)%
+  {\Popt{10pt}}%
+  {Class option for a 10pt body font.}
+\item[\Lopt{11pt}] for 11pt as the normal type size
+\glossary(11ptco)%
+  {\Popt{11pt}}%
+  {Class option for a 11pt body font.}
+\item[\Lopt{12pt}] for 12pt as the normal type size
+\glossary(12ptco)%
+  {\Popt{12pt}}%
+  {Class option for a 12pt body font.}
+\item[\Lopt{14pt}] for 14pt as the normal type size\footnote{Note that
+    for \Lopt{14pt}, \cs{huge}, \cs{Huge} and \cs{HUGE} will be the
+    same as \cs{LARGE}, unless the \Lopt{extrafontsizes} option is
+    also is activated.}  \glossary(14ptco)%
+  {\Popt{14pt}}%
+  {Class option for a 14pt body font.}
+\item[\Lopt{17pt}] for 17pt as the normal type size
+\glossary(17ptco)%
+  {\Popt{17pt}}%
+  {Class option for a 17pt body font.}
+\item[\Lopt{20pt}] for 20pt as the normal type size
+\glossary(20ptco)%
+  {\Popt{20pt}}%
+  {Class option for a 20pt body font.}
+\item[\Lopt{25pt}] for 25pt as the normal type size
+\glossary(25ptco)%
+  {\Popt{25pt}}%
+  {Class option for a 25pt body font.}
+\item[\Lopt{30pt}] for 30pt as the normal type size
+\glossary(30ptco)%
+  {\Popt{30pt}}%
+  {Class option for a 30pt body font.}
+\item[\Lopt{36pt}] for 36pt as the normal type size
+\glossary(36ptco)%
+  {\Popt{36pt}}%
+  {Class option for a 36pt body font.}
+\item[\Lopt{48pt}] for 48pt as the normal type size
+\glossary(48ptco)%
+  {\Popt{48pt}}%
+  {Class option for a 48pt body font.}
+\item[\Lopt{60pt}] for 60pt as the normal type size
+\glossary(60ptco)%
+  {\Popt{60pt}}%
+  {Class option for a 60pt body font.}
+\item[\Lopt{*pt}] for an author-defined size as the normal type size
+\glossary(*ptco)%
+  {\Popt{*pt}}%
+  {Class option for an author-defined size for the body font.}
+\item[\Lopt{extrafontsizes}] Using scalable fonts that can exceed
+  25pt.
+
+  \emph{Note that this includes \cs{huge}, \cs{Huge} and \cs{HUGE}
+  under \Lopt{14pt}. For \Lopt{17pt} and up, an error is thrown if
+  used withput \Lopt{extrafontsizes}, no error is given for
+  \Lopt{14pt}, there sizes above \cs{LARGE} will just be unavailable
+  unless \Lopt{extrafontsizes} is used.}
+\glossary(extrafontsizes)%
+  {\Popt{extrafontsizes}}%
+  {Class option for using scalable fonts that can exceed 25pt.}
+\end{itemize}
+
+    These options, except for \Lopt{extrafontsizes}, are mutually exclusive.
+The default type size\indextwo{default}{type size} is \Lopt{10pt}.
+
+    Options greater than \Lopt{17pt} or \Lopt{20pt} are of little use unless
+you are using scalable fonts --- the regular Computer 
+Modern\facesubseeidx{Computer Modern} bitmap fonts only go up
+to 25pt. The option \Lopt{extrafontsizes} indicates that you will be using
+scalable fonts that can exceed 25pt. By default this option makes 
+Latin Modern in the \texttt{T1} encoding as the default font (normally
+Computer Modern in the \texttt{OT1} encoding is the default).
+
+\subsection{Extended font sizes}
+
+    By default, if you use the \Lopt{extrafontsizes} option the default
+font for the document is Latin Modern\facesubseeidx{Latin Modern} 
+in the \texttt{T1} font encoding.
+This is like putting 
+\begin{lcode}
+\usepackage{lmodern}\usepackage[T1]{fontenc}
+\end{lcode}
+in the documents's preamble (but with the \Lopt{extrafontsizes} option
+you need not do this). 
+
+\begin{syntax}
+\verb?\newcommand*{\memfontfamily}?\marg{fontfamily} \\
+\verb?\newcommand*{\memfontenc}?\marg{fontencoding} \\
+\verb?\newcommand*{\memfontpack}?\marg{package} \\
+\end{syntax}
+\glossary(memfontfamily)%
+  {\cs{memfontfamily}}%
+  {Font family for the \Popt{extrafontsizes} class option (default \texttt{lmr})}
+\glossary(memfontenc)%
+  {\cs{memfontenc}}%
+  {Font encoding for the \Popt{extrafontsizes} class option (default \texttt{T1})}
+\glossary(memfontpack)%
+  {\cs{memfontpack}}%
+  {Font package for the \Popt{extrafontsizes} class option (default \texttt{lmodern})}
+Internally the class uses \cmd{\memfontfamily} and \cmd{\memfontenc} as 
+specifying
+the new font and encoding, and uses \cmd{\memfontpack} as the name of the
+package to be used to implement the font. The internal definitions are:
+\begin{lcode}
+\providecommand*{\memfontfamily}{lmr}
+\providecommand*{\memfontenc}{T1}
+\providecommand*{\memfontpack}{lmodern}
+\end{lcode}
+which result in the \texttt{lmr} font 
+(Latin Modern)\facesubseeidx{Latin Modern}  in the \texttt{T1} 
+encoding as the default font, which is implemented by the \Lpack{lmodern}
+package. If you want a different default, say 
+New Century Schoolbook\facesubseeidx{New Century Schoolbook}
+(which comes in the \texttt{T1} encoding), then 
+\begin{lcode}
+\newcommand*{\memfontfamily}{pnc}
+\newcommand*{\memfontpack}{newcent}
+\documentclass[...]{memoir}
+\end{lcode}
+will do the trick, where the \cs{newcommand*}s are put \emph{before} the 
+\cs{documentclass} declaration (they will then override the \cs{provide...}
+definitions within the class code).
+
+    If you use the \Lopt{*pt} option then you have to supply a \file{clo}
+file containing all the size and space specifications for your chosen font 
+size, and also tell \Mname\ the name of the file. \emph{Before} the 
+\cmd{\documentclass} command define two macros, \cmd{\anyptfilebase} and
+\cmd{\anyptsize} like: 
+\begin{syntax}
+  \verb|\newcommand*{\anyptfilebase}|\marg{chars}\\
+  \verb|\newcommand*{\anyptsize}|\marg{num} 
+\end{syntax}
+\glossary(anyptsize)%
+  {\cs{anyptsize}}%
+  {Second part (the pointsize) of the name the \texttt{clo} file for the
+   \Popt{*pt} class option (default \texttt{10}).}
+\glossary(anyptfilebase)%
+  {\cs{anyptfilebase}}%
+  {First part of the name of the \texttt{clo} file  for the 
+   \Popt{*pt} class option (default \texttt{mem}).}
+  
+When it comes time to get the font size and spacing information \Mname\
+will try and input a file called \verb?\anyptfilebase\anyptsize.clo? which
+you should have made available; the \cmd{\anyptsize} \meta{num} must be an
+integer.\footnote{If it is not an integer then \tx\ could get confused
+as to the name of the file --- it normally expects there to be only one
+period (.) in the name of a file.} Internally, the class specifies
+\begin{lcode}
+\providecommand*{\anyptfilebase}{mem}
+\providecommand*{\anyptsize}{10}
+\end{lcode}
+which names the default as \file{mem10.clo}, which is for a 10pt font. 
+If, for example, you have an 18pt font you want to use, then
+\begin{lcode}
+\newcommand*{\anyptfilebase}{myfont}
+\newcommand*{\anyptsize}{18}
+\documentclass[...*pt...]{memoir}
+\end{lcode}
+will cause \ltx\  to try and input the \texttt{myfont18.clo} file that
+you should have provided. Use one
+of the supplied \file{clo} files, such as \file{mem10.clo} or \file{mem60.clo}
+as an example of what must be specified in your \file{clo} file.
+
+\section{Printing options}
+
+    This group of options\index{class options!printing} includes:
+
+\begin{itemize}
+\item[\Lopt{twoside}] for when the document will be published with printing
+                        on both sides of the paper.
+\glossary(twosideco)%
+  {\Popt{twoside}}%
+  {Class option for text on both sides of the paper.}
+\item[\Lopt{oneside}] for when the document will be published with only
+                        one side of each sheet being printed on.
+\glossary(onesideco)%
+  {\Popt{oneside}}%
+  {Class option for text on only one side of the paper.}
+
+                        The \Lopt{twoside} and \Lopt{oneside} options
+                        are mutually exclusive.
+
+\item[\Lopt{onecolumn}] only one column\index{column!single} of text on a page.
+\glossary(onecolumnco)%
+  {\Popt{onecolumn}}%
+  {Class option for a single column.}
+\item[\Lopt{twocolumn}] two equal width columns\index{column!double} of text on a page.
+\glossary(twocolumnco)%
+  {\Popt{twocolumn}}%
+  {Class option for two columns.}
+
+                        The \Lopt{onecolumn} and \Lopt{twocolumn} options
+                        are mutually exclusive.
+
+\item[\Lopt{openright}] each chapter\index{chapter} will start on a recto page.
+\glossary(openrightco)%
+  {\Popt{openright}}%
+  {Class option for chapters to start on recto pages.}
+\item[\Lopt{openleft}] each chapter\index{chapter} will start on a verso page.
+\glossary(openleftco)%
+  {\Popt{openleft}}%
+  {Class option for chapters to start on verso pages.}
+\item[\Lopt{openany}] a chapter\index{chapter} may start on either a recto or verso page.
+\glossary(openanyco)%
+  {\Popt{openany}}%
+  {Class option for chapters to start on a recto or a verso page.}
+
+                        The \Lopt{openright}, \Lopt{openleft} and 
+                        \Lopt{openany} options
+                        are mutually exclusive.
+
+\item[\Lopt{final}] for camera-ready copy of your labours.
+\glossary(finalco)%
+  {\Popt{final}}%
+  {Class option for final document.}
+\item[\Lopt{draft}] this marks overfull lines with black bars and enables
+                      some change marking to be shown. There may be other 
+                      effects as well, particularly if some packages are used.
+\glossary(draftco)%
+  {\Popt{draft}}%
+  {Class option for draft document.}
+\item[\Lopt{ms}] this tries to make the document look as though it was 
+                   prepared on a typewriter. Some publishers prefer to receive
+                   poor looking submissions.
+\glossary(msco)%
+  {\Popt{ms}}%
+  {Class option for `typewritten manuscript'.}
+
+                   The \Lopt{final}, \Lopt{draft} and \Lopt{ms} options
+                   are mutually exclusive.
+
+\item[\Lopt{showtrims}] this option prints marks at the corners of the 
+                   sheet so that you can see where the stock\index{stock} 
+                   must be trimmed to produce the final page size.
+\glossary(showtrimsco)%
+  {\Popt{showtrims}}%
+  {Class option for printing trimming marks.}
+
+\end{itemize}
+%
+    The defaults among the printing options\index{default!printing options} 
+are \Lopt{twoside}, \Lopt{onecolumn}, \Lopt{openright}, and \Lopt{final}.
+
+\section{Other options}
+
+    The remaining options are:
+\begin{itemize}
+
+\item[\Lopt{leqno}]\index{class options!math} 
+     equations will be numbered at the left (the default is
+     to number them at the right).
+\glossary(leqnoco)%
+  {\Popt{leqno}}%
+  {Class option for numbering equations at the left.}
+
+\item[\Lopt{fleqn}]\index{class options!math} 
+     displayed math environments will be indented an amount
+     \cmd{\mathindent} from the left margin\index{margin} (the default is to
+     center the environments).
+\glossary(fleqnco)%
+  {\Popt{fleqn}}%
+  {Class option for fixed indentation of displayed math.}
+
+\item[\Lopt{openbib}]\index{class options!bibliography} 
+     each part of a bibliography\index{bibliography} entry will start on a
+                        new line, with second and succeding lines indented
+                        by \cmd{\bibindent} (the default is for an entry
+                        to run continuously with no indentations).
+\glossary(openbibco)%
+  {\Popt{openbib}}%
+  {Class option for indenting continuation lines in a bibliography.}
+
+\item[\Lopt{article}]\index{class options!article} 
+  typesetting \emph{simulates} the \Lclass{article} class,
+  but the \cmd{\chapter} command is not disabled, basically
+  \cmd{\chapter} will behave as if it was \cmd{\section}.
+  Chapters\index{chapter} do not start a new page and chapter
+  headings\index{heading!chapter} are typeset 
+  like a section heading\index{heading!sections}. The numbering of 
+  figures\index{figure}, etc., is continuous
+  and not per chapter. However, a \cmd{\part} command still puts
+  its heading\index{heading!part} on a page by itself.
+\glossary(articleco)%
+  {\Popt{article}}%
+  {Class option for simulating the \Pclass{article} class.}
+
+\item[\Lopt{oldfontcommands}]\index{class options!fonts} 
+  makes the old, deprecated LaTeX version~2.09
+  font commands available. Warning messages will be produced whenever
+  an old font command is encountered.
+\glossary(oldfontcommandsco)%
+  {\Popt{oldfontcommands}}%
+  {Class option for permitting obsolete, deprecated font commands.}
+
+
+\item[\Lopt{fullptlayout}]\index{class options!layout truncation} 
+  disable point trunction of certain layout lengths, for example
+  \cmd{\textwidth}. The default is to round these of to a whole number
+  of points, this option disables this feature.
+  \glossary(fullptlayout)%
+  {\Popt{fullptlayout}}%
+  {Class option to disable point truncation of certain layout lengths.}
+\end{itemize}
+%
+None of these options are defaulted.
+
+\section{Remarks}
+
+   Calling the class with no options is equivalent to:
+\begin{lcode}
+\documentclass[letterpaper,10pt,twoside,onecolumn,openright,final]{memoir}
+\end{lcode}
+   The source file for this manual starts
+\begin{lcode}
+\documentclass[letterpaper,10pt,extrafontsizes]{memoir}
+\end{lcode}
+which is overkill as both \Lopt{letterpaper} and \Lopt{10pt} are among
+the default options.
+
+    Actual typesetting only occurs within the \Ie{document} environment. The
+region of the file between the \cmd{\documentclass} command and the start
+of the \Ie{document} environment is called the 
+\emph{preamble}\index{preamble}. This is where you ask for external packages
+and define your own macros if you feel so inclined.
+
+\begin{syntax}
+\cmd{\flushbottom} \cmd{\raggedbottom} \\
+\end{syntax}
+\glossary(flushbottom)%
+  {\cs{flushbottom}}%
+  {Declaration for last line on a page to be at a constant height.}
+\glossary(raggedbottom)%
+  {\cs{raggedbottom}}%
+  {Declaration allowing the last line on a page to be at a variable height.}
+When the \Lopt{twoside} or \Lopt{twocolumn} option is selected then
+typesetting is done with \cmd{\flushbottom}, otherwise it is done
+with \cmd{\raggedbottom}.
+
+    When \cmd{\raggedbottom} is in effect LaTeX makes little attempt to
+keep a constant height for the typeblock\index{typeblock}; pages may run short.
+
+    When \cmd{\flushbottom} is in effect LaTeX ensures that the typeblock\index{typeblock}
+on each page is a constant height, except when a page break is deliberately
+introduced when the page might run short. In order to maintain a constant
+height it may stretch or shrink some vertical spaces 
+(e.g., between paragraphs\index{paragraph}, around headings\index{heading} or 
+ around floats\index{float} or other inserts like displayed maths).
+This may have a deleterious effect on the color\index{page color} 
+of some pages. 
+% Serendipitously this has happened on \pref{chap:lpage} where
+% there is additional space between the paragraphs\index{paragraph} (caused by the next sectional
+% division having to be put at the top of the next page). You may wish to
+% compare that page with the following one to see the difference in the 
+% colors. 
+
+%    I could have made the page run short by inserting \cmd{\raggedbottom}
+% at an appropriate place, followed later by a \cmd{\flushbottom}.
+
+    If you get too many strung out pages with \cmd{\flushbottom} you may
+want to put \cmd{\raggedbottom} in the preamble\index{preamble}.
+
+    If you use the \Lopt{ebook} option you may well also want to use the
+\Lopt{12pt} and \Lopt{oneside} options.
+
+%#% extend
+
+\clearpage
+\pagestyle{ruled}
+
+%#% extstart include laying-out-page.tex
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-03-12 11:00:16 +0100 (Mon, 12 Mar 2018) $}
+{$LastChangedRevision: 589 $}
+{$LastChangedBy: daleif@math.au.dk $}
+

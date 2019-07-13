@@ -1,0 +1,363 @@
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Cross referencing} \label{chap:xref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\section{Introduction}
+
+    A significant aspect of \ltx\ is that it provides a variety of
+cross referencing\index{cross reference} methods, many of 
+which are automatic. An example
+of an automatic\index{cross reference!automatic} cross reference is the way in which a \cmd{\chapter}
+command automatically adds its title and page number to the \toc,
+or where a \cmd{\caption} adds itself to a \listofx.
+
+    Some cross references have to be 
+specifically\index{cross reference!specified} specified, such as
+a reference in the text to a particular chapter number, and for
+these \ltx\ provides a general mechanism that does not require you
+to remember the particular number and more usefully does not require
+you to remember to change the reference if the chapter number is later 
+changed.
+
+\section{Labels and references} \label{sec:lab&ref}
+
+\index{reference!by number|(}
+
+    The general \ltx\ cross reference method uses a pair of macros.
+\begin{syntax}
+\cmd{\label}\marg{labstr} \\
+ \cmd{\ref}\marg{labstr} \cmd{\pageref}\marg{labstr} \\
+\end{syntax}
+\glossary(label)%
+  {\cs{label}\marg{labstr}}%
+  {Associates the current (section, caption, \ldots) number, and page number,
+   to \meta{labstr}.}
+\glossary(ref)%
+  {\cs{ref}\marg{labstr}}%
+  {Prints the (section, or other) number associated with \meta{labstr}
+   from a \cs{label}.}
+\glossary(pageref)%
+  {\cs{pageref}\marg{labstr}}%
+  {Prints the page number associated with \meta{labstr}
+   from a \cs{label}.}
+You can put a \cmd{\label} command where you want to label\index{label} 
+some numbered
+element in case you might want to refer to the number from elsewhere in
+the document. The \meta{labstr} argument is a sequence of letters, digits, 
+and punctuation symbols; upper and lower case letters are different.
+The \cmd{\ref} macro prints the number\index{reference!to label} 
+associated with \meta{labstr}. 
+The \cmd{\pageref} macro prints the number of the 
+page\index{reference!to page} where the
+\cmd{\label} specifying the \meta{labstr} was placed.
+
+    The \cmd{\label} and \cmd{\ref} mechanism is simple to use and
+works well but
+on occasions you might be surprised\index{reference!unexpected result}  
+at what \cmd{\ref} prints.
+
+    \ltx\ maintains a current \textit{ref} 
+value\index{reference!current value} which is 
+set\index{reference!set current value} by
+the \cmd{\refstepcounter} command. This command is used by the sectioning
+commands, by \cmd{\caption}, by numbered environments like
+\Ie{equation}, by \cmd{\item} in an \Ie{enumerate} environment, and
+so on. The \cmd{\label} command\index{label} writes an entry in the 
+\pixfile{aux} file consisting of the \meta{labstr}, the current 
+\textit{ref} value\index{reference!current value} and the curent 
+page\index{page!current number} number. 
+A \cmd{\ref} command picks up the \textit{ref}
+value for \meta{labstr} and prints it. Similarly \cmd{\pageref} prints
+the page number for \meta{labstr}.
+
+    The critical point is that the \cmd{\label} command picks up the
+value set by the \emph{most recent} visible\footnote{Remember, a
+change within a group, such as an environment, is not visible
+outside the group.}  \cmd{\refstepcounter}. 
+\begin{itemize}
+\item A \cmd{\label} after a \cmd{\section} picks up the \cmd{\section}
+      number, not the \cmd{\chapter} number.
+\item A \cmd{\label} after a \cmd{\caption} picks up the caption number.
+\item A \cmd{\label} \emph{before} a \cmd{\caption} picks up the surrounding
+      sectional number.
+\end{itemize}
+If you are defining your own macro that sets a counter, the counter value
+will be invisible to any \cmd{\label} unless it is 
+set\index{reference!set current value} using \cmd{\refstepcounter}. 
+
+
+
+\begin{syntax}
+\cmd{\fref}\marg{labstr} \cmd{\figurerefname} \\
+\cmd{\tref}\marg{labstr} \cmd{\tablerefname} \\
+\cmd{\pref}\marg{labstr} \cmd{\pagerefname} \\
+\end{syntax}
+\glossary(fref)%
+  {\cs{fref}\marg{labstr}}%
+  {Prints a named (\cs{figurerefname}) reference to a \cs{label}ed figure.}
+\glossary(figurerefname)%
+  {\cs{figurerefname}}%
+  {Name for a figure used by \cs{fref}.}
+\glossary(tref)%
+  {\cs{tref}\marg{labstr}}%
+  {Prints a named (\cs{tablerefname}) reference to a \cs{label}ed table.}
+\glossary(tablerefname)%
+  {\cs{tablerefname}}%
+  {Name for a table used by \cs{tref}.}
+\glossary(pref)%
+  {\cs{pref}\marg{labstr}}%
+  {Prints a named (\cs{pagerefname}) reference to a \cs{label} page reference.}
+\glossary(pagerefname)%
+  {\cs{pagerefname}}%
+  {Name for a page used by \cs{pref}.}
+    The class provides these more particular named\index{reference!to figure} 
+references to a figure\index{figure!reference},
+table\index{table!reference}\index{reference!to table} or 
+page\index{page!reference}\index{reference!to page}. For example the 
+default definitions of \cmd{\fref} and 
+\cmd{\pref} are
+\begin{lcode}
+\newcommand{\fref}[1]{\figurerefname~\ref{#1}}
+\newcommand{\pref}[1]{\pagerefname~\pageref{#1}}
+\end{lcode}
+and can be used as 
+\begin{lcode}
+\ldots footnote parameters are shown in~\fref{fig:fn} 
+on~\pref{fig:fn}.
+\end{lcode}
+which in this document prints as: 
+\begin{syntax}
+\ldots footnote parameters are shown in~\fref{fig:fn} on~\pref{fig:fn}. \\
+\end{syntax}
+
+\begin{syntax}
+\cmd{\Aref}\marg{labstr} \cmd{\appendixrefname} \\
+\cmd{\Bref}\marg{labstr} \cmd{\bookrefname} \\
+\cmd{\Pref}\marg{labstr} \cmd{\partrefname} \\
+\cmd{\Cref}\marg{labstr} \cmd{\chapterrefname} \\
+\cmd{\Sref}\marg{labstr} \cmd{\sectionrefname} \\
+\end{syntax}
+\glossary(Aref)%
+  {\cs{Aref}\marg{labstr}}%
+  {Prints a named (\cs{appendixrefname}) reference to a \cs{label}ed appendix.}
+\glossary(appendixrefname)%
+  {\cs{appendixrefname}}%
+  {Name for an appendix used by \cs{Aref}.}
+\glossary(Bref)%
+  {\cs{Bref}\marg{labstr}}%
+  {Prints a named (\cs{bookrefname}) reference to a \cs{label}ed book.}
+\glossary(bookrefname)%
+  {\cs{bookrefname}}%
+  {Name for a book used by \cs{Bref}.}
+\glossary(Pref)%
+  {\cs{Pref}\marg{labstr}}%
+  {Prints a named (\cs{partrefname}) reference to a \cs{label}ed part.}
+\glossary(partrefname)%
+  {\cs{partrefname}}%
+  {Name for a part used by \cs{Pref}.}
+\glossary(Cref)%
+  {\cs{Cref}\marg{labstr}}%
+  {Prints a named (\cs{chapterrefname}) reference to a \cs{label}ed chapter.}
+\glossary(chapterrefname)%
+  {\cs{chapterrefname}}%
+  {Name for a chapter used by \cs{Cref}.}
+\glossary(Sref)%
+  {\cs{Sref}\marg{labstr}}%
+  {Prints a named (\cs{sectionrefname}) reference to a \cs{label}ed section.}
+\glossary(sectionrefname)%
+  {\cs{sectionrefname}}%
+  {Name for a section used by \cs{Sref}.}
+Similarly, specific commands are supplied for referencing sectional 
+divisions; \cmd{\Aref}\index{reference!to appendix} for \appendixrefname,
+\cmd{\Bref}\index{reference!to book} for \bookrefname,
+\cmd{\Pref}\index{reference!to part} for \partrefname, 
+\cmd{\Cref}\index{reference!to chapter} for \chapterrefname,
+and \cmd{\Sref}\index{reference!to section} for divisions 
+below \chapterrefname. For example:
+\begin{lcode}
+This is \Sref{sec:lab&ref} in \Cref{chap:xref}.
+\end{lcode}
+This is \Sref{sec:lab&ref} in \Cref{chap:xref}.
+
+\index{reference!by number|)}
+
+\section{Reference by name} \label{sec:nxref}
+
+\index{reference!by name|(}
+
+    In technical works it is common to reference a chapter, say, by its
+number. In non-technical works such cross references are likely to be
+rare, and when they are given it is more likely that the chapter title
+would be used instead of the number, as in:
+\begin{lcode}
+The chapter \textit{\titleref{chap:bringhurst}} describes \ldots
+\end{lcode}
+The chapter \textit{\titleref{chap:bringhurst}} describes \ldots
+
+    There are two packages, \Lpack{nameref}~\cite{NAMEREF} and 
+\Lpack{titleref}~\cite{TITLEREF},
+ that let you refer to things by name instead of number.
+
+    Name references were added to the class as a consequence of adding
+a second optional argument to the sectioning commands. I found
+that this broke the \Lpack{nameref} package, and hence the
+\Lpack{hyperref} package as well, so they had to be fixed. The change 
+also broke Donald Arseneau's \Lpack{titleref} package, and it turned out
+that \Lpack{nameref} also clobbered \Lpack{titleref}. The class also
+provides titles, like \cmd{\poemtitle}, that are not recognised by
+either of the packages. From my viewpoint the most efficient
+thing to do was to enable the class itself to provide name 
+referencing.
+
+
+\begin{syntax}
+\cmd{\titleref}\marg{labstr} \\
+\end{syntax}
+\glossary(titleref)%
+  {\cs{titleref}\marg{labstr}}%
+  {Prints the (section, or other) title of the number associated 
+   with \meta{labstr} from a \cs{label}.}
+The macro \cmd{\titleref} is a class addition to the usual set of
+cross referencing commands. Instead of printing a number it typesets
+the title associated with the labelled number. This is really only useful
+if there \emph{is} a title, such as from a \cmd{\caption} or
+\cmd{\section} command. For example, look at this code 
+and its result.
+
+\begin{egsource}{eg:sec:nxref:1}
+Labels may be applied to:
+\begin{enumerate}
+\item Chapters, sections, etc.            \label{sec:nxref:1}
+...
+\item Items in numbered lists, etc. \ldots \label{sec:nxref:5}
+\end{enumerate}
+Item \ref{sec:nxref:1} in section \textit{\titleref{sec:nxref}} 
+mentions sections while item \titleref{sec:nxref:5}, on page 
+\pageref{sec:nxref:5} in the same section, mentions things like
+items in enumerated lists that should not be referenced 
+by \verb?\titleref?.
+\end{egsource}
+
+\begin{egresult}[Named references should be to titled elements]{eg:sec:nxref:1}
+Labels may be applied to:
+\begin{enumerate}
+\item Chapters, sections, etc.            \label{sec:nxref:1}
+\item Captions
+\item Legends
+\item Poem titles
+\item Items in numbered lists, etc. \ldots \label{sec:nxref:5}
+\end{enumerate}
+Item \ref{sec:nxref:1} in section \textit{\titleref{sec:nxref}} 
+mentions sections while item\index{reference!unexpected result} 
+\titleref{sec:nxref:5}, on page 
+\pageref{sec:nxref:5} in the same section, mentions things like
+items in enumerated lists 
+that should not be referenced by \verb?\titleref?.
+\end{egresult}
+
+    As the above example shows, you have to be a little careful in using
+\cmd{\titleref}.
+Generally speaking, \cmd{\titleref}\marg{key} produces the last named 
+thing before the \cmd{\label} that defines the \meta{key}. 
+
+\begin{syntax}
+\cmd{\headnameref} \cmd{\tocnameref} \\
+\end{syntax}
+\glossary(headnameref)%
+  {\cs{headnameref}}%
+  {Use header title for sectional title references.}
+\glossary(tocnameref)%
+  {\cs{tocnameref}}%
+  {Use \prtoc{} title for sectional title references.}
+There can be three possibilities for the name of a sectional division;
+the full name, the name in the \toc, and the name in the page header.
+As far as \cmd{\titleref} is concerned it does not use the fullname, 
+and so the choice simplifies to the \toc{} or page header. Following
+the declaration \cmd{\headnameref} it uses the page header name.
+Following the opposite declaration \cmd{\tocnameref}, which is the
+default, it uses the \toc\ name.
+
+\Note{} Specifically with the \Lclass{memoir} class, 
+do not put a \cmd{\label} command inside an
+argument to a \cmd{\chapter} or \cmd{\section} or \cmd{\caption}, etc.,
+command. Most likely it will either be ignored or referencing it will
+produce incorrect values. This restriction does not apply to the standard
+classes, but in any case I think it is good practice not to embed any 
+\cmd{\label} commands.
+
+\begin{syntax}
+\cmd{\currenttitle} \\
+\end{syntax}
+\glossary(currenttitle)%
+  {\cs{currenttitle}}%
+  {Gives the title of the last sectional division command.}
+    If you just want to refer to the current title you can do so with
+\cmd{\currenttitle}. This acts as though there had been a label associated
+with the title and then \cmd{\titleref} had been used to refer to that label.
+For example:
+\begin{egsource}{eg:sec:nxref:2}
+This sentence in the section titled `\currenttitle' is an example of the
+use of the command \verb?\currenttitle?.
+\end{egsource}
+
+\begin{egresult}[Current title]{eg:sec:nxref:2}
+This sentence in the section titled `\currenttitle' is an example of the
+use of the command \verb?\currenttitle?.
+\end{egresult}
+
+\begin{syntax}
+\cmd{\theTitleReference}\marg{num}\marg{text} \\
+\end{syntax}
+\glossary(theTitleReference)%
+  {\cs{theTitleReference}\marg{num}\marg{text}}
+  {Called by \cs{titleref} and \cs{currenttitle} with the number and
+   text of the title to print the values.}
+Both \cmd{\titleref} and \cmd{\currenttitle} use the \cmd{\theTitleReference}
+to typeset the title. This is called with two arguments --- 
+the number, \meta{num}, and the text, \meta{text}, of the title. The
+default definition is:
+\begin{lcode}
+\newcommand{\theTitleReference}[2]{#2}
+\end{lcode}
+so that only the \meta{text} argument is printed. You could, for example,
+change the definition to
+\begin{lcode}
+\renewcommand{\theTitleReference}[2]{#1\space \textit{#2}}
+\end{lcode}
+to print the number followed by the title in italics. If you do this, only use
+\cmd{\titleref} for numbered titles, as a printed number for an 
+unnumbered title (a) makes no sense, and (b) will in any case be 
+incorrect.
+
+    The commands \cmd{\titleref}, \cmd{\theTitleReference} and 
+\cmd{\currenttitle} are direct equivalents of those in the \Lpack{titleref}
+package~\cite{TITLEREF}.
+
+\begin{syntax}
+\cmd{\namerefon} \cmd{\namerefoff} \\
+\end{syntax}
+\glossary(namerefon)%
+  {\cs{namerefon}}%
+  {Makes \cs{titleref} operative.}
+\glossary(namerefoff)%
+  {\cs{namerefoff}}%
+  {Makes \cs{titleref} inoperative.}
+
+    The capability for referencing by name has one potentially
+unfortunate side effect --- it causes some arguments, such as that
+for \cmd{\legend}, to be moving\index{moving argument} arguments 
+and hence any fragile\index{fragile} command
+in the argument will need \cmd{\protect}ing. However, not every document
+will require the use of \cmd{\titleref} and so the declaration
+\cmd{\namerefoff} is provided to switch it off (the argument to
+\cmd{\legend} would then not be moving). The declaration
+\cmd{\namerefon}, which is the default, enables name referencing.
+
+\index{reference!by name|)}
+
+
+%#% extend
+%#% extstart include backmatter.tex

@@ -1,0 +1,1831 @@
+\chapter{\prBackmatter} \label{chap:backmatter}
+
+The \pixbackmatter\ consists of reference and supportive elements for 
+the \pixmainmatter;
+things like bibliographies, indexes, glossaries, endnotes, and other
+material. The class provides additional elements and features of such 
+matter that are not in the standard classes.
+
+\section{Bibliography} \label{sec:xref:bibliography}
+
+\index{bibliography|(}
+
+Just as a reminder the bibliography is typeset within the 
+\Ie{thebibliography} environment.
+\begin{syntax}
+\cmd{\bibname} \\
+\senv{thebibliography}\marg{exlabel} \\
+\cmd{\bibitem} ... \\
+\eenv{thebibliography} \\
+\end{syntax}
+\glossary(bibname)%
+  {\cs{bibname}}%
+  {The title for a bibliography}
+\glossary(thebibliography)%
+  {\senv{thebibliography}\marg{exlabel}}%
+  {Environment for typesetting a bibliography. \meta{exlabel} is an arbitrary
+    piece of text as wide as the widest label for the bibliographic items.}
+\glossary(bibitem)%
+  {\cs{bibitem}}%
+  {Starts a new bibliographic entry in a \Pe{thebibliography} listing.}
+The environment takes one required argument, \meta{exlabel}, which is a 
+piece of text
+as wide as the widest label in the bibliography. The value of 
+\cmd{\bibname} (default `Bibliography') is used
+as the title. 
+
+\begin{syntax}
+\cmd{\bibintoc} \cmd{\nobibintoc} \\
+\end{syntax}
+\glossary(bibintoc)%
+  {\cs{bibintoc}}%
+  {Title of \Pe{thebibliography} will be added to the \prtoc.}
+\glossary(nobibintoc)%
+  {\cs{nobibintoc}}%
+  {Title of \Pe{thebibliography} is not added to the \prtoc.}
+The declaration \cmd{\bibintoc} will cause the \Ie{thebibliography}
+environment to add the title\index{bibliography!title in ToC} to 
+the \toc, while the declaration
+\cmd{\nobibintoc} ensures that the title is not added to the \toc. 
+The default is \cmd{\bibintoc}.
+
+\begin{syntax}
+\cmd{\cite}\oarg{detail}\marg{labstr-list} \\
+\end{syntax}
+\glossary(cite)%
+  {\cs{cite}\oarg{detail}\marg{labstr-list}}%
+  {Citation in the text to bibliographic items specified in the 
+   \meta{labstr-list} of comma-separated bibliographic identifiers;
+  optional information, e.g., page number, is supplied via \meta{detail}.}
+Within the text you call out a bibliographic\index{cite bibliographic item} 
+reference using the
+\cmd{\cite} command, where \meta{labstr-list} is a comma-separated
+list of identifiers for the cited works; there must be no spaces in this 
+list. The optional \meta{detail} argument is for any additional
+information regarding the citation such as a chapter or page number;
+this is printed after the main reference. 
+
+    Various aspects of a bibliography can be changed and at this point
+it may be helpful to look at some of the internals of the \Ie{thebibliography}
+environment, which is defined like this
+\begin{lcode}
+\newenvironment{thebibliography}[1]{%
+  \bibsection
+  \begin{bibitemlist}{#1}}%
+  {\end{bibitemlist}\postbibhook}
+\end{lcode}
+The bibliographic entries are typeset as a list, the \Ie{bibitemlist}.
+
+\begin{syntax}
+\cmd{\bibsection} \\
+\end{syntax}
+\glossary(bibsection)%
+  {\cs{bibsection}}%
+  {Initialises the bibliography and typesets the title.}
+The macro \cmd{\bibsection} defines the heading\index{bibliography!heading} 
+for the \Ie{thebibliography}
+environment; that is, everything before the actual list of items.
+It is effectively defined as
+\begin{lcode}
+\newcommand{\bibsection}{%
+  \chapter*{\bibname}
+  \bibmark
+  \ifnobibintoc\else
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\bibname}
+  \fi
+  \prebibhook}
+\end{lcode}
+If you want to change the heading, redefine \cmd{\bibsection}. For example,
+to have the bibliography as a numbered section instead of an unnumbered
+chapter, redefine it like
+\begin{lcode}
+\renewcommand{\bibsection}{%
+  \section{\bibname}
+  \prebibhook}
+\end{lcode}
+If you use the \Lpack{natbib}~\cite{NATBIB} and/or the 
+\Lpack{chapterbib}~\cite{CHAPTERBIB} packages with the \Lopt{sectionbib}
+option, then they change \cmd{\bibsection} appropriately to typeset the
+heading as a numbered section.
+
+\begin{syntax}
+\cmd{\bibmark} \\
+\end{syntax}
+\glossary(bibmark)%
+  {\cs{bibmark}}%
+  {Can be used in pagestyles for page headers in a bibliography.}
+\cs{bibmark} may be used in pagestyles for page headers in a bibliography.
+Its default definition is: 
+\begin{lcode}
+\newcommand*{\bibmark}{}
+\end{lcode}
+but could be redefined like, say,
+\begin{lcode}
+\renewcommand*{\bibmark}{\markboth{\bibname}{}}
+\end{lcode}
+
+
+\begin{syntax}
+\cmd{\prebibhook} \cmd{\postbibhook} \\
+\end{syntax}
+\glossary(prebibhook)%
+  {\cs{prebibhook}}%
+  {Called between typesetting the title of a bibliography and starting
+   the list of bibliographic entries.}
+\glossary(postbibhook)%  
+  {\cs{postbibhook}}%
+  {Called after typesetting the list of of bibliographic entries.}
+The commands \cmd{\prebibhook} and \cmd{postbibhook} are called after 
+typesetting the title of the bibliography and after typesetting the list of
+entries, respectively. By default, they are defined to do nothing. You may
+wish to use one or other of these to provide some general 
+information\index{bibliography!explanatory text} about
+the bibliography. For example:
+\begin{lcode}
+\renewcommand{\prebibhook}{%
+CTAN is the Comprehensive \tx\ Archive Network and URLS for the 
+several CTAN mirrors can be found at \url{http://www.tug.org}.}
+\end{lcode}
+
+\index{bibliography!list styling|(}
+
+\begin{syntax}
+\cmd{\biblistextra} \\
+\end{syntax}
+\glossary(biblistextra)%
+  {\cs{biblistextra}}%
+  {Called immediately after the \Pe{bibitemlist} is set up.}
+Just at the end of setting up the \Ie{bibitemlist} the \cmd{\biblistextra}
+command is called. By default this does nothing but you may change it to
+do something useful. For instance, it can be used to change
+the list parameters so that the entries are 
+typeset flushleft.\index{bibliography!flushleft entries}
+\begin{lcode}
+\renewcommand*{\biblistextra}{%
+  \setlength{\leftmargin}{0pt}%
+  \setlength{\itemindent}{\labelwidth}%
+  \addtolength{\itemindent}{\labelsep}}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\setbiblabel}\marg{style} \\
+\end{syntax}
+\glossary(setbiblabel)%
+  {\cs{setbiblabel}\marg{style}}%
+  {Define the look of the bibliographic entry identifiers.}
+The style of the labels\index{bibliography!label styling} marking the 
+bibliographic entries can be set
+via \cmd{\setbiblabel}. The default definition is
+\begin{lcode}
+\setbiblabel{[#1]\hfill}
+\end{lcode}
+where \verb?#1? is the citation mark position, which generates flushleft 
+marks enclosed in square brackets. To have marks just
+followed by a dot
+\begin{lcode}
+\setbiblabel{#1.\hfill}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\bibitem}\oarg{label}\marg{labstr} \\
+\cmd{\newblock} \\
+\end{syntax}
+\glossary(bibitem)%
+  {\cs{bibitem}\oarg{label}\marg{labstr}}%
+  {Introduces an entry in the bibliography. The \meta{labstr} argument
+   corresponds to a \cs{cite}'s \meta{labstr} argument. The optional
+   \meta{label} overides the default numerical printed entry label.}
+\glossary(newblock)%
+  {\cs{newblock}}%
+  {Used in a bibliography to indicate a convenient place in an entry to
+   have a pagebreak.}
+Within the \Ie{bibitemlist} environment the entries are introduced
+by \cmd{\bibitem} instead of the more normal \cmd{\item} macro.
+The required \meta{labstr} argument is the identifier for the citation and
+corresponds to a \meta{labstr} for \cmd{\cite}. The items in the list
+are normally labelled numerically but this can be overriden by using
+the optional \meta{label} argument. The \cmd{\newblock} command can be used
+at appropriate places in the entry for encouraging a linebreak (this is
+used by the \Lopt{openbib} option).
+
+\begin{syntax}
+\lnc{\bibitemsep} \\
+\end{syntax}
+\glossary(bibitemsep)%
+  {\cs{bibitemsep}}%
+  {Vertical space between entries in a bibliography.}
+In the listing the vertical space between entries is controlled by the
+length \lnc{\bibitemsep}, which by default is set to the normal 
+\lnc{\itemsep} value. The vertical space is 
+\texttt{(\lnc{\bibitemsep} + \lnc{\parsep})}. If you wish to eliminate
+the space between items do
+\begin{lcode}
+\setlength{\bibitemsep}{-\parsep}
+\end{lcode}
+
+\index{bibliography!list styling|)}
+
+\subsection{BibTex}
+
+     Often the \Lbibtex\ program~\cite{BIBTEX} is used to generate the 
+bibliography list from database(s) of 
+bibliographic\index{bibliographic database} data. For \Lbibtex\ 
+a bibliographic data base is a \pixfile{bib} file containing information
+necessary to produce entries in a bibliography. \Lbibtex\ 
+extracts the raw data from the files for each citation in the text and 
+formats it for typesetting according to a particular style.
+
+
+\begin{syntax}
+\cmd{\bibliography}\marg{bibfile-list} \\
+\end{syntax}
+\glossary(bibliography)%
+  {\cs{bibliography}\marg{bibfile-list}}%
+  {Print the bibliography having used \Pbibtex\ to extract entries from
+   the \meta{bibfile-list} of comma-separated names of \file{bib} files.}
+    The bibliography will be printed at the location of the \cmd{\bibliography}
+command. Its argument is a comma-separated list of \Pbibtex\ \pixfile{bib} files 
+which will be searched by \Lbibtex\ to generate the bibliography.
+Only the file name(s) should be supplied, the extension must not be given.
+
+
+\begin{syntax}
+\cmd{\nocite}\marg{labstr} \verb?\nocite{*}? \\
+\end{syntax}
+\glossary(nocite)%
+  {\cs{nocite}\marg{labstr}}%
+  {Add entry \meta{labstr} to the bibliography, but with no in-text citation.}
+The command \cmd{\nocite} causes \Lbibtex\ to make an entry 
+in the bibliography but no citation will appear in the text. The special
+case \verb?\nocite{*}? causes \emph{every} entry in the database to be
+listed in the bibliography.
+
+\begin{syntax}
+\cmd{\bibliographystyle}\marg{style} \\
+\end{syntax}
+\glossary(bibliographystyle)%
+  {\cs{bibliographystyle}\marg{style}}%
+  {Typeset the bibliographic entries according to \meta{style}.}
+Many different \Pbibtex\ styles\index{BibTeX style?\Pbibtex\ style}
+are available and the particular one to be used is specified
+by calling \cmd{\bibliographystyle} before the bibliography itself.
+The `standard' bibliography \meta{style}s follow the general schemes
+for mathematically oriented papers and are:
+\begin{itemize}
+\item[\texttt{plain}]\index{BibTeX style?\Pbibtex\ style!plain?\texttt{plain}} 
+     The entry format is similar to one suggested by
+     Mary-Claire van Leunen~\cite{LEUNEN92}, and entries are sorted
+     alphabetically and labelled with numbers.
+\item[\texttt{unsrt}]\index{BibTeX style?\Pbibtex\ style!unsrt?\texttt{unsrt}} 
+     The format is the same as \texttt{plain} but
+     that entries are ordered by the citation order in the text.
+\item[\texttt{alpha}]\index{BibTeX style?\Pbibtex\ style!alpha?\texttt{alpha}} 
+     The same as \texttt{plain} but entries are 
+     labelled like `Wil89', formed from the author and publication date.
+\item[\texttt{abbrv}]\index{BibTeX style?\Pbibtex\ style!abbrv?\texttt{abbrv}} 
+     The same as \texttt{plain} except that some elements, like month 
+     names, are abbreviated.
+\end{itemize}
+There are many other styles available, some of which are used
+in collaboration with a package, one popular one being 
+Patrick Daly's \Lpack{natbib}~\cite{NATBIB} package for the kinds of 
+author-year citation styles used in the natural sciences. 
+Another package is \Lpack{jurabib}~\cite{JURABIB} for citation styles
+used in legal documents where the references are often given in footnotes
+rather than listed at the end of the document.
+
+    I assume you know how to 
+generate\index{running BibTeX?running \Pbibtex} a bibliography using \Lbibtex,
+so this is just a quick reminder. You first run \ltx\
+on your document, having specified the bibliography style, cited
+your reference material and listed the relevant \Lbibtex\ database(s). 
+You then run \Lbibtex, and after running \ltx\ twice more the
+bibliography should be complete. After a change to your citations you have to
+run \ltx\ once, \Lbibtex\ once, and then \ltx\ twice more to get an 
+updated set of references.
+
+    The format and potential contents of a \Pbibtex\
+database\index{BibTeX database?\Pbibtex\ database} file 
+(a \pixfile{bib} file) are specified in detail in Lamport~\cite{LAMPORT94} 
+and the first of the \btitle{Companions}~\cite{COMPANION}. 
+Alternatively
+there is the documentation by Oren Patashnik~\cite{BIBTEX} who wrote the
+\Lbibtex\ program.
+
+\index{BibTeX style?\Pbibtex\ style!changing|(}
+
+    A \Pbibtex\ style, specified in a \pixfile{bst} file, is written 
+using an anonymous stack based language
+created specifically for this purpose. If you can't find a 
+\Pbibtex\ style\index{BibTeX style?\Pbibtex\ style}
+that provides what you want you can either use the 
+\Lpack{makebst}~\cite{MAKEBST} package
+which leads you through creating your own style via a question and answer
+session, or you can directly write your own. If you choose the latter
+approach then Patashnik's \textit{Designing BibTeX files}~\cite{BIBTEXHACK}
+is essential reading. As he says, it is best to take an existing style and
+modify it rather than starting from scratch. 
+
+\begin{comment}
+
+This is what I did for the
+style for this book, as all I wanted was a slight change and extension
+to the standard 
+\texttt{alpha}\index{BibTeX style?\Pbibtex\ style!alpha?\texttt{alpha}}  
+style, which is in \file{alpha.bst}\ixfile{bst}.
+
+    There were three things that I wanted to do:
+\begin{itemize}
+\item Add an `isbn' field to the entries so an ISBN\index{ISBN} number 
+      could be easily quoted;
+\item Add an `annote' field so that I could perhaps provide an 
+      annotated\index{bibliography!annotated}
+      bibliography;
+\item Use the modern \cmd{\emph} command instead of the deprecated \cmd{\em}
+      command for titles;
+\end{itemize}
+
+    If you aren't interested in how I did it, skip the next part, 
+but if you are you might find it easier to follow if you have a copy 
+of the \pixfile{alpha.bst} file to hand. 
+
+This is what I did, although not in this order as I kept flitting
+back and forth in order to resolve the problems that arose.
+\begin{itemize}
+\item Copied the \pixfile{alpha.bst} file to a new file I called 
+      \pixfile{typo.bst} as my new style was to be called \texttt{typo}.
+
+\item Near the start of the file are some lines:
+\begin{lcode}
+ENTRY
+  { address
+    author
+    ...
+    year
+    isbn
+    annote
+  }
+\end{lcode}
+at the end of which I added the \texttt{isbn} and \texttt{annote}. These are
+the fields that may apear in an entry. Later I have to describe how these
+fields are to be dealt with.
+
+\item
+    Shortly after the \texttt{ENTRY} list there is a set of \texttt{FUNCTION}
+specifications, the 17th of which is called \texttt{emphasize}. This is the 
+only place in the file where the \cmd{\em} macro appears, so this is what I 
+have to modify so that the \texttt{typo} style will use \cmd{\emph} instead
+of \cmd{\em}. My revised definition is:
+\begin{lcode}
+FUNCTION {emphasize}
+{ duplicate$ empty$ 
+    { pop$ "" }
+%%    { "{\em " swap$ * "}" * }  % original, change to
+    { "\emph{ " swap$ * "}" * }  % PW mod
+  if$
+}
+\end{lcode}
+I didn't (and still don't) know just how the function operated but my
+modification worked.
+
+\item
+    After this were a lot of functions of the form \verb?{format.something}?
+which I took to be the formatting instructions for the fields. Looking
+at the various functions I added the following ones.
+\begin{lcode}
+%% PW added format.isbn
+FUNCTION {format.isbn}
+{ isbn empty$
+  { "" }
+  { new.block " ISBN " isbn * }
+    if$
+}
+
+%% PW added format.annote
+{ annote empty$
+  { "" }
+  { " \begin{quotation}\noindent " annote * 
+    " \end{quotation} " * }
+    if$
+}
+
+%% PW added fin.annote
+{ annote empty$
+  {  }
+  { newline$ }
+    if$
+}
+\end{lcode}
+%$
+
+\item
+    The last thing that I had to do was to get the entries to write
+out the new \texttt{annote} and \texttt{isbn} fields. As an example, here 
+is the revised function for a \texttt{booklet} entry, which is one of the
+shorter ones.
+\begin{lcode}
+FUNCTION {booklet}
+{ output.bibitem
+  format.authors output
+  new.block
+  format.title "title" output.check
+  howpublished address new.block.checkb
+  howpublished output
+  address output
+  format.date output
+  format.isbn output    %% PW added
+  new.block
+  note output
+  fin.entry
+  format.annote write$  %% PW added
+  fin.annote            %% PW added
+}
+\end{lcode}
+%$
+
+I added similar lines to all the other entry functions except, for example, 
+the \texttt{article} function where I only added the \texttt{annote}
+lines as I assumed that an article would not have an ISBN\index{ISBN}.
+
+\end{itemize}
+
+    It took me three or four attempts to make it all work as I didn't 
+really know what I was doing. I basically copied something that looked
+close to what I might need, changed some names, and tried it out. If it
+didn't work then I tried something a bit different until it did.
+For someone who knew what they were doing it would have been a trivial
+task and they would probably have used a more elegant solution, but
+it works and didn't take too long.
+\end{comment}
+
+\index{BibTeX style?\Pbibtex\ style!changing|)}
+
+
+\index{bibliography|)}
+
+\section{Index} \label{sec:xref:index}
+
+
+   It is time to take a closer look at indexing. The class allows 
+multiple indexes\index{index!multiple} and an index may be typeset as a 
+single\indextwo{index}{single column} or a 
+double\indextwo{index}{double column} column.
+
+    The general process is to put indexing commands into your source text, 
+and \ltx\ will write this raw indexing data to an \pixfile{idx} file. 
+The raw index data is then processed, not by \ltx\ but by yourself if you 
+have plenty of spare time on your hands, or more usually by a separate 
+program, to create a sorted list of indexed items in a second file (usually
+an \pixfile{ind} file). This can then be input to \ltx\ to print the sorted
+index data.
+
+\subsection{Printing an index}
+\index{index!printing|(}
+
+\begin{syntax}
+\cmd{\makeindex}\oarg{file} \\
+\cmd{\printindex}\oarg{file} \\
+\end{syntax}
+\glossary(makeindex)%
+  {\cs{makeindex}\oarg{file}}%
+  {Preamble command to collect raw index information. By default this
+   is written to file \cs{jobname}\texttt{.idx}. If the optional argument
+   is used it may be written to file \meta{file}\texttt{.idx}.}
+\glossary(printindex)%
+  {\cs{printindex}\oarg{file}}%
+  {Print the sorted index. By default this is read from file 
+   \cs{jobname}\texttt{.ind}. If the optional argument is given
+   it will read the data from file \meta{file}\texttt{.ind}.}
+In order to make \ltx\ collect indexing information the declaration 
+\cmd{\makeindex} must be put in the preamble\index{preamble}. By default
+the raw index data is put into the \file{jobname.idx}\ixfile{idx} file. If
+the optional \meta{file} argument is given then index data can be
+output to \file{file.idx}. Several \cmd{\makeindex} declarations
+can be used provided they each call for a different file.
+
+    The \cmd{\printindex} command will print\index{index!print} an index 
+where by default the indexed items are assumed to be in a file called 
+\pixfile{jobname.ind}\ixfile{ind}. If the optional \meta{file} argument 
+is given
+then the indexed items are read from the file called \file{file.ind}.
+
+%    The typical method of generating an \pixfile{ind} file containing
+%the sorted index entries from the raw index data in an
+%\pixfile{idx} file is to use the \Lmakeindex\ program~\cite{CHEN88}.
+
+
+\begin{syntax}
+\senv{theindex} entries \eenv{theindex} \\
+\cmd{\onecolindex} \cmd{\twocolindex} \\
+\cmd{\indexname} \\
+\end{syntax}
+\glossary(theindex)%
+  {\senv{theindex}}%
+  {Environment for typesetting an index}
+\glossary(onecolindex)%
+  {\cs{onecolindex}}%
+  {Typeset index in one column.}
+\glossary(twocolindex)%
+  {\cs{twocolindex}}%
+  {Typeset index in two columns (the default).}
+\glossary(indexname)%
+  {\cs{indexname}}%
+  {Name used for the theindex title.}
+The index entries are typeset within the \Ie{theindex} 
+environment. By default it is typeset with two 
+columns\indextwo{double column}{index}
+but following the \cmd{\onecolindex} declaration the environment
+uses a single\indextwo{index}{single column} column. 
+The default two column behaviour is restored
+after the \cmd{\twocolindex} declaration.
+The index\indextwo{index}{name} title is given by the current value of 
+\cmd{\indexname} (default `Index').
+
+\begin{syntax}
+\cmd{\indexintoc} \cmd{\noindexintoc} \\
+\end{syntax}
+\glossary(indexintoc)%
+  {\cs{indexintoc}}%
+  {Add the index title to the \prtoc\ (the default).}
+\glossary(noindexintoc)%
+  {\cs{noindexintoc}}%
+  {Do not add the index title to the \prtoc.}
+The declaration \cmd{\indexintoc} will cause the \Ie{theindex}
+environment to add the title\index{index!title in ToC} to the \toc, 
+while the declaration
+\cmd{\noindexintoc} ensures that the title is not added to the \toc. 
+The default is \cmd{\indexintoc}.
+
+\begin{syntax}
+\lnc{\indexcolsep} \\
+\lnc{\indexrule} \\
+\end{syntax}
+\glossary(indexcolsep)%
+  {\ls{indexcolsep}}%
+  {Width of the gutter in two column indexes.}
+\glossary(indexrule)%
+  {\ls{indexrule}}%
+  {Width of the inter-column rule in two column indexes.}
+The length \lnc{\indexcolsep} is the width of the gutter between the two
+index columns\index{index!double column!gutter}
+The length \lnc{\indexrule}, default
+value 0pt, is the thickness of a vertical rule separating the two columns.
+
+
+\begin{syntax}
+\cmd{\preindexhook} \\
+\end{syntax}
+\glossary(preindexhook)%
+  {\cs{preindexhook}}%
+  {Called between typesetting an index's title and the start of the list.}
+    The macro \cmd{\preindexhook}\index{index!explanatory text} 
+is called after the title is typeset and
+before the index listing starts. By default it does nothing but
+can be changed. For example
+\begin{lcode}
+\renewcommand{\preindexhook}{Bold page numbers are used 
+  to indicate the main reference for an entry.}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\indexmark} \\
+\end{syntax}
+\glossary(indexmark)%
+  {\cs{indexmark}}%
+  {Can be used in pagestyles for page headers in an index.}
+\cs{indexmark} may be used in pagestyles for page headers in an index.
+Its default definition is: 
+\begin{lcode}
+\newcommand*{\indexmark}{}
+\end{lcode}
+but could be redefined like, say,
+\begin{lcode}
+\renewcommand*{\indexmark}{\markboth{\indexname}{\indexname}}
+\end{lcode}
+
+
+
+
+\begin{syntax}
+\cmd{\ignorenoidxfile} \\
+\cmd{\reportnoidxfile} \\
+\end{syntax}
+\glossary(ignorenoidxfile)%
+  {\cs{ignorenoidxfile}}%
+  {Do not report attempts to use an \file{idx} file that has not been
+   declared by \cs{makeindex}.}
+\glossary(reportnoidxfile)%
+  {\cs{reportnoidxfile}}%
+  {Report attempts to use an \file{idx} file that has not been
+   declared by \cs{makeindex}.}
+Following the declaration \cmd{\ignorenoidxfile}, which is the default,
+LaTeX will silently pass over attempts to use an \pixfile{idx} file which has
+not been declared via \cmd{\makeindex}. After the declaration
+\cmd{\reportnoidxfile} LaTeX will whine about any attempts to 
+write to an unopened file.
+
+\index{index!printing|)}
+
+\subsection{Preparing an index}
+
+\index{index!preparation|(}
+
+    It it is easy for a computer to provide a list of all the words you
+have used, and where they were used. This is called a 
+concordance\index{concordance}. 
+Preparing an index, though, is not merely a gathering of words but 
+is an intellectual
+process that involves recognising and naming concepts, constructing a
+logical hierarchy of these and providing links between related concepts.
+No computer can do that for you though it can help with some tasks, such as
+sorting things into alphabetical order, eliminating duplicates, and so forth.
+
+    Several iterations may be required before you have an acceptable index.
+Generally you pick out the important words or phrases used on the first pass.
+Part of the skill of indexing is finding appropriate words to describe things
+that may not be obvious from the text. If there are several ways of describing
+something they may all be included using a `see' 
+reference\index{index!see reference} to the most
+obvious of the terms, alternatively you could 
+use `see also'\index{index!see also reference} references
+between the items. Entries should be broken down into subcategories so
+that any particular item will not have a long string of page numbers and
+your reader is more likely to quickly find the relevant place. After having 
+got the first index you will most probably have to go back and correct
+all the sins of ommission and commission, and start the cycle again.
+
+    I found that indexing this manual was the most difficult part of preparing
+it. It was easy to index the names of all the macros, environments, and so on
+as I had commands that would simultaneously print and index these. It was
+the concepts that was difficult. I inserted \cmd{\index} commands as I went
+along at what seemed to be appropriate places but turned out not to be.
+I would use slightly different words for the same thing, and what was worse
+the same word for different things. It took a long time to improve it to 
+its present rather pitiful state.
+
+\begin{syntax}
+\cmd{\index}\oarg{file}\marg{stuff} \\
+\end{syntax}
+\glossary(index)%
+  {\cs{index}\oarg{file}\marg{stuff}}%
+  {Add \meta{stuff} and the current page number to the raw index data. 
+   By default this is written to
+   file \cs{jobname}\texttt{.idx}. If the optional argument
+   is given it will be written to file \meta{file}\texttt{.idx}.}
+The \cmd{\index} macro specifies that \meta{stuff} is to appear in
+an index. By default the raw index data --- the \meta{stuff} and the 
+page number --- will be output
+to the \pixfile{jobname.idx}\ixfile{idx} file, but if the optional \meta{file}
+argument is given then output will be to the \file{file.idx} file.
+
+    This book has two\index{index!multiple} indexes. 
+The main index uses the default indexing
+commands, while the second index does not. They are set up like this:
+\begin{lcode}
+% in preamble
+\makeindex
+\makeindex[lines]
+% in body
+...\index{main} ...\index[lines]{First line} ...
+...
+% at the end
+\clearpage
+% main index
+\pagestyle{Index}
+\renewcommand{\preindexhook}{%
+The first page number is usually, but not always,
+the primary reference to the indexed topic.\vskip\onelineskip}
+\printindex
+
+% second index
+\clearpage
+\pagestyle{ruled}
+\renewcommand{\preindexhook}{}
+\renewcommand{\indexname}{Index of first lines}
+\onecolindex
+\printindex[lines]
+\end{lcode}
+
+
+\begin{syntax}
+\cmd{\specialindex}\marg{file}\marg{counter}\marg{stuff} \\
+\end{syntax}
+\glossary(specialindex)%
+  {\cs{specialindex}\marg{file}\marg{counter}\marg{stuff}}%
+  {Add \meta{stuff} and the current value of \meta{counter}
+   to the raw index data file \meta{file}\texttt{.idx}.}
+The \cmd{\index} command uses the page number\index{reference!to page} 
+as the reference for 
+the indexed item. In contrast the \cmd{\specialindex} command uses
+the \meta{counter} as the reference\index{reference!to counter} 
+for the indexed \meta{stuff}.
+It writes \meta{stuff} to the \file{file.idx} file, and also writes
+the page number (in parentheses) and the value of the \meta{counter}.
+This means that indexing can be with respect to something other than page 
+numbers. However, if the \Lpack{hyperref} package is used the special
+index links will be to pages even though they will appear to be with 
+respect to the \meta{counter}; for example, if figure numbers are used
+as the index reference the hyperref link will be to the page where the
+figure caption appears and not to the figure itself.
+
+
+\begin{syntax}
+\cmd{\showindexmarks} \cmd{\hideindexmarks} \\
+\cmd{\indexmarkstyle} \\
+\end{syntax}
+\glossary(showindexmarks)%
+  {\cs{showindexmarks}}%
+  {The \meta{stuff} argument to \cs{index} and \cs{specialindex} will
+   be printed in the margin (for use in noting what has been indexed where).}
+\glossary(hideindexmarks)%
+  {\cs{hideindexmarks}}%
+  {The \meta{stuff} argument to \cs{index} and \cs{specialindex} will
+   not be printed in the margin (the default).}
+\glossary(indexmarkstyle)%
+  {\cs{indexmarkstyle}}%
+  {Font style for printing index marks in the margin.}
+The declaration \cmd{\showindexmarks} causes the argument to practically 
+any \cmd{\index} and \cmd{\specialindex} to be 
+printed\index{index!show indexed items} in the margin of the
+page where the indexing command was issued. The argument is printed using
+the \cmd{\indexmarkstyle} which is initially specified as
+\begin{lcode}
+\indexmarkstyle{\normalfont\footnotesize\ttfamily}
+\end{lcode}
+For reasons I don't fully understand, spaces in the argument are displayed
+as though it was typeset using the starred version of \cmd{\verb}.
+The \cmd{\hideindexmarks}, which is the default, turns off 
+\cmd{\showindexmarks}.
+
+    The standard classes just provide the plain \cmd{\index} command with
+no optional \meta{file} argument. In those classes the contents of the
+\file{jobname.idx} file is limited to the index entries actually seen in 
+the document. In particular, if you are using \cmd{\include} for
+some parts of the document and \cmd{\includeonly} to exclude one or more
+files, then any \cmd{\index} entries in an excluded file will not appear
+in the \file{jobname.idx} file. The new implementation of indexing eliminates 
+that potential problem.
+
+\begin{syntax}
+\cmd{\item} \cmd{\subitem} \cmd{\subsubitem} \\
+\end{syntax}
+\glossary(item)%
+  {\cs{item}}%
+  {Introduces a main index entry.}
+\glossary(subitem)%
+  {\cs{subitem}}%
+  {Introduces a subsidiary index entry.}
+\glossary(subsubitem)%
+  {\cs{subsubitem}}%
+  {Introduces a third level index entry.}
+The \Ie{theindex} environment\index{index!entry levels} supports 
+three levels of entries.
+A \cmd{\item} command
+flags a main\index{index!main entry} entry; a subentry\index{index!subentry} 
+of a main entry is indicated by
+\cmd{\subitem} and a subentry\index{index!subentry!subsubentry} 
+of a subentry is flagged by 
+\cmd{\subsubitem}. For example a portion of an index might look like:
+\egstart[-2em]
+\begin{lcode}
+\item bridge, 2,3,7
+\subitem railway, 24
+\subsubitem Tay, 37
+\end{lcode}
+\egmid
+bridge, 2, 3, 7\\
+\hspace*{2em} railway, 24 \\
+\hspace*{4em} Tay, 37
+\egend
+\noindent if the Tay Bridge\footnote{A railway (railroad) bridge in Scotland
+that collapsed in 1879 killing 90 people. The disaster lives for ever in
+the poem \textit{The Tay Bridge Disaster} by William McGonagall (1830--?), 
+the first verse of which goes:
+\begin{verse}
+Beautiful Railway Bridge of the Silv'ry Tay!\index[lines]{Beautiful 
+  Railway Bridge of the Silv'ry Tay} \\
+Alas! I am very sorry to say \\
+That ninety lives have been taken away \\
+On the last Sabbath day of 1879, \\
+Which will be remember'd for a very long time.
+\end{verse}}
+was mentioned on page 37.
+
+
+\subsection{MakeIndex}
+
+    It is possible, but time consuming and error prone, to create your
+index by hand from the output of the \cmd{\index} commands you have scattered
+throughout the text. Most use the \Lmakeindex\ program to do this
+for them; there is also the \Lprog{xindy} program~\cite{XINDY} 
+but this is much less known. 
+
+
+\begin{syntax}
+\cmd{\xindyindex} \\
+\end{syntax}
+It turns out that \Lprog{xindy} cannot handle a \Mname\ 
+hyperindex\index{hyperindex} (which
+can be obtained with the aid of the \Lpack{hyperref} package), although
+\Lmakeindex\ can do so.\footnote{This deficiency in \Pprog{xindy}
+was discovered by Frederic Connes\index{Connes, Frederic}, who also provided
+the \cs{xindyindex} command.}
+If you are going to use \Lprog{xindy} to process
+the raw index data put \cmd{\xindyindex} in the preamble, which will prevent
+hyperindexing\index{hyperindex}.
+
+%%\index{MakeIndex?\Pmakeindex!raw data|(}
+\Iprogsub{MakeIndex}{raw data|(}%
+
+   \Lmakeindex\ reads an \pixfile{idx} file containg the raw index
+data (which may include some commands to \Lmakeindex\ itself), sorts
+the data, and then outputs an \pixfile{ind} file containing the sorted data,
+perhaps with some \ltx\ commands to control the printing.
+\Lmakeindex\ was created as a general purpose index processing program
+and its operation can be controlled by a 
+`makeindex configuration file'%
+%%\index{MakeIndex?\Pmakeindex!configuration file}%
+\Iprogsub{MakeIndex}{configuration file}%
+\index{configuration file!MakeIndex?\Pmakeindex} 
+(by default this is an \pixfile{ist} file). Such a file consists of two 
+parts. The first
+part specifies \Pmakeindex\ commands that can be included in the
+\meta{stuff} argument to \cmd{\index}. The second part controls how 
+the sorted index data is to be output.
+
+    I will only describe the most common elements of what you can put in 
+an \pixfile{ist} file; consult the \Pmakeindex\
+manual~\cite{CHEN88}, or the \btitle{Companion}~\cite{COMPANION}, for all 
+the details.
+
+You can embed commands, in the form of single characters,
+in the argument to \cmd{\index} that guide 
+\Lmakeindex\ in converting the raw \pixfile{idx} file into an 
+\pixfile{ind} file for final typesetting. The complete set of these
+is given in \tref{tab:configin}. They all have defaults and you can modify
+these via a \Lmakeindex\ configuration file.
+
+\newcommand*{\kwd}[1]{\texttt{#1}}
+\newcommand*{\kty}[1]{\textit{(#1)}}
+
+\begin{table}
+\centering
+\caption{\Pmakeindex\ configuration file input parameters} \label{tab:configin}
+\begin{tabular}{llp{0.5\textwidth}}\toprule
+\multicolumn{1}{c}{Keyword} & \multicolumn{1}{c}{Default} & \multicolumn{1}{c}{Description} \\ \midrule
+\kwd{keyword} \kty{s} & \verb?"\\indexentry"? & 
+  The argument to this command is a \Pmakeindex{} index entry \\
+\kwd{arg\_open} \kty{c} & \verb?'{'? &
+  Argument start delimeter \\
+\kwd{arg\_close} \kty{c} & \verb?'}'? &
+  Argument end delimeter \\
+\kwd{range\_open} \kty{c} & \verb?'('? &
+  Start of an explicit page range \\
+\kwd{range\_close} \kty{c} & \verb?')'? &
+  End of an explicit page range \\
+\kwd{level} \kty{c} & \verb?'!'? &
+  Character denoting a new subitem level \\
+\kwd{actual} \kty{c} & \verb?'@'? &
+  Character denoting that the following text is to appear in the
+  actual index file \\
+\kwd{encap} \kty{c} & \verb?'|'? &
+  Character denoting that the rest of the argument is to be used as
+  an encapsulating command for the page number \\
+\kwd{quote} \kty{c} & \verb?'"'? &
+  Character that escapes the following character \\
+\kwd{escape} \kty{c} & \verb?'\\'? &
+  Symbol with no special meaning unless followed by the \kwd{quote}
+  character, when both characters will be printed. The \kwd{quote}
+  and \kwd{escape} characters must be different. \\
+\kwd{page\_compositor} \kty{s} & \verb?"-"? &
+  Composite number separator \\
+\bottomrule
+\multicolumn{3}{c}{\kty{s} of type string, \kty{c} of type character} 
+\end{tabular}
+\end{table}
+
+    In the simplest case you just use the name of the index item as the 
+argument to the \cmd{\index} command. However, spaces are significant as far
+as \Lmakeindex\ is concerned. The following three uses of \cmd{\index}
+will result in three different entries in the final index \\
+\verb*?\index{ entry}? \verb*?\index{entry}? \verb*?\index{entry }?
+
+\begin{figure}
+\centering
+\begin{small}
+\begin{tabular}{ll|l}
+p. v: & \verb?\index{Alf}? & \verb?\indexentry{Alf}{v}? \\
+p. 1:  & \verb?\index{Alf}? & \verb?\indexentry{Alf}{1}? \\
+p. 2:  & \verb?\index{Alf}? & \verb?\indexentry{Alf}{2}? \\
+p. 3:  & \verb?\index{Alf}? & \verb?\indexentry{Alf}{3}? \\
+p. 5: & \verb?\index{Alfabet|see{Bet}}? & \verb?\indexentry{Alfabet|see{Bet}}{5}? \\
+p. 7: & \verb?\index{Alf@\textit{Alf}}? & \verb?\indexentry{Alf@\textit{Alf}}{7}? \\
+         & \verb?\index{Bet|textbf}? & \verb?\indexentry{Bet|textbf}{7}? \\
+p. 8:  & \verb?\index{Alf!Bet!Con}? & \verb?\indexentry{Alf!Bet!Con}{8}? \\
+p. 9: & \verb?\index{Alf!Dan}? & \verb?\indexentry{Alf!Dan}{9}? \\
+\end{tabular}\par
+\end{small}
+\caption{Raw indexing: (left) index commands in the source text; (right)
+         \file{idx} file entries}
+\end{figure}
+
+\begin{figure}
+\centering
+\egstart
+\begin{lcode}
+\begin{theindex}
+\item Alf, v, 1-3
+  \subitem Bet
+    \subsubitem Con, 8
+  \subitem Dan, 9
+\item \textit{Alf}, 7
+\item Alfabet, \see{Bet}{5}
+\indexspace
+\item Bet, \textbf{7}
+\end{theindex}
+\end{lcode}
+\egmid
+Alf, v, 1-3 \\
+\hspace*{2em} Bet \\
+\hspace*{4em} Con, 8 \\
+\hspace*{2em} Dan, 9 \\
+\textit{Alf}, 7 \\
+Alfabet, \textit{see} Bet \\[0.5\onelineskip]
+Bet, \textbf{7}
+\egend
+\caption{Processed index: (left) alphabeticized \file{ind} file;
+         (right) typeset index}
+\end{figure}
+
+\subsubsection{The \texttt{!} character}
+
+    The \texttt{level} specifier starts a new minor level, or subitem,
+with a maximum of two sub-levels. The default \texttt{level} specifier
+is the special character \texttt{!}\index{"! (ls)?\texttt{"!} (level specifier)}. For example:
+\begin{lcode}
+\index{item!sub item!sub sub item}
+\end{lcode}
+
+\subsubsection{The \texttt{@} character}
+
+    An indexable item may be represented in two portions, separated
+by the \texttt{actual} specifier, which by default is the
+\texttt{@} character\index{@ (as)?\texttt{@} (actual specifier)}. 
+The portion before the \texttt{@} is used
+when \Lmakeindex\ sorts the raw index data, and the portion after
+the \texttt{@} is used as the entry text. For example:
+\begin{lcode}
+\index{MakeIndex@\textit{MakeIndex}}
+\end{lcode}
+will result in the final index entry of \verb?\textit{MakeIndex}? in the 
+alphabetic position accorded to \verb?MakeIndex?. 
+The same treatment can be applied for subitems:
+\begin{lcode}
+\index{program!MakeIndex@\textit{MakeIndex}!commands}
+\end{lcode}
+
+\subsubsection{The \texttt{|} character}
+
+    Anything after the \texttt{encap} specifier, which by default
+is the \texttt{|} character\index{"| (es)?\texttt{"|} (encap specifier)}, 
+is treated as applying to the page number. In general
+\begin{lcode}
+\index{...|str}
+\end{lcode}
+will produce a page number, say n, in the form
+\begin{lcode}
+\str{n}
+\end{lcode}
+For example, if you wanted the page number of one particular entry
+to be in a bold font, say to indicate that this is where the entry
+is defined, you would do
+\begin{lcode}
+\index{entry|textbf}
+\end{lcode}
+
+    As a special case, if you want an index item to have a page range 
+put the two
+characters \verb?|(? at the end of the argument on the first page, and 
+the character pair \verb?|)? at the end of the argument on the last page.
+For example:
+\begin{lcode}
+... \index{range|(} pages about range  \index{range|)} ...
+\end{lcode}
+The two arguments must match exactly except for the final \verb?(? 
+and \verb?)?. You can also do
+\begin{lcode}
+\index{...|(str}
+\end{lcode}
+which will produce a page range of the form
+\begin{lcode}
+\str{n-m}
+\end{lcode}
+In this case, if the range is only a single page, the result is simply
+\begin{lcode}
+\str{n}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\see}\marg{text}\marg{page} \cmd{seename} \\
+\cmd{\seealso}\marg{text}\marg{page} \cmd{alsoname} \\
+\end{syntax}
+\glossary(see)%
+  {\cs{see}}%
+  {\textit{see} entry in an index using \cs{seename} for the wording.} 
+\glossary(seename)%
+  {\cs{seename}}%
+  {Wording for a \textit{see} index entry.}
+\glossary(seealso)%
+  {\cs{seealso}}%
+  {\textit{see also} entry in an index using \cs{alsoname} for the wording.} 
+\glossary(alsoname)%
+  {\cs{alsoname}}%
+  {Wording for a \textit{see also} index entry.}
+The macros \cmd{\see}\index{index!see reference} and 
+\cmd{\seealso}\index{index!see also reference} are specifically for use in
+an \cmd{\index} command after the \texttt{|}. The \cmd{\see} command
+replaces the page number by the phrase `\textit{see} \meta{text}', 
+while the \cmd{\seealso} command adds `\textit{see also} \meta{text}' 
+to the entry. 
+For example, in the source for this manual I have
+\begin{lcode}
+\index{chapter!style|see{chapterstyle}}
+\index{figure|seealso{float}}
+\end{lcode}
+A \cmd{\see} or \cmd{\seealso}
+should be used once only for a particular entry. The `see' texts for 
+\cmd{\see} and \cmd{\seealso} are stored in \cmd{\seename}
+and \cmd{\alsoname}, whose default definitions are:
+\begin{lcode}
+\newcommand*{\seename}{see}
+\newcommand*{alsoname}{see also}
+\end{lcode}
+
+\subsubsection{The \texttt{"} and \texttt{\bs} characters}
+
+    If, for some reason, you want to index something that includes one
+of the \texttt{!}, \texttt{@}, \texttt{|} or \texttt{"} characters there
+is the difficulty of persuading \Lmakeindex\ to ignore the special
+meaning. This is solved by the \texttt{quote} specifier, which is
+normally the \texttt{"} character\index{\" (qs)?\texttt{"} (quote specifier)}. 
+The character
+immediately after \texttt{"} is treated as non-special. For example,
+if you needed to index the \texttt{@} and \texttt{!} characters:
+\begin{lcode}
+\index{"@ (commercial at)}
+\index{"! (exclamation)}
+\end{lcode}
+The leading \texttt{"} is stripped off before entries are alphabetized.
+
+    The \texttt{escape} specifier is used to strip the special meaning
+from the \texttt{quote} specifier. This is usually the \texttt{\bs}
+character\index{"\ (es)?\texttt{\bs} (escape specifier)}. 
+So, to index the double quote character itself:
+\begin{lcode}
+\index{\" (double quote)}
+\end{lcode}
+
+\subsubsection{Example of using the special characters}
+
+    Here is a short example of indexing the special characters. Given an
+input like this in the document
+\begin{lcode}
+\index{exclamation mark ("!)}
+\index{vicious|see{circle}}
+\index{atsign@\texttt{"@} sign|\textbf}
+\index{quote!double ("")}
+\index{circle|see{vicious}}
+\end{lcode}
+then an index could eventually be produced that looks like:
+\begin{quote}
+\texttt{@} sign, \textbf{30}\\
+circle, \textit{see} vicious\\
+exclamation mark (!), 21 \\
+quote \\
+\hspace*{1.5em} double ("), 47 \\
+vicious, \textit{see} circle\\
+\end{quote}
+
+
+%%\index{MakeIndex?\Pmakeindex!raw data|)}
+\Iprogsub{MakeIndex}{raw data|)}%
+
+\subsection{Controlling MakeIndex output}
+
+%%\index{MakeIndex?\Pmakeindex!output styling|(}
+\Iprogsub{MakeIndex}{output styling|(}%
+
+Table~\ref{tab:configout} lists the parameters that control \Pmakeindex's
+output, except for the keywords that control the setting of page numbers. 
+The special characters and strings are not fixed within the
+\Lmakeindex\ program. The program will read an \pixfile{ist} file
+in which you can redefine all of \Lmakeindex's defaults.
+
+\begin{table}
+\begin{adjustwidth}{-1.5cm}{-1.5cm}
+\centering
+\caption{\Pmakeindex\ configuration file output parameters} \label{tab:configout}
+\begin{tabular}{llp{0.5\textwidth}}\toprule
+\multicolumn{1}{c}{Keyword} & \multicolumn{1}{c}{Default} & \multicolumn{1}{c}{Description} \\ \midrule
+\kwd{preamble} \kty{s} & \verb?"\\begin{theindex}\n"? &
+  Text for the start of the output file \\
+\kwd{postamble} \kty{s} & \verb?"\n\n\\end{theindex}\n"? &
+  Text at the end of the output file \\          \midrule
+%\kwd{setpage\_prefix} \kty{s} & \verb?"\n\\setcounter{page}{"? &
+%  Prefix for the command setting the page number \\ 
+%\kwd{setpage\_suffix} \kty{s} & \verb?"}\n"? &
+%  Suffix for the command setting the page number \\  \midrule
+\kwd{group\_skip} \kty{s} & \verb?"\n\n\\indexspace\n"? &
+  Vertical space before a new letter group \\
+\kwd{heading\_prefix} \kty{s} & \verb?""? &
+  Prefix for heading for a new letter group \\
+\kwd{heading\_suffix} \kty{s} & \verb?""? &
+  Suffix for heading for a new letter group \\
+\kwd{headings\_flag} \kty{n} & \verb?0? &
+  A value $= 0$ inserts nothing between letter groups. 
+  A value $>0$ includes an uppercase instance of the new symbol,
+  while a value $<0$ includes a lowercase instance, all
+  within \kwd{heading\_prefix} and \kwd{heading\_suffix} \\ \midrule
+\kwd{item\_0} \kty{s} & \verb?"\n\item "? &
+  Command inserted in front of a level 0 entry \\
+\kwd{item\_1} \kty{s} & \verb?"\n \subitem "? &
+  As above for a level 1 entry \\
+\kwd{item\_2} \kty{s} & \verb?"\n  \subsubitem "? &
+  As above for a level 2 entry \\
+\kwd{item\_01} \kty{s} & \verb?"\n \subitem "? &
+  Command inserted in front of a level 1 entry starting at level 0 \\
+\kwd{item\_12} \kty{s} & \verb?"\n  \subsubitem "? &
+  Command inserted in front of a level 2 entry starting at level 1 \\
+\kwd{item\_x1} \kty{s} & \verb?"\n \subitem "? &
+  Command inserted in front of a level 1 entry when the parent level
+  has no page numbers \\
+\kwd{item\_x2} \kty{s} & \verb?"\n \subitem "? &
+  As above for a level 2 entry \\                  \midrule
+\kwd{delim\_0} \kty{s} & \verb?", "? &
+  Delimiter between level 0 entry and first page number \\
+\kwd{delim\_1} \kty{s} & \verb?", "? &
+  As above for level 1 entry \\
+\kwd{delim\_2} \kty{s} & \verb?", "? &
+  As above for level 2 entry \\
+\kwd{delim\_n} \kty{s} & \verb?", "? &
+  Delimiter between page numbers \\
+\kwd{delim\_r} \kty{s} & \verb?"-"? &
+  Designator for a page range \\                  \midrule
+\kwd{encap\_prefix} \kty{s} & \verb?"\\"? &
+  Prefix in front of a page encapsulator \\
+\kwd{encap\_infix} \kty{s} & \verb?"{"? &
+  Infix for a page encapsulator \\
+\kwd{encap\_suffix} \kty{s} & \verb?"}"? &
+  Suffix for a page encapsulator \\                \midrule
+\kwd{page\_precedence} \kty{s} & \verb?"rnaRA"? &
+  Page number precedence for sorting. 
+  \texttt{r} and \texttt{R} are lower- and uppercase roman;
+  \texttt{a} and \texttt{A} are lower- and uppercase alphabetic;
+  \texttt{n} is numeric \\                         \midrule
+\kwd{line\_max} \kty{n} & \verb?"72"? &
+  Maximum length of an output line  \\
+\kwd{indent\_space} \kty{s} & \verb?"\t\t"? &
+  Indentation commands for wrapped lines  \\
+\kwd{indent\_length} \kty{n} & \verb?"16"? &
+  Indentation length for wrapped lines  \\
+\bottomrule
+\multicolumn{3}{c}{\kty{s} of type string, \kty{n} of type number,
+   \texttt{"\bs n"} and \texttt{"\bs t"} are newline and tab.} 
+\end{tabular}
+\end{adjustwidth}
+\end{table}
+
+    I have used a file called \file{memman.ist} for configuring
+\Lmakeindex\ for this manual. Here it is:
+\begin{lcode}
+% MakeIndex style file  memman.ist
+
+% @ is a valid character in some entries, use ? instead
+actual '?'
+
+% output main entry <entry> as: \item \idxmark{<entry>}, 
+item_0  "\n\\item \\idxmark{"
+delim_0 "}, "
+% not forgetting the subitem case
+item_x1 "} \n \\subitem "
+
+% Wrap and uppercase head letters
+headings_flag 1
+heading_prefix "\\doidxbookmark{"
+heading_suffix "}"
+\end{lcode}
+
+    Many items that I need to index include \texttt{@} as part of their
+names, which is one of the special characters.
+The \texttt{actual} line says that the character \texttt{?} performs 
+the same function as the default \texttt{@} (and by implication, \texttt{@}
+is not a special character as far as \Lmakeindex\ is concerned).
+
+    The \verb?item_0? line says that a main entry in the generated index
+starts 
+\begin{lcode}
+\item \idxmark{
+\end{lcode}
+and the \verb?delim_0? and \verb?item_x1? lines say that the main entry ends
+\begin{lcode}
+}, % or
+}
+    \subitem
+\end{lcode}
+Thus, main entries will appear in an \pixfile{ind} file like
+\begin{lcode}
+\item \idxmark{a main entry}, <list of page numbers> 
+\item \idxmark{a main entry with no page numbers}
+    \subitem subitem, <list of page numbers>
+\end{lcode}
+
+%%\index{MakeIndex?\Pmakeindex!output styling|)}
+\Iprogsub{MakeIndex}{output styling|)}%
+
+
+ Read the \Lmakeindex\ manual~\cite{CHEN88} for full details
+on how to get \Lmakeindex\ to do what you want.
+
+\LMnote{2009/06/30}{described \doidxbookmark}
+The \verb?\doidxbookmark? that is used to wrap around the letter group
+headers, can be used to not only style the group header, but can also
+be used to add the headers in the bookmarks list. This can be done using
+\begin{lcode}
+\newcommand{\doidxbookmark}[1]{{\def\@tempa{Symbols}\def\@tempb{#1}%
+  \centering\bfseries \ifx\@tempa\@tempb %
+  Analphabetics 
+  \phantomsection%
+  \pdfbookmark[0]{Analphabetics}{Analphabetics-idx}%
+%  \label{AnalphabeticsAnalphabeticsAnalphabetics-idx}%
+  \else 
+  #1%
+  \phantomsection%
+  \pdfbookmark[0]{#1}{#1-idx}%
+%  \label{#1#1#1-idx}%
+  \fi%
+  \vskip\onelineskip\par}}
+\end{lcode}
+The labels are generally not needed but can be used to add a visual
+representation of the index bookmarks into the index itself.
+
+
+\subsection{Indexing and the \Lpack{natbib} package}
+
+    The \Lpack{natbib} package~\cite{NATBIB} will make an index 
+of citations if
+\cmd{\citeindextrue} is put in the preamble after the \Lpack{natbib}
+package is called for.
+
+\begin{syntax}
+\cmd{\citeindexfile} \\
+\end{syntax}
+\glossary(citeindexfile)%
+  {\cs{citeindexfile}}%
+  {File name for the citation index.}
+The name of the file for the citation index is stored in the
+macro \cmd{\citeindexfile}. This is initially defined as:
+\begin{lcode}
+\newcommand{\citeindexfile}{\jobname}
+\end{lcode}
+That is, the citation entries will be written to the default 
+\pixfile{idx} file.
+This may be not what you want so you can change this, for example to:
+\begin{lcode}
+\renewcommand{\citeindexfile}{names}
+\end{lcode}
+If you do change \cmd{\citeindexfile} then you have to put
+\begin{lcode}
+\makeindex[\citeindexfile]
+\end{lcode}
+\emph{before}
+\begin{lcode}
+\usepackage[...]{natbib}
+\end{lcode}
+
+    So, there are effectively two choices, either along the lines of
+\begin{lcode}
+\renewcommand{\citeindexfile}{authors} % write to authors.idx
+\makeindex[\citeindexfile]
+\usepackage{natbib}
+\citeindextrue
+...
+\renewcommand{\indexname}{Index of citations}
+\printindex[\citeindexfile]
+\end{lcode}
+or along the lines of
+\begin{lcode}
+\usepackage{natbib}
+\citeindextrue
+\makeindex
+...
+\printindex
+\end{lcode}
+
+\section{Glossaries}
+
+    Unlike indexes, \ltx\ provides less than minimal support for 
+glossaries. It provides a \cmd{\makeglossary} command for initiating a glossary
+and a \cmd{\glossary} command which puts its argument, plus the page number,
+into a \file{glo} file, and that's it. \Mname, combined with the
+\Lmakeindex\ program~\cite{CHEN88}, enables you to generate 
+and print a glossary in 
+your document. The commands for creating a glossary are similar to those
+for indexes.
+
+\begin{syntax}
+\cmd{\makeglossary}\oarg{file} \\
+\end{syntax}
+\glossary(makeglossary)%
+  {\cs{makeglossary}\oarg{file}}%
+  {Opens file \cs{jobname.glo}, or \cs{file.glo}, for glossary entries}%
+
+You have to put \cmd{\makeglossary} in your preamble if you want a glossary.
+This opens a file called by default \verb?\jobname.glo?. If you use the 
+optional \meta{file} argument the file \verb?file.glo? will be opened.
+A glossary \file{glo} file is analagous to an index \file{idx} file.
+
+\begin{syntax}
+\cmd{\printglossary}\oarg{file} \\
+\end{syntax}
+\glossary(printglossary)%
+  {\cs{printglossary}\oarg{file}}%
+  {Prints the glossary from file \cs{jobname.gls}, or \cs{file.gls}}%
+To print a glossary call \cmd{\printglossary} which will print the glossary
+from file \verb?\jobname.gls?, or from \verb?file.gls? if the optional 
+argument is used. A glossary \file{gls} file is analagous to an
+index \file{ind} file.
+
+\begin{syntax}
+\cmd{\glossary}\oarg{file}\parg{key}\marg{term}\marg{desc} \\
+\end{syntax}
+\glossary(glossary)%
+  {\cs{glossary}\oarg{file}\parg{key}\marg{term}\marg{description}}%
+  {Adds \meta{term} and its description, \meta{desc}, to a glossary file ---
+   \cs{jobname.glo} by default or to \cs{file.glo}. The optional argument
+   \meta{key} can be used to provide a different sort key for \meta{term}.}
+
+Use the \cmd{\glossary} command to add a \meta{term} and its description,
+\meta{desc},
+to a glossary file. By default this will be \verb?\jobname.glo? but if the
+optional \meta{file} argument is given then the information will be written
+to \verb?file.glo?. The \parg{key} argument is optional. If present then
+\meta{key} will be added to the file to act as a sort key for the \meta{term},
+otherwise \meta{term} will be used as the sort key.
+
+    By using the optional \meta{file} arguments you can have several 
+glossaries, subject to \tx's limitations on the number of files that can
+be open at any one time.
+
+   A simple glossary entry might be:
+\begin{lcode}
+\glossary{glossary}{A list of terms and their descriptions.}
+\end{lcode}
+
+    The glossary facilites are designed so that the \Lmakeindex\ program
+can be used to convert the raw glossary data in a \file{glo} file into
+the printable glossary in a \file{gls} file.
+
+\begin{syntax}
+\senv{theglossary} entry list \eenv{theglossary} \\
+\end{syntax}
+\glossary(theglossary)%
+  {\senv{theglossary}}%
+  {Environment for typesetting a glossary.}%
+
+Glossary entries are typeset in a \Ie{theglossary} environment. It is assumed
+that a \file{gls} file will contain a complete \Ie{theglossary} environment,
+from \senv{theglossary} all the way through to \eenv{theglossary}.
+
+\begin{syntax}
+\cmd{\glossitem}\marg{term}\marg{desc}\marg{ref}\marg{num} \\
+\end{syntax}
+\glossary(glossitem)%
+  {\cs{glossitem}\marg{term}\marg{desc}\marg{ref}\marg{num}}%
+  {Glossary entry used in a \Pe{theglossary} environment}%
+
+A \cmd{\glossitem} is a glossary entry within a \Ie{theglossary} environment
+for a \meta{term} with \meta{description}. The \meta{num} argument is the
+page or section where the corresponding \cmd{\glossary} was issued. The
+\meta{ref} argument, if not empty, might be the section or page number 
+corresponding to the \meta{num} page or section number. The default definition
+is
+\begin{lcode}
+\newcommand{\glossitem}[4]{#1 #2 #3 #4}
+\end{lcode}
+which is not very exciting. You may well prefer to use your own definition.
+
+\subsection{Controlling the glossary}
+
+\subsubsection{Setting up makeindex}
+
+    If you just run \Lmakeindex\ on a \file{glo} file you will get lots
+of errors; \Lmakeindex\ has to be configured to read a \file{glo}
+file and generate a useful \file{gls} file as by default it expects to read
+an index \file{idx} file and produce an index \file{ind} file. A configuration
+file like an index \file{ist} file will be needed. There is no recommended
+extension for such a file but I have come to favour \file{gst}. The
+command line for \Lmakeindex\ to create a sorted glossary from the raw
+data in a \file{glo} file, say \texttt{fred.glo}, using a configuration 
+file called, say \texttt{basic.gst}, is
+\begin{lcode}
+makeindex -s basic.gst -o fred.gls fred.glo
+\end{lcode}
+For other jobs just change the file names appropriately.
+
+    So, what is in a \file{gst} file? The potential contents were described
+earlier, but at a minimum you need this:
+\begin{lcode}
+%%% basic.gst basic makindex glossary style file 
+%%% Output style parameters
+preamble "\\begin{theglossary}"
+postamble "\n\\end{theglossary}\n"
+item_0    "\n\\glossitem"
+delim_0   "{\\memglonum{"
+encap_suffix "}}}"
+headings_flag 1
+heading_prefix "\\doglobookmark{"
+heading_suffix "}"
+%%% Input style parameters
+keyword "\\glossaryentry"
+\end{lcode}
+
+The \verb?keyword? line says that each entry in an input (\file{glo}) file
+will be of the form:
+\begin{lcode}
+\glossaryentry{entry text}{number}
+\end{lcode}
+and by a miracle of coding, this is what \Pclass{memoir} will put in a 
+\file{glo} file for each \cmd{\glossary} command.
+
+    The \verb?preamble? and \verb?postamble? lines tell the program to start
+and end its output file with \senv{theglossary} and \eenv{theglossary},
+respectively.
+The \verb?item_0? tells the program to start each output entry with
+\cmd{\glossitem}. The \verb?delim_0? says that \verb?{\memglonum{?
+should be put between the end of the entry text and the (page) number. Finally
+\verb?encap_suffix? requests \verb?}}}? to be put after any `encapsulated'
+(page) number.
+
+    A complete listing of the possible entries in a configuration file,
+also called a style file, for \Lmakeindex{} is in 
+\tablerefname~\ref{tab:configin} and~\ref{tab:configout} with the exception
+of the output file page number setting keywords.
+
+\LMnote{2009/06/30}{Added bookmarks for letter groups in the glossary}
+The \verb?\doglobookmark? macro can be used to add bookmarks for the
+letter groups. In the case of this manual we do not write anything,
+just add the letters to the glossary entry in the bookmark list. In
+\Lpack{memsty} \verb?\doglobookmark? is defined as
+\begin{lcode}
+\newcommand\doglobookmark[1]{%
+  \def\@tempa{Symbols}\def\@tempb{#1}%
+  \ifx\@tempa\@tempb %
+  \phantomsection\pdfbookmark[0]{Analphabetics}{Analphabetics-glo}%
+  \else%
+  \phantomsection\pdfbookmark[0]{#1}{#1-glo}%
+  \fi%
+}
+\end{lcode}
+\Lmakeindex\ uses the word 'Symbols' to specify the group that does not
+start with a letter.
+
+
+\subsubsection{Raw input data}
+
+\begin{syntax}
+\cmd{\@@wrglom@m}\marg{file}\marg{key}\marg{term}\marg{desc}\marg{ref}\marg{num}\\
+\end{syntax}
+The \cmd{\glossary} macro writes its arguments to the \file{aux} file
+in the form of arguments to the \cmd{\@@wrglom@m} internal macro. In turn 
+this calls a series of other macros that eventually write the data
+to the \meta{file} \file{glo} file 
+in the format (where \verb+@+ is the actual flag):
+\begin{lcode}
+\glossaryentry{key@{\memgloterm{term}} {\memglodesc{desc}}{\memgloref{ref}}
+               |memglonumf}{num}
+\end{lcode}
+which \Lmakeindex\ then effectively converts into
+\begin{lcode}
+\glossitem{\memgloterm{term}}{\memglodesc{desc}}{\memgloref{ref}}
+           {\memglonum{\memglonumf{num}}}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\memgloterm}\marg{term} \\
+\cmd{\memglodesc}\marg{desc} \\
+\cmd{\memgloref}\marg{ref} \\
+\cmd{\memglonum}\marg{num} \\
+\end{syntax}
+\glossary(memgloterm)%
+  {\cs{memgloterm}\marg{term}}%
+  {Wrapper round a glossary term.}%
+\glossary(memglodesc)%
+  {\cs{memglodesc}\marg{desc}}%
+  {Wrapper round a glossary description.}%
+\glossary(memgloref)%
+  {\cs{memgloref}\marg{ref}}%
+  {Wrapper round a glossary ref.}%
+\glossary(memglonum)%
+  {\cs{memglonum}\marg{num}}%
+  {Wrapper round glossary numbers.}%
+These macros can be redefined to format the various parts of a glossary entry.
+Their default definitions are simply
+\begin{lcode}
+\newcommand{\memgloterm}[1]{#1}
+\newcommand{\memglodesc}[1]{#1}
+\newcommand{\memgloref}[1]{#1}
+\newcommand{\memglonum}[1]{#1}
+\end{lcode}
+For example, if you wanted the term in bold, the description in italics,
+ and no numbers:
+\begin{lcode}
+\renewcommand{\memgloterm}[1]{\textbf{#1}}
+\renewcommand{\memglodesc}[1]{\textit{#1}}
+\renewcommand{\memglonum}[1]{}
+\end{lcode}
+
+   There are several macros that effect a glossary entry 
+but which must not be directly modified (the \cs{memglonumf} shown above
+as part of the \cmd{\glossaryentry} is one of these).
+Each of the following \cs{changegloss...} macros takes an optional \meta{file}
+argument. The changes to the underlying macro apply only to the 
+glossary of that particular \meta{file} (or the \cs{jobname} file
+if the argument is not present.
+\begin{syntax}
+\cmd{\changeglossactual}\oarg{file}\marg{char} \\
+\cmd{\changeglossref}\oarg{file}\marg{thecounter} \\
+\cmd{\changeglossnum}\oarg{file}\marg{thecounter} \\
+\cmd{\changeglossnumformat}\oarg{file}\marg{format} \\
+\end{syntax}
+\glossary(changeglossactual)%
+  {\cs{changeglossactual}\oarg{file}\marg{char}}%
+  {Specifies \meta{char} as the \texttt{actual} character for 
+   glossary \meta{file}.}%
+\glossary(changeglossref)%
+  {\cs{changeglossref}\oarg{file}\marg{thecounter}}%
+  {Specifies \meta{thecounter} as the \meta{ref} for 
+   glossary \meta{file}.}%
+\glossary(changeglossnum)%
+  {\cs{changeglossnum}\oarg{file}\marg{thecounter}}%
+  {Specifies \meta{thecounter} as the \meta{num} for 
+   glossary \meta{file}.}%
+\glossary(changeglossnumformat)%
+  {\cs{changeglossnumformat}\oarg{file}\marg{format}}%
+  {Specifies \meta{format} as the format for \meta{num} for 
+   glossary \meta{file}.}%
+
+\cmd{\changeglossactual} sets \meta{char} as the \texttt{actual} character
+for the \meta{file} glossary. It is initially \verb+@+. This must match 
+with the \texttt{actual} specified for the \file{gst} file that will 
+be applied.
+
+\cmd{\changeglossref} specifies that \meta{thecounter} should be used
+to generate the \meta{ref} for the \meta{file} glossary. It is
+initially nothing.
+
+\cmd{\changeglossnum} specifies that \meta{thecounter} should be used
+to generate the \meta{num} for the \meta{file} glossary. It is
+initially \cs{thepage}.
+
+\cmd{\changeglossnumformat} specifies that \meta{format} should be used
+to format the \meta{num} for the \meta{file} glossary. The format
+of \meta{format} is \verb?|form?, where \verb?|? is the \texttt{encap}
+character specified in the \file{gst} file, and \verb?form? is a
+formatting command, taking one argument (the number), without any backslash. 
+For example
+\begin{lcode}
+\changeglossnumformat{|textbf}
+\end{lcode}
+ to get bold numbers. It is
+initially set as \verb?|memjustarg?, where this is defined as:
+\begin{lcode}
+\newcommand{\memjustarg}[1]{#1}
+\end{lcode}
+There must be a format defined for the \meta{num} otherwise the arguments
+to \cmd{\glossitem} will not be set correctly.
+
+
+    The \cmd{\makeglossary} command uses the \cs{change...}
+commands to define the initial versions, so only use the \cs{change...}
+macros \emph{after} \cmd{\makeglossary}.
+In this document an early version of the glossary was set up by
+\begin{lcode}
+\makeglossary
+\changeglossactual{?}
+\makeatletter 
+\changeglossnum{\@currentlabel} 
+\makeatother
+\changeglossnum{\thepage}
+\end{lcode}
+The first call of \cmd{\changeglossnum} makes the number the current 
+numbered chapter, or numbered section, or numbered \ldots. I didn't 
+like that when I tried it, so the second call resets the number to 
+the page number.
+
+\subsubsection{The listing}
+
+    The final glossary data in the \file{gls} file is typeset in the
+\Ie{theglossary} environment, which is much like the \Ie{theindex}
+and \Ie{thebibliography} environments.
+
+    The environment starts off with a chapter-style unnumbered title.
+There are several macros for specifying what happens after that.
+
+\begin{syntax}
+\cmd{\glossaryname} \\
+\cmd{\glossarymark} \\
+\cmd{\glossaryintoc} \cmd{\noglossaryintoc} \\
+\end{syntax}
+\glossary(glossaryname)%
+  {\cs{glossaryname}}%
+  {Name for a glossary.}%
+\glossary(glossarymark)%
+  {\cs{glossarymark}}%
+  {Redefine to specify marks for headers.}%
+\glossary(glossaryintoc)%
+  {\cs{glossaryintoc}}%
+  {Declaration to add glossary title to the ToC.}%
+\glossary(noglossaryintoc)%
+  {\cs{noglossaryintoc}}%
+  {Declaration to prohibit adding glossary title to the ToC.}%
+
+The title for the glossary is \cmd{\glossaryname} whose initial definition
+is 
+\begin{lcode}
+\newcommand*{\glossaryname}{Glossary}
+\end{lcode}
+\cmd{\glossarymark}, which by default does nothing, can be redefined to
+set marks for headers. The glossary title will be added to the ToC
+if the \cmd{\glossaryintoc} declaration is in force, but will not be
+added to the ToC following the \cmd{\noglossaryintoc}.
+
+\begin{syntax}
+\cmd{\preglossaryhook} \\
+\end{syntax}
+\glossary(preglossaryhook)%
+  {\cs{preglossaryhook}}%
+  {Vacuous macro called after a glossary title is typeset.}
+The macro \cmd{\preglossaryhook} is called after the glossary title 
+has been typeset. By default it does nothing, but you could redefine
+it to, for example, add some explanatory material before the entries
+start.
+
+\begin{syntax}
+\cmd{\onecolglossary} \cmd{\twocolglossary} \\
+\lnc{\glossarycolsep} \lnc{\glossaryrule} \\
+\end{syntax}
+\glossary(onecolglossary)%
+  {\cs{onecolglossary}}%
+  {Declaration for a single column glossary.}%
+\glossary(onecolglossaryfalse)%
+  {\cs{twocolglossary}}%
+  {Declaration for a two column glossary.}%
+\glossary(glossarycolsep)%
+  {\cs{glossarycolsep}}%
+  {Columns separation in a two column glossary.}%
+\glossary(glossaryrule)%
+  {\cs{glossaryrule}}%
+  {Width of inter-column rule in a two column glossary.}%
+
+The glossary can be typeset in two columns (\cmd{\twocolglossary})
+but by default (\cmd{\onecolglossary}) it is set in one column.
+When two columns are used, the length \lnc{\glossarycolsep} is the
+distance between the columns and the length \lnc{\glossaryrule} is
+the width (default 0) of a vertical rule between the columns.
+
+\begin{syntax}
+\cmd{\begintheglossaryhook} \\
+\cmd{\atendtheglossaryhook} \\
+\end{syntax}
+\glossary(begintheglossaryhook)%
+  {\cs{begintheglossaryhook}}%
+  {Vacuous macro called as the last thing by \senv{theglossary}.}
+\glossary(atendtheglossaryhook)%
+  {\cs{atendtheglossaryhook}}%
+  {Vacuous macro called as the first thing by \eenv{theglossary}.}
+
+The last thing that \senv{theglossary} does is call 
+\cmd{\begintheglossaryhook}. Similarly, the first thing that is done at
+the end of the environment is to call \cmd{\atendtheglossaryhook}.
+By default these macros do nothing but you can redefine them.
+
+    For example, if you wanted the glossary in the form of a description
+list, the following will do that.
+\begin{lcode}
+\renewcommand*{\begintheglossaryhook}{\begin{description}}
+\renewcommand*{\atendtheglossaryhook}{\end{description}}
+\renewcommand{\glossitem}[4]{\item[#1:] #2 #3 #4}
+\end{lcode}
+
+\subsubsection{The glossary for this document}
+
+    The following is the code I have used to produce the glossary
+in this document.
+
+This is the code in the \file{sty} file that I used.
+\begin{lcode}
+\makeglossary
+\changeglossactual{?}
+\changeglossnum{\thepage}
+\changeglossnumformat{|hyperpage}%% for hyperlinks
+\renewcommand*{\glossaryname}{Command summary}
+\renewcommand*{\glossarymark}{\markboth{\glossaryname}{\glossaryname}}
+\renewcommand{\glossitem}[4]{%
+  \sbox\@tempboxa{#1 \space #2 #3 \makebox[2em]{#4}}%
+  \par\hangindent 2em
+  \ifdim\wd\@tempboxa<0.8\linewidth
+    #1 \space #2 #3 \dotfill \makebox[2em][r]{#4}\relax
+  \else
+    #1 \dotfill \makebox[2em][r]{#4}\\
+    #2 #3
+  \fi}
+\end{lcode}
+
+    The redefinition of \cmd{\glossitem} works as follows (it is similar
+to code used in the setting of a \cmd{\caption}):
+\begin{enumerate}
+\item Put the whole entry into a temporary box.
+\item Set up a hanging paragraph with 2em indentation after the first line.
+\item Check if the length of the entry is less than 80\% of the linewidth.
+\item For a short entry set the name, description, and any reference then
+      fill the remainder of the line with dots with the number at the right
+      margin.
+\item For a longer entry, set the title and number on a line, separated
+      by a line of dots, then set the description (and reference) on
+      the following lines.
+\end{enumerate}
+
+    The \file{gst} file I have used for this document has a few more items
+than the basic one.
+\begin{lcode}
+%%% memman.gst makindex glossary style file for memman and friends
+%%% Output style parameters
+preamble "\\begin{theglossary}"
+postamble "\n\\end{theglossary}\n"
+group_skip "\n\\glossaryspace\n"
+item_0    "\n\\glossitem"
+delim_0   "{\\memglonum{"
+encap_suffix "}}}"
+indent_space "\t"
+indent_length 2
+%%% Input style parameters
+keyword "\\glossaryentry"
+actual '?'
+page_compositor "."
+\end{lcode}
+
+The \verb?group_skip? line asks that \verb?\glossaryspace? be put between the 
+last entry for one letter and the first for the next letter. 
+The \verb?indent_space? and \verb?indent_length? give a smaller indent for
+continuation lines in the output than the default.
+
+    The \verb?actual? entry says that the input file will use \verb+?+ instead
+of the default \verb+@+ as the flag for separating a key from the start of 
+the real entry. The \verb?page_compositor? indicates that any compound numbers
+will be like \verb?1.2.3? instead of the default \verb?1-2-3?.
+
+In the document the raw data is collected by the \cmd{\glossary} commands 
+in the body of the text. For instance, although I have not actually used
+the first two:
+\begin{lcode}
+\glossary(cs)%
+  {\cs{cs}\marg{name}}%
+  {Typesets \texttt{name} as a macro name with preceding backslash,
+   e.g., \cs{name}.}%
+\glossary(gmarg)%
+  {\cs{gmarg}\marg{arg}}%
+  {Typesets \texttt{arg} as a required argument, e.g., \marg{arg}.}
+\glossary(glossaryname)%
+  {\cs{glossaryname}}%
+  {Name for a glossary}%
+\glossary(memgloterm)%
+  {\cs{memgloterm}\marg{term}}%
+  {Wrapper round a glossary term.}%
+\end{lcode}
+
+    Any change to the glossary entries will be reflected in the
+\file{glo} produced from that LaTeX run. \Lmakeindex\ has to be run
+the \file{glo} file using the appropriate \file{gst} configuration file, 
+and then LaTeX run again to get the corrected, sorted and formatted result
+printed by \cmd{\printglossary}.
+
+    In particular, for this document, which also includes an index so that
+can be processed when the glossary is processed.
+\begin{lcode}
+pdflatex memman
+makeindex -s memman.gst -o memman.gls memman.glo
+makeindex -s memman.ist memman     %%% for the index
+makeindex lines                    %%% for the index of first lines
+pdflatex memman
+\end{lcode} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\LMnote{2013/05/02}{Section about endnotes moved page-notes.tex}
+
+
+
+%#% extend
+%#% extstart include miscellaneous.tex

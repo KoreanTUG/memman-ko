@@ -1,0 +1,1326 @@
+\chapter{Text and fonts}
+
+    Presumably you will be creating a document that contains at least some
+text. In this chapter I talk a little about the kinds of fonts that you might
+use and how text appears on a page.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Fonts} \label{sec:fonts}
+
+    \alltx{} comes with a standard set of fonts, designed by Donald Knuth,
+and known as the Computer Modern\index{font!Computer Modern} font family. 
+The Knuthian
+fonts\index{font!metafont?\metafont} were created via the \metafont{} 
+program~\cite{METAFONT,CM}\index{metafont?\metafont}
+and are in the form of bitmaps\index{bitmap}
+(i.e., each character is represented as a bunch of tiny dots). Fonts of
+this kind are called \emph{bitmap fonts}\indextwo{bitmap}{font}.
+ There is also a wide range of \metafont{} fonts available, created by 
+many others, in addition to the standard set.  More modern
+digital fonts, such as \pscript\indexsupsubmain{font}{PostScript} or 
+TrueType\indexsupsubmain{font}{TrueType} fonts are represented in terms
+of the curves outlining the character, and it is the job of the printing
+machine to fill in the outlines (with a bunch of tiny dots). Fonts of
+this type are called \emph{outline fonts}\indextwo{outline}{font}.
+
+\metafont\ fonts
+are designed for a particular display resolution and cannot reasonably 
+be scaled to match an arbitrary display device, whereas outline fonts can be 
+scaled before they are physically displayed.
+
+\PWnote{2009/04/27}{Extended the font use/installation references}
+    There is an excessive number of \pscript\indexsupsubmain{font}{PostScript}
+and TrueType\indexsupsubmain{font}{TrueType}
+fonts available 
+and these can all, with some amount of effort, be used with \ltx. How to do
+that is outside the scope of this work; Alan Hoenig has written an excellent
+book on the subject~\cite{HOENIG98} and there is the invaluable 
+\btitle{The \ltx\ Companion} \cite[Chapter 7 Fonts and Encodings]{COMPANION}. 
+The original \btitle{The \ltx\ Graphics Companion} had chapters on PostScript
+fonts and tools but these were dropped in the second edition to keep it below
+an overwhelming size. This material has been updated and is available
+free from \url{http://xml.cern.ch/lgc2}; you can also get a 
+`work in progress'\pagenote[`work in progress']{\pixxetx\ enables you to 
+use Opentype fonts with \ltx, and supports both left-to-right and 
+right-to-left typesetting. It has become very popular with those involved
+in linguistics and non-Latin scripts.}
+about \pixxetx, Unicode\index{Unicode}, and 
+Opentype\indexsupsubmain{font}{Opentype}
+fonts from the same source. 
+There is less detailed, but also free, 
+information available via \pixctan, for example Philipp Lehman's 
+\textit{Font Installation Guide}~\cite{FONTINST}; even if you are not 
+interested in
+installing \pscript\ fonts this is well worth looking at just as an
+example of the kind of elegant document that can be achieved with \ltx.
+If you choose one of the popular
+\pscript\indexsupsubmain{font}{PostScript} fonts, such as those built 
+into \ixpscript\ printers, you may 
+well find that the work has been done for you and it's just a question
+of using the appropriate 
+package.%
+\pagenote[using the appropriate package]{I have found Christopher
+League's\index{League, Christopher} \textit{\tx\ support for the FontSite
+500 CD}, obtainable from \url{http:contrapunctus.net/fs500tex}, 
+extremely useful in providing packages for a wide range of 
+\pscript\indexsupsubmain{font}{PostScript} fonts for me to use. You do have 
+to buy a CD containing the sources of the fonts from FontSite
+(\url{http://www.fontsite.com}); it cost me
+a total of \$37.12, including taxes and shipping, in 2002 for 512 
+\pscript\ and TrueType\indexsupsubmain{font}{TrueType} professional
+quality fonts that are legal and very reasonably priced.
+
+    Many of the fonts fall into the Decorative/Display category but the book
+fonts include:
+\begin{description}
+
+\item[Blackletter]\typesubidx{Blackletter}
+Alte Schwabacher\facesubseeidx{Alte Schwabacher},
+Engravers Old English\facesubseeidx{Engravers Old English},
+Fette Fraktur\facesubseeidx{Fette Fraktur},
+Fette Gotisch\facesubseeidx{Fette Gotisch}, and
+Olde English\facesubseeidx{Olde English}.
+
+\item[Uncial/Mediaeval]\typesubidx{Uncial}\typesubidx{Mediaeval}
+American UncialXX{American Uncial},
+Linden\facesubseeidx{Linden}, and
+Rosslaire\facesubseeidx{Rosslaire}.
+
+\item[Geralde/Venetian]\typesubidx{Geralde}\typesubidx{Venetian}
+Bergamo\facesubseeidx{Bergamo} (also known as Bembo\facesubseeidx{Bembo}),
+Caslon\facesubseeidx{Caslon}, 
+Garamond\facesubseeidx{Garamond}, 
+Goudy Old Style\facesubseeidx{Goudy Old Style},
+Jenson Recut\facesubseeidx{Jenson Recut} (also known as Centaur\facesubseeidx{Centaur}),
+URW Palladio\facesubseeidx{URW Palladio} (also known as Palatino\facesubseeidx{Palatino}),
+Savoy\facesubseeidx{Savoy} (also known as Sabon\facesubseeidx{Sabon}),
+Schnittger\facesubseeidx{Schnittger},
+University Old Style\facesubseeidx{University Old Style}, and
+Vendome\facesubseeidx{Vendome}.
+
+\item[Transitional]\typesubidx{Transitional}
+URW Antiqua\facesubseeidx{URW Antiqua}, 
+Baskerville\facesubseeidx{Baskerville},
+Century Old Style\facesubseeidx{Century Old Style},
+ATF Clearface\facesubseeidx{ATF Clearface},
+English Serif\facesubseeidx{English Serif},
+Jessica\facesubseeidx{Jessica} (also known as Joanna\facesubseeidx{Joanna}),
+Lanston Bell\facesubseeidx{Lanston Bell},
+New Baskerville\facesubseeidx{New Baskerville}, and
+Nicholas Cochin\facesubseeidx{Nicholas Cochin}.
+
+\item[Modern/Didone]\typesubidx{Modern}\typesubidx{Didone}
+Basel\facesubseeidx{Basel} (also known as Basilia\facesubseeidx{Basilia}),
+Bodoni\facesubseeidx{Bodoni},
+Modern\facesubseeidx{Modern}, and
+Walbaum\facesubseeidx{Walbaum}.
+
+\item[Free Form]\typesubidx{Free Form}
+Barbedour\facesubseeidx{Barbedour},
+Bernhard Modern\facesubseeidx{Bernhard Modern},
+Della Robbia\facesubseeidx{Della Robbia},
+Engravers Litho\facesubseeidx{Engravers Litho},
+Flanders\facesubseeidx{Flanders}, and
+Lydian\facesubseeidx{Lydian}.
+
+\item[Sans Serif]\typesubidx{Sans Serif}
+There are over 20 in this category but some of the ones I am most familiar
+with are: 
+Chantilly\facesubseeidx{Chantilly} (also known as Gill Sans\facesubseeidx{Gill Sans}),
+Franklin Gothic\facesubseeidx{Franklin Gothic},
+Function\facesubseeidx{Function} (also known as  Futura\facesubseeidx{Futura}),
+Lanston Koch\facesubseeidx{Lanston Koch},
+News Gothic\facesubseeidx{News Gothic},
+Opus\facesubseeidx{Opus} (also known as Optima\facesubseeidx{Optima}),
+Struktor\facesubseeidx{Struktor} (also known as Syntax\facesubseeidx{Syntax}), and
+Unitus\facesubseeidx{Unitus} (also known as Univers\facesubseeidx{Univers}).
+
+\item[Slab Serif]\typesubidx{Slab Serif}
+Cheltenham\facesubseeidx{Cheltenham},
+Clarendon\facesubseeidx{Clarendon},
+Egyptian\facesubseeidx{Egyptian},
+Glytus\facesubseeidx{Glytus} (also known as Glypha\facesubseeidx{Glypha}),
+URW Latino\facesubseeidx{URW Latino} (also known as Melior\facesubseeidx{Melior}),
+Litho Antique\facesubseeidx{Litho Antique},
+Serific\facesubseeidx{Serific} (also known as Serifa\facesubseeidx{Serifa}).
+
+\item[Script]\typesubidx{Script}
+There are some sixteen Script fonts.
+
+\item[Decorative]\typesubidx{Decorative}
+There are over fifty Decorative fonts.
+
+\item[Symbol]\typesubidx{Symbol}
+There are a dozen miscellaneous symbol fonts which include, among others,
+arrows, borders, fleurons\index{fleuron} and various icons.
+\end{description}
+}  % end pagenote
+
+    A standard \ltx\ distribution includes some 
+\pscript\indexsupsubmain{font}{PostScript} fonts and the packages to support
+them are in the \Ppack{psnfss}\index{psnfss?\Ppack{psnfss}}
+bundle. Most of the fonts are for normal text work but two supply
+symbols rather than characters. Table~\ref{tab:palatinoglyphs}, although it
+is specifically for Palatino\facesubseeidx{Palatino}, shows the glyphs 
+typically available. Tables~\ref{tab:symbolglyphs} and~\ref{tab:dingglyphs}
+show the glyphs in the two symbol fonts.
+
+\begin{table}
+\centering
+\caption{Glyphs in the \ltx\ supplied Palatino roman font}\label{tab:palatinoglyphs}
+\nohexoct
+\fonttable{pplr}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Glyphs in the \ltx\ distributed Symbol font}\label{tab:symbolglyphs}
+\nohexoct
+\fonttable{psyr}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Glyphs in the \ltx\ distributed Zapf Dingbat font}\label{tab:dingglyphs}
+\nohexoct
+\fonttable{pzdr}
+\end{table}
+
+
+These supplied \pscript\ fonts, their respective \ltx\ fontfamily\index{fontfamily} names,
+and running text examples of each, are:
+\begin{description}
+\item[ITC Avant Garde Gothic\facesubseeidx{Avant Garde Gothic}] {\LXfont{pag} 
+  is a geometric sans type designed 
+  by Herb Lubalin\index{Lubalin, Herb} and Tom Carnase\index{Carnase, Tom} and 
+  based on the logo of the \textit{Avant Garde} magazine. 
+The fontfamily name is \pfontfam{pag}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[ITC Bookman\facesubseeidx{Bookman}] {\LXfont{pbk} was originally 
+sold in 1860 by the Miller \&  Richard\index{Miller \& Richard} foundry 
+in Scotland; it was designed by 
+Alexander Phemister\index{Phemister, Alexander}. The ITC revival is by
+Ed Benguiat\index{Benguiat, Ed}. 
+The fontfamily name is \pfontfam{pbk}.
+
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[Bitstream Charter\facesubseeidx{Charter}] {\LXfont{bch} was designed
+by Matthew Carter\index{Carter, Matthew} for display on low resolution
+devices, and is useful for many applications, including bookwork.
+The fontfamily name is \pfontfam{bch}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[Courier\facesubseeidx{Courier}] {\LXfont{pcr} is a monospaced font
+that was originally
+designed by Howard Kettler\index{Kettler, Howard} at IBM and then later
+redrawn by Adrian Frutiger\index{Frutiger, Adrian}.
+The fontfamily name is \pfontfam{pcr}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[Helvetica\facesubseeidx{Helvetica}] {\LXfont{phv} was originally 
+designed for the Haas
+foundry in Switzerland by Max Miedinger\index{Miedinger, Max}; it was later
+extended by the Stempel foundry and further refined by 
+Linotype\index{Linotype}.
+The fontfamily name is \pfontfam{phv}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[New Century Schoolbook\facesubseeidx{New Century Schoolbook}] 
+  {\LXfont{pnc}
+was designed by Morris Benton\index{Benton, Morris} for ATF (American
+Type Founders) in the early 20th century. As its name implies it was designed
+for maximum legibility in schoolbooks.
+The fontfamily name is \pfontfam{pnc}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[Palatino\facesubseeidx{Palatino}] 
+  {\LXfont{ppl} was designed by Hermann 
+Zapf\index{Zapf, Hermann} and is one of the most popular typefaces today.
+The fontfamily name is \pfontfam{ppl}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[Times Roman\facesubseeidx{Times Roman}] 
+  {\LXfont{ptm} is Linotype's version
+of the Times New Roman\facesubseeidx{Times New Roman} face designed by 
+Stanley Morison\index{Morison, Stanley} for the
+Monotype Corporation for printing \emph{The Times} newspaper.
+The fontfamily name is \pfontfam{ptm}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[Utopia\facesubseeidx{Utopia}] 
+  {\LXfont{put} was designed by Robert 
+Slimbach\index{Slimbach, Robert} and combines 
+Transitional\indextwo{type}{Transitional} features and contemporary details.
+The fontfamily name is \pfontfam{put}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[ITC Zapf Chancery\facesubseeidx{Zapf Chancery}] 
+  {\LXfont{pzc} is a 
+Script\indextwo{type}{Script} type fashioned after the chancery
+handwriting styles of the Italian Renaissance. It was created by
+Hermann Zapf\index{Zapf, Hermann}.
+The fontfamily name is \pfontfam{pzc}.
+
+\vspace{0.5\onelineskip}
+\fox\par\Kafka\par\namesAZ
+\vspace{0.5\onelineskip}
+}
+
+\item[Symbol\facesubseeidx{Symbol}]
+  {\LXfont{psy} contains various symbols and Greek letters for 
+  mathematical work; these are most easily accessible via
+  the \Lpack{pifont} package.
+The fontfamily name is \pfontfam{psy}.
+
+    The available glyphs are shown in \tref{tab:symbolglyphs}.
+}
+
+\item[Zapf Dingbats]\facesubseeidx{Zapf Dingbats}
+  {\LXfont{pzd} contains a variety of dingbats which, like the Symbol
+   characters, are most easily 
+   accessible via the \Lpack{pifont} package.
+The fontfamily name is \pfontfam{pzd}.
+
+    The available glyphs are shown in \tref{tab:dingglyphs}.
+}
+
+
+\end{description}
+
+    In \ltx\ there are three characteristics that apply to a font. These are:
+(a)~the shape\index{font characteristic!shape}, 
+(b)~the series\index{font characteristic!series} 
+(or weight), %\index{font characteristic!weight|see{series}}, 
+and (c)~the family\index{font characteristic!family}. 
+Table \ref{tab:fontcat} illustrates these and lists the relevant 
+commands\index{font commands} to access the different font categories.
+
+\begin{table}
+\centering
+\caption{Font categorisation and commands} \label{tab:fontcat}
+\begin{tabular}{ll} \toprule
+\multicolumn{2}{c}{Shape}\index{font characteristic!shape} \\ \addlinespace
+\textup{Upright shape}     & \cmd{\textup}\verb?{Upright shape}? \\
+\textit{Italic shape}      & \cmd{\textit}\verb?{Italic shape}? \\
+\textsl{Slanted shape}     & \cmd{\textsl}\verb?{Slanted shape}? \\
+\textsc{Small Caps shape}  & \cmd{\textsc}\verb?{Small Caps shape}? \\ \addlinespace
+\multicolumn{2}{c}{Series or weight}\index{font characteristic!series} \\ \addlinespace
+\textmd{Medium series}     & \cmd{\textmd}\verb?{Medium series}? \\
+\textbf{Bold series}       & \cmd{\textbf}\verb?{Bold series}? \\ \addlinespace
+\multicolumn{2}{c}{Family}\index{font characteristic!family} \\ \addlinespace
+\textrm{Roman family}      & \cmd{\textrm}\verb?{Roman family}? \\ 
+\textsf{Sans serif family} & \cmd{\textsf}\verb?{Sans serif family}? \\ 
+\texttt{Typewriter family} & \cmd{\texttt}\verb?{Typewriter family}? \\ 
+\bottomrule
+\end{tabular}
+\glossary(textup)%
+  {\cs{textup}\marg{text}}%
+  {Typeset \meta{text} with an upright font.}
+\glossary(textit)%
+  {\cs{textit}\marg{text}}%
+  {Typeset \meta{text} with an italic font.}
+\glossary(textsl)%
+  {\cs{textsl}\marg{text}}%
+  {Typeset \meta{text} with a slanted (oblique) font.}
+\glossary(textsc)%
+  {\cs{textsc}\marg{text}}%
+  {Typeset \meta{text} with a small caps font.}
+\glossary(textmd)%
+  {\cs{textmd}\marg{text}}%
+  {Typeset \meta{text} with a medium font.}
+\glossary(textbf)%
+  {\cs{textbf}\marg{text}}%
+  {Typeset \meta{text} with a bold font.}
+\glossary(textrm)%
+  {\cs{textrm}\marg{text}}%
+  {Typeset \meta{text} with a Roman font.}
+\glossary(textsf)%
+  {\cs{textsf}\marg{text}}%
+  {Typeset \meta{text} with a Sans serif font.}
+\glossary(texttt)%
+  {\cs{texttt}\marg{text}}%
+  {Typeset \meta{text} with a Typewriter (monospaced) font.}
+\end{table}
+
+    The normal body font\index{body font} --- the font used for the bulk 
+of the text ---
+is an upright, medium, roman font of a size specified by the font size
+option for the \cmd{\documentclass}.
+\begin{syntax}
+\cmd{\normalfont} \\
+\end{syntax}
+\glossary(normalfont)%
+  {\cs{normalfont}}%
+  {Declaration setting the font to the normal body font (upright, Roman,
+and medium weight).} 
+The declaration \cmd{\normalfont} sets the font to be the normal body font.
+
+    There is a set of font declarations\index{font declarations}, as shown in \tref{tab:fontdecl},
+that correspond to the commands listed in \tref{tab:fontcat}. The commands
+are most useful when changing the font for a word or two, while the 
+declarations are more convenient when you want to typeset longer passages
+in a different font.
+
+\begin{table}
+\centering
+\caption{Font declarations} \label{tab:fontdecl}
+\begin{tabular}{ll} \toprule
+\multicolumn{2}{c}{Shape}\index{font characteristic!shape} \\ \addlinespace
+\textup{Upright shape}     & \verb?{?\cmd{\upshape} \verb?Upright shape}? \\
+\textit{Italic shape}      & \verb?{?\cmd{\itshape} \verb?Italic shape}? \\
+\textsl{Slanted shape}     & \verb?{?\cmd{\slshape} \verb?Slanted shape}? \\
+\textsc{Small Caps shape}  & \verb?{?\cmd{\scshape} \verb?Small Caps shape}? \\ \addlinespace
+\multicolumn{2}{c}{Series or weight}\index{font characteristic!series} \\ \addlinespace
+\textmd{Medium series}     & \verb?{?\cmd{\mdseries} \verb?Medium series}? \\
+\textbf{Bold series}       & \verb?{?\cmd{\bfseries} \verb?Bold series}? \\ \addlinespace
+\multicolumn{2}{c}{Family}\index{font characteristic!family} \\ \addlinespace
+\textrm{Roman family}      & \verb?{?\cmd{\rmfamily} \verb?Roman family}? \\ 
+\textsf{Sans serif family} & \verb?{?\cmd{\sffamily} \verb?Sans serif family}? \\ 
+\texttt{Typewriter family} & \verb?{?\cmd{\ttfamily} \verb?Typewriter family}? \\ 
+\bottomrule
+\end{tabular}
+\glossary(upshape)%
+  {\cs{upshape}}%
+  {Declaration for using an upright font.}
+\glossary(itshape)%
+  {\cs{itshape}}%
+  {Declaration for using an italic font.}
+\glossary(slshape)%
+  {\cs{slshape}}%
+  {Declaration for using a slanted font.}
+\glossary(scshape)%
+  {\cs{scshape}}%
+  {Declaration for using a small caps font.}
+\glossary(mdseries)%
+  {\cs{mdseries}}%
+  {Declaration for using a medium font.}
+\glossary(bfseries)%
+  {\cs{bfseries}}%
+  {Declaration for using a bold font.}
+\glossary(rmfamily)%
+  {\cs{rmfamily}}%
+  {Declaration for using a Roman font.}
+\glossary(sffamily)%
+  {\cs{sffamily}}%
+  {Declaration for using a Sans serif font.}
+\glossary(ttfamily)%
+  {\cs{ttfamily}}%
+  {Declaration for using a Typewriter (monospaced) font.}
+\end{table}
+
+    Do not go wild seeing how many different kinds of fonts you can cram into
+your work as in example~\ref{egbadmf}.
+
+\begin{egsource}{egbadmf}
+Mixing \textbf{different series, \textsf{families}} and
+\textsl{\texttt{shapes,}} \textsc{especially in one sentence,} 
+is usually \emph{highly inadvisable!}
+\end{egsource}
+\index{mixing fonts}
+\begin{egresult}[Badly mixed fonts]{egbadmf}
+Mixing \textbf{different series, \textsf{families}} and
+\textsl{\texttt{shapes,}} \textsc{especially in one sentence,} 
+is usually \emph{highly inadvisable!}
+\end{egresult}
+
+    On the other hand there are occasions when several fonts may be used
+for a reasonable effect, as in example~\ref{eg16}.
+\begin{egsource}{eg16}
+\begin{center}
+\textsc{Des Dames du Temps Jadis}
+\end{center}%
+\settowidth{\versewidth}{Or yet in a year where they are}
+\begin{verse}[\versewidth] \begin{itshape}
+Prince, n'enquerez de sepmaine \\*
+Ou elles sont, ne de cest an, \\*
+Qu'a ce reffrain ne vous remaine: \\*
+Mais ou sont les neiges d'antan?
+\end{itshape}
+
+Prince, do not ask in a week \\*
+Or yet in a year where they are, \\*
+I could only give you this refrain: \\*
+But where are the snows of yesteryear?
+\end{verse}
+\begin{flushright}
+{\bfseries Fran\c{c}ois Villon} [1431--1463?]
+\end{flushright}
+\end{egsource}
+
+\begin{egresult}[Sometimes mixed fonts work]{eg16}
+\begin{center}
+\textsc{Des Dames du Temps Jadis}
+\end{center}%
+\settowidth{\versewidth}{Or yet in a year where they are}
+\begin{verse}[\versewidth] \begin{itshape}
+Prince, n'enquerez de sepmaine \\* \index[lines]{Prince, n'enquerez de sepmaine}
+Ou elles sont, ne de cest an, \\*
+Qu'a ce reffrain ne vous remaine: \\*
+Mais ou sont les neiges d'antan?
+\end{itshape}
+
+Prince, do not ask in a week \\* \index[lines]{Prince, do not ask in a week}
+Or yet in a year where they are, \\*
+I could only give you this refrain: \\*
+But where are the snows of yesteryear?
+\end{verse}
+\begin{flushright}
+{\bfseries Fran\c{c}ois Villon} [1431--1463?]
+\end{flushright}
+\end{egresult}
+
+\begin{syntax}
+\cmd{\emph}\marg{text} \\
+\end{syntax}
+\glossary(emph)%
+  {\cs{emph}\marg{text}}%
+  {Use a change in font to emphasise \meta{text}.}
+The \cmd{\emph}\index{emphasis} command is a font changing command that 
+does not fit
+into the above scheme of things. What it does is to typeset its \meta{text}
+argument using a different font than the surrounding text. By default,
+\cmd{\emph} switches between an upright shape and an italic shape. The
+commands can be nested to produce effects like those in the next example.
+
+\begin{egsource}{eg:emph}
+The \verb?\emph? command is used to produce some text that 
+should be \emph{emphasised for some reason and can be
+\emph{infrequently interspersed} with some further emphasis} 
+just like in this sentence.
+\end{egsource}
+ 
+\begin{egresult}[Emphasis upon emphasis]{eg:emph}
+The \cmd{\emph} command is used to produce some text that 
+should be \emph{emphasised for some reason and can be
+\emph{infrequently interspersed} with some further emphasis} 
+just like in this sentence.
+\end{egresult}
+
+
+\begin{syntax}
+\cmd{\eminnershape}\marg{shape} \\
+\end{syntax}
+\glossary(eminnershape)%
+  {\cs{eminnershape}\marg{shape}}%
+  {Font shape for emphasized text within emphasized text.}%
+If the \cmd{\emph} command is used within italic text then the
+newly emphasized text will be typeset using the 
+\cmd{\eminnershape} font shape. The default definition is:
+\begin{lcode}
+\newcommand*{\eminnershape}{\upshape}
+\end{lcode}
+which you can change if you wish.
+
+
+
+\section{Font sizes}
+
+    The Computer Modern \metafont{} fonts come in a fixed number of 
+sizes\index{font size}, with
+each size being subtly different in shape so that they blend harmoniously.
+Traditionally, characters were designed for each size to be cut, and
+Computer Modern follows the traditional type design. For example, the smaller
+the size the more likely that the characters will have a relatively larger
+width.
+Outline fonts\indextwo{outline}{font} can be scaled to any size, 
+but as the scaling is typically 
+linear, different sizes do not visually match quite as well.
+
+    Computer Modern fonts come in twelve sizes which, rounded to a point,
+are: 5, 6, 7, 8, 9, 10, 11, 12, 14, 17, 20 and 25pt.
+   In \ltx\ the size for a particular font is specifed by a macro name like
+\cs{scriptsize} and not by points; for example \cs{scriptsize}, not 
+7pt.\footnote{It is possible to use points but that is outside the scope
+of this manual.} 
+The actual size of, say, \cs{scriptsize} characters, is not fixed but depends
+on the type size option given for the document. 
+
+\begin{table}
+\centering
+\caption{Standard font size declarations} \label{tab:fontsize}
+\begin{tabular}{llcll} \toprule
+\cmd{\tiny} & {\tiny tiny} & & \cmd{\scriptsize} & {\scriptsize scriptsize} \\[5pt]
+\cmd{\footnotesize} & {\footnotesize footnotesize} & & \cmd{\small} & {\small small} \\[5pt]
+\cmd{\normalsize} & {\normalsize normalsize} & & \cmd{\large} & {\large large} \\[5pt]
+\cmd{\Large} & {\Large Large} & & \cmd{\LARGE} & {\LARGE LARGE} \\[5pt]
+\cmd{\huge} & {\huge huge} & & \cmd{\Huge} & {\Huge Huge} \\[5pt]
+\bottomrule
+\end{tabular}
+\end{table}
+
+ Standard
+\ltx\ provides ten
+declarations, illustrated in \tref{tab:fontsize}, for setting the type size, 
+which means that two of the sizes are
+not easily accessible. Which two depend on the class and the 
+selected point size option. However, for normal typesetting four different
+sizes should cover the majority of needs, so there is plenty of scope with
+a mere ten to choose from.
+
+\begin{table}
+\centering
+\caption{Standard font sizes} \label{tab:standardclassfontsize}
+\begin{tabular}{lrrr} \toprule
+Class option        & 10pt & 11pt & 12pt \\ \midrule
+\cmd{\tiny}         &  5pt &  6pt &  6pt \\
+\cmd{\scriptsize}   &  7pt &  8pt &  8pt \\
+\cmd{\footnotesize} &  8pt &  9pt & 10pt \\
+\cmd{\small}        &  9pt & 10pt & 11pt \\
+\cmd{\normalsize}   & 10pt & 11pt & 12pt \\ 
+\cmd{\large}        & 12pt & 12pt & 14pt \\
+\cmd{\Large}        & 14pt & 14pt & 17pt \\
+\cmd{\LARGE}        & 17pt & 17pt & 20pt \\
+\cmd{\huge}         & 20pt & 20pt & 25pt \\
+\cmd{\Huge}         & 25pt & 25pt & 25pt \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+    The \cmd{\normalsize} is the size that is set as the class 
+option\index{class option} and is the size used for the body\index{body font} 
+text. The \cmd{\footnotesize} is the size normally
+used for typesetting footnotes\index{footnote}. The standard classes 
+use the other sizes, usually the larger ones, for typesetting certain 
+aspects of a document, for example sectional headings. 
+
+With respect to the standard classes, the \Mname\ class 
+provides a wider range of the document class type size options and
+adds two extra font size declarations, namely \cmd{\miniscule}
+and \cmd{\HUGE}, one at each end of the range.
+
+    The \Mname\ class font size declarations names are given in 
+\tref{tab:fsizenames} together with the name set in the specified size 
+relative to the manual's \cs{normalsize} font.
+font. The corresponding actual sizes are given in \tref{tab:fsizepoints}.
+
+\begin{table}
+\centering 
+\caption{The \Mname\ class font size declarations} \label{tab:fsizenames}
+\begin{tabular}{llll} \toprule
+\cmd{\miniscule} & {\miniscule miniscule} & \cmd{\tiny} & {\tiny tiny} \\
+\cmd{\scriptsize} & {\scriptsize scriptsize} & \cmd{\footnotesize} & {\footnotesize footnotesize} \\
+\cmd{\small} & {\small small} & \cmd{\normalsize} & {\normalsize normalsize} \\
+\cmd{\large} & {\large large} & \cmd{\Large} & {\Large\strut Large} \\ 
+\cmd{\LARGE} & {\LARGE LARGE} & \cmd{\huge} & {\huge\strut huge} \\ 
+\cmd{\Huge} & {\Huge Huge}    & \cmd{\HUGE} & {\HUGE\strut HUGE} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+\begin{adjustwidth}{-1in}{-1in}
+\centering
+\caption{The \Mname\ class font sizes} \label{tab:fsizepoints}
+\begin{tabular}{lrrrrrrrrrrrr}\toprule
+Class option & \Lopt{9pt} & \Lopt{10pt} & \Lopt{11pt} & \Lopt{12pt} & \Lopt{14pt} & \Lopt{17pt} & \Lopt{20pt} & \Lopt{25pt} & \Lopt{30pt} & \Lopt{36pt} & \Lopt{48pt} & \Lopt{60pt} \\ \midrule
+\cmd{\miniscule}    &  4pt &  5pt &  6pt &  7pt &  8pt &  9pt & 
+                      10pt & 11pt & 12pt & 14pt & 17pt & 20pt \\
+\cmd{\tiny}         &  5pt &  6pt &  7pt &  8pt &  9pt & 10pt &
+                      11pt & 12pt & 14pt & 17pt & 20pt & 25pt \\
+\cmd{\scriptsize}   &  6pt &  7pt &  8pt &  9pt & 10pt & 11pt &
+                      12pt & 14pt & 17pt & 20pt & 25pt & 30pt \\
+\cmd{\footnotesize} &  7pt &  8pt &  9pt & 10pt & 11pt & 12pt &
+                      14pt & 17pt & 20pt & 25pt & 30pt & 36pt \\
+\cmd{\small}        &  8pt &  9pt & 10pt & 11pt & 12pt & 14pt &
+                      17pt & 20pt & 25pt & 30pt & 36pt & 48pt \\
+\cmd{\normalsize}   & 9pt & 10pt & 11pt & 12pt & 14pt & 17pt &
+                      20pt & 25pt & 30pt & 36pt & 48pt & 60pt \\
+\cmd{\large}        & 10pt & 11pt & 12pt & 14pt & 17pt & 20pt &
+                      25pt & 30pt & 36pt & 48pt & 60pt & 72pt \\
+\cmd{\Large}        & 11pt & 12pt & 14pt & 17pt & 20pt & 25pt &
+                      30pt & 36pt & 48pt & 60pt & 72pt & 84pt \\
+\cmd{\LARGE}        & 12pt & 14pt & 17pt & 20pt & 25pt & 30pt &
+                      36pt & 48pt & 60pt & 72pt & 84pt & 96pt \\
+\cmd{\huge}         & 14pt & 17pt & 20pt & 25pt & 30pt & 36pt &
+                      48pt & 60pt & 72pt & 84pt & 96pt & 108pt \\
+\cmd{\Huge}         & 17pt & 20pt & 25pt & 30pt & 36pt & 48pt &
+                      60pt & 72pt & 84pt & 96pt & 108pt & 120pt \\
+\cmd{\HUGE}         & 20pt & 25pt & 30pt & 36pt & 48pt & 60pt & 
+                      72pt & 84pt & 96pt & 108pt & 120pt & 132pt \\ \bottomrule
+\end{tabular}
+\end{adjustwidth}
+\end{table}
+
+    Whereas the standard font sizes range from 5pt to 25pt, \Mname\  
+provides for fonts ranging from 4pt to 132pt. That is: \par
+{\fontsize{4}{5}\selectfont from the 4pt size (the 9pt \cs{miniscule} size)} \par
+{\fontsize{9}{10}\selectfont through the 9pt normal size\raggedright\par}% \par
+{\fontsize{60}{72}\selectfont through the 60pt normal size\raggedright\par}% \par
+{\fontsize{132}{160}\selectfont \raggedright to the 132pt size (the 60pt
+\cs{HUGE} size).\raggedright\par}
+
+
+This extended range, though,
+is only accessible if you are using outline\indextwo{outline}{font} fonts
+and the \Lopt{extrafontsizes} class option.
+If you are using bitmap fonts\indextwo{bitmap}{font} then, for example,
+the \cmd{\HUGE} font will be automatically limited to 25pt, and the minimum
+size of a \cmd{\miniscule} font is 5pt.
+
+
+\section{Spaces}
+
+\subsection{Paragraphs}
+
+    In traditional typography the first line of a paragraph, unless it comes
+immediately after a chapter or section heading, is indented. Also, there
+is no extra space between paragraphs. Font designers go to great pains
+to ensure that they look good when set with the normal leading. Sometimes,
+such as when trying to meet a University's requirements for the layout
+of your thesis, you may be forced to ignore the experience of centuries.
+
+\index{space!inter-paragraph|(}
+   If you like the idea of eliminating paragraph indentation and using extra
+inter-paragraph space to indicate where paragraphs start and end, consider how
+confused your reader will be if the last paragraph on the page ends with a full
+line; how will the reader know that a new paragraph starts at the top of
+the following page?
+
+\begin{syntax}
+\cs{par} \\
+\lnc{\parskip} \\
+\cmd{\abnormalparskip}\marg{length} \\
+\cmd{\nonzeroparskip} \\
+\cmd{\traditionalparskip} \\
+\end{syntax}
+\glossary(par)%
+  {\cs{par}}%
+  {Ends a paragraph.}
+\glossary(parksip)%
+  {\cs{parskip}}%
+  {Space between paragraphs.}
+\glossary(abnormalparskip)%
+  {\cs{abnormalparskip}\marg{length}}%
+  {Sets the inter-paragraph spacing to \meta{length}.}
+\glossary(nonzeroparskip)%
+  {\cs{nonzeroparskip}}%
+  {Sets the inter-paragraph spacing to a `perhaps not too unreasonable' non-zero value.}
+\glossary(traditionalparskip)%
+  {\cs{traditionalparskip}}%
+  {Sets the interparagraph spacing to its traditional value.}
+In the input text the end of a paragraph is indicated either by leaving
+a blank line, or by the \cs{par} command. 
+The length \lnc{\parskip} is the inter-paragraph spacing, and is normally 0pt.
+You can change this by saying, for example:
+\begin{lcode}
+\setlength{\parskip}{2\baselineskip}
+\end{lcode}
+but you are likely to find that many things have changed that you
+did not expect, because \ltx\ uses the \cs{par} command in many
+places that are not obvious.
+
+If, in any event, you wish to do a disservice to your readers you can use 
+\cmd{\abnormalparskip} to set the inter-paragraph spacing to
+a value of your own choosing. Using the \cmd{\nonzeroparskip} will set
+the spacing to  what might be a reasonable non-zero value.\footnote{Except
+that all values except zero are unreasonable.} 
+Both these macros try and eliminate the worst of the side effects that occur
+if you just simply change \lnc{\parskip} directly.
+
+Following the \cmd{\traditionalparskip} declaration all will be returned 
+to their traditional values. 
+
+    I based the code for these functions upon the NTG classes~\cite{NTG}
+which indicated some of the pitfalls in increasing the spacing. The difficulty
+is that \cs{par}, and hence \lnc{\parskip}, occurs in many places, some
+unexpected and others deeply buried in the overall code.
+
+\index{space!inter-paragraph|)}
+
+\index{space!at start of paragraph|see{paragraph indentation}}
+
+\begin{syntax}
+\lnc{\parindent} \\
+\end{syntax}
+\glossary(parindent)%
+  {\cs{parindent}}
+  {Indentation at the start of the first line of a paragraph.}
+\index{paragraph indentation}
+The length \lnc{\parindent} is the indentation at the start of a paragraph's
+first line. This is usually of the order of 1 to 1\slashfrac{1}{2} em.
+To make the first line of a paragraph flushleft set this to zero:
+\begin{lcode}
+\setlength{\parindent}{0pt}
+\end{lcode}
+
+\subsection{Double spacing}
+
+\index{double spacing|(}
+
+    Some of those that have control over the visual appearance of academic
+theses like them to be `double spaced'. This, of course, will make the thesis
+harder to read\footnote{I certainly found them so when I was having to read
+them before examining the candidates for their degrees. The writers of the
+regulations, which were invariably single spaced, seemed immune to any
+suggestions.} but perhaps that is the purpose, or maybe they have stock
+(shares) in papermills and lumber companies, as the theses were usually 
+required to be printed single sided as well.
+
+\begin{syntax}
+\lnc{\baselineskip} \lnc{\onelineskip} \\
+\end{syntax}
+The length \lnc{\baselineskip} is the space, or 
+leading\index{leading}, between the baselines of adjacent text lines, 
+and is constant
+throughout a paragraph. The value  may change
+depending on the size of the current font. More precisely, the 
+\cmd{\baselineskip} depends on the font being used at the \emph{end} of 
+the paragraph. The class also provides the length \lnc{\onelineskip}
+which is the default leading for the normal body font.\footnote{That
+  is \cmd{\onelineskip} is set in the \text{memX.clo} file
+  corresponding to the font size class option. For \texttt{10pt}, the
+  size is set via \texttt{mem10.clo}.} As far as the class
+is concerned this is a constant value; that is, unlike \lnc{\baselineskip},
+it never alters \lnc{\onelineskip}. You can use (fractions) of 
+\lnc{\onelineskip} to specify vertical spaces in terms of normal text 
+lines.
+
+    The following is heavily based on the \Lpack{setspace} 
+package~\cite{SETSPACE}, but
+the names have been changed to avoid any clashes. Like the nonzero 
+\lnc{\parskip}, the \lnc{\baselineskip} rears its head in many places, and 
+it is hard for a package to get at the internals of the overlying class
+and kernel code. This is not to say that all is well with trying to deal
+with it at the class level.
+
+\LMnote{2010/09/19}{Added description about the starred macros}
+\begin{syntax}
+\cmd{\OnehalfSpacing} \cmd{\OnehalfSpacing*} \\
+\cmd{\DoubleSpacing} \cmd{\DoubleSpacing*}\\
+\end{syntax}
+\glossary(OnehalfSpacing)%
+  {\cs{OnehalfSpacing}}%
+  {Declaration increasing the baseline to create the illusion of double spacing.}
+\glossary(OnehalfSpacing*)%
+  {\cs{OnehalfSpacing*}}%
+  {Same as \cs{OnehalfSpacing} but also effects page note and floats.}
+\glossary(DoubleSpacing)%
+  {\cs{DoubleSpacing}}%
+  {Declaration doubling the baselineskip.}
+\glossary(DoubleSpacing*)%
+  {\cs{DoubleSpacing*}}%
+  {Same as \cs{DoubleSpacing} but also effects page notes and floats.}
+
+  The declaration \cmd{\OnehalfSpacing} increases the spacing between
+  lines so that they appear to be double spaced (especially to the
+  thesis layout arbiters), while the declaration \cmd{\DoubleSpacing}
+  really doubles the spacing between lines which really looks bad; but
+  if you have to use it, it is there. The spacing in footnotes and
+  floats (e.g., captions) is unaltered, which is usually required once
+  the controllers see what a blanket double spacing brings. Sometimes
+  it is also required to make page notes and floats (including
+  captions) in `double' spacing. The starred version of the two macros
+  above takes care of this. Alternatively the spacing in page notes
+  (i.e. footnotes and friends) or floats an be set explicitly using
+\begin{syntax}
+  \cmd{\setPagenoteSpacing}\marg{factor}\\
+  \cmd{\setFloatSpacing}\marg{factor}
+\end{syntax}
+\glossary(setFloatSpacing)%
+  {\cs{setFloatSpacing}}%
+  {Explicitly set the spacing used inside floats.}
+\glossary(setPagenoteSpacing)%
+  {\cs{setPagenoteSpacing}}%
+  {Explicitly set the spacing used inside page notes such including footnotes.}
+\cs{setFloatSpacing} should go after say \cs{OnehalfSpacing*} if used.
+
+
+
+\PWnote{2009/06/24}{Corrected \cs{SetSingleSpace} to \cs{setSingleSpace}}
+\begin{syntax}
+  \cmd{\SingleSpacing}\\
+  \cmd{\SingleSpacing*}\\
+  \cmd{\setSingleSpace}\marg{factor} \\
+\end{syntax}
+\glossary(SingleSpacing)%
+  {\cs{SingleSpacing}}%
+  {Declaration restoring normal single spacing (or that set by
+    \cs{setSingleSpace}). Note, this added a skip at the end.}
+\glossary(SingleSpacing*)%
+  {\cs{SingleSpacing*}}%
+  {Same as \cs{SingleSpacing}, but does not add a skip at the end.}
+\glossary(setSingleSpace)%
+  {\cs{setSingleSpace}\marg{factor}}%
+  {Change the baselineskip by \meta{factor}.}
+The \cmd{\setSingleSpace} command is meant to be used to
+adjust \emph{slightly} the normal spacing betwen lines, perhaps because
+the font being used looks too crampled or loose. The effect is that the 
+normal \lnc{\baselineskip} spacing will be multiplied by \meta{factor}, which
+should be close to 1.0. Using \cmd{\setSingleSpace} will also reset
+the float and page note spacings.
+
+The declaration \cmd{\SingleSpacing} returns everthing to normal, or at
+least the setting from \cmd{\setSingleSpace} if it has been used. It
+will also reset float and page note spacings to the same value.
+
+\begin{note}
+  \sloppy
+  \cmd{\SingleSpacing} will also issue a
+  \cmd{\vskip}\cmd{\baselineskip} at the end (which is ignored if
+  \cmd{\SingleSpacing} is used in the preamble). This skip makes sure
+  that comming from \cmd{\DoubleSpacing} to \cmd{\SingleSpacing} still
+  looks ok.
+
+  But in certain cases, this skip is unwanted. Therefore as of 2018 we
+  added a \cmd{\SingleSpacing*} that is equal to \cmd{\SingleSpacing}
+  but \emph{does not} add this skip.
+\end{note}
+
+
+\begin{syntax}
+\senv{SingleSpace} ...\eenv{SingleSpace} \\
+\senv{Spacing}\marg{factor} ... \eenv{Spacing} \\
+\senv{OnehalfSpace} ... \eenv{OnehalfSpace} \\
+\senv{OnehalfSpace*} ... \eenv{OnehalfSpace*} \\
+\senv{DoubleSpace} ... \eenv{DoubleSpace} \\
+\senv{DoubleSpace*} ... \eenv{DoubleSpace*} \\
+\end{syntax}
+\glossary(SingleSpace)%
+  {\senv{SingleSpace}}%
+  {Environment form of \cs{SingleSpacing}}
+\glossary(Spacing)%
+  {\senv{SingleSpace}\marg{factor}}%
+  {Environment form of \cs{setSingleSpace}}
+\glossary(OnehalfSpace)%
+  {\senv{OnehalfSpace}}%
+  {Environment form of \cs{OnehalfSpacing}}
+\glossary(OnehalfSpace*)%
+  {\senv{OnehalfSpace*}}%
+  {Environment form of \cs{OnehalfSpacing*}}
+\glossary(DoubleSpace)%
+  {\senv{DoubleSpace}}%
+  {Environment form of \cs{DoubleSpacing}}
+\glossary(DoubleSpace*)%
+  {\senv{DoubleSpace*}}%
+  {Environment form of \cs{DoubleSpacing*}}
+
+These are the environments corresponding to the declarations presented
+earlier, for when you want to change the spacing locally.
+
+\begin{syntax}
+\cmd{\setDisplayskipStretch}\marg{fraction} \\
+\cmd{\memdskipstretch} \\
+\cmd{\noDisplayskipStretch} \\
+\cmd{\memdskips} \\
+\end{syntax}
+\glossary(setDisplayskipStretch)%
+  {\cs{setDisplayskipStretch}\marg{factor}}%
+  {Increase the display skips by gmeta{factor}.}%
+\glossary(noDisplayskipStretch)%
+  {\cs{noDisplayskipStretch}}%
+  {No increased display skips.}%
+\glossary(memdskipstretch)%
+  {\cs{memdskipstretch}}%
+  {The current factor for increasing display skips.}%
+\glossary(memdskips)%
+  {\cs{memdskips}}%
+  {Adjusts the display skips according to \cs{memdskipstretch}.}%
+
+
+If you have increased the interlinear space in the text you may wish, or be
+required, to increase it around displays (of maths). 
+The declaration \cmd{\setDisplayskipStretch} will increase the before 
+and after displayskips by \meta{fraction}, which must be at least 0.0. 
+More precisely, it defines \cmd{\memdskipstretch} to be \meta{fraction}.
+The \cmd{\noDisplayskipStretch} declaration
+sets the skips back to their normal values. It is equivalent to
+\begin{lcode}
+\setDisplayskipStretch{0.0}
+\end{lcode}
+The skips are changed within the macro \cmd{\memdskips} which, in turn, is
+called by \cmd{\everydisplay}. If you find odd spacing around displays then
+redefine \cmd{\memdskips} to do nothing. Its orginal specification is:
+\begin{lcode}
+\newcommand*{\memdskips}{%
+  \advance\abovedisplayskip \memdskipstretch\abovedisplayskip
+  \advance\belowdisplayskip \memdskipstretch\belowdisplayskip
+  \advance\abovedisplayshortskip \memdskipstretch\abovedisplayshortskip
+  \advance\belowdisplayshortskip \memdskipstretch\belowdisplayshortskip}
+\end{lcode}
+
+    If you need to use a \Ie{minipage} as a stand-alone item in a widely 
+spaced text then you
+may need to use the \Ie{vminipage} environment instead to get the before and
+after spacing correct.
+
+
+\section{Overfull lines}
+
+\index{overfull lines|(}
+\index{space!interword|(}
+
+
+    \tx\ tries very hard to keep text lines justified while keeping the 
+interword spacing as constant as possible, but sometimes fails and complains
+about an overfull hbox.
+
+\begin{syntax}
+\cmd{\fussy} \cmd{\sloppy} \\
+\senv{sloppypar} ... \eenv{sloppypar} \\
+\cmd{\midsloppy} \\
+\senv{midsloppypar} ... \eenv{midsloppypar} \\
+\end{syntax}
+\glossary(fussy)%
+  {\cs{fussy}}%
+  {Declaration for \tx\ to minimise interword space variations in justified text lines.}
+\glossary(sloppy)%
+  {\cs{sloppy}}%
+  {Declaration for \tx\ to allow large interword space variations in justified 
+   text lines.}%
+\glossary(sloppypar)%
+  {\senv{sloppypar}}%
+  {Typeset contents of the enclosed paragraph(s) using \cs{sloppy}.}%
+\glossary(midsloppy)%
+  {\cs{midsloppy}}%
+  {Declaration for \tx\ to allow moderate interword space variations in justified 
+   text lines.}%
+\glossary(midsloppypar)%
+  {\senv{midsloppypar}}%
+  {Typeset contents of the enclosed paragraph(s) using \cs{midsloppy}.}%
+
+    The default mode for \ltx\ typesetting is \cmd{\fussy} where 
+the (variation of) interword spacing in justified text is kept to a 
+minimum. Following the \cmd{\sloppy}
+declaration there may be a much looser setting of justified text. 
+The \Ie{sloppypar} environment is equivalent to:
+\begin{lcode}
+{\par \sloppy ... \par}
+\end{lcode}
+
+    Additionally the class provides the \cmd{\midsloppy} declaration (and the
+\Ie{midsloppypar} environment) which allows a setting somewhere between 
+\cmd{\fussy} and \cmd{\sloppy}. Using \cmd{\midsloppy} you will get fewer 
+overfull lines compared with \cmd{\fussy} and fewer obvious large 
+interword spaces than with \cmd{\sloppy}.
+I have used \cmd{\midsloppy} for this manual; it hasn't prevented 
+overfull lines or noticeably different interword spaces, but has markedly 
+reduced them compared with \cmd{\fussy} and \cmd{\sloppy} respectively.
+
+\index{overfull lines|)}
+\index{space!interword|)}
+
+\section{Sloppybottom}
+
+\indextwo{widow}{line}\indextwo{orphan}{line}
+    \tx\ does its best to avoid widow and orphan lines --- a widow is where 
+the last line of a paragraph ends up at the top of a page, and an 
+orphan\footnote{Knuth uses the term `club' instead of the normal typographers'
+terminology.} 
+is when the first line of a paragraph is at the bottom of a page.
+
+    The following is the generally suggested method of eliminating widows 
+and orphans, but it may well result in some odd looking pages, especially
+if \cmd{\raggedbottom} is not used.
+\begin{lcode}
+\clubpenalty=10000
+\widowpenalty=10000
+\raggedbottom
+\end{lcode}
+
+\begin{syntax}
+\cmd{\enlargethispage}\marg{length} \\
+\end{syntax}
+\glossary(enlargethispage)%
+  {\cs{enlargethispage}\marg{length}}%
+  {Increase (or decrease) the text height of the current page by \meta{length}.}
+    You can use \cmd{\enlargethispage} to add or subtract to the text height
+on a particular page to move a line forwards or backwards between two pages.
+
+
+ Here is one person's view on the matter:
+\begin{quote}
+\ldots in experimenting with raggedbottom, widowpenalty, and clubpenalty,
+I think that I have not found a solution that strikes me as particularly
+desirable. I think what I would really like is that widows (i.e., left-over
+single lines that begin on the following page) are resolved not by pushing
+one extra line from the same paragraph also onto the next page, but by
+stretching the textheight to allow this one extra at the bottom of the
+same page. \\
+\hfill /iaw (from \ctt, \textit{widow handling?}, May 2006)
+\end{quote}
+
+As so often happens, Donald Arseneau\index{Arseneau, Donald} 
+came up with a solution.
+
+\begin{syntax}
+\cmd{\sloppybottom} \\
+\end{syntax}
+\glossary(sloppybottom)%
+  {\cs{sloppybottom}}%
+  {Declaration for \tx\ to allow an extra line at the bottom of a page.
+   The \cs{topskip} must have been increased beforehand.}%
+The declaration \cmd{\sloppybottom} lets \tx\ put an extra line at
+the bottom of a page to avoid a widow on the following page. 
+
+    The \lnc{\topskip} must have been increased beforehand for this to
+work (a 60\% increase is reasonable) and this will push the text
+lower on the page. Run \cmd{\checkandfixthelayout} after the change (which
+may reduce the number of lines per page). For example, in the preamble:
+\begin{lcode}
+\setlength{\topskip}{1.6\topskip}
+\checkandfixthelayout
+\sloppybottom
+\end{lcode}
+
+\indextwo{widow}{line}\indextwo{orphan}{line}
+    The late Michael Downes\index{Downes, Michael} provided the following 
+(from \ctt\ \textit{widow/orphan control package (for 2e)?}, 1998/08/31):
+\begin{quote}
+    For what it's worth here are the penalty values that I use when I don't
+[want] to \emph{absolutely} prohibit widow/orphan break, but come
+about as close as \tx\ permits otherwise. This is copied straight out
+of some code that I had lying around. I guess I could wrap it into
+package form and post it to CTAN. \\
+\hfill Michael Downes
+\end{quote}
+
+\begin{lcode}
+% set \clubpenalty, etc. to distinctive values for use
+% in tracing page breaks. These values are chosen so that
+% no single penalty will absolutely prohibit a page break, but 
+% certain combinations of two or more will.
+\clubpenalt=9996
+\widowpenalty=9999
+\brokenpenalty=4991
+% Reiterate the default value of \redisplaypenalty, for
+% completeness.
+% Set postdisplaypenalty to a fairly high value to discourage a
+% page break between a display and a widow line at the end of a
+% paragraph.
+\predisplaypenalty=10000
+\postdisplaypenalty=1549
+% And then \displaywidowpenalty should be at least as high as
+% \postdisplaypenalty, otherwise in a situation where two displays
+% are separated by two lines, TeX will prefer to break between the
+% two lines, rather than before the first line.
+\displaywidowpenalty=1602
+\end{lcode}
+
+\indextwo{widow}{line}\indextwo{orphan}{line}
+    As you can see, perfect automatic widow/orphan control is problematic 
+though typographers are typically more concerned about widows than orphans ---
+a single line of a paragraph somehow looks worse at the top of a page than
+at the bottom. If all else fails, the solution is either to live with the 
+odd line or to reword the text.
+
+\section{Text case}
+\label{sec:text-case}
+
+The standard kernel \cmd{\MakeUppercase}\marg{text} and
+\cmd{\MakeLowercase}\marg{text} 
+basically upper or lower case everything it can get its hands on. This
+is not particularly nice if the \meta{text} contain, say, math.
+
+In order to help with this we provide the \cmd{\MakeTextUppercase} and
+\cmd{\MakeTextLowercase} macros from the \Lpack{textcase} package
+(\cite{textcase}) by David Carlisle. The following is DCs own
+documentation of the provided code changed to match the typography we
+use.
+
+\fancybreak{}
+
+\begin{syntax}
+  \cmd{\MakeTextUppercase}\marg{text}\\
+  \cmd{\MakeTextLowercase}\marg{text}
+\end{syntax}
+\glossary(MakeTextUppercase)
+  {\cs{MakeTextUppercase}\marg{text}}
+  {Upper case \meta{text} by leave math, references, citations and
+    \cs{NoCaseChange}\marg{text} alone.}
+\glossary(MakeTextLowercase)
+  {\cs{MakeTextLowercase}\marg{text}}
+  {Lower case \meta{text} by leave math, references, citations and
+    \cs{NoCaseChange}\marg{text} alone.}
+\cmd{\MakeTextUppercase} and \cmd{\MakeTextLowercase} are versions of
+the standard \cmd{\MakeUppercase} and \cmd{\MakeLowercase} that do not
+change the case of any math sections in their arguments.
+\begin{verbatim}
+\MakeTextUppercase{abc\ae\ \( a = b \)  and $\alpha \neq a$ 
+  or even \ensuremath{x=y} and $\ensuremath{x=y}$}
+\end{verbatim}
+Should produce:
+\begin{quotation}
+ ABC\AE\ \( a = b \)  AND $\alpha \neq a$ 
+  OR EVEN \ensuremath{x=y} AND $\ensuremath{x=y}$
+\end{quotation}
+
+We incorporates some changes suggested by Donald Arseneau so that as
+well as math mode, the arguments of \cmd{\cite}, \cmd{\label} and
+\cmd{\ref} are also prevented from being uppercased.  So you can now
+go
+\begin{verbatim}
+\MakeTextUppercase{%
+   Text in section~\ref{sec:text-case}, about \cite[pp 2--4]{textcase}}
+\end{verbatim}
+which produces
+\begin{quotation}
+\MakeTextUppercase{%
+   Text in section~\ref{sec:text-case}, about \cite[pp 2--4]{textcase}}
+\end{quotation}
+If, instead, the standard \cmd{\MakeUppercase} were used here, the keys
+`sec:text-case' and `textcase' would be uppercased and generate errors about
+undefined references to SEC:TEXT-CASE  and TEXTCASE.
+
+\begin{syntax}
+  \cmd{\NoCaseChange}\marg{text}
+\end{syntax}
+\glossary(NoCaseChange)
+ {\cs{NoCaseChange}\marg{text}}
+ {The argument of this macro is not touched by \cs{MakeTextUppercase}
+   or \cs{MakeTextLowercase}.}
+Sometimes there may be a special section of text that should not be
+uppercased. This can be marked with \cmd{\NoCaseChange}, as follows.
+\begin{verbatim}
+\MakeTextUppercase{% 
+   Text \NoCaseChange{More Text} yet more text}
+\end{verbatim}
+which produces
+\begin{quotation}
+\MakeTextUppercase{%
+   Text \NoCaseChange{More Text} yet more text}
+\end{quotation}
+
+\cmd{\NoCaseChange} has other uses. If for some reason you need a
+tabular environment within an uppercased section, then you need
+to ensure that the name `tabular' and the preamble (eg `ll')
+does not get uppercased:
+\begin{verbatim}
+\MakeTextUppercase{%
+   Text \NoCaseChange{\begin{tabular}{ll}}%
+                       table&stuff\\goes&here
+        \NoCaseChange{\end{tabular}}
+   More text}
+\end{verbatim}
+which produces
+\begin{quotation}
+\MakeTextUppercase{%
+   Text \NoCaseChange{\begin{tabular}{ll}}%^^A
+                       table&stuff\\goes&here
+        \NoCaseChange{\end{tabular}}
+   More text}
+\end{quotation}
+
+\subsection{Nested text}
+The commands defined here only skip math sections and \cmd{\ref} arguments
+if they are not `hidden' inside a \verb|{ }| brace group. All text inside
+such a group will be made uppercase just as with the standard
+\cmd{\MakeUppercase}.
+\begin{verbatim}
+\MakeTextUppercase{a b {c $d$} $e$}
+\end{verbatim}
+produces
+\begin{quotation}
+ \MakeTextUppercase{a b {c $d$} $e$}
+\end{quotation}
+Of course, this restriction does not apply to the arguments of the
+supported commands \verb|\ensuremath|, \verb|\label|, \verb|\ref|, and
+\verb|\cite|.
+
+If you cannot arrange for your mathematics to be at the outer level of
+brace grouping, you should use the following basic technique (which
+works even with the standard \cmd{\MakeUppercase} command). Define a
+new command that expands to your math expression, and then use that
+command, with \cmd{\protect}, in the text to be uppercased. Note that
+if the text being uppercased is in a section title or other moving
+argument you may need to make the definition in the document preamble,
+rather than just before the section command, so that the command is
+defined when the table of contents file is read.
+\begin{verbatim}
+\MakeTextUppercase{%
+       Text \fbox{$a=b$ and $x=y$}}%
+
+\newcommand{\mathexprone}{$a=b$}
+\newcommand{\mathexprtwo}{$x=y$}
+\MakeTextUppercase{%
+       Text \fbox{\protect\mathexprone\ and \protect\mathexprtwo}}%
+\end{verbatim}
+which produces
+\begin{quotation}
+\MakeTextUppercase{%
+       Text \fbox{$a=b$ and $x=y$}}%
+
+\newcommand{\mathexprone}{$a=b$}
+\newcommand{\mathexprtwo}{$x=y$}
+\MakeTextUppercase{%
+       Text \fbox{\protect\mathexprone\ and \protect\mathexprtwo}}%
+\end{quotation}
+
+
+\fancybreak{}
+
+See also \cite{textcase} for some information about upper casing
+citations using a non-nummeric style.
+
+
+% \subsubsection{Citations}
+% As documented above, \cmd{\cite} and \cmd{\ref} commands are not
+% uppercased by \cmd{\MakeTextUppercase}. If you are using a non-numeric
+% citation scheme you may want the replacement text for \cmd{\cite} to
+% be uppercased.
+
+% It is difficult to arrange that \cmd{\MakeTextUppercase} uppercases
+% such text, not least because this would lead to interaction with the
+% many bibliography packages which redefine \cmd{\cite} one way or
+% another. One possibility to achieve this is to use Donald Arseneau's
+% cite package and to locally redefine \cmd{\citeform} to add
+% \cmd{\MakeUppercase} around the final text string produced by \cmd{\cite}.
+% \begin{verbatim}
+% \MakeTextUppercase{%
+%        Text \cite{bbb} and \cite{ccc}}
+
+% {\renewcommand\citeform{\MakeUppercase}\MakeTextUppercase{%
+%        Text \cite{bbb} and \cite{ccc}}}
+% \end{verbatim}
+% which produces\footnote{This is faked, so this document does not
+%  rely on \texttt{cite.sty} being installed}
+% \begin{quotation}
+%  TEXT [1] AND [David Carlisle 1997]
+
+%  TEXT [1] AND [DAVID CARLISLE 1997]
+% \end{quotation}
+
+
+
+
+%#% extend
+%#% extstart include titles.tex

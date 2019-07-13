@@ -1,0 +1,732 @@
+%#% extstart input preamble.tex
+%
+% memman.tex  Memoir class user manual (Part II only)  last updated 2009/09/07
+%             Author: Peter Wilson
+%             Copyright 2001, 2002, 2003, 2004, 2008, 2009 Peter R. wilson
+%
+%   This work has the LPPL maintenance status "maintained".
+%   Maintainer: Lars Madsen (daleif at math dot au dot dk)
+%
+\listfiles
+\documentclass[10pt,letterpaper,extrafontsizes]{memoir}
+\usepackage{comment}
+
+\usepackage{kotex}
+
+% For (non-printing) notes  \PWnote{date}{text}
+\newcommand{\PWnote}[2]{} 
+\PWnote{2009/04/29}{Added fonttable to the used packages}
+\PWnote{2009/08/19}{Made Part I a separate doc (memdesign.tex).}
+
+% same
+\newcommand{\LMnote}[2]{} 
+
+
+\usepackage{memsty-ko}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titlepages}  % code of the example titlepages
+\usepackage{memlays}     % extra layout diagrams
+\usepackage{dpfloat}     % floats on facing pages
+\usepackage{fonttable}[2009/04/01]   % font tables
+%%%%\usepackage{xr-hyper} \externaldocument{memdesign} Doesn't work, 
+%%%%                      Idea won't work in general for memman/memdesign
+%%%%                      as at display time, who knows where everything
+%%%%                      will be located on the individual's computer.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% Change section heading styles
+%%%\memmansecheads
+
+%%%% Use the built-in division styling
+\headstyles{memman}
+
+%%% ToC down to subsections
+\settocdepth{subsection}
+%%% Numbering down to subsections as well
+\setsecnumdepth{subsection}
+
+%%%% extra index for first lines
+\makeindex[lines]
+
+
+% this 'if' is used to determine whether we are compiling the memoir
+% master in the subversion repository, or the public memman.tex
+\newif\ifMASTER
+\MASTERfalse
+%\MASTERtrue
+
+\ifMASTER
+
+% add patch to fink, such that \AtEndFile still work
+\makeatletter
+\AtEndFile{fink.sty}{
+  \typeout{patching fink} 
+  \renewcommand{\InputIfFileExists}[2]{%
+    \IfFileExists{##1}%
+    {##2\@addtofilelist{##1}%
+      \m@matbeginf{##1}%
+      \fink@prepare{##1}%
+      %\@@input \@filef@und
+      \expandafter\fink@input%
+      \expandafter\fink@restore\expandafter{\finkpath}%
+     \m@matendf{##1}%
+     \killm@matf{##1}}%
+ }
+}
+\makeatother
+% private package, not in circulation
+% enables us to gather svn information on a single file basis
+%\usepackage[filehooks]{svn-multi-private}
+% use the current version
+\usepackage[filehooks]{svn-multi}
+
+
+% \svnidlong
+% {}
+% {$LastChangedDate: 2018-12-12 12:53:37 +0100 (Wed, 12 Dec 2018) $}
+% {$LastChangedRevision: 622 $}
+% {$LastChangedBy: daleif@math.au.dk $}
+
+
+
+\makeatletter
+\newcommand\addRevisionData{%
+  \begin{picture}(0,0)%
+    \put(0,-20){%
+      \tiny%
+      \expandafter\@ifmtarg\expandafter{\svnfiledate}{}{%
+        \textit{\textcolor{darkgray}{Chapter last updated \svnfileyear/\svnfilemonth/\svnfileday
+         \enspace (revision \svnfilerev)}}
+     }%
+    }%
+  \end{picture}%
+}
+\makeatother
+
+% we add this to the first page of each chapter
+
+\makepagestyle{chapter}
+\makeoddfoot{chapter}{\addRevisionData}{\thepage}{}
+\makeevenfoot{chapter}{\addRevisionData}{\thepage}{}
+
+\else
+% disable svn info collecting
+\newcommand\svnidlong[4]{}
+\fi
+
+
+
+%% end preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%#% extend
+
+\usepackage[draft]{fixme}
+\fxsetup{
+  multiuser,
+  marginface=\normalfont\tiny,
+  innerlayout=noinline,
+  layout=marginnote,
+}
+\usepackage{tikz,ragged2e}
+\makeatletter
+% extra feature, vadj=length kan flytte på fxnotes hvis de overlapper
+\@fxdefinekey{layout}{vadj}{\def\marginnotevadjust{#1}}
+
+% endnu mere ekstra feature, kræver tikz og calc tikz lib
+
+\renewcommand*\FXLayoutMarginNote[3]{%
+  \tikz[overlay,remember picture]\coordinate (A) at (0,0);%
+  \marginnote[%
+    \RaggedLeft%
+    \rlap{\tikz[overlay,remember picture]\coordinate(C) at (0,0);}%
+    \@fxuseface{margin}%
+    \@fxtextstd{#1}{#2}{#3}%
+    {\tikz[overlay,remember picture,ultra thin,cyan]\draw(A) -| ++(0,-2pt) -|(C);}%
+  ]{%
+    \RaggedRight%
+    \tikz[overlay,remember picture]\coordinate(B) at (0,0);%
+    \@fxuseface{margin}%
+    \@fxtextstd{#1}{#2}{#3}%
+    \tikz[overlay,remember picture,ultra thin,cyan]\draw(A) -| ++(0,-2pt) -|(B);%
+  }%
+}
+\makeatother
+
+
+
+\begin{document}
+
+
+%#% extstart input intro.tex
+
+
+
+
+
+%\tightlists
+\firmlists
+\midsloppy
+\raggedbottom
+\chapterstyle{demo3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{memnoidxnum}
+
+\frontmatter
+\pagestyle{empty}
+
+
+% half-title page
+\vspace*{\fill}
+\begin{adjustwidth}{1in}{1in}
+\begin{flushleft}
+\HUGE\sffamily The
+\end{flushleft}
+\begin{center}
+\HUGE\sffamily  Memoir
+\end{center}
+\begin{flushright}
+\HUGE\sffamily  Class
+\end{flushright}
+%%\begin{center}
+%%\sffamily (Draft Edition 7)
+%%\end{center}
+\end{adjustwidth}
+\vspace*{\fill}
+\cleardoublepage
+
+% title page
+\vspace*{\fill}
+\begin{center}
+\HUGE\textsf{The Memoir Class}\par
+\end{center}
+\begin{center}
+\LARGE\textsf{for}\par
+\end{center}
+\begin{center}
+\HUGE\textsf{Configurable Typesetting}\par
+\end{center}
+
+\begin{center}
+\Huge\textsf{User Guide}\par
+\end{center}
+\begin{center}
+\LARGE\textsf{Peter Wilson}\par
+\bigskip
+\normalsize\textsf{Maintained by Lars Madsen}\par
+\medskip
+\normalsize\textsf{Corresponding to \theclass\ version \memversion}\par
+\end{center}
+\vspace*{\fill}
+\def\THP{T\kern-0.2em H\kern-0.4em P}%   OK for CMR
+\def\THP{T\kern-0.15em H\kern-0.3em P}%   OK for Palatino
+\newcommand*{\THPress}{The Herries Press}%
+\begin{center}
+\settowidth{\droptitle}{\textsf{\THPress}}%
+\textrm{\normalsize \THP} \\
+\textsf{\THPress} \\[0.2\baselineskip]
+\includegraphics[width=\droptitle]{anvil2.mps}
+\setlength{\droptitle}{0pt}%
+\end{center}
+\clearpage
+
+\PWnote{2009/06/26}{Updated the copyright page for 9th impression}
+% copyright page
+\begingroup
+\footnotesize
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+%%\ttfamily
+%\textcopyright{} 2001 --- 2010 Peter R. Wilson \\
+%\textcopyright{} 2011 --- \phantom{2099} Lars Madsen \\
+
+\begin{tabular}{@{} l l}
+  \textcopyright{} 2001\:---\:2010 &Peter R. Wilson \\
+ \textcopyright{} 2011\:---\:& Lars Madsen 
+\end{tabular}
+
+
+All rights reserved
+
+The Herries Press, Normandy Park, WA.
+
+Printed in the World 
+
+The paper used in this publication may meet the minimum requirements
+of the American National Standard for Information 
+Sciences --- Permanence of Paper for Printed Library Materials, 
+ANSI Z39.48--1984.
+
+\PWnote{2009/07/08}{Changed manual date to 8 July 2009}
+\begin{center}
+10 09 08 07 06 05 04 03 02 01\hspace{2em}19 18 17 16 15 14 13
+\end{center}
+\begin{center}
+\begin{tabular}{ll}
+First edition:                        & 3 June 2001 \\
+Second impression, with corrections:    & 2 July 2001 \\
+Second edition:                       & 14 July 2001 \\
+Second impression, with corrections:    & 3 August 2001 \\
+Third impression, with minor additions: & 31 August 2001 \\
+Third edition:                        & 17 November 2001 \\
+Fourth edition:                       & 16 March 2002 \\
+Fifth edition:                        & 10 August 2002 \\
+Sixth edition:                        & 31 January 2004 \\
+%%Draft Seventh edition:                & 31 January 2008 \\
+Seventh edition:                       & 10 May 2008 \\
+Eighth impression, with very minor corrections: & 12 July 2008 \\
+Ninth impression, with additions and corrections: & 8 July 2009 \\
+Eighth edition:                        & August 2009 \\
+Tenth impression, with additions and corrections: & 11 November 2015 \\
+\end{tabular}
+\end{center}
+\ifMASTER
+Manual last changed \svnyear/\svnmonth/\svnday
+\fi
+
+\endgroup
+
+\clearpage
+\vspace*{\fill}
+\begin{quote}
+\textbf{memoir,} \textit{n.} a written record set down as material
+  for a history or biography: 
+  a biographical sketch:
+  a record of some study investigated by the writer:
+  (in \textit{pl.}) the transactions of a society.
+  [Fr. \textit{m\'{e}moire} --- L. \textit{memoria,} memory ---
+   \textit{memor}, mindful.] \\[0.5\baselineskip]
+  \hspace*{\fill} 
+      \textit{Chambers Twentieth Century Dictionary, New Edition}, 1972.
+\end{quote}
+
+\vspace{2\baselineskip}
+
+\begin{quote}
+\textbf{memoir,} \textit{n.} [Fr. \textit{m\'{e}moire,} masc., a memorandum,
+    memoir, fem., memory $<$ L. \textit{memoria,} \textsc{memory}]
+  \hspace{1ex} \textbf{1.} a biography or biographical notice, 
+      usually written by a relative or personal friend of the subject 
+  \hspace{1ex} \textbf{2.} [\textit{pl.}] an autobiography, 
+      usually a full or highly personal account
+  \hspace{1ex} \textbf{3.} [\textit{pl.}] a report or record of 
+      important events based on the writer's personal observation, 
+      special knowledge, etc.
+  \hspace{1ex} \textbf{4.} a report or record of a scholarly 
+      investigation, scientific study, etc.
+  \hspace{1ex} \textbf{5.} [\textit{pl.}] the record of the proceedings
+      of a learned society \\[0.5\baselineskip]
+  \hspace*{\fill} \textit{Webster's New World Dictionary, Second College Edition}.
+\end{quote}
+
+\vspace{2\baselineskip}
+
+
+\begin{quote}
+\textbf{memoir,} \textit{n.} a fiction designed to flatter the subject 
+  and to impress the reader. \\[0.5\baselineskip]
+\hspace*{\fill} With apologies to Ambrose Bierce % and Reuben Thomas
+\end{quote}
+
+\vspace*{\fill}
+
+\cleardoublepage
+
+% ToC, etc
+%%%\pagenumbering{roman}
+\pagestyle{headings}
+%%%%\pagestyle{Ruled}
+
+\setupshorttoc
+\tableofcontents
+\clearpage
+\setupparasubsecs
+\setupmaintoc
+
+\begingroup
+
+% important point here: We need \endlineshar=-1 here for the inline
+% list of subsections. Why? Beacause we have subsection subsubsection
+% subsection, and under hyperref running the l@subsubsection for
+% subsubsection, which typesets nothing, ruins our \ignorespaces in
+% our redefinition of \l@subsection (it cannot see and ignore the space after the
+% \contentsline line for subsubsection). Easiest solution: use
+% change \endlinechar
+%
+% Special thanks to David Carlisle in the tex.stackexchange.com chat
+% for suggesting it
+
+
+\endlinechar=-1
+
+
+\tableofcontents
+
+\endgroup
+
+
+\setlength{\unitlength}{1pt}
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+\listofegresults
+
+%#% extend
+
+
+%#% extstart include preface.tex
+%\chapter{Foreword}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2014-11-05 16:28:11 +0100 (Wed, 05 Nov 2014) $}
+{$LastChangedRevision: 501 $}
+{$LastChangedBy: daleif $}
+
+\include{chs/00-preface}
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+% body
+\mainmatter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%\part{Practice} \label{part:practice}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%#% extstart include start-off.tex
+
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-03-09 13:41:30 +0100 (Fri, 09 Mar 2018) $}
+{$LastChangedRevision: 587 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+\include{chs/01-starting}
+
+\include{chs/02-laying}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-09-19 15:47:14 +0200 (Wed, 19 Sep 2018) $}
+{$LastChangedRevision: 621 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+\include{chs/03-textfont}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-03-06 15:58:01 +0100 (Tue, 06 Mar 2018) $}
+{$LastChangedRevision: 584 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+\include{chs/04-titles}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2014-03-31 11:34:44 +0200 (Mon, 31 Mar 2014) $}
+{$LastChangedRevision: 480 $}
+{$LastChangedBy: daleif $}
+
+\include{05-abstract}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2015-07-17 12:08:47 +0200 (Fri, 17 Jul 2015) $}
+{$LastChangedRevision: 541 $}
+{$LastChangedBy: daleif $}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   chapter style
+%\renewcommand{\printchaptername}{}
+%\renewcommand{\chapternamenum}{}
+%\renewcommand{\chapnumfont}{\normalfont\huge\sffamily}
+%\renewcommand{\chaptitlefont}{\chapnumfont}
+%\renewcommand{\afterchapternum}{\space}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  section styles
+%\setsecheadstyle{\Large\sffamily\raggedright}
+%\setsubsecheadstyle{\large\sffamily\raggedright}
+%\setsubsubsecheadstyle{\normalsize\sffamily\raggedright}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapterstyle{pedersen}
+
+\include{chs/06-division}
+
+%#% extend
+%#% extstart include pagination-and-headers.tex
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-09-06 15:05:23 +0200 (Thu, 06 Sep 2018) $}
+{$LastChangedRevision: 612 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+\chapterstyle{demo3}
+
+\include{chs/07-pageheader}
+
+%#% extend
+%#% extstart include paragraphs-and-lists.tex
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-03-09 13:41:30 +0100 (Fri, 09 Mar 2018) $}
+{$LastChangedRevision: 587 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{chs/08-list}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-09-14 11:13:10 +0200 (Fri, 14 Sep 2018) $}
+{$LastChangedRevision: 620 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+\include{chs/09-tocloft}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-09-06 15:05:23 +0200 (Thu, 06 Sep 2018) $}
+{$LastChangedRevision: 612 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+\include{chs/10-floats}
+
+\include{chs/11-rowcol}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-09-19 15:47:14 +0200 (Wed, 19 Sep 2018) $}
+{$LastChangedRevision: 621 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+\include{chs/12-notes}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2013-04-24 17:14:15 +0200 (Wed, 24 Apr 2013) $}
+{$LastChangedRevision: 442 $}
+{$LastChangedBy: daleif $}
+
+
+%%%%% end membook
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+%%%\pagestyle{companion}
+%%\chapterstyle{companion}
+\defaultsecnum
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{chs/13-deco}
+
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2013-04-24 17:14:15 +0200 (Wed, 24 Apr 2013) $}
+{$LastChangedRevision: 442 $}
+{$LastChangedBy: daleif $}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\clearpage
+%\pagestyle{Ruled}
+%%\chapterstyle{demo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{chs/14-poetry}
+
+\include{chs/15-verbatim}
+
+\include{chs/16-ref}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2014-03-31 11:34:44 +0200 (Mon, 31 Mar 2014) $}
+{$LastChangedRevision: 480 $}
+{$LastChangedBy: daleif $}
+
+
+\LMnote{2010/06/09}{Several \cs{ixfile}'s changed to \cs{pixfile},
+  with \cs{ixfile} only, no text appears in the output }
+
+\include{chs/17-back}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-04-05 11:07:48 +0200 (Thu, 05 Apr 2018) $}
+{$LastChangedRevision: 596 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+\include{chs/18-misc}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2013-04-24 17:14:15 +0200 (Wed, 24 Apr 2013) $}
+{$LastChangedRevision: 442 $}
+{$LastChangedBy: daleif $}
+
+\include{chs/19-packages}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% revert to the regular styles
+\clearpage
+%%%\memmansecheads
+%%%\chapterstyle{demo3}
+\headstyles{memman}
+\pagestyle{ruled}
+
+%#% extstart include an-example-thesis-design.tex
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2014-03-31 11:34:44 +0200 (Mon, 31 Mar 2014) $}
+{$LastChangedRevision: 480 $}
+{$LastChangedBy: daleif $}
+
+\include{chs/20-example}
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-09-06 15:05:23 +0200 (Thu, 06 Sep 2018) $}
+{$LastChangedRevision: 612 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% appendices
+\appendix
+\appendixpage*
+%%\pagestyle{ruled}
+
+%%\chapterstyle{normal}
+%%\chapterstyle{section}
+%%\chapterstyle{demo3}
+
+%#% extstart include packages-and-maros.tex
+
+
+\include{chs/21-appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\endinput
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%% end mbooka
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% back end
+\backmatter
+
+\PWnote{2009/07/08}{Changed \cs{toclevel@section} so that Notes 
+                    divisions appear in the bookmarks}
+\makeatletter\renewcommand*{\toclevel@chapter}{-1}\makeatother 
+\makeatletter\renewcommand*{\toclevel@section}{0}\makeatother
+\clearpage
+\printpagenotes
+\clearpage
+\pagestyle{plainmarkruled}
+%%\chapterstyle{section}
+
+\renewcommand*{\begintheglossaryhook}{\small}
+%%%\glossaryintoc
+\printglossary
+
+\renewcommand{\prebibhook}{%
+\ctan\ is the \cTeXan. Information on how to
+access CTAN is available at \url{http://www.tug.org}.
+\par\vspace{\onelineskip}}
+
+\include{chs/22-bib}
+
+\clearpage
+\twocolindex
+\pagestyle{index}
+%\renewcommand{\chaptermark}[1]{}
+\renewcommand{\preindexhook}{%
+The first page number is usually, but not always, the primary reference to
+the indexed topic.\vskip\onelineskip}
+\indexintoc
+
+%%%\raggedright  does nasty things to index entries
+\printindex
+
+\onecolindex
+\renewcommand*{\preindexhook}{}
+\renewcommand*{\indexname}{Index of first lines}
+%%% \indexintoc
+
+
+\makeatletter
+\renewcommand{\doidxbookmark}[1]{{\def\@tempa{Symbols}\def\@tempb{#1}%
+  \centering\bfseries \ifx\@tempa\@tempb %
+  Analphabetics 
+%  \phantomsection%
+%  \pdfbookmark[0]{Analphabetics}{Analphabetics-idx}%
+%  \label{AnalphabeticsAnalphabeticsAnalphabetics-idx}%
+  \else 
+  #1%
+%  \phantomsection%
+%  \pdfbookmark[0]{#1}{#1-idx}%
+%  \label{#1#1#1-idx}%
+  \fi%
+  \vskip\onelineskip\par}}
+\makeatother
+
+
+\printindex[lines]
+
+\cleardoublepage
+\pagestyle{empty}
+\null\vfil
+
+\begin{adjustwidth}{1in}{1in}
+\begin{center}
+{\Large\textsf{Colophon}}
+\end{center}
+\begin{center}
+This manual was typeset using the \ltx\ typesetting system
+created by Leslie Lamport and the \Mname\ class. 
+The body text is set 10/12pt on a
+33pc measure with Palatino designed by Hermann Zapf, which includes 
+italics and small caps. Other fonts include
+Sans, Slanted and Typewriter from Donald Knuth's 
+Computer Modern family.
+
+\end{center}
+
+
+\end{adjustwidth}
+
+
+
+
+
+\vfil
+
+%#% extend
+
+
+\end{document}
+
+\endinput
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-source-specials-mode: t
+%%% TeX-PDF-mode: t
+%%% End: 

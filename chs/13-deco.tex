@@ -1,0 +1,431 @@
+\chapter{Decorative text} \label{chap:signposts}
+
+
+\newcommand{\tepi}[2]{\epigraph{#1}{#2}}
+
+% \tepi{My soul, seek not the life of immortals; but enjoy to the full
+%       the resources that are within your reach}
+%      {\textit{Pythian Odes \\ Pindar}}
+\tepi{Too servile a submission to the books and opinions of the ancients
+      has spoiled many an ingenious man, and plagued the world with an
+      abundance of pedants and coxcombs.}
+     {James Puckle (1677?--1724)}
+
+
+    By now we have covered most aspects of typesetting. As far as
+the class is concerned this chapter describes the slightly more fun 
+task of typesetting epigraphs\index{epigraph}.
+
+     Some authors like to add an interesting quotation\index{quotation} 
+at either the start or end of a chapter. The class provides commands
+to assist in the typesetting of a single epigraph. Other authors like to 
+add many such quotations\index{quotation} and the class provides 
+environments to cater for these as well.
+Epigraphs can be typeset at either the left, the center or the right of 
+the typeblock\index{typeblock}. A few example epigraphs are exhibited here, and
+others can be found in an article by
+Christina Thiele~\cite{TTC199} where she reviewed the \Lpack{epigraph}
+package~\cite{EPIGRAPH} which is included in the class.
+
+ \section{Epigraphs} 
+\index{epigraph|(}
+
+% \tepi{The whole is more than the sum of the parts.}
+%      {\textit{Metaphysica \\ Aristotle}}
+
+ %\subsection{The \texttt{epigraph} command}
+
+  The original inspiration for \cmd{\epigraph} was Doug Schenck's
+ for the epigraphs in our book~\cite{EBOOK}. That was hard wired for
+ the purpose at hand. The version here provides much more flexibility.
+
+
+\begin{syntax}
+\cmd{\epigraph}\marg{text}\marg{source} \\
+\end{syntax}
+\glossary(epigraph)%
+  {\cs{epigraph}\marg{text}\marg{source}}%
+  {Typesets the \meta{text} and \meta{source} of an epigraph.}
+ The command \cmd{\epigraph}  typesets
+ an epigraph using \meta{text} as the main text of the epigraph and
+ \meta{source} being the original author (or book, article, etc.)
+ of the quoted text. By default the epigraph is placed at the right hand 
+ side of the typeblock\index{typeblock}, and the \meta{source} is typeset at the bottom
+ right of the \meta{text}.
+
+
+\begin{syntax}
+\senv{epigraphs}  \\
+  \cmd{\qitem}\marg{text}\marg{source} \\
+  ... \\
+\eenv{epigraphs} \\
+\end{syntax}
+\glossary(epigraphs)%
+  {\senv{epigraphs}}%
+  {Environment for several epigraphs.}
+\glossary(qitem)%
+  {\cs{qitem}\marg{text}\marg{source}}%
+  {Typesets the \meta{text} and \meta{source} of an epigraph in an 
+   \texttt{epigrpahs} environment.}
+ The \Ie{epigraphs} environment typesets a list of epigraphs, and by default
+ places them at the right hand side of the typeblock\index{typeblock}.
+  Each epigraph in an \Ie{epigraphs} environment is specified by a 
+ \cmd{\qitem} (analagous to the \cmd{\item}
+ command in ordinary list environments).
+ By default, the \meta{source} is typeset at the bottom right of the
+ \meta{text}. 
+
+ 
+ \section{General}
+
+ \tepi{Example is the school of mankind, and they will learn at no other.}
+      {\textit{Letters on a Regicide Peace}\\ \textsc{Edmund Burke}}
+
+   The commands described in this section apply to both the \cmd{\epigraph}
+command and the \Ie{epigraphs} environment. But first of all, note that an
+epigraph immediately after a heading\index{heading} will cause the 
+first paragraph\index{paragraph!indentation}
+of the following text to be indented. If you want the initial paragraph
+to have no indentation, then start it with the \cmd{\noindent} command.
+
+\begin{syntax}
+  \lnc{\epigraphwidth} \\
+ \cmd{\epigraphposition}\marg{flush} \\
+\end{syntax}
+\glossary(epigraphwidth)%
+  {\cs{epigraphwidth}}%
+  {Textwidth for epigraphs.}
+\glossary(epigraphposition)%
+  {\cs{epigraphposition}\marg{flush}}%
+  {Sets the horizontal placement of epigraphs.}
+  The epigraphs are typeset in a minipage of width \lnc{\epigraphwidth}. 
+The default value for this can be changed using the \cmd{\setlength} command. 
+Typically,  epigraphs are typeset in a measure much less than the width of 
+the typeblock\index{typeblock}. The horizontal position of an epigraph
+in relation to the main typeblock is controlled by 
+the \meta{flush} argument to the \cmd{\epigraphposition} declaration.
+The default value is \texttt{flushright}, so that epigraphs are set
+at the right hand side of the typeblock. This can be changed
+to \texttt{flushleft} for positioning at the left hand side or to
+\texttt{center} for positioning at the center of the 
+typeblock\index{typeblock}.
+
+\begin{syntax}
+\cmd{\epigraphtextposition}\marg{flush} \\
+\end{syntax}
+\glossary(epigraphtextposition)%
+  {\cs{epigraphtextposition}\marg{flush}}
+  {Sets the justification for epigraph text.}
+ In order to avoid bad line breaks, the epigraph \meta{text} is normally 
+typeset raggedright. 
+    The \meta{flush} argument to the \cmd{\epigraphtextposition} 
+declaration controls the \meta{text} typesetting style. By default this is 
+\texttt{flushleft} (which produces raggedright text). The sensible values
+are \texttt{center} for centered text, \texttt{flushright} for raggedleft
+text, and \texttt{flushleftright} for normal justified text.
+
+    If by any chance you want the \meta{text} to be typeset in some
+other layout style, the easiest
+way to do this is by defining a new environment which sets the paragraphing
+parameters to your desired values. For example, as the \meta{text} is
+typeset in a minipage, there is no paragraph indentation. If you
+want the paragraphs to be indented and justified then define
+a new environment like:
+\begin{lcode}
+\newenvironment{myparastyle}{\setlength{\parindent}{1em}}{}
+\end{lcode}
+ and use it as: 
+\begin{lcode}
+\epigraphtextposition{myparastyle}
+\end{lcode}
+
+\begin{syntax}
+ \cmd{\epigraphsourceposition}\marg{flush} \\
+\end{syntax}
+\glossary(epigraphsourceposition)%
+  {\cs{epigraphsourceposition}\marg{flush}}%
+  {Sets the placement of the source within an epigraph.}
+ The \meta{flush} argument to the \cmd{\epigraphsourceposition}
+declaration controls the position 
+of the \meta{source}.
+ The default value is \texttt{flushright}. It can be changed to
+ \texttt{flushleft}, \texttt{center} or \texttt{flushleftright}.
+
+ For example, to have epigraphs centered with the \meta{source} at the left,
+ add the following to your document.
+ \begin{lcode}
+ \epigraphposition{center}
+ \epigraphsourceposition{flushleft}
+ \end{lcode}
+
+\begin{syntax}
+\cmd{\epigraphfontsize}\marg{fontsize} \\
+\end{syntax}
+\glossary(epigraphfontsize)%
+  {\cs{epigraphfontsize}\marg{fontsize}}%
+  {Font size to be used for epigraphs.}
+ Epigraphs are often typeset in a smaller font than the main text. The
+\meta{fontsize} argument to the \cmd{\epigraphfontsize}
+declaration sets the font size to be used.
+ If you don't like the default value (\cmd{\small}), you can easily change
+it to, say \cmd{\footnotesize} by:
+\begin{lcode}
+\epigraphfontsize{\footnotesize}
+\end{lcode}
+		
+\begin{syntax}
+ \lnc{\epigraphrule} \\
+\end{syntax}
+\glossary(epigraphrule)%
+  {\cs{epigraphrule}}%
+  {Thickness of the rule drawn between the text and source of an epigraph.}
+ By default, a rule is drawn between the \meta{text} and \meta{source},
+ with the rule thickness being given by the value of \lnc{\epigraphrule}.
+ The value can be changed by using \cmd{\setlength}.
+ A value of \texttt{0pt} will eliminate the rule. Personally, I dislike
+ the rule in the list environments.
+
+\begin{syntax}
+ \lnc{\beforeepigraphskip} \\
+ \lnc{\afterepigraphskip} \\
+\end{syntax}
+\glossary(beforeepigraphskip)%
+  {\cs{beforeepigraphskip}}%
+  {Vertical space before an epigraph.}
+\glossary(afterepigraphskip)%
+  {\cs{afterepigraphskip}}%
+  {Vertical space after an epigraph.}
+ The two \verb?...skip? commands specify the amount of vertical space inserted
+ before and after typeset epigraphs. Again, these can be changed by
+ \cmd{\setlength}. It is desireable that the sum of their values should be an 
+ integer multiple of the \lnc{\baselineskip}.
+
+ Note that you can use normal LaTeX commands in the \meta{text} and
+ \meta{source} arguments. You may wish to use different fonts for the
+ \meta{text} (say roman) and the \meta{source} (say italic).
+
+ The epigraph at the start of this section was specified as:
+ \begin{lcode}
+ \epigraph{Example is the school of mankind,
+           and they will learn at no other.}
+  {\textit{Letters on a Regicide Peace}\\ \textsc{Edmund Burke}}
+ \end{lcode}
+
+ \section{Epigraphs before chapter headings}
+
+\begingroup
+ \epigraphsourceposition{flushleft}
+ \tepi{If all else fails, immortality can always be assured by spectacular
+       error.}
+      {\textsf{John Kenneth Galbraith}}
+\endgroup
+
+    The \cmd{\epigraph} command and the \Ie{epigraphs} environment typeset
+ an epigraph at the point in the text where they are placed. The
+ first thing that a \cmd{\chapter} command does is to start off a new page,
+ so another mechanism is provided for placing an epigraph just before
+ a chapter heading\index{heading!chapter}.
+    
+\begin{syntax}
+ \cmd{\epigraphhead}\oarg{distance}\marg{text} \\
+\end{syntax}
+\glossary(epigraphhead)%
+  {\cs{epigraphhead}\oarg{distance}\marg{text}}%
+  {Stores \meta{text} for printing at \meta{distance} below the page header.}
+  The \cmd{\epigraphhead} macro  stores \meta{text} 
+ for printing at \meta{distance} below the header\index{header} on a page.
+ \meta{text} can be ordinary text or, more likely, can be either an
+ \cmd{\epigraph} command or an \Ie{epigraphs} environment. By default, the 
+ epigraph will be typeset at the righthand margin\index{margin!right}.
+ If the command is immediately preceded by a \cmd{\chapter} or \cmd{\chapter*} 
+ command, the epigraph is typeset on the chapter title page.
+
+    The default value for the optional \meta{distance} argument is set so
+ that an \cmd{\epigraph} consisting of a single line of 
+quotation\index{quotation} and a single
+line denoting the source is aligned with the bottom of the `Chapter X'
+line produced by the \cmd{\chapter} command using the \cstyle{default} 
+chapterstyle. In other cases you will
+have to experiment with the \meta{distance} value. The value for
+\meta{distance} can be either a integer or a real number. The units
+are in terms of the current value for \lnc{\unitlength}. A typical value
+for \meta{distance} for a single line quotation\index{quotation} and 
+source for a \cmd{\chapter*} might be about 70 (points). A positive value
+of \meta{distance} places the epigraph below the page heading and a negative
+value will raise it above the page heading.
+
+    Here's some example code:
+ \begin{lcode}
+ \chapter*{Celestial navigation}
+ \epigraphhead[70]{\epigraph{Star crossed lovers.}{\textit{The Bard}}}
+ \end{lcode}
+ The \meta{text} argument is put into a minipage of width \lnc{\epigraphwidth}.
+ If you use something other than \cmd{\epigraph} or \Ie{epigraphs} for the
+ \meta{text} argument, you may have to do some positioning of the text
+ yourself so that it is properly located in the minipage. For example
+ \begin{lcode}
+ \chapter{Short}
+ \renewcommand{\epigraphflush}{center}
+ \epigraphhead{\centerline{Short quote}}
+ \end{lcode}
+
+ The \cmd{\epigraphhead} command changes the page style for the page on
+ which it is specified, so there should be no text between the
+\cmd{\chapter} and the \cmd{\epigraphhead} commands. The page style
+is identical to the \pstyle{plain} page style except for the inclusion of
+the epigraph.
+    If you want a more fancy style for epigraphed chapters you will have
+to do some work yourself.
+
+\begin{syntax}
+\cmd{\epigraphforheader}\oarg{distance}\marg{text} \\
+\cmd{\epigraphpicture} \\
+\end{syntax}
+\glossary(epigraphforheader)%
+  {\cs{epigraphforheader}\oarg{distance}\marg{text}}%
+  {Puts \meta{text} into a zero-sized picture (\cs{epigraphpicture})
+   at the coordinate position (0, -meta{distance}).}
+\glossary(epigraphpicture)%
+  {\cs{epigraphpicture}}%
+  {A zero-sized picture holding the result of \cs{epigraphforheader}.}
+The \cmd{\epigraphforheader} macro takes the same arguments as
+\cmd{\epigraphhead} but puts \meta{text} into a zero-sized picture at
+the coordinate position \verb?(0,-<distance>)?; the macro 
+\cmd{\epigraphpicture}
+holds the resulting picture. This can then be used as part of a 
+chapter pagestyle, as in
+\begin{lcode}
+\makepagestyle{mychapterpagestyle}
+...
+\makeoddhead{mychapterpagestyle}{}{}{\epigraphpicture}
+\end{lcode}
+    Of course the \meta{text} argument for \cs{epigraphforheader} need not
+be an \cs{epigraph}, it can be arbitrary text.
+
+\begin{syntax}
+ \cmd{\dropchapter}\marg{length} \\
+ \cmd{\undodrop} \\
+\end{syntax}
+\glossary(dropchapter)%
+  {\cs{dropchapter}\marg{length}}%
+  {Lowers subsequent chapter heads by \meta{length}.}
+\glossary(undodrop)%
+  {\cs{undodrop}}%
+  {Following a \cs{dropchapter} restores subsequent chapter heads to their 
+   normal position.}
+ If a long epigraph is placed before a chapter title it is possible that the
+ bottom of the epigraph may interfere with the chapter title. The command
+ \cmd{\dropchapter} will lower any subsequent chapter titles by 
+ \meta{length}; a negative \meta{length} will raise the titles.
+ The command \cmd{\undodrop} restores subsequent chapter titles to their default
+ positions. For example:
+ \begin{lcode}
+ \dropchapter{2in}
+ \chapter{Title}
+ \epigraphhead{long epigraph}
+ \undodrop
+ \end{lcode}
+
+\index{epigraph|)}
+
+\begin{syntax}
+ \cmd{\cleartoevenpage}\oarg{text} \\
+\end{syntax}
+\glossary(cleartoevenpage)%
+  {\cs{cleartoevenpage}\oarg{text}}%
+  {Clears the current page and moves to the next verso page; the optional
+   \meta{text} is put on the skipped page (if there is one).}
+ On occasions it may be desirable to put something (e.g., an epigraph, a map,
+ a picture) on the page facing the start
+ of a chapter, where the something belongs to the chapter that is about to 
+ start rather than the chapter that has just ended. In order to do this 
+ in a document that is going to be printed
+ doublesided, the chapter must start on an odd numbered page and the 
+ pre-chapter material put on the immediately preceding even numbered page.
+ The \cmd{\cleartoevenpage} command is like \cmd{\cleardoublepage} except
+ that the page following the command will be an even numbered page, and the
+ command takes an optional argument 
+ which is applied to the skipped page (if any).
+
+    Here is an example:
+\begin{lcode}
+ ... end previous chapter.
+ \cleartoevenpage
+ \begin{center}
+ \begin{picture}... \end{picture}
+ \end{center}
+ \chapter{Next chapter}
+\end{lcode}
+ If the style is such that chapter headings\index{heading!chapter} are put at the top of the pages,
+ then it would be advisable to include \verb?\thispagestyle{empty}? 
+(or perhaps \texttt{plain})
+ immediately after \cmd{\cleartoevenpage} to avoid a heading related to the
+ previous chapter from appearing on the page. 
+
+ If the something is like a figure\index{figure} with a numbered caption and the numbering
+ depends on the chapter numbering, then the numbers have to be hand set (unless
+ you define a special chapter command for the purpose). For example:
+\begin{lcode}
+ ... end previous chapter.
+ \cleartoevenpage[\thispagestyle{empty}] % a skipped page to be empty
+ \thispagestyle{plain}
+ \addtocounter{chapter}{1} % increment the chapter number
+ \setcounter{figure}{0}    % initialise figure counter
+ \begin{figure}
+ ...
+ \caption{Pre chapter figure}
+ \end{figure}
+
+ \addtocounter{chapter}{-1} % decrement the chapter number
+ \chapter{Next chapter}     % increments chapter & resets figure numbers
+ \addtocounter{figure}{1}   % to account for pre-chapter figure
+\end{lcode}
+ 
+
+ \subsection{Epigraphs on book or part pages}
+
+\index{epigraph|(}
+
+    If you wish to put an epigraphs on \cmd{\book} or \cmd{\part}
+pages you have to do a little more work than in other cases. This
+is because these division commands do some page flipping before and
+after typesetting the title.
+
+   One method is to put the epigraph into the page header as for epigraphs
+before \cmd{\chapter} titles. By suitable adjustments the epigraph can be
+placed anywhere on the page, independently of whatever else is on the page.
+     A similar scheme may be used for epigraphs on other kinds of pages. 
+ The essential
+ trick is to make sure that the \pstyle{epigraph} pagestyle is used for
+ the page.
+    For an epigraphed bibliography\index{bibliography} 
+or index\index{index}, the macros \cmd{\prebibhook}
+or \cmd{\preindexhook} can be appropriately modified to do this.
+
+    The other method is to subvert the \cmd{\beforepartskip} command 
+for epigraphs before the title, or the \cmd{\afterpartskip} command
+for epigraphs after the title (or the equivalents for \cmd{\book} pages).
+
+    For example:
+\begin{lcode}
+\let\oldbeforepartskip\beforepartskip % save definition
+\renewcommand*{\beforepartskip}{%
+  \epigraph{...}{...}% an epigraph
+  \vfil}
+\part{An epigraphed part}
+...
+\renewcommand*{\beforepartskip}{%
+  \epigraph{...}{...}% another epigraph
+  \vfil}
+\part{A different epigraphed part}
+...
+\let\beforepartskip\oldbeforepartskip % restore definition
+\part{An unepigraphed part}
+...
+\end{lcode}
+
+
+\index{epigraph|)}
+
+%#% extend
+%#% extstart include poetry.tex

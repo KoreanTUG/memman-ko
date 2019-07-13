@@ -1,0 +1,1250 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Pagination and headers} \label{chap:pagination}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\section{Introduction}
+
+    The focus of this chapter is on marking the pages 
+with signposts so that the reader can more readily navigate through
+the document.
+
+\section{Pagination and folios}
+
+    Every page in a \ltx\ document is included in the 
+pagination\index{pagination}. That is,
+there is a number associated with every page and this is the value of
+the \Icn{page} counter. This value\index{pagination!changing} 
+can be changed at any time via either \cmd{\setcounter} or 
+\cmd{\addtocounter}.
+
+\begin{syntax}
+\cmd{\pagenumbering}\marg{rep} \\
+\cmd{\pagenumbering*}\marg{rep} \\
+\end{syntax}
+\glossary(pagenumbering)%
+  {\cs{pagenumbering}\marg{rep}}%
+  {Resets the page number to 1, and causes the folios (page numbers) to be 
+   printed using the \meta{rep}
+   representation (e.g., \texttt{arabic}, \texttt{roman}, \ldots)}
+\glossary(pagenumbering*)%
+  {\cs{pagenumbering*}\marg{rep}}%
+  {Like \cs{pagenumbering} except that the page number is not reset.}
+The macros \cmd{\pagenumbering} and \cmd{\pagenumbering*} cause 
+the folios\index{folio}\index{folio!changing representation} 
+to be printed using the 
+counter representation\index{counter representation}
+\meta{rep} for the page number, where \meta{rep} can be one of: 
+\pixcrep{Alph}, \pixcrep{alph}, \pixcrep{arabic}, \pixcrep{Roman} or 
+\pixcrep{roman} for uppercase and lowercase letters, arabic numerals, and
+uppercase and lowercase Roman numerals, 
+respectively.\index{alphabetic numbering}\index{roman numerals} As there
+are only 26~letters, \pixcrep{Alph} or \pixcrep{alph} can only be
+used for a limited number of pages. Effectively, the macros redefine
+\cmd{\thepage} to be \verb?\rep{page}?. 
+
+    Additionally, the \cmd{\pagenumbering}\index{pagination!changing}
+command resets the \Icn{page} counter to one; the starred version does not 
+change the counter.
+    It is usual to reset the page number back to one each time the style
+is changed, but sometimes it may be desirable to have a continuous sequence
+of numbers irrespective of their displayed form, which is where
+the starred version comes in handy.
+
+\begin{syntax}
+\cmd{\savepagenumber} \\
+\cmd{\restorepagenumber} \\
+\end{syntax}
+\glossary(savepagenumber)%
+  {\cs{savepagenumber}}%
+  {Saves the current page number.}
+\glossary(restorepagenumber)%
+  {\cs{restorepagenumber}}%
+  {Sets the page number to that saved by the most recent \cs{savepagenumber}.}
+The macro \cmd{\savepagenumber} saves the current page number, and the
+macro \cmd{\restorepagenumber} sets the page number to the saved value.
+This pair of commands may be used to apparently 
+interrupt\index{pagination!interrupt} the pagination.
+For example, perhaps some full page illustrations\index{illustration} 
+will be electronically tipped in\index{tip in} to the document and 
+pagination is not required for these.
+This could be done along the lines of:
+\begin{lcode}
+\clearpage          % get onto next page
+\savepagenumber     % save the page number
+\pagestyle{empty}   % no headers or footers
+%% insert the illustrations
+\clearpage
+\pagestyle{...}
+\restorepagenumber
+...
+\end{lcode}
+If you try this sort of thing, you may have to adjust the restored page 
+number by one.
+\begin{lcode}
+\restorepagenumber
+% perhaps \addtocounter{page}{1} or \addtocounter{page}{-1}
+\end{lcode}
+Depending on the timing of the \cs{...pagenumber} commands and \tx's 
+decisions on page breaking, this may or may not be necessary.
+
+
+
+\section{Page styles} \label{sec:pagestyles}
+
+\index{pagestyle!specifying|(}
+
+    The class provides a selection of pagestyles that you can use and if 
+they don't suit, then there are means to define your own.
+
+    These facilities were inspired by the \Lpack{fancyhdr} 
+package~\cite{FANCYHDR}, although the command set is different.
+
+    The standard classes provide for a footer\index{footer} and 
+header\index{header} for odd and even 
+pages. Thus there are four elements to be specified for a pagestyle.
+This class partitions the headers\index{header} and footers\index{footer} 
+into left, center and right
+portions, so that overall there is a total of 12 elements that have 
+to be specified
+for a pagestyle. You may find, though, that one of the built in pagestyles
+meets your needs so you don't have to worry about all these specifications.
+
+\begin{syntax}
+\cmd{\pagestyle}\marg{style} \\
+\cmd{\thispagestyle}\marg{style} \\
+\end{syntax}
+\glossary(pagestyle)%
+  {\cs{pagestyle}\marg{style}}%
+  {Sets the current pagestyle to \meta{style}.}
+\glossary(thispagestyle)%
+  {\cs{thispagestyle}\marg{style}}%
+  {Sets the pagestyle to \meta{style} for the current page only.}
+   \cmd{\pagestyle} sets the current pagestyle to \meta{style}, where
+\meta{style} is a word containing only letters. On a particular
+page \cmd{\thispagestyle} can be used to override the current pagestyle for
+the one page.
+
+    Some of the class' commands automatically call \cmd{\thispagestyle}.
+For example:
+\begin{itemize}
+\item the \Ie{titlingpage} environment calls 
+      \begin{lcode}
+\thispagestyle{titlingpagestyle}
+      \end{lcode} 
+\item if \cmd{\cleardoublepage} will result in an empty verso page it calls
+      \begin{lcode}
+\thispagestyle{cleared}
+      \end{lcode}
+      for the empty page.
+\end{itemize}
+For reference, the full list is given in \tref{tab:callthispagestyle}.
+
+\PWnote{2009/07/26}{Added the simple pagestyle}
+    The page styles provided by the class\index{pagestyle!class} are:
+\begin{plainlist}
+\item[\pstyle{empty}] The headers\index{header} and footers\index{footer} are empty.
+\item[\pstyle{plain}] The header\index{header} is empty and the folio\index{folio} (page number)
+     is centered at the bottom of the page.
+\item[\pstyle{headings}] The footer\index{footer} is empty. The header\index{header} contains 
+     the folio\index{folio} at the outer side of the page; on verso
+     pages the chapter name, number and title, in slanted uppercase is
+     set at the spine margin and on recto pages the section number
+     and uppercase title is set by the spine margin.
+\item[\pstyle{myheadings}] Like the \pstyle{headings} style the footer
+     is empty. You have to specify what is to go in the headers\index{header}.
+\item[\pstyle{simple}] The footer\index{footer} is empty and the 
+     header\index{header} contains the folio\index{folio} (page number)
+     at the outer side of the page. It is like the \pstyle{headings}
+     style but without any title texts.
+\item[\pstyle{ruled}] The footer\index{footer} contains the 
+     folio\index{folio} at the outside. The header\index{header}
+     on verso pages contains the chapter number and title in small caps
+     at the outside; on recto pges the section title is typeset at the
+     outside using the normal font. A line is drawn
+     underneath the header\index{header}.
+\item[\pstyle{Ruled}] This is like the \pstyle{ruled} style except that 
+     the headers\index{header} and footers\index{footer} extend into 
+     the \foredge\ margin\index{margin!foredge?\foredge}.
+\item[\pstyle{companion}] This is a copy of the pagestyle in the 
+     \textit{Companion} series (e.g., see~\cite{COMPANION}). It is
+     similar to the \pstyle{Ruled} style in that the header has a rule which
+     extends to the outer edge of the marginal notes. The folios are set 
+     in bold at the outer ends of the header. The chapter title is set in
+     a bold font flushright in the verso headers, and the section number 
+     and title, again in bold, flushleft in the recto headers\index{header}. 
+     There are no footers\index{footer}.
+\item[\pstyle{book}] This is the same as the \pstyle{plain} pagestyle.
+\item[\pstyle{chapter}]  This is the same as the \pstyle{plain} pagestyle.
+\item[\pstyle{cleared}]  This is the same as the \pstyle{empty} pagestyle.
+\item[\pstyle{part}] This is the same as the \pstyle{plain} pagestyle.
+\item[\pstyle{title}]   This is the same as the \pstyle{plain} pagestyle.
+\item[\pstyle{titlingpage}] This is the same as the \pstyle{empty} pagestyle.
+\end{plainlist}
+
+\begin{table}
+\centering
+\caption{The use of \protect\cs{thispagestyle}} \label{tab:callthispagestyle}
+\begin{tabular}{l !{\qquad} l} \toprule
+Called from & Style \\ \midrule
+\cmd{\book}    & \pstyle{book} \\
+\cmd{\chapter} & \pstyle{chapter} \\
+\cmd{\cleardoublepage} & \pstyle{cleared} \\
+\cmd{\cleartorecto} & \pstyle{cleared} \\
+\cmd{\cleartoverso} & \pstyle{cleared} \\
+\cmd{\epigraphhead} & \pstyle{epigraph} \\
+\cmd{\listoffigures} & \pstyle{chapter} \\
+\cmd{\listoftables} & \pstyle{chapter} \\
+\cmd{\maketitle} & \pstyle{title} \\
+\cmd{\part}      & \pstyle{part} \\
+\cmd{\tableofcontents} & \pstyle{chapter} \\
+\Ie{thebibliography} & \pstyle{chapter} \\
+\Ie{theindex} & \pstyle{chapter} \\
+\Ie{titlingpage} & \pstyle{titlingpage} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{syntax}
+\cmd{\uppercaseheads} \cmd{\nouppercaseheads}  \\
+\end{syntax}
+\glossary(uppercaseheads)%
+  {\cs{uppercaseheads}}%
+  {Set the titles in the headings pagestyle in Uppercase.}
+\glossary(nouppercaseheads)%
+  {\cs{nouppercaseheads}}%
+  {Do not uppercase the titles in the headings.}
+    Following the declaration \cmd{\nouppercaseheads} the titles in the
+\pstyle{headings} pagestyle will not be automatically uppercased. The default
+is \cmd{\uppercaseheads} which specifies that the titles are to be
+automatically uppercased.
+
+\textbf{Change 2012:} The upper casing macro used by \cmd{\uppercaseheads} has
+been changed into \cmd{\MakeTextUppercase} such that the upper casing
+does not touch math, references or citations.
+
+
+    For the \pstyle{myheadings} pagestyle above, you have to define your own
+titles to go into the header\index{header}. Each sectioning command, 
+say \cs{sec}, 
+calls a macro called \cs{secmark}. A pagestyle usually defines this command
+so that it picks up the title, and perhaps the number, of the \cs{sec}. The
+pagestyle can then use the information for its own purposes. 
+
+\begin{syntax}
+\cmd{\markboth}\marg{left}\marg{right} \\
+\cmd{\markright}\marg{right} \\
+\end{syntax}
+\glossary(markboth)%
+  {\cs{markboth}\marg{left}\marg{right}}%
+  {Sets values of two markers to \meta{left} and \meta{right} respectively
+   (see \cs{leftmark} and \cs{rightmark}).}
+\glossary(markright)%
+  {\cs{markright}\marg{right}}%
+  {Sets value of one marker to \meta{right} (see \cs{rightmark}).}
+    \cmd{\markboth} sets the values of two \emph{markers}\index{markers}
+to \meta{left} and \meta{right} respectively, at the point in the text 
+where it is called. Similarly, \cmd{\markright} sets the value of a
+marker to \meta{right}.
+
+\begin{syntax}
+\cmd{\leftmark} \cmd{\rightmark} \\
+\end{syntax}
+\glossary(leftmark)%
+  {\cs{leftmark}}%
+  {Contains the value of the \meta{left} argument of the last \cs{markboth}.}
+\glossary(rightmark)%
+  {\cs{rightmark}}%
+  {Contains the value of the \meta{right} argument of the first \cs{markboth}
+   or \cs{markright} on the page; if there is none then the value of the most
+   recent \meta{right} argument.}
+The macro \cmd{\leftmark} contains the value of the \meta{left} argument
+of the \emph{last} \cmd{\markboth} on the page. The macro \cmd{\rightmark}
+contains the value of the \meta{right} argument of the \emph{first}
+\cmd{\markboth} or \cmd{\markright} on the page, or if there is not one it
+contains the value of the most recent \meta{right} argument.
+
+    A pagestyle can define the \cs{secmark} commands in terms of 
+\cmd{\markboth} or \cmd{\markright}, and then use \cmd{\leftmark} and/or
+\cmd{\rightmark} in the headers\index{header} or footers\index{footer}. 
+I'll show examples of how this
+works later, and this is often how the \pstyle{myheadings} style gets 
+implemented.
+
+    All the division commands include a macro that you can define to set
+marks related to that heading. Other commands also include macros that
+you can redefine for setting marks.
+
+\begin{table}
+\centering
+\caption{Mark macros for page headers} \label{tab:markmacros}
+\begin{tabular}{ll} \toprule
+Main macro & default mark definition \\ \midrule
+\cs{book(*)}            & \verb?\newcommand*{\bookpagemark}[1]{}? \\
+\cs{part(*)}            & \verb?\newcommand*{\partmark}[1]{}? \\
+\cs{chapter(*)}         & \verb?\newcommand*{\chaptermark}[1]{}? \\
+\cs{section(*)}         & \verb?\newcommand*{\sectionmark}[1]{}? \\
+\cs{subsection(*)}      & \verb?\newcommand*{\subsectionmark}[1]{}? \\
+\cs{subsubsection(*)}   & \verb?\newcommand*{\subsubsectionmark}[1]{}? \\
+\cs{paragraph(*)}       & \verb?\newcommand*{\paragraphmark}[1]{}? \\
+\cs{subparagraph(*)}    & \verb?\newcommand*{\subparagraphmark}[1]{}? \\
+\cs{tableofcontents(*)} & \verb?\newcommand*{\tocmark}[1]{}? \\
+\cs{listoffigures(*)}   & \verb?\newcommand*{\lofmark}[1]{}? \\
+\cs{listoftables(*)}    & \verb?\newcommand*{\lotmark}[1]{}? \\
+\cs{thebibliography}    & \verb?\newcommand*{\bibmark}{}? \\
+\cs{theindex}           & \verb?\newcommand*{\indexmark}{}? \\
+\cs{theglossary}        & \verb?\newcommand*{\glossarymark}{}? \\
+\cs{PoemTitle}          & \verb?\newcommand*{\poemtitlemark}[1]{}? \\
+\cs{PoemTitle*}         & \verb?\newcommand*{\poemtitlestarmark}[1]{}? \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The \cs{...mark} commands are listed in \tref{tab:markmacros}. When they are 
+called by the relevant main macro, those that take an argument are called with
+the `title' as the argument's value. For example, the \cmd{\chapter} macro
+calls \cmd{\chaptermark} with the value of the title specified as being 
+for the header.
+
+Please remember that the macros listed in \tref{tab:markmacros} are
+`provider' macros, i.e. they provide information for \cmd{\leftmark}
+and \cmd{\rightmark} for you to use later on. To gain access to the
+section title, you do \emph{not} use \cmd{\sectionmark} in the header
+or footer. It is a macro that provides information, but you need to
+use \cmd{\leftmark} or \cmd{\rightmark} to access depending on how you
+have defined \cmd{\sectionmark}.
+
+
+\section{Making headers and footers}
+
+    As mentioned, the class provides for left, center, and right slots in
+even and odd headers\index{header} and footers\index{footer}. 
+This section describes how you can make 
+your own pagestyle using these 12 slots. The 6 slots for a page 
+are diagrammed in \fref{lay:header}.
+
+\begin{figure}
+\setlayoutscale{1}
+\centering
+\headerfooterdiagram
+\caption{Header and footer slots} \label{lay:header}
+\end{figure}
+
+    The class itself uses the commands from this section. For example,
+the \pstyle{plain} pagestyle is defined as
+\begin{lcode}
+\makepagestyle{plain}
+  \makeevenfoot{plain}{}{\thepage}{}
+  \makeoddfoot{plain}{}{\thepage}{}
+\end{lcode}
+which centers the page number at the bottom of the page. 
+    
+
+\begin{syntax}
+\cmd{\makepagestyle}\marg{style} \\
+\cmd{\aliaspagestyle}\marg{alias}\marg{original} \\
+\cmd{\copypagestyle}\marg{copy}\marg{original}\\
+\end{syntax}
+\glossary(makepagestyle)%
+  {\cs{makepagestyle}\marg{style}}%
+  {Used to define a pagestyle \meta{style}.}
+\glossary(aliaspagestyle)%
+  {\cs{aliaspagestyle}\marg{alias}{original}}%
+  {Defines the \meta{alias} pagestyle to be the same as the \meta{original}
+  pagestyle.}
+\glossary(copypagestyle)%
+  {\cs{copypagestyle}\marg{copy}{original}}%
+  {Creates a new pagestyle called \meta{copy} using the \meta{original}
+   pagestyle specification.}
+
+The command \cmd{\makepagestyle} specifies a pagestyle \meta{style} which
+is initially equivalent to the \pstyle{empty} pagestyle. On the other hand,
+\cmd{\aliaspagestyle} defines the \meta{alias} pagestyle to be the same as
+the \meta{original} pagestyle. As an example of the latter, the class includes
+the code
+\begin{lcode}
+\aliaspagestyle{part}{plain}
+\aliaspagestyle{chapter}{plain}
+\aliaspagestyle{cleared}{empty}
+\end{lcode}
+The \cmd{\copypagestyle} command creates a new pagestyle called \meta{copy}
+using the \meta{original} pagestyle specification.
+
+    If an alias and a copy pagestyle are created based on the same 
+\meta{original} and later the \meta{original} is modified, 
+the alias and copy behave differently.
+The appearance of the alias pagestyle will continue to match the
+modified \meta{original} but the copy pagestyle is unaffected by any change
+to the \meta{original}. You cannot modify an alias pagestyle but you can
+modify a copy pagestyle.
+
+\begin{syntax}
+\cmd{\makeevenhead}\marg{style}\marg{left}\marg{center}\marg{right} \\
+\cmd{\makeoddhead}\marg{style}\marg{left}\marg{center}\marg{right} \\
+\cmd{\makeevenfoot}\marg{style}\marg{left}\marg{center}\marg{right} \\
+\cmd{\makeoddfoot}\marg{style}\marg{left}\marg{center}\marg{right} \\
+\end{syntax}
+\glossary(makeevenhead)%
+  {\cs{makeevenhead}\marg{style}\marg{left}\marg{center}\marg{right}}%
+  {Defines the \meta{left}, \meta{center} and \meta{right} parts of the
+   even (verso) page header of the \meta{style} pagetstyle.}
+\glossary(makeoddhead)%
+  {\cs{makeoddhead}\marg{style}\marg{left}\marg{center}\marg{right}}%
+  {Defines the \meta{left}, \meta{center} and \meta{right} parts of the
+   odd (recto) page header of the \meta{style} pagetstyle.}
+\glossary(makeevenfoot)%
+  {\cs{makeevenfoot}\marg{style}\marg{left}\marg{center}\marg{right}}%
+  {Defines the \meta{left}, \meta{center} and \meta{right} parts of the
+   even (verso) page footer of the \meta{style} pagetstyle.}
+\glossary(makeoddfoot)%
+  {\cs{makeoddfoot}\marg{style}\marg{left}\marg{center}\marg{right}}%
+  {Defines the \meta{left}, \meta{center} and \meta{right} parts of the
+   odd (recto) page footer of the \meta{style} pagetstyle.}
+The macro \cmd{\makeevenhead} defines the \meta{left}, \meta{center}, and
+\meta{right} portions of the \meta{style} pagestyle header\index{header} 
+for even numbered (verso) pages. 
+Similarly \cmd{\makeoddhead}, \cmd{\makeevenfoot}, and
+\cmd{\makeoddfoot} define the \meta{left}, \meta{center} and \meta{right}
+portions of the \meta{style} header\index{header} for odd numbered 
+(recto) pages, and the footers\index{footer} for verso and recto pages. 
+These commands for \meta{style}
+should be used after the corresponding \cmd{\makepagestyle} for \meta{style}.
+
+\begin{syntax}
+\cmd{\makerunningwidth}\marg{style}\oarg{footwidth}\marg{headwidth} \\
+\lnc{\headwidth} \\
+\end{syntax}
+\glossary(makerunningwidth)%
+  {\cs{makerunningwidth}\marg{style}\oarg{footwidth}\marg{headwidth}}%
+  {Sets the width of the \meta{style} pagestyle headers to \meta{headwidth}.
+   The footers are set to \meta{headwidth}, or \meta{footwidth} if it
+   is given.}
+\glossary(headwidth)%
+  {\cs{headwith}}%
+  {A (scratch) length normally used in the definition of headers and footers.}
+The macro \cmd{\makerunningwidth} sets the widths of the \meta{style}
+pagestyle headers\index{header} and footers\index{footer}. The header
+width is set to \meta{headwidth}. If the optional \meta{footwidth} is
+present, then the footer width is set to that, otherwise to \meta{headwidth}.
+The header width is stored as the length \cs{\meta{style}headrunwidth}
+and the footer width as \cs{\meta{style}footrunwidth}.
+
+The \cmd{\makepagestyle} initialises the widths to be the textwidth, 
+so the macro need only be used if some
+other width is desired. The length \lnc{\headwidth} is provided as a
+(scratch) length that may be used for headers\index{header} or 
+footers\index{footer}, or any other purpose.
+
+\begin{syntax}
+\cmd{\makeheadrule}\marg{style}\marg{width}\marg{thickness} \\
+\cmd{\makefootrule}\marg{style}\marg{width}\marg{thickness}\marg{skip} \\
+\cmd{\makeheadfootruleprefix}\marg{style}\marg{for headrule}\marg{for footrule}\\
+\end{syntax}
+\glossary(makeheadrule)%
+  {\cs{makeheadrule}\marg{style}\marg{width}\marg{thickness}}%
+  {Specifies the \meta{width} and \meta{thickness} of the rule drawn below the
+   headers of the \meta{style} pagestyle.}%
+\glossary(makefootrule)%
+  {\cs{makefootrule}\marg{style}\marg{width}\marg{thickness}\marg{skip}}%
+  {Specifies the \meta{width} and \meta{thickness} of the rule drawn 
+  \meta{skip} (see \cs{footskip}) above the footers of the
+  \meta{style} pagestyle.}% 
+\glossary(makeheadfootruleprefix)
+{\cs{makeheadfootruleprefix}\marg{style}\marg{for headrule}\marg{for
+    footrule}}%
+{Can be used to add alternative colors to the head/foot rule}%
+A header\index{header} may have a rule drawn between it and the top of 
+the typeblock\index{typeblock}, and similarly a rule may be drawn 
+between the bottom of the typeblock\index{typeblock} and the 
+footer\index{footer}. 
+The \cmd{\makeheadrule} macro specifies the \meta{width}
+and \meta{thickness} of the rule below the \meta{style} pagestyle 
+header\index{header}, and the \cmd{\makefootrule} does the same for 
+the rule above the footer\index{footer}; the
+additional \meta{skip} argument is a distance that specifies the vertical
+positioning of the foot rule (see \cmd{\footruleskip}).
+The \cmd{\makepagestyle} macro initialises the \meta{width} to the 
+\lnc{\textwidth} and the \meta{thickness} to 0pt, so by default no rules
+are visible. The macro \cmd{\makeheadfootruleprefix} is intended for
+adding alternative colors to the head/foot rules, e.g.
+\begin{lcode}
+  \makeheadfootruleprefix{mystyle}{\color{red}}{\color{blue}}
+\end{lcode}
+
+
+\begin{syntax}
+\lnc{\normalrulethickness} \\
+\end{syntax}
+\glossary(normalrulethickness)%
+  {\cs{normalrulethickness}}%
+  {The normal thickness of a visible rule (default 0.4pt).}
+\lnc{\normalrulethickness} is the normal\index{rule!thickness} 
+thickness of a visible rule, by 
+default 0.4pt. It can be changed using \cmd{\setlength}, although I suggest 
+that you do not unless perhaps when using at least the \Lopt{14pt} class 
+option. 
+
+\begin{syntax}
+\cmd{\footruleheight} \\
+\cmd{\footruleskip} \\
+\end{syntax}
+\glossary(footruleheight)%
+  {\cs{footruleheight}}%
+  {Macro specifying the height of a normal rule above a footer.}
+\glossary(footruleskip)%
+  {\cs{footruleskip}}%
+  {Macro specifying a distance sufficient to ensure that a rule above a footer
+   will lie in the space between the footer and the typeblock.}
+The macro \cmd{\footruleheight} is the height of a normal
+rule above a footer\index{footer} (default zero). 
+\cmd{\footruleskip} is a distance 
+sufficient to ensure that a foot rule will be placed between the bottom
+of the typeblock\index{typeblock} and the footer\index{footer}. 
+Despite appearing to be lengths, if you really need to change the values 
+use \cmd{\renewcommand}, not \cmd{\setlength}.
+
+\begin{syntax}
+\cmd{\makeheadposition}\marg{style}\\
+    \marg{eheadpos}\marg{oheadpos}\marg{efootpos}\marg{ofootpos} \\
+\end{syntax}
+\glossary(makeheadposition)%
+  {\cs{makeheadposition}\marg{style}\marg{eheadpos}\marg{oheadpos}\marg{efootpos}\marg{ofootpos}}%
+  {Specifies the horizontal positioning of the even and odd headers and
+   footers respectively for the \meta{style} pagestyle.}
+The \cmd{\makeheadposition} macro specifies the horizontal positioning
+of the even and odd headers\index{header} and footers\index{footer}, 
+respectively, for the \meta{style} pagestyle. 
+Each of the \meta{...pos} arguments may be \texttt{flushleft}, \texttt{center},
+or \texttt{flushright}, with the obvious meanings. An empty, or unrecognised, 
+argument is equivalent to \texttt{center}. This macro is really only of use 
+if the header/footer\index{header}\index{footer} width is not the 
+same as the \lnc{\textwidth}.
+
+\begin{syntax}
+\cmd{\makepsmarks}\marg{style}\marg{code} \\
+\end{syntax}
+\glossary(makepsmark)
+  {\cs{makepsmarks}\marg{style}\marg{code}}%
+  {Hook into the \meta{style} pagestyle, usually used for the \meta{code}
+   setting any marks.}
+The last thing that the \cmd{\pagestyle}\marg{style} does is call the
+\meta{code} argument of the \cmd{\makepsmarks} macro for \meta{style}.
+This is normally used for specifying non-default code 
+(i.e., code not specifiable via any of the previous macros) for the 
+particular pagestyle. The code normally defines the marks, if any, 
+that will be used in
+the headers\index{header} and footers\index{footer}.
+
+\LMnote{2010/06/25}{Added a mentioning of \cs{makeheadfootstrut}}
+\begin{syntax}
+  \cmd{\makeheadfootstrut}\marg{style}\marg{head strut}\marg{foot strut}
+\end{syntax}
+The headers and footers are each made up of three separate
+entities. At the front and end of these a special \meta{style} related
+strut is inserted. By default \cmd{\makepagestyle} will initialize
+them to \cmd{\strut} (except the \pstyle{empty} style where the struts
+are empty). One can use the macro above to change these struts to
+something different.
+
+
+\subsection{Example pagestyles}
+
+    Perhaps when preparing drafts you want to note on each page
+that it is a draft\index{draft document} document. Assuming that 
+you are using the 
+\pstyle{headings} page style and that the default \pstyle{plain}
+page style is used on chapter openings, then you could define
+the following in the preamble (\piif{ifdraftdoc} is provided by
+the class and is set \ptrue\ when the \Lopt{draft} option is used).
+\label{ex:draft.pagestyle}
+\begin{lcode}
+\ifdraftdoc
+  \makeevenfoot{plain}{}{\thepage}{\textit{Draft: \today}}
+  \makeoddfoot{plain}{\textit{Draft: \today}}{\thepage}{}
+  \makeevenfoot{headings}{}{}{\textit{Draft: \today}}
+  \makeoddfoot{headings}{\textit{Draft: \today}}{}{}
+\fi
+\end{lcode}
+Now when the \Lopt{draft} option is used the word `Draft:' and the current
+date will be typeset in italics at the bottom of each page by the spine
+margin. If any \pstyle{empty} pages should be marked as well, specify
+similar footers for that style as well.
+
+    Here is part of the standard definition of the \pstyle{headings}
+pagestyle for the \Lclass{book} class which uses many internal \ltx\ commands;
+but note that \Mname\ does not use this.
+\begin{lcode}
+\def\ps@headings{%
+  \let\@oddfoot\@empty\let\@evenfoot\@empty
+  \def\@evenhead{\thepage\hfil\slshape\leftmark}%
+  \def\@oddhead{{\slshape\rightmark}\hfil\thepage}%
+  \def\chaptermark##1{%
+    \markboth{\MakeUppercase{%
+      \ifnum\c@secnumdepth > \m@ne
+        \if@mainmatter
+          \@chapapp\ \thechapter. \ %
+        \fi
+      \fi
+      ##1}}{}}%
+  \def\sectionmark##1{%
+    \markright{\MakeUppercase{%
+      \ifnum\c@secnumdepth > \z@
+        \thesection. \ %
+      \fi
+      ##1}}}}
+\end{lcode}
+You don't need to understand this but in outline the first three lines specify
+the contents of the footers and headers, and the remainder of the code sets 
+the marks that will be used in the headers. The \cmd{\leftmark} is specified to be
+the word `chapter', 
+followed by the number if it is in the \cmd{\mainmatter} and the \texttt{secnumdepth}
+is such that chapters are numbered, followed by the chapter's title; all this 
+is made to be in upper case (via the \cmd{\MakeUppercase} macro). Similarly
+the other mark, \cmd{\rightmark}, is the section number, if there is one, and
+the section's title, again all in upper case.
+
+    A transliteration of this code into \Mname's original coding style is:
+\begin{lcode}
+\makepagestyle{headings}
+\makeevenhead{headings}{\thepage}{}{\slshape\leftmark}
+\makeoddhead{headings}{\slshape\rightmark}{}{\thepage}
+\makepsmarks{headings}{%
+  \def\chaptermark##1{%
+    \markboth{\MakeUppercase{%
+      \ifnum\c@secnumdepth > \m@ne
+        \if@mainmatter
+          \@chapapp\ \thechapter. \ %
+        \fi
+      \fi
+      ##1}}{}}%
+  \def\sectionmark##1{%
+    \markright{\MakeUppercase{%
+      \ifnum\c@secnumdepth > \z@
+        \thesection. \ %
+      \fi
+      ##1}}}
+  \def\tocmark{\markboth{\MakeUppercase{\contentsname}}{}}
+  \def\lofmark{\markboth{\MakeUppercase{\listfigurename}}{}}
+  \def\lotmark{\markboth{\MakeUppercase{\listtablename}}{}}
+  \def\bibmark{\markboth{\MakeUppercase{\bibname}}{}}
+  \def\indexmark{\markboth{\MakeUppercase{\indexname}}{}}
+  \def\glossarymark{\markboth{\MakeUppercase{\glossaryname}}{}}}
+\end{lcode}
+As you can see, defining the marks for a pagestyle is not necessarily the
+simplest thing in the world. However, courtesy of Lars\index{Madsen, Lars} Madsen,
+help is at hand.
+
+\begin{syntax}
+\cmd{\createplainmark}\marg{type}\marg{marks}\marg{text} \\
+\cmd{\memUChead}\marg{text} \\
+\cmd{\uppercaseheads} \cmd{\nouppercaseheads} \\
+\cmd{\createmark}\marg{sec}\marg{marks}\marg{show}\marg{prefix}\marg{postfix} \\
+\end{syntax}
+\glossary(createplainmark)%
+  {\cs{createplainmark}\marg{type}\marg{marks}\marg{text}}%
+  {Defines the \cs{typemark} macro using \meta{text} as the mark, where
+  \meta{marks} is \texttt{left}, \texttt{both} or \texttt{right}.}
+\glossary(createmark)%
+  {\cs{createmark}\marg{sec}\marg{marks}\marg{show}\marg{prefix}\marg{postfix}}%
+  {Defines the \cs{secmark} macro where \meta{show} (\texttt{shownumber} 
+   or \texttt{nonumber}) controls whether the division number will be
+   displayed within \cs{mainmatter}, \meta{marks} is \texttt{left}, 
+   \texttt{both} or \texttt{right}, and \meta{prefix} and \meta{postfix}
+   are affixed before and after the \meta{sec} (division) number.}
+\glossary(memUChead)%
+  {\cs{memUChead}\marg{text}}%
+  {May uppercase \meta{text}, depending on \cs{uppercaseheads} and
+  \cs{nouppercaseheads}.}
+\glossary(uppercaseheads)%
+  {\cs{uppercaseheads}}%
+  {Defines \cs{memUChead} as equivalent to \cs{MakeUppercase}.}
+\glossary(nouppercaseheads)%
+  {\cs{nouppercaseheads}}%
+  {Defines \cs{memUChead} as \cs{relax} (i.e., do nothing).}
+
+
+The macro \cmd{\createplainmark} defines the \verb?\<type>mark?, where 
+\meta{type} is an unnumbered division-like head, such as \texttt{toc},
+\texttt{lof}, \texttt{index}, using \meta{text} as the mark value, and 
+\meta{marks} is \texttt{left}, \texttt{both} or \texttt{right}. For example:
+\begin{lcode}
+\createplainmark{toc}{left}{\contentsname}
+\createplainmark{lot}{right}{\listtablename}
+\createplainmark{bib}{both}{\bibname}
+\end{lcode}
+is equivalent to
+\begin{lcode}
+\def\tocmark{\markboth{\memUChead{\contentsname}}{}}
+\def\lotmark{\markright{\memUChead{\listtablename}}}
+\def\lofmark{\markboth{\memUChead{\bibname}}{\memUChead{\bibname}}}
+\end{lcode}
+
+    Following the declaration \cmd{\uppercaseheads} the \cmd{\memUChead} 
+command is equivalent to \cmd{\MakeUppercase} but after the 
+\cmd{\nouppercaseheads} it is equivalent to \cmd{\relax} (which does nothing).
+The \cmd{\createplainmark} macro wraps \cmd{\memUChead} around the \meta{text}
+argument within the generated \cs{mark(both/right)} macro. By using the
+\cs{(no)uppercaseheads} declarations you can control the uppercasing, or
+otherwise, of the mark texts. The default is \cmd{\uppercaseheads}.
+
+\LMnote{2010/02/08}{added the following paragraph}
+Note that if you want to use a predefined page style, but would like
+to not use automatic uppercasing, then issue \cs{nouppercaseheads} and
+reload the page style, for example with the default page style in \theclass\
+\begin{lcode}
+  \nouppercaseheads
+  \pagestyle{headings}
+\end{lcode}
+
+
+    The macro \cmd{\createmark}\marg{sec}\marg{marks}\marg{show}\marg{prefix}\marg{postfix}
+defines the \verb?\<sec>mark? macro where \meta{sec} is a sectional division
+such as \texttt{part}, \texttt{chapter}, \texttt{section}, etc., 
+and \meta{show} (\texttt{shownumber} 
+or \texttt{nonumber}) controls whether the division number will be
+displayed within \cs{mainmatter}. The \meta{marks} argument is \texttt{left}, 
+\texttt{both} or \texttt{right}, and \meta{prefix} and \meta{postfix}
+are affixed before and after the division number. For example:
+\begin{lcode}
+\createmark{section}{left}{nonumber}{}{}
+\createmark{section}{both}{nonumber}{}{}
+\createmark{section}{right}{nonumber}{}{}
+\end{lcode}
+is equivalent to, respectively
+\begin{lcode}
+\def\sectionmark#1{\markboth{#1}{}}
+\def\sectionmark#1{\markboth{#1}{#1}}
+\def\sectionmark#1{\markight{#1}}
+\end{lcode}
+
+The difference between \cmd{\createmark} and \cmd{\createplainmark} is
+that the former create a macro that takes an argument, whereas
+\cmd{\createplainmark} does not.
+
+
+    Using these macros \Mname's current definition of 
+\verb?\makepsmarks{headings}? is much simpler (it also leads to a 
+slightly different result as the \texttt{toc} etc., marks set both
+the \cmd{\leftmark} and \cmd{\rightmark} instead of just the 
+\cmd{\leftmark}):
+\begin{lcode}
+\makepsmarks{headings}{%
+  \createmark{chapter}{left}{shownumber}{\@chapapp\ }{. \ }
+  \createmark{section}{right}{shownumber}{}{. \ }
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}}
+\end{lcode}
+
+
+\LMnote{2010/02/08}{fixed typo}
+When \Mname{} runs the marks part of page style, it does not zero out
+old marks, i.e.\ if an old \cmd{\sectionmark} exist, it still exist
+even if we do not change it.  This is both a good and a bad thing. To help
+users redefine these marks to doing nothing we provide
+\begin{syntax}
+\cmd{\clearplainmark}\marg{type}\\
+\cmd{\clearmark}\marg{type}\\  
+\end{syntax}
+The used types are the same as for \cmd{\createplainmark} and \cmd{\createmark}.
+
+
+
+\PWnote{2009/07/30}{Added sections on Document title and Part title in headers}
+\subsubsection{Header with the document title}
+
+    As mentioned before, some publishers like the title of the book 
+to be in the header. A simple header is probably all that is needed 
+as it is unlikely to be a technical publication. Here is a
+use for \pstyle{myheadings}.
+\begin{lcode}
+\makevenhead{myheadings}{\thepage}{}{DOCUMENT TITLE}
+\makeoddhead{myheadings}{Chapter~\thechapter}{}{\thepage}
+\end{lcode}
+
+\subsubsection{Part and chapter in the header}
+
+    Some documents have both part and chapter divisions and in such
+cases it may be useful for the reader to have the current part and chapter
+titles in the header. The \pstyle{headings} pagestyle can be easily modified
+to accomplish this by simply resetting the marks for part and chapter:
+\begin{lcode}
+\makepsmarks{headings}{%
+  \createmark{part}{left}{shownumber}{\partname\ }{. \ }
+  \createmark{chapter}{right}{shownumber}{\@chapapp\ }{. \ }
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}}
+\end{lcode}
+  
+
+\subsubsection{The Companion pagestyle}
+
+    This example demonstrates most of the page styling commands.
+In the \textit{\ltx\ Companion} series of 
+books~\cite{COMPANION,GCOMPANION,WCOMPANION} the header\index{header} is wider 
+than the typeblock\index{typeblock}, sticking out into the outer 
+margin\index{margin!outer}, and has a rule underneath it. 
+The page number is in 
+bold and at the outer end of the header\index{header}.
+Chapter titles are in verso headers\index{header} and section titles 
+in recto headers\index{header}, both in bold font and at the inner 
+margin\index{margin!inner}. The footers\index{footer} are empty.
+
+    The first thing to do in implementing this style is to calculate 
+the width of the headers\index{header}, which extend to cover any 
+marginal\index{marginalia} notes.
+\begin{lcode}
+\setlength{\headwidth}{\textwidth}
+  \addtolength{\headwidth}{\marginparsep}
+  \addtolength{\headwidth}{\marginparwidth}
+\end{lcode}
+Now we can set up an empty \pstyle{companion} pagestyle and start to change
+it by specifying the new header\index{header} and footer\index{footer} width:
+\begin{lcode}
+\makepagestyle{companion}
+\makerunningwidth{companion}{\headwidth}
+\end{lcode}
+and specify the width and thickness for the header\index{header} rule, 
+otherwise it will be invisible.
+\begin{lcode}
+\makeheadrule{companion}{\headwidth}{\normalrulethickness}
+\end{lcode}
+
+    In order to get the header\index{header} to stick out into the \foredge\ 
+margin\index{margin!foredge?\foredge}, verso headers\index{header} 
+have to be flushright 
+(raggedleft) and recto headers\index{header} to be flushleft (raggedright). 
+As the footers\index{footer} are empty, their position is immaterial.
+\begin{lcode}
+\makeheadposition{companion}{flushright}{flushleft}{}{}
+\end{lcode}
+
+    The current chapter and section titles are obtained from the 
+\cmd{\leftmark} and \cmd{\rightmark} macros which are defined via the
+\cmd{\chaptermark} and \cmd{\sectionmark} macros. Remember that
+\cmd{\leftmark} is the last \meta{left} marker and \cmd{\rightmark}
+is the first \meta{right} marker\index{markers} on the page.
+
+Chapter numbers are not
+put into the header\index{header} but the section number, 
+if there is one, is put into
+the header\index{header}. We have to make sure that
+the correct definitions are used for these as well as for the 
+\toc\footnote{The \toc\ and friends are described in detail 
+in \protect\Cref{chap:toc}.} 
+and other similar elements, and this is where the 
+\cmd{\makepsmarks} macro comes into play. 
+\begin{lcode}
+\makepsmarks{companion}{%
+  \nouppercaseheads
+  \createmark{chapter}{both}{nonumber}{}{}
+  \createmark{section}{right}{shownumber}{}{. \space}
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}
+\end{lcode}
+
+    The preliminaries have all been completed, and it just remains to specify
+what goes into each header\index{header} and footer\index{footer} slot 
+(but the footers\index{footer} are empty).
+\begin{lcode}
+\makeevenhead{companion}%
+  {\normalfont\bfseries\thepage}{}{%
+   \normalfont\bfseries\leftmark}
+\makeoddhead{companion}%
+  {\normalfont\bfseries\rightmark}{}{%
+   \normalfont\bfseries\thepage}
+\end{lcode}
+
+    Now issuing the command \verb?\pagestyle{companion}? will produce pages 
+typeset with \pstyle{companion} pagestyle headers\index{header}. This pagestyle
+is part of the class.
+
+\begin{syntax}
+\cmd{\addtopsmarks}\marg{pagestyle}\marg{prepend}\marg{append} \\
+\end{syntax}
+\glossary(addtopsmarks)%
+  {\cs{addtopsmarks}\marg{pagestyle}\marg{prepend}\marg{append}}%
+  {Inserts \meta{prepend} and \meta{append} before and after the current
+   definition of \cs{makepsmarks} for \meta{pagestyle}.}
+\cmd{\addtopsmarks}\marg{pagestyle}\marg{prepend}\marg{append} is the last
+of this group of helper macros. It inserts \meta{prepend} and \meta{append} 
+before and after the current definition of \cs{makepsmarks} 
+for \meta{pagestyle}. For instance, if you wanted \cs{subsection} titles to appear
+in the page headers of the \pstyle{companion} pagestyle then this would be a way
+of doing it:
+\begin{lcode}
+\addtopsmarks{companion}{}{%
+  \createmark{subsection}{right}{shownumber}{}{. \space}}
+\end{lcode}
+
+
+\subsubsection{The ruled pagestyle}
+
+    For practical reasons I prefer a page style with headings
+where the chapter title is at least in the center 
+of the page, and for technical works is at the \foredge. I also prefer the
+page number to be near the outside edge. When picking up a book and skimming
+through it, either to get an idea of what is in it or to find something more
+specific, I hold it in one hand at the spine and use the other for flicking
+the pages. The book is half closed while doing this and it's much easier
+to spot things at the \foredge\ than those nearer the spine. 
+The \pstyle{ruled} page style is like this. The general plan is defined as:
+\begin{lcode}
+\makepagestyle{ruled}
+\makeevenfoot {ruled}{\thepage}{}{} % page numbers at the outside
+\makeoddfoot  {ruled}{}{}{\thepage}
+\makeheadrule {ruled}{\textwidth}{\normalrulethickness}
+\makeevenhead {ruled}{\scshape\leftmark}{}{} % small caps
+\makeoddhead  {ruled}{}{}{\rightmark}
+\end{lcode}
+The other part of the specification has to ensure that the \cmd{\chapter}
+and \cmd{\section} commands make the appropriate marks for the headers.
+I wanted the numbers to appear in the headers, but not those for sections. The following
+code sets these up, as well as the marks for the other document elements.
+\begin{lcode}
+\makepsmarks{ruled}{%
+  \nouppercaseheads
+  \createmark{chapter}{left}{shownumber}{}{. \space}
+  \createmark{section}{right}{nonumber}{}{}
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}
+}
+\end{lcode}
+
+\index{pagestyle!specifying|)}
+
+
+
+\subsection{Index headers}
+
+\index{pagestyle!index pages|(}
+
+    If you look at the Index\index{index} you will see that the header\index{header} 
+shows the first and last entries on the page.
+A main entry in the index\index{index} looks like:
+\begin{lcode}
+\item \idxmark{entry}, page number(s)
+\end{lcode}
+and in the preamble\index{preamble} to this book \cmd{\idxmark} is defined as
+\begin{lcode}
+\newcommand{\idxmark}[1]{#1\markboth{#1}{#1}}
+\end{lcode}
+This typesets the entry and also uses the entry as markers so that
+the first entry on a page is held in \cmd{\rightmark} and the last
+is in \cmd{\leftmark}.
+
+    As index\index{index} entries are usually very short, the 
+Index\index{index} is set in two columns\index{column!double}. 
+Unfortunately \ltx's marking mechanism can be very
+fragile on twocolumn\index{column!double} pages.\footnote{This was
+  fixed in the \LaTeX{} kernel, but including the functionality from
+  the \Lpack{fixltx2e} package.}
+
+    The index\index{index} itself is called by\index{indexing}
+\begin{lcode}
+\clearpage
+\pagestyle{index}
+\renewcommand{\preindexhook}{%
+The first page number is usually, but not always, 
+the primary reference to
+the indexed topic.\vskip\onelineskip}
+\printindex
+\end{lcode}
+
+\makepagestyle{index}
+  \makeheadrule{index}{\textwidth}{\normalrulethickness}
+  \makeevenhead{index}{\rightmark}{}{\leftmark}
+  \makeoddhead{index}{\rightmark}{}{\leftmark}
+  \makeevenfoot{index}{\thepage}{}{}
+  \makeoddfoot{index}{}{}{\thepage}
+
+    The \pstyle{index} pagestyle, which is the crux of
+this example, is defined here as:
+\begin{lcode}
+\makepagestyle{index}
+  \makeheadrule{index}{\textwidth}{\normalrulethickness}
+  \makeevenhead{index}{\rightmark}{}{\leftmark}
+  \makeoddhead{index}{\rightmark}{}{\leftmark}
+  \makeevenfoot{index}{\thepage}{}{}
+  \makeoddfoot{index}{}{}{\thepage}
+\end{lcode}
+This, as you can hopefully see, puts the first and last index\index{index} 
+entries on the page into the header\index{header} at the left and right, 
+with the folios\index{folio} in the footers\index{footer} at the 
+outer margin\index{margin!outer}.
+
+\index{pagestyle!index pages|)}
+
+\subsection{Float pages}
+
+\index{pagestyle!float pages|(}
+\index{float!page|(}
+
+\begin{syntax}
+\piif{ifonlyfloats}\marg{yes}\marg{no} \\
+\end{syntax}
+\glossary(ifonlyfloats)%
+  {\cs{ifonlyfloats}\marg{yes}\marg{no}}%
+  {Processes \meta{yes} on a page containing only floats, otherwise process
+  \meta{no}.}
+    There are occasions when it is desirable to have different 
+headers\index{header} on pages that only contain figures\index{figure} 
+or tables\index{table}. If the command \piif{ifonlyfloats}
+is issued on a page that contains no text and only floats then the \meta{yes}
+argument is processed, otherwise on a normal page the \meta{no} argument
+is processed. The command is most useful when defining a pagestyle that 
+should be different on a float-only page\index{page!of floats}.
+
+    For example, assume that the \pstyle{companion} pagestyle is to be
+generally used, but on float-only pages all that is required is a pagestyle
+similar to \pstyle{plain}. Borrowing some code from the \pstyle{companion}
+specification this can be accomplished like:
+\begin{lcode}
+\makepagestyle{floatcomp}
+% \headwidth has already been defined for the companion style
+\makeheadrule{floatcomp}{\headwidth}%
+  {\ifonlyfloats{0pt}{\normalrulethickness}}
+\makeheadposition{floatcomp}{flushright}{flushleft}{}{}
+\makepsmarks{floatcomp}{\companionpshook}
+\makeevenhead{floatcomp}%
+             {\ifonlyfloats{}{\normalfont\bfseries\thepage}}%
+             {}%
+             {\ifonlyfloats{}{\normalfont\bfseries\leftmark}}
+\makeoddhead{floatcomp}%
+             {\ifonlyfloats{}{\normalfont\bfseries\rightmark}}%
+             {}%
+             {\ifonlyfloats{}{\normalfont\bfseries\thepage}}
+\makeevenfoot{floatcomp}{}{\ifonlyfloats{\thepage}{}}{}
+\makeoddfoot{floatcomp}{}{\ifonlyfloats{\thepage}{}}{}
+\end{lcode}
+The code above for the \pstyle{floatcomp} style should be compared with 
+that for the earlier \pstyle{companion} style.
+
+    The headrule is invisible\index{rule!thickness}\index{rule!invisible} 
+on float pages by giving it zero thickness, 
+otherwise it has the \cmd{\normalrulethickness}. The head position is 
+identical for both pagestyles. However, the headers\index{header} are empty for
+\pstyle{floatcomp} and the footers\index{footer} have centered page numbers 
+on float pages; on ordinary pages the footers\index{footer} are empty 
+while the headers\index{header}
+are the same as the \pstyle{companion} headers\index{header}.
+
+    The code includes one `trick'. The macro \cmd{\makepsmarks}\verb?{X}{code}?
+is equivalent to
+\begin{lcode}
+\newcommand{\Xpshook}{code}
+\end{lcode}
+I have used this knowledge in the line:
+\begin{lcode}
+\makepsmarks{floatcomp}{\companionpshook}
+\end{lcode}
+which avoids retyping the code from 
+\verb?\makepsmarks{companion}{...}?,
+and ensures that the code is actually the same for the two pagestyles.
+
+\begin{syntax}
+\cmd{\mergepagefloatstyle}\marg{style}\marg{textstyle}\marg{floatstyle} \\
+\end{syntax}
+    If you have two pre-existing pagestyles, one that will be used for
+text pages and the other that can be used for float pages, then the
+\cmd{\mergepagefloatstyle} command provides a simpler means of 
+combining\index{pagestyle!combining}
+them than the above example code for \pstyle{floatcomp}. The argument
+\meta{style} is the name of the pagestyle being defined. The
+argument \meta{textstyle}
+is the name of the pagestyle for text pages and \meta{floatstyle} is the
+name of the pagestyle for float-only pages. Both of these must have been 
+defined before calling \cmd{\mergepagefloatstyle}. So, instead of the long
+winded, and possibly tricky, code I could have simply said:
+\begin{lcode}
+\mergepagefloatstyle{floatcomp}{companion}{plain}
+\end{lcode}
+
+
+    One author thought it would be nice to be able to have different 
+page headings according
+to whether the page was a floatpage, or there was a float at the top of 
+the page, or a float at the bottom of a page or there was text at the 
+top and bottom.
+
+    This, I think, is not a common requirement and, further, that to provide 
+this involves changing parts of the LaTeX output routine --- something only
+to be tackled by the bravest of the brave. If it were to be done then were
+best done in a package that could be easily ignored. The following is an
+outline of what might be done; I do not recommend it and if you try this 
+and all your work dissappears then on your own head be it.
+
+\begin{lcode}
+% notefloat.sty
+\newif\iffloatattop
+  \floatattopfalse
+\newif\iffloatatbot
+  \floatatbotfalse
+
+\renewcommand*{\@addtotoporbot}{%
+  \@getfpsbit \tw@
+  \ifodd \@tempcnta
+    \@flsetnum \@topnum
+    \ifnum \@topnum>\z@
+      \@tempswafalse
+      \@flcheckspace \@toproom \@toplist
+      \if@tempswa
+        \@bitor\@currtype{\@midlist\@botlist}%
+        \if@test
+        \else
+          \@flupdates \@topnum \@toproom \@toplist
+          \@inserttrue
+  \global\floatattoptrue
+        \fi
+      \fi
+    \fi
+  \fi
+  \if@insert
+  \else
+    \@addtobot
+  \fi}
+
+\renewcommand*{\@addtobot}{%
+  \@getfpsbit 4\relax
+  \ifodd \@tempcnta
+    \@flsetnum \@botnum
+    \ifnum \@botnum>\z@
+      \@tempswafalse
+      \@flcheckspace \@botroom \@botlist
+      \if@tempswa
+        \global \maxdepth \z@
+        \@flupdates \@botnum \@botroom \@botlist
+        \@inserttrue
+  \global\floatatbottrue
+      \fi
+    \fi
+  \fi}
+
+\let\p@wold@output\@outputpage
+\renewcommand*{\@outputpage}{%
+  \p@wold@output
+  \global\floatattopfalse
+  \global\floatatbotfalse}
+
+\endinput
+\end{lcode}
+\cs{floatattop} is probably set \ptrue\ if there is a float at the 
+top of the page and
+\cs{floatatbot} is probably set \ptrue\ if there is a float at the bottom
+of the page.
+
+
+\index{float!page|)}
+\index{pagestyle!float pages|)}
+
+\section{The showlocs pagestyle}
+
+    The \pstyle{showlocs} pagestyle is somewhat special as it is meant to be
+used as an aid when designing a page layout. Lines are drawn showing the 
+vertical positions of the headers and footers and a box is drawn around
+the textblock. It is implemented using two 
+zero-sized\index{zero-sized picture} pictures.\verbfootnote{A
+zero-sized picture starts off with \verb?begin{picture}(0,0)...?.}
+\begin{syntax}
+\cmd{\framepichead} \\
+\cmd{\framepictextfoot} \\
+\cmd{\framepichook} \\
+\cmd{\showheadfootlocoff} \\
+\cmd{\showtextblockoff} \\
+\end{syntax}
+\glossary(framepichead)%
+  {\cs{framepichead}}%
+  {Used by the \Ppstyle{showlocs} pagestyle to draw a line at the header 
+   location.}
+\glossary(framepictextfoot)%
+  {\cs{framepictextfoot}}%
+  {Used by the \Ppstyle{showlocs} pagestyle to draw a box around the textblock
+   and a line at the footer location.}
+\glossary(framepichook)%
+  {\cs{framepichook}}%
+  {First thing called inside the zero width pictures provided by
+    \cs{framepichead} and \cs{framepictextfoot}. Empty by default.}%
+\glossary(showtextblockoff)%
+  {\cs{showtextblockoff}}%
+  {Prevents \cs{framepictextfoot} from drawing a box around the textblock.}
+\glossary(showheadfootlocoff)%
+  {\cs{showheadfootlocoff}}%
+  {Prevents \cs{framepichead} and \cs{framepictextfoot} from drawing
+   lines at the header and footer locations.}
+%
+The macro \cmd{\framepichead} creates a zero-sized\index{zero-sized picture} 
+picture that draws a line at the header location, and the macro 
+\cmd{\framepictextfoot} creates a zero-sized\index{zero-sized picture} 
+picture that draws a line at the footer location
+and also draws a box around the typeblock. Following the declaration
+\cmd{\showheadfootlocoff} the macros \cmd{\framepichead} and 
+\cmd{\framepictextfoot} do not draw lines showing the header and footer
+locations. The declaration \cmd{\showtextblockoff} prevents
+\cmd{\framepictextfoot} from drawing a box around the textblock.
+
+In case you want to change the color of the \pstyle{showlocs}, simply do
+\begin{lcode}
+  \renewcommnand\framepichook{\color{red}}
+\end{lcode}
+
+
+
+    If you generally want a box around the textblock you may want to create
+your own pagestyle using \cmd{\framepictextfoot} and the \pstyle{showlocs}
+code as a starting point, see \path{memoir.cls} for details.
+
+
+\section{Other things to do with page styles}
+\label{sec:other-things-do}
+
+Back on \pref{ex:draft.pagestyle} we presented a way of adding some
+draft information. Here is a more advanced example of this.
+
+One interesting use for page styles is to provide extra information
+below the footer. This might be some kind of copyright information. Or
+if your document is under version control with a system like
+Subversion, and you have all your chapter laying in seperate files,
+then why not add information at the start of very chapter, specifying
+who did the last change to this chapter at which time. See the
+\texttt{svn-multi} package (\cite{svn-multi}) and the Prac\TeX{}
+Journal article \cite{practex-2007-3-ms} by the same author. Then this
+information can be added to the start of every chapter using something
+like:
+\begin{lcode}
+\usepackage[filehooks]{svn-multi}
+\makeatletter
+% remember to define a darkgray color
+\newcommand\addRevisionData{%
+  \begin{picture}(0,0)%
+    \put(0,-10){%
+      \tiny%
+      \expandafter\@ifmtarg\expandafter{\svnfiledate}{}{%
+        \textcolor{darkgray}{Chapter last updated 
+          \svnfileyear/\svnfilemonth/\svnfileday
+         \enspace \svnfilehour:\svnfileminute\ (revision \svnfilerev)}
+     }%
+    }%
+  \end{picture}%
+}
+\makeatother
+% chapter is normally an alias to the plain style, we want to change
+% it, so make it a real pagestyle
+\makepagestyle{chapter} 
+\makeoddfoot{chapter}{\addRevisionData}{\thepage}{}
+\makeevenfoot{chapter}{\addRevisionData}{\thepage}{}
+\end{lcode}

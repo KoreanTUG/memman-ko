@@ -1,0 +1,718 @@
+\chapter{For package users} \label{chap:packageusers}
+
+    Many packages work just as well with \Pclass{memoir} as with any of the
+standard classes. In some instances, though, there may be a problem. In other
+instances the class and package have been designed to work together but
+you have to be careful about any code that you might write.
+
+\section{Class/package name clash} \label{sec:nameclash}
+
+    A typical indication of a problem is an error message saying that a 
+command has already been defined\index{Command \cs{...} already defined ...} 
+(see \pref{alreadydefined}).
+
+    When the class and a package both use the same name for a macro that
+they define something has to give. For the sake of an example, assume that
+memoir has defined a macro called \cs{foo} and a package \Ppack{pack} 
+that is used in the
+document also defines \cs{foo}. There are several options that you can 
+choose which might resolve the difficulty.
+
+\begin{enumerate}
+
+\item Just keep the class definition:
+\begin{lcode}
+\documentclass{...}
+\let\classfoo\foo   % save the class' definition
+\let\foo\relax      % `undefine' \foo
+\usepackage{pack}   % defines \foo
+\let\foo\classfoo   % restore \foo to the class definition
+...
+\foo...             % the class \foo
+\end{lcode}
+
+\item Just keep the package definition:
+\begin{lcode}
+\documentclass{...}
+\let\foo\relax      % `undefine' \foo
+\usepackage{pack}   % defines \foo
+...
+\foo...             % the package \foo
+\end{lcode}
+
+\item Keep the class definition and rename the package definition:
+\begin{lcode}
+\documentclass{...}
+\let\classfoo\foo   % save the class' definition
+\let\foo\relax      % `undefine' \foo
+\usepackage{pack}   % defines \foo
+\let\packfoo\foo    % rename pack's \foo 
+\let\foo\classfoo   % restore \foo to the class definition
+...
+\foo...             % the class \foo
+\packfoo            % the package \foo
+\end{lcode}
+
+\item Keep the package definition and rename the class definition:
+\begin{lcode}
+\documentclass{...}
+\let\classfoo\foo   % save the class' definition
+\let\foo\relax      % `undefine' \foo
+\usepackage{pack}   % defines \foo
+...
+\foo...             % the package \foo
+\classfoo...        % the class \foo
+\end{lcode}
+
+\end{enumerate}
+
+    A potential problem with these options can occur after the package is
+loaded and there are class or package commands that you use that, 
+knowingly or not, 
+call \cs{foo} expecting to get the class or the package definition, one of
+which is now not available (except under a different name).
+
+    The \Ppack{memoir} class has been available since 2001. It seems likely
+that if older packages clash with \Ppack{memoir} then, as eight years have
+gone by, the authors are unlikely to do anything about it. If a newer 
+package clashes then contact the author of the package. 
+
+    If all else fails, ask for help on the \pixctt\ newsgroup.
+
+\section{Support for bididirectional typesetting}
+
+    The \Lpack{bidi} system~\cite{BIDI} provides means of bidirectional 
+typesetting. The class has built in support for \Lpack{bidi} but this means 
+that if you are defining your own macros there are some things you need 
+to be aware of.
+
+    When dealing with bidirectional texts the left-to-right\index{LTR} 
+(LTR) direction
+is the familiar one and \ltx\ is set up for this. When typesetting
+right-to-left (RTL)\index{RTL} \Lpack{bidi} interchanges left and right. 
+The support in \Ppack{memoir} consists of replacing many, but not all, of 
+the right- and left-specific constructs. The replacement macros are:
+
+\begin{syntax}
+\cmd{\memRTLleftskip} \cmd{\memRTLrightskip} \\
+\cmd{\memRTLvleftskip} \cmd{\memRTLvrightskip} \\
+\cmd{\memRTLraggedright} \cmd{\memRTLraggedleft} \\
+\end{syntax}
+\glossary(memRTLleftskip)%
+  {\cs{memRTLleftskip}}%
+  {RTL (bidi) replacement for \cs{leftskip}}
+\glossary(memRTLrightskip)%
+  {\cs{memRTLrightskip}}%
+  {RTL (bidi) replacement for \cs{rightskip}}
+\glossary(memRTLvleftskip)%
+  {\cs{memRTLvleftskip}}%
+  {RTL (bidi) replacement for \cs{vleftskip}}
+\glossary(memRTLrightskip)%
+  {\cs{memRTLvrightskip}}%
+  {RTL (bidi) replacement for \cs{vrightskip}}
+\glossary(memRTLraggedleft)%
+  {\cs{memRTLraggedleft}}%
+  {RTL (bidi) replacement for \cs{raggedleft}}
+\glossary(memRTLraggedright)%
+  {\cs{memRTLraggedright}}%
+  {RTL (bidi) replacement for \cs{raggedright}}
+
+    In certain places, but not everywhere: \\
+\cmd{\memRTLleftskip} is used instead of \cmd{\leftskip} \\
+\cmd{\memRTLrightskip} is used instead of \cmd{\rightskip} \\
+\cmd{\memRTLvleftskip} is used instead of \cmd{\vleftskip} \\
+\cmd{\memRTLvrightskip} is used instead of \cmd{\vrightskip} \\
+\cmd{\memRTLraggedleft} is used instead of \cmd{\raggedleft} \\
+\cmd{\memRTLraggedright} is used instead of \cmd{\raggedright} \\
+
+    So, if you are defining any macros that use the \cs{...skip} or
+\cs{ragged...} macros you may have to use the \cs{memRTL...} version
+instead. The \Ppack{memoir} definitions of these macros are simply:
+\begin{lcode}
+\newcommand*{\memRTLleftskip}{\leftskip}
+\newcommand*{\memRTLrightskip}{\rightskip}
+...
+\newcommand*{\memRTLraggedleft}{\raggedleft}
+\end{lcode}
+The \Lpack{bidi} system redefines them to suit its purposes. If your
+work will only be set LTR there is no need to use the \cs{memRTL...}
+macros in any of your code. If you might ever be producing a bidirectional
+document then you may have to use the \cs{memRTL...} versions of the standard
+commands in your code. To determine where you might have to use them
+you will have to consult the \Lpack{bidi} documentation as not every use
+of the standard commands needs to be replaced. 
+
+
+
+
+%#% extend
+%#% extstart include an-example-book-design.tex
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2013-04-24 17:14:15 +0200 (Wed, 24 Apr 2013) $}
+{$LastChangedRevision: 442 $}
+{$LastChangedBy: daleif $}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\LMnote{2010/07/01}{This belongs here}
+\clearpage
+
+\makeatletter
+\begin{comment}
+%% Bringhurst chapter style
+\makechapterstyle{bringhurst}{%
+  \renewcommand{\chapterheadstart}{}
+  \renewcommand{\printchaptername}{}
+  \renewcommand{\chapternamenum}{}
+  \renewcommand{\printchapternum}{}
+  \renewcommand{\afterchapternum}{}
+  \renewcommand{\printchaptertitle}[1]{%
+    \raggedright\Large\scshape\MakeLowercase{##1}}
+  \renewcommand{\afterchaptertitle}{%
+    \vskip\onelineskip \hrule\vskip\onelineskip}
+}
+\end{comment}
+
+\setsecheadstyle{\raggedright\scshape\MakeLowercase}
+  \setbeforesecskip{-\onelineskip}
+  \setaftersecskip{\onelineskip}
+
+%%\setsubsecheadstyle{\renewcommand\@hangfrom[1]{\noindent ##1}\raggedright\itshape}
+\setsubsecheadstyle{\sethangfrom{\noindent ##1}\raggedright\itshape}
+  \setbeforesubsecskip{-\onelineskip}
+  \setaftersubsecskip{\onelineskip}
+
+%% Bringhurst page style
+\makepagestyle{bringhurst}
+\makeevenfoot{bringhurst}{\thepage}{}{}
+\makeoddfoot{bringhurst}{}{}{\thepage}
+\setlength{\pwlayi}{\headsep} % \verb?\setlength{\pwlayi}{\headsep}? headsep=\printlength{\headsep}, pwlayi = \printlength{\pwlayi}.
+\addtolength{\pwlayi}{\topskip} % \verb?\addtolength{\pwlayi}{\topskip}? topskip=\printlength{\topskip}, pwlayi=\printlength{\pwlayi}.
+\addtolength{\pwlayi}{7.3\onelineskip} % \verb?\addtolength{\pwlayi}{7.3\onelineskip}? onelineskip=\printlength{\onelineskip}, pwlayi=\printlength{\pwlayi}.
+\newcommand{\bringpicr}[1]{%
+  \setlength{\unitlength}{1pt}
+  \begin{picture}(0,0)
+    \put(\strip@pt\marginparsep, -\strip@pt\pwlayi){%
+      \begin{minipage}[t]{\marginparwidth}
+         \raggedright\itshape #1
+      \end{minipage}}
+  \end{picture}
+}
+
+\setlength{\pwlayii}{\marginparsep} % \verb?\setlength{\pwlayii}{\marginparsep}? marginparsep=\printlength{\marginparsep}, pwlayii=\printlength{\pwlayii}.
+\addtolength{\pwlayii}{\marginparwidth} % \verb?\addtolength{\pwlayii}{\marginparwidth}?  marginparwidth=\printlength{\marginparwidth}, pwlayii=\printlength{\pwlayii}.
+\newcommand{\bringpicl}[1]{%
+  \setlength{\unitlength}{1pt}
+  \begin{picture}(0,0)
+    \put(-\strip@pt\pwlayii, -\strip@pt\pwlayi){%
+      \begin{minipage}[t]{\marginparwidth}
+        \raggedleft\itshape #1
+      \end{minipage}}
+  \end{picture}
+}
+
+\makepsmarks{bringhurst}{%
+  \def\chaptermark##1{\markboth{##1}{##1}}
+  \def\sectionmark##1{\markright{##1}}
+}
+\makeevenhead{bringhurst}{\bringpicl{\rightmark}}{}{}
+\makeoddhead{bringhurst}{}{}{\bringpicr{\leftmark}}
+
+
+\renewcommand{\cftchapterfont}{\normalfont}
+\renewcommand{\cftchapterpagefont}{\normalfont}
+\renewcommand{\cftchapterpresnum}{\bfseries}
+\renewcommand{\cftchapterleader}{}
+\renewcommand{\cftchapterafterpnum}{\cftparfillskip}
+%%%\settocdepth{chapter}
+
+\makeatother
+
+
+\cleardoublepage
+\pagestyle{bringhurst}
+%%%\chapterstyle{bringhurst}
+\headstyles{bringhurst}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\PWnote{2009/07/05}{Added `book' to example design chapter title}
+\chapter{An example book design} \label{chap:bringhurst}
+ 
+%unitlength=\printlength{\unitlength}, \\
+%pwlayi=\printlength{\pwlayi}, \\
+%pwlayii=\printlength{\pwlayii}.
+
+\section{Introduction}
+
+    In this chapter I will work through a reasonably complete design
+exercise. Rather than trying to invent something myself I am taking the design
+of Bringhurst's 
+\textit{The Elements of Typographic Style}~\cite{BRINGHURST99}
+as the basis of the
+exercise. This is sufficiently different from the normal LaTeX appearance
+to demonstrate most of the class capabilities, and also it is a design by
+a leading proponent of good typography.
+
+    As much as possible, this chapter is typeset according to the results
+of the exercise to provide both a coding and a graphic example.
+
+\section{Design requirements}
+
+    The \textit{Elements of Typographic Style} is typeset using 
+Minion\facesubseeidx{Minion} as the text font and Syntax\facesubseeidx{Syntax} 
+(a sans font) 
+for the captions. 
+%The page layout has been
+%shown diagramatically in \fref{fb:1} on \pref{fb:1}, but further details need
+%to be described for those not fortunate enough to have a copy of their own.
+
+    The trimmed page size is 23 by 13.3cm. The foredge is 3.1cm and the
+top margin\index{margin!upper} is 1.9cm.
+
+    As already noted, the font for the main text is Minion\index{Minion}, 
+with 12pt leading
+on a 21pc measure with 42 lines per page. For the purposes of this exercise
+I will assume that Minion can be replaced by the font used for this
+manual. The captions to figures\index{figure} and tables\index{table} are 
+unnamed and 
+unnumbered and typeset in Syntax\index{Syntax}. The captions give the 
+appearance of being
+in a smaller font size than the main text, which is often the case. I'll
+assume that the \cmd{\small}\cmd{\sfseries} font will reasonably do for the
+captions. 
+
+    The footer\index{footer} is the same width as the 
+typeblock\index{typeblock} and the folio\index{folio} is placed 
+in the footer\index{footer} at the \foredge. There are two blank lines between 
+the bottom of the typeblock\index{typeblock} and the folio\index{folio}.
+
+    There is no header\index{header} in the usually accepted sense of the 
+term but the chapter title is put on recto pages and section titles are on 
+verso pages. The running titles are placed in the \foredge\ 
+margin\index{margin!foredge?\foredge} 
+level with the seventh line of the text in the typeblock\index{typeblock}. 
+The recto headers\index{header} are typeset raggedright
+and the verso ones raggedleft.
+
+Bringhurst also uses many marginal\index{marginalia} notes,
+their maximum width being about 51pt, and typeset raggedright in a smaller
+version of the textfont.
+
+    Chapter titles are in small caps, lowercase, in a larger font than for 
+the main text, and a rule is placed between the title and the 
+typeblock\index{typeblock}. The total vertical space used by a chapter 
+title is three text lines. Chapters are not numbered in the text but are 
+in the \toc.
+
+    Section titles are again in small caps, lowercase, in the same size as the
+text font. The titles are numbered, with both the chapter and section number.
+
+    A subsection title, which is the lowest subdivision in the book, is in
+the italic form of the textfont and is typeset as a numbered non-indented
+paragraph\index{paragraph}. These are usually multiline as Bringhurst 
+sometimes uses them like an enumerated list, so on occasion there is a 
+subsection title with no following text.
+
+    Only chapter titles are put into the \toc, and these are set raggedright 
+with the page numbers immediately after the titles. There is no \lof\ or
+\lot.
+
+    Note that unlike the normal \ltx\ use of fonts, essentially only three
+sizes of fonts are used --- the textfont size, one a bit larger for the
+chapter titles, and one a bit smaller for marginal\index{marginalia} notes 
+and captions. Also, bold fonts are not used except on special occasions, 
+such as when he is comparing font families and uses large bold
+versions to make the differences easier to see.
+
+\section{Specifying the page and typeblock}
+
+    The first and second things to do are to specify the sizes of the page
+after trimming and the typeblock\index{typeblock}. The trimmed size is 
+easy as we have the dimensions.
+\begin{lcode}
+\settrimmedsize{23cm}{13.3cm}{*}
+\end{lcode}
+We want 42 lines of text, so that's what we set as the height of the 
+typeblock\index{typeblock}; however, we have to remember to ask for 
+\texttt{lines} as the optional \meta{algorithm} argument when we 
+finally call \cmd{\checkandfixthelayout}.
+\begin{lcode}
+\settypeblocksize{42\onelineskip}{21pc}{*}
+\end{lcode}
+
+    To make life easier, we'll do no trimming of the top of the 
+stock\index{stock}
+\begin{lcode}
+\setlength{\trimtop}{0pt}
+\end{lcode}
+but will trim the \foredge. The next set of calculations first sets the 
+value of the \lnc{\trimedge} to be the \lnc{\stockwidth}; subtracting the
+trimmed \lnc{\paperwidth} then results in \lnc{\trimedge} being the amount
+to trim off the foredge.
+\begin{lcode}
+\setlength{\trimedge}{\stockwidth}
+\addtolength{\trimedge}{-\paperwidth}
+\end{lcode}
+
+    The sizes of the trimmed page and the typeblock\index{typeblock} have 
+now been specified. The typeblock\index{typeblock} is now positioned on 
+the page. The sideways positioning is
+easy as we know the \foredge\ margin\index{margin!foredge!\foredge} 
+to be 3.1cm.
+\begin{lcode}
+\setlrmargins{*}{3.1cm}{*}
+\end{lcode}
+The top margin\index{margin!top} is specified as 1.9cm, which is very 
+close to 
+four and a half lines of text. Just in case someone might want to use a 
+different font size, I'll specify the top margin\index{margin!top} 
+so that it 
+is dependent on the font size. The
+\lnc{\footskip} can be specified now as well (it doesn't particularly matter
+what we do about the header-related lengths as there isn't anything above
+the typeblock\index{typeblock}).
+\begin{lcode}
+\setulmargins{4.5\onelineskip}{*}{*}
+\setheadfoot{\onelineskip}{3\onelineskip}
+\setheaderspaces{\onelineskip}{*}{*}
+\end{lcode}
+
+    Lastly define the dimensions for any marginal\index{marginalia} notes.
+\begin{lcode}
+\setmarginnotes{17pt}{51pt}{\onelineskip}
+\end{lcode}
+
+    If this was for real, the page layout would have to be checked and
+implemented.
+\begin{lcode}
+\checkandfixthelayout[lines]
+\end{lcode}
+
+    It is possible to implement this layout just for this chapter but
+I'm not going to tell you either how to do it, or demonstrate it. Except
+under exceptional circumstances it is not good to make such drastic changes
+to the page layout in the middle of a document. However, the picture on
+\pref{fig:bplayout} illustrates
+how this layout would look on US letterpaper\index{paper!size!letterpaper} 
+stock\index{stock}. Looking at the illustration suggests that the layout 
+would look rather odd unless the stock\index{stock} was trimmed down
+to the page size --- another reason for not switching the layout here.
+
+\begin{figure}
+\captiontitlefont{\small\sffamily}
+\captionstyle{\centerlastline}
+\setstocksize{11in}{8.5in}
+\settrimmedsize{23cm}{13.3cm}{*}
+\settypeblocksize{41\onelineskip}{21pc}{*}
+\setlength{\trimtop}{0pt}
+\setlength{\trimedge}{\stockwidth}
+\addtolength{\trimedge}{-\paperwidth}
+\setlrmargins{*}{3.1cm}{*}
+\setulmargins{4.5\onelineskip}{*}{*}
+\setheadfoot{\onelineskip}{3\onelineskip}
+\setheaderspaces{\onelineskip}{*}{*}
+\setmarginnotes{17pt}{51pt}{\onelineskip}
+\checkandfixthelayout
+\currentstock
+\oddpagelayouttrue
+\twocolumnlayoutfalse
+\drawmarginparstrue
+\drawparametersfalse
+\drawstock
+\legend{An illustration of Bringhurst's page layout style when printed
+on US letter paper stock. Also shown are the values used for the
+page layout parameters for this design.} \label{fig:bplayout}
+\end{figure}
+
+\section{Specifying the sectional titling styles}
+
+\subsection{The chapter style}
+
+    Recapping, chapter titles are in small caps, lowercase, in a larger 
+font than for the main text, and a rule is placed between the title and the 
+typeblock\index{typeblock}.
+The total vertical space used by a chapter title is three text lines.
+Chapters are not numbered in the text but are in the \toc.
+Titles in the \toc\ are in mixed case.
+
+    The definition of the chapterstyle is remarkably simple, as shown below.
+\begin{lcode}
+%% Bringhurst chapter style
+\makechapterstyle{bringhurst}{%
+  \renewcommand{\chapterheadstart}{}
+  \renewcommand{\printchaptername}{}
+  \renewcommand{\chapternamenum}{}
+  \renewcommand{\printchapternum}{}
+  \renewcommand{\afterchapternum}{}
+  \renewcommand{\printchaptertitle}[1]{%
+    \raggedright\Large\scshape\MakeLowercase{##1}}
+  \renewcommand{\afterchaptertitle}{%
+    \vskip\onelineskip \hrule\vskip\onelineskip}
+}
+\end{lcode}
+
+    Most of the specification consists of nulling the majority of the normal
+LaTeX specification, and modifying just two elements. 
+
+The chapter title (via \cmd{\printchaptertitle}) 
+is typeset raggedright using the \cmd{\Large} smallcaps fonts. The 
+\cmd{\MakeLowercase} macro is used to ensure that the entire title is 
+lowercase before typesetting it. Titles are input in mixed case.
+
+    After the title is typeset the \cmd{\afterchaptertitle} macro
+specifies that one line is skipped, a horizontal rule
+is drawn and then another line is skipped.
+
+\subsection{Lower level divisions}
+
+    Section titles are in small caps, lowercase, in the same size as the
+text font. The titles are numbered, with both the chapter and section number.
+
+The specification is:
+\begin{lcode}
+\setsecheadstyle{\raggedright\scshape\MakeLowercase}
+  \setbeforesecskip{-\onelineskip}
+  \setaftersecskip{\onelineskip}
+\end{lcode}
+
+    The macro \cmd{\setsecheadstyle} lowercases the title and typesets it
+small caps. 
+
+The default skips before and after titles are rubber lengths but this does
+not bode well if we are trying to line something up with a particular line
+of text --- the presence of section titles may make slight vertical 
+adjustments to the text lines because of the flexible spacing. So, we have
+to try and have fixed spacings.
+A single blank line is used before (\cmd{\setbeforesecskip)}
+and after (\cmd{\setaftersecskip}) the title text. 
+
+    A subsection title, which is the lowest subdivision in the book, is in
+the italic form of the textfont and is typeset as a numbered non-indented
+paragraph\index{paragraph}. The code for this is below.
+
+\begin{lcode}
+\setsubsecheadstyle{\sethangfrom{\noindent ##1}\raggedright\itshape}
+  \setbeforesubsecskip{-\onelineskip}
+  \setaftersubsecskip{\onelineskip}
+\end{lcode}
+
+    As in the redefinition of the \cmd{\section} style, there are fixed
+spaces before and after the title text. The title is typeset 
+(\cmd{\setsubsecheadstyle}) raggedright in a normal sized italic font.
+The macro \cmd{\sethangfrom} is used to to redefine the internal
+\cmd{\@hangfrom} macro so that the title and number are typeset as a block 
+paragraph\index{paragraph!block} instead of the default hanging 
+paragraph\index{paragraph!hanging} style. Note the use of
+the double \verb?##? mark for denoting the position of the argument to 
+\cmd{\@hangfrom}.
+
+\section{Specifying the pagestyle}
+
+    The pagestyle is perhaps the most interesting aspect of the exercise.
+Instead of the chapter and section titles being put at the top of the
+pages they are put in the margin\index{margin} starting about seven lines 
+below the top of the typeblock\index{typeblock}. The folios\index{folio} 
+are put at the bottom of the page aligned with the outside of the 
+typeblock\index{typeblock}.
+
+    As the folios\index{folio} are easy, we'll deal with those first.
+\begin{lcode}
+%% Bringhurst page style
+\makepagestyle{bringhurst}
+\makeevenfoot{bringhurst}{\thepage}{}{}
+\makeoddfoot{bringhurst}{}{}{\thepage}
+\end{lcode}
+
+    Putting text at a fixed point on a page is typically done by
+first putting the text into a zero width picture (which as far as LaTeX
+is concerned takes up zero space) and then placing the picture at the
+required point on the page. This can be done by hanging it from the
+header\index{header}.
+
+    We might as well treat the titles so that they will align with any 
+marginal\index{marginalia} notes, which are \lnc{\marginparsep} (17pt) 
+into the margin\index{margin} 
+and \lnc{\marginparwidth} (51pt) wide. Earlier in the manual I defined
+two lengths called \lnc{\pwlayi} and \lnc{\pwlayii} which are no longer used.
+I will use these as scratch lengths in 
+performing some of the necessary calculations.
+
+    For the recto page headers\index{header} the picture will be 
+the \meta{right} part of the header\index{header} and for the verso pages 
+the picture will be the \meta{left}
+part of the header\index{header}, all other parts being empty. 
+
+    For the picture on the \meta{right} the text must be 17pt to
+the right of the origin, and some distance below the origin.
+From some experiments, this distance turns out to be the \lnc{\headsep}
+plus the \cmd{\topskip} plus 7.3 lines, which is calculated as follows:
+\begin{lcode}
+\setlength{\pwlayi}{\headsep}
+\addtolength{\pwlayi}{\topskip}
+\addtolength{\pwlayi}{7.3\onelineskip}
+\end{lcode}
+
+    There is a nifty internal LaTeX macro called \cmd{\strip@pt} which you
+probably haven't heard about, and I have only recently come across. What it
+does is strip the `pt' from a following length, reducing it to a plain 
+real number. Remembering that the default \lnc{\unitlength} is 1pt we can
+do the following, while making sure that the current \lnc{\unitlength}
+\emph{is} 1pt:
+\begin{lcode}
+\makeatletter
+\newcommand{\bringpicr}[1]{%
+  \setlength{\unitlength}{1pt}
+  \begin{picture}(0,0)
+    \put(\strip@pt\marginparsep, -\strip@pt\pwlayi){%
+      \begin{minipage}[t]{\marginparwidth}
+        \raggedright\itshape #1
+      \end{minipage}}
+  \end{picture}
+}
+\makeatother
+\end{lcode}
+The new macro \cmd{\bringpicr}\marg{text} puts \meta{text} 
+into a \Ie{minipage} of width \lnc{\marginparwidth}, 
+typeset raggedright in an italic font, and puts the top
+left of the minipage at the position (\lnc{\marginparsep}, -\lnc{\pwlayi}) 
+in a zero width picture.
+
+    We need a different picture for the \meta{left} as the text needs to be
+typeset raggedleft with the right of the text 17pt from the left of the
+typeblock\index{typeblock}. I will use the length \lnc{\pwlayii} 
+to calculate the sum of \lnc{\marginparsep}
+and \lnc{\marginparwidth}. Hence:
+\begin{lcode}
+\makeatletter
+\setlength{\pwlayii}{\marginparsep}
+\addtolength{\pwlayii}{\marginparwidth}
+\newcommand{\bringpicl}[1]{%
+  \setlength{\unitlength}{1pt}
+  \begin{picture}(0,0)
+    \put(-\strip@pt\pwlayii, -\strip@pt\pwlayi){%
+      \begin{minipage}[t]{\marginparwidth}
+        \raggedleft\itshape #1
+      \end{minipage}}
+  \end{picture}
+}
+\makeatother
+\end{lcode}
+The new macro \cmd{\bringpicl}\marg{text} puts \meta{text} 
+into a \Ie{minipage} of width \lnc{\marginparwidth}, 
+typeset raggedleft in an italic font, and puts the top
+left of the minipage at the position 
+(-(\lnc{\marginparsep} + \lnc{\marginparwidth}), -\lnc{\pwlayi}) 
+in a zero width picture.
+
+
+    Now we can proceed with the remainder of the pagestyle specification.
+The next bit puts the chapter and section titles into the \verb?\...mark? 
+macros.
+\begin{lcode}
+\makeatletter
+\makepsmarks{bringhurst}{%
+  \def\chaptermark##1{\markboth{##1}{##1}}
+  \def\sectionmark##1{\markright{##1}}
+}
+\makeatother
+\end{lcode}
+
+    Finally, specify the evenhead using \cmd{\bringpicl} with the section
+title as its argument, and the oddhead using \cmd{\bringpicr} with the
+chapter title as its argument.
+\begin{lcode}
+\makeevenhead{bringhurst}{\bringpicl{\rightmark}}{}{}
+\makeoddhead{bringhurst}{}{}{\bringpicr{\leftmark}}
+\end{lcode}
+
+
+\section{Captions and the \prtoc}
+
+    The captions to figures\index{figure} and tables\index{table} are set 
+in a small sans font and are neither named nor numbered, and there is no 
+\lof\ or \lot. Setting the caption titles in the desired font is simple:
+\begin{lcode}
+\captiontitlefont{\small\sffamily}
+\end{lcode}
+
+    There are two options regarding table\index{table} and figure\index{figure}
+captioning: either
+use the \cmd{\legend} command (which produces an anonymous unnumbered title)
+instead of the \cmd{\caption} command, or
+use the \cmd{\caption} command with a modified definition. Just in case
+the design might change at a later date to required numbered captions, 
+it's probably best to use 
+a modified version of \cmd{\caption}. In this case this is simple, just give
+the \cmd{\caption} command the same definition as the \cmd{\legend} command.
+\begin{lcode}
+\let\caption\legend
+\end{lcode}
+
+    An aside: I initially used the default caption style (block paragraph) for
+the diagram on \pref{fig:bplayout}, but this looked unbalanced so now it
+has the last line centered. As a float\index{float} environment, 
+like any other environment, forms a group, you can make local changes within 
+the float\index{float}. I actually did it like this:
+\begin{lcode}
+\begin{figure}
+\captiontitlefont{\small\sffamily}
+\captionstyle{\centerlastline}
+...
+\legend{...} \label{...}
+\end{figure} 
+\end{lcode}
+For fine typesetting you may wish to change the style of particular captions.
+The default style for a single line caption works well, but for a caption with
+two or three lines either the \texttt{centering} or \texttt{centerlastline}
+style might look better. A very long caption is again probably best done in 
+a block paragraph style.
+
+    Only chapter titles are included in the \toc. To specify this we
+use the \cmd{\settocdepth} command.
+\begin{lcode}
+\settocdepth{chapter}
+\end{lcode}
+
+    The \toc\ is typeset raggedright with no leaders and the page numbers 
+coming immediately after the chapter title. This is specified via:
+\begin{lcode}
+\renewcommand{\cftchapterfont}{\normalfont}
+\renewcommand{\cftchapterpagefont}{\normalfont}
+\renewcommand{\cftchapterpresnum}{\bfseries}
+\renewcommand{\cftchapterleader}{}
+\renewcommand{\cftchapterafterpnum}{\cftparfillskip}
+\end{lcode}
+
+\section{Preamble or package?}
+
+
+    When making changes to the document style, or just defining a new
+macro or two, there is the question of where to put the changes --- in
+the preamble\index{preamble} of the particular document or into a separate 
+package\index{package}?
+
+    If the same changes/macros are likely to be used in more than one
+document then I suggest that they be put into a package. 
+If just for the single document then the choice remains open.
+
+    I have presented the code in this chapter as though it would be  put
+into the preamble\index{preamble}, hence the use of \cmd{\makeatletter} and 
+\cmd{\makeatother} to surround macros that include the 
+\texttt{@}\idxatincode\ character (\seeatincode). The
+code could just as easily be put into a package\index{package} called, say, 
+\Lpack{bringhurst}. That is, by putting all the code, except for the
+\cmd{\makeatletter} and \cmd{\makeatother} commands, into a file called
+\file{bringhurst.sty}. It is a good idea also to end the code in the file
+with \cmd{\endinput}; LaTeX stops reading the file at that point and 
+will ignore any possible garbage after \cmd{\endinput}.
+
+    You then use the \Lpack{bringhurst} package just like any other by
+putting
+\begin{lcode}
+\usepackage{bringhurst}
+\end{lcode}
+in your document's preamble\index{preamble}.
+
+%#% extend

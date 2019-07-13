@@ -1,0 +1,1242 @@
+\chapter{Paragraphs and lists}
+
+%%%%%%%%%%%%%%%%%%%%%
+%\tightlists
+%%%%%%%%%%%%%%%%%%%%%
+
+    Within a sectional division the text is typically broken up into
+paragraphs. Sometimes there may be text that is set off from the normal
+paragraphing, like quotations\index{quotation} or lists.
+
+\section{Paragraphs}
+
+\index{paragraph|(} %|
+
+    There are basically two parameters that control the appearance of normal
+paragraphs.
+
+\begin{syntax}
+\lnc{\parindent} \lnc{\parskip} \\
+\end{syntax}
+\glossary(parskip)%
+  {\cs{parskip}}%
+  {(Extra) vertical space between paragraphs (default 0pt).}
+ 
+    The length \lnc{\parindent} is the indentation of the first line of a
+paragraph\index{paragraph!indentation} and the length \lnc{\parskip} is the vertical spacing between
+paragraphs, as illustrated in \fref{fig:para}. The value of \lnc{\parskip}
+is usually 0pt, and \lnc{\parindent} is usually defined in terms of ems so
+that the actual indentation depends on the font being used. If \lnc{\parindent}
+is set to a negative length, then the first line of the paragraphs will be 
+`outdented'\index{paragraph!outdentation} into the lefthand 
+margin\index{margin!left}.
+
+\begin{figure}
+\centering
+\drawparameterstrue
+\drawparagraph
+\caption{Paragraphing parameters}\label{fig:para}
+\end{figure}
+
+\subsection{Block paragraph}
+
+    A block paragraph\index{paragraph!block} is obtained by setting 
+\lnc{\parindent} to 0em; 
+\lnc{\parskip} should be set to some positive value so that there is some
+space between paragraphs to enable them to be identified. Most typographers
+heartily dislike block paragraphs, not only on aesthetical grounds but also
+on practical\index{paragraph!block!reasons against} considerations. 
+Consider what happens if the last line of a block 
+paragraph is full and also is the last line on the page. The following
+block paragraph will start at the top of the next page but there will be
+no identifiable space to indicate an inter-paragraph break.
+
+    It is important to know that \ltx\ 
+typesets\index{paragraph!typeset as a unit} 
+paragraph by paragraph. 
+For example, the \lnc{\baselineskip} that is used for a paragraph is the value
+that is in effect at the end of the paragraph, and the font size used for a
+paragraph is according to the size declaration (e.g., \cmd{\large} or 
+\cmd{\normalsize} or \cmd{\small}) at the end of the paragraph, 
+and the raggedness or otherwise of the whole paragraph depends on
+the declaration (e.g., \cmd{\centering})  in effect at the end of 
+the paragraph. If a pagebreak occurs in the middle of a paragraph \tx\
+will not reset the part of the paragraph that goes onto the following
+page, even if the textwidths on the two pages are different.
+
+\subsection{Hanging paragraphs}
+
+\index{paragraph!hanging|(} %|
+
+    A hanging paragraph is one where the length of the first few lines differs
+from the length of the remaining lines. (A normal indented paragraph 
+may be considered 
+to be a special case of a hanging paragraph where `few = one'). 
+
+\begin{syntax}
+\cmd{\hangpara}\marg{indent}\marg{num} \\
+\end{syntax}
+\glossary(hangpara)%
+  {\cs{hangpara}\marg{indent}\marg{num}}%
+  {Apply \meta{indent} for \meta{num} lines to the immediately following 
+   paragraph.}
+
+\hangpara{3em}{-3}%
+ Using \cmd{\hangpara} at the start of a paragraph will cause the paragraph
+to be hung. If the length \meta{indent} is positive the lefthand end of the 
+lines will be indented but if it is negative the righthand ends will be 
+indented by the specified amount.
+    If the number \meta{num}, say N, is negative the first N lines of
+the paragraph will be indented while if N is positive the N+1 th lines onwards
+will be indented. This paragraph was set with \verb?\hangpara{3em}{-3}?. There 
+should be no space between the \cmd{\hangpara} command and the start of the
+paragraph.
+
+\begin{syntax}
+\senv{hangparas}\marg{indent}\marg{num} text \eenv{hangparas} \\
+\end{syntax}
+\glossary(hangparas)%
+  {\senv{hangparas}\marg{indent}\marg{num}}%
+  {Environment form of \cs{hangpara}, applying it to every paragraph in the
+   environment.}
+    The \Ie{hangparas} environment is like the \cmd{\hangpara} command except
+that every paragraph in the environment will be hung.
+
+    The code implementing the hanging paragraphs is the same as for
+the \Lpack{hanging} package~\cite{HANGING}. Examples of some uses
+can be found in~\cite{TTC199}.
+
+    As noted eleswhere the sectioning commands use the internal 
+macro \cmd{\@hangfrom} as part of the formatting of the titles.
+
+\begin{syntax}
+\cmd{\hangfrom}\marg{text} \\
+\end{syntax}
+\glossary(hangfrom)%
+  {\cs{hangfrom}\marg{stuff}}%
+  {Hangs a paragraph from \meta{stuff}.}
+The \cmd{\hangfrom} macro is provided as an author's version of the
+internal \cmd{\@hangfrom} macro used, among other things, in typesetting 
+section titles.
+
+\hangfrom{Simple hung paragraphs }(like this one) can be specified
+using the \cmd{\hangfrom} macro. The macro puts \meta{text} in a box
+and then makes a hanging paragraph of the following material. This
+paragraph commenced with \\
+\verb?\hangfrom{Simple hung paragraphs }(like ...? \\
+and you are now reading the result.
+
+    The commands for hanging paragraphs do not quite work as might be
+expected when they are used in a list\index{paragraph!hanging!in list} 
+environment, for example inside
+an \Ie{enumerate}. If you wish for a hanging paragraph inside such an
+environment you will have to define your own commands for this. If you
+feel capable of doing so then, with my congratulations, move on to the
+next section. If you are not so confident you could try using the following
+non-guaranteed code, which is based on an idea by Patrik 
+Nyman\index{Nyman, Patrick} which he posted on \ctt{} in January 2004.
+\begin{lcode}
+%\makeatletter
+% A version of \hangpara for use in a list
+%    \listhanging{indent}{num} text text text ...
+\def\listhanging#1#2#3\par{%
+  \@tempdima\textwidth \advance\@tempdima -\leftmargin
+  \parbox{\@tempdima}{\hangpara{#1}{#2}#3}\par}
+% A version of \hangfrom for use in a list
+%    \listhangfrom{stuff} text text text ...
+\def\listhangfrom#1#2\par{%
+  \@tempdima\textwidth \advance\@tempdima -\leftmargin
+  \parbox{\@tempdima}{\@hangfrom{#1}#2}\par}
+%\makeatother
+\end{lcode}
+  
+
+\index{paragraph!hanging|)}%|
+
+\index{paragraph|)} %|
+
+\section{Flush and ragged}
+
+    Flushleft\index{flushleft} text has the lefthand end of the lines 
+aligned vertically at the lefthand margin\index{margin!left} and
+flushright\index{flushright} text has the righthand end of the lines 
+aligned vertically at the righthand margin\index{margin!right}. The
+opposites of these are raggedleft\index{raggedleft} text where the 
+lefthand ends are not aligned
+and raggedright\index{raggedright} where the righthand end of lines are 
+not aligned. LaTeX normally typesets flushleft and flushright.
+
+\begin{syntax}
+\senv{flushleft} text \eenv{flushleft} \\
+\senv{flushright} text \eenv{flushright} \\
+\senv{center} text \eenv{center} \\
+\end{syntax}
+\glossary(flushleft)%
+  {\senv{flushleft}}%
+  {Text to be typeset flushleft and raggedright.}
+\glossary(flushright)%
+  {\senv{flushright}}%
+  {Text to be typeset flushright and raggedleft.}
+\glossary(center)%
+  {\senv{center}}%
+  {Text to be set raggedleft and raggedright, with each line centered.}
+    Text in a \Ie{flushleft} environment is typeset flushleft and raggedright,
+while in a \Ie{flushright} environment is typeset raggedleft and flushright.
+In a \Ie{center} environment the text is set raggedleft and raggedright, 
+and each line is centered. A small vertical space is put before and after 
+each of these environments.
+
+\begin{syntax}
+\cmd{\raggedleft} \cmd{\raggedright} \cmd{\centering} \\
+\end{syntax} 
+\glossary(raggedleft)
+  {\cs{raggedleft}}%
+  {Declaration for text to be set raggedleft and flushright.}
+\glossary(raggedright)
+  {\cs{raggedright}}%
+  {Declaration for text to be set flushleft and raggedright.}
+\glossary(centering)%
+  {\cs{centering}}%
+  {Declaration for text to be set raggedleft and raggedright, 
+   with each line centered.}
+     The \cmd{\raggedleft} declaration can be used to have text typeset
+raggedleft and flushright, and similary the declaration \cmd{\raggedright}
+causes typesetting to be flushleft and raggedright. The declaration 
+\cmd{\centering} typesets raggedleft and raggedright with each line centered.
+Unlike the environments, no additional space is added. 
+
+\begin{syntax}
+\cmd{\centerfloat} \\
+\end{syntax}
+\glossary(centerfloat)%
+  {\cs{centerfloat}}%
+  {Within a float, centers it with respect to the typeblock; the float 
+   may extend into both margins.}
+\indextwo{float}{centering}
+The contents of floats like tables or figures are usually centered 
+and \cmd{\centering}
+should be used for this, not the \Ie{center} environment which adds extra,
+usually undesired, vertical space. For example:
+\begin{lcode}
+\begin{figure}
+\centering
+...
+\caption{...}
+\end{figure}
+\end{lcode} 
+However, if the float is wider than the
+textblock then it is aligned with the left margin and extends into the right
+margin. The command \cmd{\centerfloat} is a special version of \cmd{\center}
+that when used in a wide float will center it with respect to the textblock,
+i.e., it will extend equally into both margins. Note that \cmd{\centerfloat}
+needs to be applied where there is a known width; if applied to a regular
+text paragraph it will center the paragraph but put all the text on one line.
+
+\begin{syntax}
+\cmd{\raggedyright}\oarg{space} \\
+\lnc{\ragrparindent} \\
+\end{syntax}
+\glossary(raggedyright)%
+  {\cs{raggedyright}\oarg{space}}%
+  {Version of \cs{raggedright} with \meta{space} providing control
+   over the amount of raggedness.}
+\glossary(ragrparindent)%
+  {\cs{ragrparindent}}%
+  {The \cs{parindent} for \cs{raggedyright} paragraphs.}
+When using \cmd{\raggedright} in narrow columns the right hand edge tends to
+be too ragged, and paragraphs are not indented. 
+Text set \cmd{\raggedyright} usually fills more of the available
+width and paragraphs are indented by \lnc{\ragrparindent}, which is initially
+set to \lnc{\parindent}. The optional \meta{space} argument, whose default
+is 2em, can be used to adjust the amount of raggedness. As examples:
+\begin{lcode}
+\raggedyright[0pt]   % typeset flushright 
+\raggedyright[1fil]  % same as \raggedright
+\raggedyright[0.5em] % less ragged than \raggedright
+\end{lcode}
+
+    Remember that \ltx\ typesets on a per-paragraph\index{paragraph!typeset as a unit}
+ basis, so that putting
+the sequence of \cmd{\centering}, \cmd{\raggedleft} declarations in the same
+paragraph\index{paragraph} will cause the entire paragraph to be typeset 
+raggedleft and 
+flushright --- the \cmd{\centering} declaration is not the one in effect 
+at the end of the paragraph.
+
+\section{Quotations}
+
+    LaTeX provides two environments that are typically used for typesetting
+quotations\index{quotation}.
+
+\begin{syntax}
+\senv{quote} text \eenv{quote} \\
+\senv{quotation} text \eenv{quotation} \\
+\end{syntax}
+\glossary(quote)%
+  {\senv{quote}}%
+  {Contents set justified in a narrower measure, with zero \cs{parindent}.}
+\glossary(quotation)%
+  {\senv{quotation}}%
+  {Contents set justified in a narrower measure with normal \cs{parindent}.}
+
+     In both of these environments the text is set flushleft and flushright
+in a measure that is smaller than the normal textwidth. The only difference
+between the two environments is that paragraphs\index{paragraph!indentation} 
+are not indented in the \Ie{quote}
+environment but normal paragraphing is used in the \Ie{quotation} environment.
+
+
+\begin{egresult}[Setting the source of a quotation]{eg:quotesource}
+\begin{quotation}
+\hspace*{-0.5\parindent}This quotation has a short last line so there there is enough space 
+for the source to be set at
+the end of the line.\sourceatright{I. M. Short}
+\end{quotation}
+
+\begin{quotation}
+The last line of this quotation turns out to be too long for
+the source to be set at the end, so it is automatically
+set flushright on the following line.\sourceatright{N. O. Space}
+\end{quotation}
+\end{egresult}
+
+\begin{syntax}
+\cmd{\sourceatright}\oarg{length}\marg{text} \\
+\end{syntax}
+\glossary(sourceatright)%
+  {\cs{sourceatright}\oarg{length}\marg{text}}%
+  {At the end of a paragraph puts \meta{text} at the end of the line
+   if the line is short enough for a space \meta{length} and the \meta{text},
+   otherwise puts \meta{text} flushright on the following line.}
+Some quotations are completed by giving the source or author. Using
+\cmd{\sourceatright} at the end of the quotation will typeset \meta{text}
+flushright at the end of the line if there is enough space, otherwise it 
+typesets it flushright on the next line. A space \meta{length} (default 2em)
+is left between the end of the quote and \meta{text}.
+
+\begin{egsource}{eg:quotesource}
+\begin{quotation}
+This quotation has a short last line so there there is enough space 
+for the source to be set at
+the end of the line.\sourceatright{I. M. Short}
+\end{quotation}
+
+\begin{quotation}
+The last line of this quotation turns out to be too long for
+the source to be set at the end, so it is automatically
+set flushright on the following line.\sourceatright{N. O. Space}
+\end{quotation}
+\end{egsource}
+
+\section{Some less common paragraph shapes}
+
+    The paragraph shapes described in this section are based on a series
+that I presented in my \emph{Glisterings} column~\cite{GLISTER07,GLISTER08}.
+Like the earlier \cmd{\centering}, etc., paragraph style declarations, the
+style that applies is the one in effect at the \emph{end} of the paragraph.
+Thus the general usage is:
+\begin{lcode}
+\bgroup%    a group to keep changes local % or could be { or \begin...
+\paragraphstyle
+.... text
+\par%       ensure the end of a paragraph
+\egroup%    end the group % or could be } or \end...
+\end{lcode}
+
+    If you use one of these paragraph shapes then using \cmd{\\} to break
+a line may give a surprising result. If so, the following may help.
+\begin{syntax}
+\cmd{\atcentercr} \\
+\cmd{\break} \\
+\cmd{\memorigdbs} \\
+\cmd{\memorigpar} \\
+\end{syntax}
+\glossary(atcentercr)%
+  {\cs{atcentercr}}%
+  {Breaks a line in a (unusual) paragraph.}
+\glossary(break)%
+  {\cs{break}}%
+  {TeX macro to break a line.}
+\glossary(memorigdbs)%
+  {\cs{memorigdbs}}%
+  {Stores the original definition of \texttt{\bs}\texttt{\bs}.} % not \cs{\}
+\glossary(memorigpar)%
+  {\cs{memorigpar}}%
+  {Stores the original definition of %\texttt{\bs}\texttt{par}.}
+  \cs{par}.}
+You could try \cmd{\atcentcr}, which is user level version of an internal
+\ltx\ command used in some paragraph settings for line breaking, 
+or \cmd{\break}, which is a \tx\ command to end a line.
+
+   In some cases the paragraph shaping commands change the definitions 
+of \cmd{\\} or \cs{par}. Just in case you need to restore them, copies
+of the original definitions are in
+\cmd{\memorigdbs} (for \cmd{\\}) and \cmd{\memorigpar} (for \cs{par}).
+
+\begin{syntax}
+\cmd{\flushleftright} \\
+\end{syntax}
+\glossary(flushleftright)%
+  {\cs{flushleftright}}%
+  {Following this declaration paragraphs are set in their usual form.}
+
+    If you use one of the shapes listed later in this section and things
+go wrong, the declaration \cmd{\flushleftright} returns all paragraphing
+parameters\footnote{Except for the \cs{parindent}, which it leaves at its
+current value.} 
+to their normal values, thus producing paragraphs as normal ---
+justified left and right with the last line flushleft and raggedright.
+
+    
+\subsection{Last line not short}
+
+    On occasion a paragraph may end with a single short word as the last
+line.
+
+\begin{syntax}
+\cmd{\linenottooshort}\oarg{length} \\
+\end{syntax}
+\glossary(linenottooshort)%
+  {\cs{linenottooshort}\oarg{length}}%
+  {Following this declaration the last line of a paragraph will not be
+   shorter than \meta{length} (default 2em).}
+Following the \cmd{\linenottooshort} declaration paragraphs will be set
+as normal, except that the last line will not be shorter than
+\meta{length} (default 2em).
+
+
+\begin{egresult}[Paragraph's line not too short]{eg:nottooshort}
+\linenottooshort[4em]
+The last line of this paragraph will be no shorter than a particular
+length. a b c d e f g h i % j k l m n
+
+The last line of this paragraph will be no shorter than a particular
+length. a b c d e f g h i j k % l m n
+\end{egresult}
+
+\begin{egsource}{eg:nottooshort}
+\linenottooshort[4em]
+The last line of this paragraph will be no shorter than a particular
+length. a b c d e f g h i % j k l m n
+
+The last line of this paragraph will be no shorter than a particular
+length. a b c d e f g h i j k % l m n
+\end{egsource}
+
+\subsection{Russian typography}
+
+    Apparently in the Russian typographic tradition the last line of a
+multiline paragraph must either be at least as long as the \lnc{\parindent}
+and have at least \lnc{\parindent} at the end, or it must fill 
+the whole line (i.e., flushleft and flushright).
+
+\begin{syntax}
+\cmd{\russianpar} \\
+\end{syntax}
+\glossary(russianpar)%
+  {\cs{russianpar}}%
+  {Ending a paragraph with \cs{russianpar} causes it to be set
+   following Russian typographic rules.}
+Ending a paragraph with \cmd{\russianpar} causes it to be set following
+Russian typographic rules.
+
+If you have many such paragraphs it may be more convenient to do it like:
+\begin{lcode}
+\let\par\russianpar
+... many paragraphs
+\let\par\memorigpar
+\end{lcode}
+or as:
+\begin{lcode}
+\begingroup% start a group
+\let\par\russianpar
+... many paragraphs
+\endgroup% end the group
+\end{lcode}
+
+
+\subsection{Fill with rules}
+
+    In some legal documents there must be no space at the end of the lines
+in order to prevent anyone inserting something at a later date. Typically 
+it is only the last line in a paragraph that needs this treatment.
+
+\begin{syntax}
+\cmd{\lastlinerulefill} \\
+\cmd{\lastlineparrule} \\
+\end{syntax}
+\glossary(lastlinerulefill)%
+  {\cs{lastlinerulefill}}%
+  {Ending a paragraph with this will cause any spaces at the ends of 
+   the lines will be filled with a rule (\cs{lastlineparrule}).}
+\glossary(lastlineparrule)%
+  {\cs{lastlineparrule}}%
+  {The rule used by \cs{lastlinerulefill} to eliminate spaces at 
+   the ends of lines.}
+
+\begin{egresult}[Rules for spaces]{eg:rulefill}
+The last line of this paragraph will be be set by ending it with
+a rule to fill up any space.\lastlinerulefill
+\end{egresult}
+
+
+\begin{egsource}{eg:rulefill}
+The last line of this paragraph will be be set by ending it with
+a rule to fill up any space.\lastlinerulefill
+\end{egsource}
+
+
+Using \cmd{\lastlinerulefill} to end a paragraph will cause any spaces
+at the ends of the lines to be filled with the \cmd{\lastlineparrule} rule.
+If you have many paragraphs of this kind then try:
+\begin{lcode}
+\let\par\lastlinerulefill
+.... many paragraphs
+\let\par\memorigpar
+\end{lcode}
+Remember that \ltx\ treats many constructs (like section headings or captions)
+as paragraphs, so you may have to alternate between filled text paragraphs
+and regular paragraphing.
+
+
+
+\subsection{Some ragged paragraphs}
+
+   A few paragraph shapes with unusual ragged lines are available.
+
+\begin{egresult}[Ragged paragraphs]{eg:raggeds}
+\justlastraggedleft
+Paragraphs following the \verb?\justlastraggedleft? declaration, as
+this one does, have their lines justified except for the last which
+is set raggedleft. The demonstration works best if there are three
+or more lines.
+
+\raggedrightthenleft
+This paragraph is set following the \verb?\raggedrightthenleft?
+declaration. The first line is set raggedright and all the remaining
+lines are set raggedleft. The demonstration is better if there are three or 
+more lines.
+
+\leftcenterright
+This paragraph is set following the \verb?\leftcenterright?
+declaration. We really need three, \\ or four may be better, \\
+lines to show the effect of this.
+\everypar{}
+\end{egresult}
+
+
+
+\begin{syntax}
+\cmd{\justlastraggedleft} \\
+\cmd{\raggedrightthenleft} \\
+\cmd{\leftcenterright} \\
+\end{syntax}
+\glossary(justlastraggedleft)%
+  {\cs{justlastraggedleft}}%
+  {Following this declaration paragraphs will be set justified except the
+  last line will be set raggedleft.}
+\glossary(raggedrightthenleft)%
+  {\cs{raggedrightthenleft}}%
+  {Following this declaration paragraphs will be
+set with the first line raggedright and the rest raggedleft.}
+\glossary(raggedrightthenleft)%
+  {\cs{leftcenterright}}%
+  {Following this declaration paragraphs will be
+set with the first line raggedright, the last raggedleft, and those
+ in the middle centered.}
+
+  Following the \cmd{\justlastraggedleft}  declaration paragraphs will be 
+set justified except the last line will be set raggedleft.
+
+  Following the declaration \cmd{\raggedrightthenleft} paragraphs will be
+set with the first line raggedright and the remainder set raggedleft.
+
+  Following the declaration \cmd{\leftcenteright} paragraphs will be
+set with the first line flushleft (and raggedright) and the last line
+flushright (and raggedleft) and those in the middle will be centered.
+This declaration should be used within a group; also \cmd{\everypar}\verb?{}?
+should be called at the end.
+
+\begin{egsource}{eg:raggeds}
+\justlastraggedleft
+Paragraphs following the \verb?\justlastraggedleft? declaration, as
+this one does, have their lines justified except for the last which
+is set raggedleft. The demonstration works best if there are three
+or more lines.
+
+\raggedrightthenleft
+This paragraph is set following the \verb?\raggedrightthenleft?
+declaration. The first line is set raggedright and all the remaining
+lines are set raggedleft. The demonstration is better if there are three or 
+more lines.
+
+\leftcenterright
+This paragraph is set following the \verb?\leftcenterright?
+declaration. We really need three, \\ or four may be better, \\
+lines to show the effect of this.
+\everypar{}
+\end{egsource}
+
+
+\subsection{Left spring right}
+
+    Typically the lines of a paragraph are both flushleft and flushright and
+filled with text, but sometimes filling is not desired.
+
+\begin{egresult}[A sprung paragraph]{eg:sprung}
+\leftspringright{0.3}{0.6}%
+  {Text at the left is set flushleft and raggedright.}
+  {But the text at the right is set raggedleft and flushright.
+   It's as though there was a spring pushing the lines apart.}
+\vspace*{0.25\baselineskip}
+\end{egresult}
+
+
+\begin{syntax}
+\cmd{\leftspringright}\marg{lfrac}\marg{rfrac}\marg{ltext}\marg{rtext} \\
+\end{syntax}
+\glossary(leftspringright)%
+  {\cs{leftspringright}\marg{lfrac}\marg{rfrac}\marg{ltext}\marg{rtext}}%
+  {Sets \meta{ltext} flushleft and raggedright, and \meta{rtext} raggedleft
+   and flushright with horizontal space between the two texts.}
+The \cmd{\leftspringright} macro sets \meta{ltext} flushleft and raggedright
+in a column whose width is \meta{lfrac} of the textwidth and, in parallel,
+it also sets \meta{rtext} raggedleft and flushright in a column that is
+\meta{rfrac} of the textwidth; the effect is as though there are springs 
+between the lines of the two texts. The sum of \meta{lfrac} and \meta{rfac} 
+must be less than one.
+
+\begin{egsource}{eg:sprung}
+\leftspringright{0.3}{0.6}%
+  {Text at the left is set flushleft and raggedright.}
+  {But the text at the right is set raggedleft and flushright.
+   It's as though there was a spring pushing the lines apart.}
+\end{egsource}
+
+\section{Changing the textwidth}\label{sec:adjustwidth}
+
+    The \Ie{quote} and \Ie{quotation} environments both locally change the 
+textwidth, or more precisely, they temporarily increase the left and right 
+margins\index{margin!left}\index{margin!right} by equal amounts. 
+Generally speaking it is not a 
+good idea to change the textwidth but sometimes it may be called for.
+
+The commands and environment described below are similar to those in
+the originally found in the \Lpack{chngpage} package, but do differ in
+some respects.
+
+\begin{syntax}
+\senv{adjustwidth}\marg{left}\marg{right} text \eenv{adjustwidth} \\
+\senv{adjustwidth*}\marg{left}\marg{right} text \eenv{adjustwidth*} \\
+\end{syntax}
+\glossary(adjustwidth)%
+  {\senv{adjustwidth}\marg{left}\marg{right}}%
+  {Temporarily adds the lengths \marg{left} and \marg{right} to the left
+   and right margins.}
+\glossary(adjustwidth*)%
+  {\senv{adjustwidth*}\marg{left}\marg{right}}%
+  {A sophisticated form of \texttt{adjustwidth}. 
+   Temporarily adds the lengths \marg{left} and \marg{right} to the spine
+   and outer margins on odd (recto) pages, and on even (verso) pages adds
+   them to the outer and spine margins, respectively.}
+The \Ie{adjustwidth} environment temporarily adds the length \meta{left}
+to the lefthand margin\index{margin!left} and \meta{right} to the righthand 
+margin\index{margin!right}. That is, a positive length value increases the 
+margin\index{margin} and hence reduces the textwidth,
+and a negative value reduces the margin\index{margin} and increases the 
+textwidth. The \Ie{quotation} environment is roughly equivalent to
+\begin{lcode}
+\begin{adjustwidth}{2.5em}{2.5em}
+\end{lcode}
+
+    The starred version of the environment, \Ie{adjustwidth*}, is really only
+useful if the left and right margin\index{margin} adjustments are different. 
+The starred version checks the page number and if it is odd then adjusts 
+the left (spine) and right (outer) margins\index{margin} 
+by \meta{left} and \meta{right} respectively; if the page number is even 
+(a verso page) it adjusts the left (outer) and right (spine) 
+margins\index{margin} by \meta{right} and \meta{left} respectively.
+
+\begin{syntax}
+\cmd{\strictpagecheck} \cmd{\easypagecheck} \\
+\end{syntax}
+
+Odd/even page checking may be either strict (\cmd{\strictpagecheck})
+or easy (or one might call it lazy) (\cmd{\easypagecheck}). Easy
+checking works most of the time but if it fails at any point then the
+strict checking should be used.
+
+    As an example, if a figure\index{figure} is wider than the textwidth 
+it will stick out into the righthand margin\index{margin!right}. It may be 
+desireable to have any wide figure\index{figure} stick out into the 
+outer margin\index{margin!outer} where there is usually more room than at
+the spine margin\index{margin!spine}. This can be accomplished by
+\begin{lcode}
+\begin{figure}
+\centering
+\strictpagecheck
+\begin{adjustwidth*}{0em}{-3em}
+% the illustration
+\caption{...}
+\end{adjustwidth*}
+\end{figure}
+\end{lcode}
+
+    A real example in this manual is \tref{tab:fpp} on \pref{tab:fpp},
+which is wider than the typeblock\index{typeblock}. In that case I 
+just centered it by using \Ie{adjustwidth} to decrease each 
+margin\index{margin} equally. In brief, like
+\begin{lcode}
+\begin{table}
+\begin{adjustwidth}{-1cm}{-1cm}
+\centering
+...
+\end{adjustwidth}
+\end{table}
+\end{lcode}
+
+    Note that the \Ie{adjustwidth} environment applies to complete paragraphs;
+you can't change the width of part of a paragraph\index{paragraph} 
+except for hanging paragraphs\index{paragraph!hanging} or more esoterically 
+via \cmd{\parshape}. Further, if the adjusted paragraph crosses a
+page boundary the margin\index{margin} changes are constant; a paragraph 
+that is, say, wider at the right on the first page will also be wider at 
+the right as it continues onto the following page.
+
+    The \Ie{center} environment horizontally centers its contents
+with respect to the typeblock\index{typeblock}. 
+Sometimes you may wish to horizontally center some text with respect
+to the physical page, for example when typesetting a 
+colophon\index{colophon} which may look odd centered with respect
+to the (unseen) typeblock\index{typeblock}.
+
+    The calculation of the necessary changes to the spine and \foredge{}
+margins\index{margin} is simple. Using the same symbols as earlier in 
+\S\ref{sec:typeblock2} ($P_{w}$ and $B_{w}$ are the width of the trimmed 
+page and the typeblock\index{typeblock}, respectively;
+$S$ and $E$ are the spine and \foredge{} margins\index{margin}, 
+respectively) then the amount $M$ to be added to the spine 
+margin\index{margin} and subtracted from the
+\foredge{} margin\index{margin} is calculated as:
+\begin{displaymath}
+ M = 1/2(P_{w} - B_{w}) - S
+\end{displaymath}
+
+For example, assume that the \lnc{\textwidth} is 5 inches and the 
+\lnc{\spinemargin} is 1 inch. On US letterpaper\index{paper!size!letterpaper} 
+(\lnc{\paperwidth} is 8.5 inches) the \foredge{} margin\index{margin} is 
+then 2.5 inches, and 0.75 inches\footnote{On A4\index{paper!size!A4}
+paper the result would be different.}  must be added to the spine 
+margin\index{margin} and subtracted from the \foredge{} to center the 
+typeblock\index{typeblock}. 
+The \Ie{adjustwidth} environment can be used to make the (temporary) change.
+\begin{lcode}
+\begin{adjustwidth*}{0.75in}{-0.75in} ...
+\end{lcode}
+
+\begin{syntax}
+\cmd{\calccentering}\marg{length} \\
+\end{syntax}
+\glossary(calccentering)%
+  {\cs{calccentering}\marg{length}}%
+  {Sets the \meta{length} command to the value to add/subtract from margins
+   to center text on the physical page.}
+ If you don't want to do the above calculations by hand, 
+\cmd{\calccentering} will do it for you. 
+The \meta{length}
+argument must be the name of a pre-existing length command, 
+including the backslash. After calling 
+\cmd{\calccentering}, \meta{length} is the amount to be added to the
+spine margin\index{margin} and subtracted from the foredge margin\index{margin} to center the typeblock\index{typeblock}.
+An example usage is
+\begin{lcode}
+\calccentering{\mylength}
+\begin{adjustwidth*}{\mylength}{-\mylength}
+text horizontally centered on the physical page
+\end{adjustwidth*}
+\end{lcode}
+
+   You do not necessarily have to define a new length for the purposes
+of \cmd{\calccentering}. Any existing length will do, such as
+\lnc{\unitlength}, provided it will be otherwise unused between performing
+the calculation and changing the margins\index{margin} (and that you can, 
+if necessary reset it to its original value --- the default value for 
+\lnc{\unitlength} is 1pt). 
+
+\section{Lists}
+
+\index{list|(} %|
+
+    Standard \ltx\ provides four kinds of lists. There is a general \Ie{list}
+environment which you can use to define your own particular kind of list,
+and the \Ie{description}, \Ie{itemize} and \Ie{enumerate} lists (which are 
+internally defined in terms of the general \Ie{list} 
+environment\footnote{The \Ie{quote} and \Ie{quotation} environments are also
+defined in terms of the general \Ie{list} environment. You may be 
+surprised where it crops up.}).
+
+\PWnote{2009/04/25}{Added the blockdescription, labelled and flexlabelled environments}
+
+    This class provides the normal \Ie{description} list, plus a couple of others 
+of the same kind, but the \Ie{itemize} 
+and \Ie{enumerate} lists are extended versions of the normal ones.
+
+\begin{syntax}
+\senv{description} \cmd{\item}\oarg{label} ... \eenv{description} \\
+\senv{blockdescription} \cmd{\item}\oarg{label} ... \eenv{blockdescription} \\
+\cmd{\descriptionlabel}\meta{label} \\
+\cmd{\blockdescriptionlabel}\meta{label} \\
+\end{syntax}
+\glossary(description)%
+  {\senv{description}}%
+  {A list of descriptions of \cs{item}s formatted as regular paragraphs.}
+\glossary(blockdescription)%
+  {\senv{blockdescription}}%
+  {A list of descriptions of \cs{item}s formatted as indented block paragraphs.}
+\glossary(item)%
+  {\cs{item}\oarg{label}}%
+  {Intoduces a new element in a list. The effect of \meta{label} depends
+   on the particular list form.}
+\glossary(descriptionlabel)%
+  {\cs{descriptionlabel}\marg{label}}%
+  {Specifies the format of the \meta{label} of an \cs{item} in a 
+   \Pe{description} environment.}
+\glossary(blockdescriptionlabel)%
+  {\cs{blockdescriptionlabel}\marg{label}}%
+  {Specifies the format of the \meta{label} of an \cs{item} in a 
+   \Pe{blockdescription} environment.}
+In a \Ie{description} list an \cs{item}'s \meta{label} is typeset by
+\cmd{descriptionlabel}. The default definition is
+\begin{lcode}
+\newcommand*{\descriptionlabel}[1]{\hspace\labelsep
+                                   \normalfont\bfseries #1}
+\end{lcode}
+which gives a bold label. To have, for example, a sans label instead, do
+\begin{lcode}
+\renewcommand*{\descriptionlabel}[1]{\hspace\labelsep
+                                     \normalfont\sffamily #1}
+\end{lcode}
+
+    The only noticeable difference between a \Ie{description} list and a 
+\Ie{blockdescription} list is that the latter is set as indented block paragraphs;
+invisibly, it also has its own \cmd{\blockdescriptionlabel}.
+
+\begin{syntax}
+\senv{labelled}\marg{name} \cmd{\item}\oarg{label} ... \eenv{labelled} \\
+\senv{flexlabelled}\marg{name}\marg{labelwidth}\marg{labelsep}\marg{itemindent}\% \\
+                   \marg{leftmargin}\marg{rightmargin} \\
+\cmd{\item}\oarg{label} ... \eenv{flexlabelled} \\
+\end{syntax}
+\glossary(labelled)%
+  {\senv{labelled}\marg{name}}%
+  {A list of descriptions of \cs{item}s with the labels formatted according to \cs{name}}.
+\glossary(flexlabelled)%
+  {\senv{labelled}\marg{name}\marg{width}\marg{sep}\marg{indent}\marg{left}\marg{right}}%
+  {A list of descriptions of \cs{item}s with the labels formatted according to \cs{name}
+   and the overall layout specified by the other list length arguments.}
+
+The \Ie{labelled} environment is like the \Ie{description} environment except that
+you can specify the label format via the \meta{name} argument where \cs{name} is
+the formatting macro. For example, if you wanted the item labels set in italics, then
+\begin{lcode}
+\newcommand*{\itlabel}[1]{\hspace\labelsep \normalfont\itshape #1}
+\begin{labelled}{itlabel}
+\item[First] ...
+...
+\end{lcode}
+
+    The \Ie{flexlabelled} environment adds additional controls to the \Ie{labelled} one.
+The \meta{name} argument is the same as that for \Ie{labelled} and the remainder are
+lengths that correspond to the dimensions shown in \fref{fig:listlay}. If you want
+any of the dimensions to retain their current values, use \verb?*? instead of a length
+as the value for that particular argument.
+
+\begin{egsource}{eg:flexlabelled}
+This example shows how the \texttt{flexlabelled} list can be used to
+change the formatting of a description-like list.
+\newcommand*{\sclabel}[1]{\normalfont\scshape #1}
+\begin{flexlabelled}{sclabel}{0pt}{0.5em}{0.5em}{*}{\leftmargin}
+\item[First] The labels should be typeset using smallcaps and the first
+             paragraph should be set as block paragraph.
+
+             Further paragraphs completing an \cs{item}'s descriptive text
+             will be set with the normal paragraph indent.
+\item[Second] The list should be indented from each margin like the
+              \texttt{quote} and \texttt{quotation} environments.
+\end{flexlabelled}
+More major changes to a description-like list will probably involve writing 
+the code for a new environment. 
+\end{egsource}
+
+\begin{egresult}[Smallcap quote style description list]{eg:flexlabelled}
+This example shows how the \texttt{flexlabelled} list can be used to
+change the formatting of a description-like list.
+\newcommand*{\sclabel}[1]{\normalfont\scshape #1}
+\begin{flexlabelled}{sclabel}{0pt}{0.5em}{0.5em}{*}{\leftmargin}
+\item[First] The labels should be typeset using smallcaps and the first
+             paragraph should be set as block paragraph.
+
+             Further paragraphs completing an \cs{item}'s descriptive text
+             will be set with the normal paragraph indent.
+\item[Second] The list should be indented from each margin like the
+              \texttt{quote} and \texttt{quotation} environments.
+\end{flexlabelled}
+More major changes to a description-like list will probably involve writing 
+the code for a new environment. 
+\end{egresult}
+
+
+
+    The \Ie{itemize} and \Ie{enumerate} environments below are based on
+the \Lpack{enumerate} package~\cite{ENUMERATE}.
+
+\begin{syntax}
+\senv{itemize}\oarg{marker} \cmd{\item} ... \eenv{itemize} \\
+\end{syntax}
+\glossary(itemize)%
+  {\senv{itemize}\oarg{marker}}%
+  {An unordered list of \cs{item}s. If given, the \meta{marker} overrides the
+   default marker for the elements.}
+The normal markers for \cmd{\item}s in an \Ie{itemize} list are: 
+\begin{enumerate}
+\item bullet (\textbullet \cmd{\textbullet}), 
+\item bold en-dash ({\normalfont\bfseries \textendash} \cmd{\bfseries}\cmd{\textendash}),
+\item centered asterisk (\textasteriskcentered \cmd{\textasteriskcentered}), and
+\item centered dot (\textperiodcentered \cmd{\textperiodcentered}).
+\end{enumerate}
+The optional \meta{marker} argument can be used to specify the marker for the
+list items in a particular list. If for some reason you wanted to use a 
+pilcrow\index{pilcrow (\P)} symbol as the item marker for a particular list 
+you could do
+\begin{lcode}
+\begin{itemize}[\P]
+\item ...
+...
+\end{lcode}
+
+
+
+\begin{syntax}
+\senv{enumerate}\oarg{style} \cmd{\item} ... \eenv{enumerate} \\
+\end{syntax}
+\glossary(enumerate)%
+  {\senv{enumerate}\oarg{style}}%
+  {An ordered list of \cs{item}s. If \meta{style} is given it overrides the
+   default scheme for indicating the item order.}
+The normal markers for, say, the third item in an \Ie{enumerate} list are: 
+3., c., iii., and C. The optional \meta{style} argument can be used to
+specify the style used to typeset the item counter. An occurrence of
+one of the special characters \texttt{A}, \texttt{a}, \texttt{I}, \texttt{i}
+or \texttt{1} in \meta{style} specifies that the counter will be typeset using
+uppercase letters (\texttt{A}), lowercase letters (\texttt{a}), 
+uppercase Roman numerals (\texttt{I}), lowercase Roman numerals (\texttt{i}), 
+or arabic numerals (\texttt{1}). These characters
+may be surrounded by any LaTeX commands or characters, but if so the special
+characters must be put inside braces (e.g., \verb?{a}?) if they are to be 
+considered as ordinary characters instead of as special styling characters.
+ For example, to have the
+counter typeset as a lowercase Roman numeral followed by a single parenthesis
+\begin{lcode}
+\begin{enumerate}[i)] 
+...
+\end{lcode} 
+
+
+\LMnote{2013/05/16}{Added hint about enumitem}
+\LMnote{2018/03/09}{Changed hint to be a recommended section}
+\begin{recommended}
+    \theclass\ does not provide high level interfaces to configure the
+  appearance. We provide some simple tools to adjust vertical spacing,
+  see below.
+
+  Users seeking more control can have a look at the excellent \Lpack{enumitem}
+  package by Javier Bezos. If loaded as
+  \begin{lcode}
+    \usepackage[shortlabels]{enumitem}
+  \end{lcode}
+  then our
+  \begin{lcode}
+    \begin{enumerate}[i)] 
+     \item \label{item:tst}  ...
+  \end{lcode}
+  syntax will work out of the box.
+
+  One key difference: In \theclass\ \verb?\ref{item:tst}? will give you
+  `i', whereas, if \Lpack{enumitem} is loaded the full formatting is
+  returned from the cross reference, i.e., `i)'. This is fully
+  configurable in \Lpack{enumitem}.
+
+  Note that, \cmd{\tightlists}, \cmd{\defaultlists}, \cmd{\firmlists},
+  \cmd{\firmlists*} presented below, are not supported by
+  \Lpack{enumitem}, it provides a highlevel key based interface
+  instead.
+
+  Another feature from \Lpack{enumitem} that I (LM) uses a lot is to
+  combine the \cmd{\setlist} with \cmd{\AtBeginEnvironment} from the
+  \Lpack{etoolbox} package to specifically adjust enumerate used
+  inside certain theorem constructions. That wway we can control the
+  apparence of the lists from the preamble and does not need to use
+  say
+  \begin{lcode}
+    \begin{enumerate}[(a)]
+  \end{lcode}
+  every single time.
+\end{recommended}
+
+
+\index{list!tight|(} %|
+
+
+\begin{syntax}
+\cmd{\tightlists} \cmd{\defaultlists} \\
+\cmd{\firmlists} \cmd{\firmlists*} \\
+\end{syntax}
+\glossary(tightlists)%
+  {\cs{tightlists}}%
+  {Declaration removing extra vertical space from \texttt{list}-based 
+   environments.}
+\glossary(defaultlists)%
+  {\cs{defaultlists}}%
+  {Declaration specifying the default vertical spacing \texttt{list}-based 
+   environments.}
+\glossary(firmlists)%
+  {\cs{firmlists}}%
+  {Declaration for some vertical spacing in \texttt{list}-based
+   environments. There may be some extra space before and after the 
+   environments.}
+\glossary(firmlists*)%
+  {\cs{firmlists*}}%
+  {The same as \cs{firmlists} except that there is no space before and after
+   the environments.}
+
+
+
+The normal LaTeX \Ie{description}, \Ie{itemize} and \Ie{enumerate} lists 
+have an open
+look about them when they are typeset as there is significant vertical space
+between the items in the lists. After the declaration \cmd{\tightlists} is
+issued, the extra vertical spacing between the list items is deleted. The open
+list appearance is used after the \cmd{\defaultlists} declaration is issued.
+These declarations, if used, must come \emph{before} the relevant list 
+environment(s). The class initially sets \cmd{\defaultlists}. This manual,
+though, uses \cmd{\tightlists}. The spacing following the \cmd{\firmlists} 
+declaration is intermediate between \cmd{\defaultlists} and \cmd{\tightlists}.
+The starred version, \cmd{\firmlists*}, allows sligthly less space around 
+the lists when they are preceded by a blank line than does the 
+unstarred \cmd{\firmlists}.
+\begin{caveat}
+  Due to the manner in which \cmd{\small} and \cmd{\footnotesize} are
+  implemented, \cmd{\tightlists} and \cmd{\firmlists} will have \emph{no
+    effect} on lists typeset under \cmd{\small} or
+  \cmd{\footnotesize}.
+
+  A comprehensible solution can be done via the \Lpack{enumitem}
+  package via
+\begin{verbatim}
+% \tightlists equivalent
+\usepackage[shortlabels]{enumitem}
+\setlist{ noitemsep }
+\end{verbatim}
+\end{caveat}
+
+
+
+
+\begin{syntax}
+\cmd{\firmlist} \cmd{\tightlist} \\
+\end{syntax}
+\glossary(firmlist)
+  {\cs{firmlist}}%
+  {In a standard list, sets the vertical spacing intermediate between
+  the default and \cs{tightlist}(s).}
+\glossary(tightlist)
+  {\cs{tightlist}}%
+  {In a standard list, removes extra vertical spacing.}
+The command \cmd{\firmlist} or \cmd{\tightlist} can be used immediately
+after the start of a list environment to reduce the vertical space within
+that list. The \cmd{\tightlist} removes all the spaces while the
+\cmd{\firmlist} produces a list that still has some space but not as much
+as in an ordinary list.
+
+\index{list!tight|)} %|
+
+
+\begin{figure}
+\centering
+\drawparameterstrue
+\drawlist
+\caption{The layout parameters for general lists}\label{fig:listlay}
+\end{figure}
+
+\index{list!new|(} %|
+
+\begin{syntax}
+\senv{list}\marg{default-label}\marg{code} items \eenv{list} \\
+\end{syntax}
+\glossary(list)%
+  {\senv{list}\marg{default-label}\marg{code}}%
+  {The general \Pe{list} environment. \meta{default-label} is code that is
+   used for an \cs{item} with no \meta{label} and \meta{code} is used to
+   specify the list layout parameters.}
+\ltx's list environments are defined in terms of a general \Ie{list}
+environment; some other environments, such as the \Ie{quote}, \Ie{quotation}
+and \Ie{adjustwidth} are also defined in terms of a \Ie{list}.
+Figure~\ref{fig:listlay} shows the parameters controlling the layout
+of the \Ie{list} environment.
+
+    The \Ie{list} environment takes two arguments. The \meta{default-label}
+argument is the code that should be used when the \cmd{\item} macro is
+used without its optional \meta{label} argument. For lists like \Ie{enumerate}
+this is specified but often it is left empty, such as for the \Ie{adjustwidth}
+environment.
+
+    The \meta{code} argument is typically used for setting the particular
+values of the list layout parameters. When defining your own types of lists
+it is advisable to set each of the parameters unless you know that the default
+values are suitable for your purposes. These parameters can all be modified
+with either the \cmd{\setlength} or \cmd{\addtolength} commands.
+
+    As an example, here is the specification for a description-like list
+that uses an italic rather than bold font for the items, and is somewhat
+tighter than the normal \Ie{description} list.
+
+\begin{lcode}
+%%%%% An italic and tighter description environment
+\newcommand{\itlabel}[1]{\hspace\labelsep\normalfont\itshape #1}
+\newenvironment{itdesc}{%
+  \list{}{%
+    \setlength{\labelsep}{0.5em}
+    \setlength{\itemindent}{0pt}
+    \setlength{\leftmargin}{\parindent} 
+    \setlength{\labelwidth}{\leftmargin}
+    \addtolength{\labelwidth}{-\labelsep}
+    \setlength{\listparindent}{\parindent}
+    \setlength{\parsep}{\parskip}
+    \setlength{\itemsep}{0.5\onelineskip}
+    \let\makelabel\itlabel}}{\endlist}
+\end{lcode}
+
+    This gets used like any other list:
+\begin{lcode}
+\begin{itdesc}
+\item[label] ....
+\end{itdesc}
+\end{lcode}
+
+Here is another kind of list called \Ie{symbols} that might be used
+for a list of symbols or other similar kind of listing.
+\begin{lcode}
+% Symbol list
+\newenvironment{symbols}%
+               {\list{}% empty label
+                            {\setlength{\topsep}{\baselineskip}
+                             \setlength{\partopsep}{0pt}
+                             \setlength{\itemsep}{0.5\baselineskip}
+                             \setlength{\parsep}{0pt}
+                             \setlength{\leftmargin}{2em}
+                             \setlength{\rightmargin}{0em}
+                             \setlength{\listparindent}{1em}
+                             \setlength{\itemindent}{0em}
+                             \setlength{\labelwidth}{0em}
+                             \setlength{\labelsep}{2em}}}%
+               {\endlist}
+\newcommand{\symb}[1]{\item[#1]\mbox{}\\\nopagebreak}
+\end{lcode}
+In this case it gets used like this
+\begin{lcode}
+\begin{symbols}
+\symb{SYMBOL 1} definition
+\symb{SYMBOL 2} ...
+\end{symbols}
+\end{lcode}
+
+    In the code for the \Pe{symbols} list I used the command forms (i.e.,
+\cmd{\list} and \cmd{\endlist}) for specifying the start and end of a list.
+It is a matter of taste whether you use the command or \verb?\begin{...}?
+and \verb?\end{...}? forms, but the latter does make it more obvious that
+an environment is being dealt with.
+
+\index{list!new|)} %|
+
+    Several \ltx\ environments are defined in terms of a very simple list,
+called a \Ie{trivlist}. Such a list has little internal structure
+but like the \Ie{list} environment the vertical space before and after
+a \Ie{trivlist} (or any list based on it) is set by \lnc{\topsep} and
+\lnc{\partopsep}, as shown in \fref{fig:listlay}.
+
+\begin{syntax}
+\cmd{\zerotrivseps} \cmd{\savetrivseps} \cmd{\restoretrivseps} \\
+\end{syntax}
+\glossary(zerotrivseps)%
+  {\cs{zerotrivseps}}%
+  {Eliminate space before and after a \Pe{trivlist}.}
+\glossary(savetrivseps)%
+  {\cs{savetrivseps}}%
+  {Stores the current \cs{topsep} and \cs{partopsep} for \Pe{trivlist}s.}
+\glossary(restoretrivseps)%
+  {\cs{restoretrivseps}}%
+  {Sets the current \cs{topsep} and \cs{partopsep} to the values saved
+   by \cs{savetrivseps}.}
+The \Ie{center} environment is one of several that is based on
+a \Ie{trivlist}, and so has space before and after it. If you don't want this
+the \cmd{\zerotrivseps} declaration eliminates those spaces. You can
+think of it as being defined as:
+\begin{lcode}
+\newcommand*{\zerotrivseps}{%
+  \setlength{\topsep}{0pt}%
+  \setlength{\partopsep}{0pt}}
+\end{lcode}
+Before doing this, though, you might consider calling \cmd{\savetrivseps} 
+which stores the current values of \lnc{\topsep} and \lnc{\partopsep};
+it is initially defined to store the default values.
+The command \cmd{\restoretrivseps} sets the current values of these
+lengths to the ones saved by \cmd{\savetrivseps}.
+
+\begin{egresult}[Changing space before and after lists]{eg:trivseps}
+\restoretrivseps%% need this because egresult env reduces the trivseps
+This example shows that the space around the \topsep=0.5\onelineskip
+\begin{center}
+CENTER AND OTHER LIST ENVIRONMENTS
+\end{center}
+can be minimised by using the \zerotrivseps
+\begin{center}
+\verb?\zerotrivseps? declaration.
+\end{center}
+The normal spacing can be restored by using the \restoretrivseps \topsep=0.5\onelineskip
+\begin{center}
+\verb?\restoretrivseps? command.
+\end{center}
+An alternative is to use the \verb?\centering? macro.
+\end{egresult}
+
+
+\begin{egsource}{eg:trivseps}
+This example shows that the space around the
+\begin{center}
+CENTER AND OTHER LIST ENVIRONMENTS
+\end{center}
+can be minimised by using the \zerotrivseps
+\begin{center}
+\verb?\zerotrivseps? declaration.
+\end{center}
+The normal spacing can be restored by using the \restoretrivseps
+\begin{center}
+\verb?\restoretrivseps? command.
+\end{center}
+An alternative is to use the \verb?\centering? macro.
+\end{egsource}
+
+%%%%\enlargethispage{\onelineskip}
+Among the environments defined in terms of a \Ie{trivlist} are:
+\Ie{flushleft},
+\Ie{center},
+\Ie{flushright},
+\Ie{verbatim}, and others.
+The example (\ref{eg:trivseps}) shows how it is possible to change the
+spacing around the \Ie{center} environment, but it applies equally to the 
+other environments.
+
+\index{list|)} %|
+
+%#% extend
+%#% extstart include content-lists.tex

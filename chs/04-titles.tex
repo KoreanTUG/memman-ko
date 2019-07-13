@@ -1,0 +1,863 @@
+\chapter{Titles}
+
+   The standard classes provide little in the way of help in setting
+the title page(s) for your work, as the \cmd{\maketitle} command
+is principally aimed at generating a title for an article in a technical
+journal; it provides little for titles for works like theses, reports or
+books. For these I recommend that you design your own title page 
+layout\footnote{If you are producing a thesis you are probably told 
+just how it must look.}
+using the regular \ltx\ commands to lay it out, and ignore \cmd{\maketitle}.
+
+    Quoting from Ruari McLean~\cite[p. 148]{MCLEAN80} in reference to the 
+title page he says:
+\begin{quotation}
+    The title-page states, in words, the actual title (and sub-title, if 
+there is one) of the book and the name of the author and publisher, and
+sometimes also the number of illustrations, but it should do more than that.
+From the designer's point of view, it is the most important page in the
+book: it sets the style. It is the page which opens communication with the
+reader\ldots
+
+    If illustrations play a large part in the book, the title-page opening 
+should, or may, express this visually. If any form of decoration is used 
+inside the book, e.g., for chapter openings, one would expect this to be
+repeated or echoed on the title-page.
+
+    Whatever the style of the book, the title-page should give a foretaste
+of it. If the book consists of plain text, the title-page should at least 
+be in harmony with it. The title itself should not exceed the width of the
+type area, and will normally be narrower\ldots
+\end{quotation}
+
+    A pastiche of McLean's title page is shown in \fref{figure:titleTH}.
+
+\begin{figure}
+\centering
+\begin{showtitle}
+\titleTH
+\end{showtitle}
+\caption{Layout of a title page for a book on typography}\label{figure:titleTH}
+\end{figure}
+
+
+\begin{comment}
+Figures~\ref{fig:titleTH} and~\ref{fig:titleDB}, for example, 
+show title pages created using normal \ltx, without bothering 
+with \cmd{\maketitle}.
+\end{comment}
+
+   The typeset format of the \cmd{\maketitle} command is virtually fixed
+within the \ltx\ standard classes. This class
+provides a set of formatting commands that can be used to modify
+the appearance of the title\index{title} information; that is, the contents of
+the \cmd{\title}, \cmd{\author} and \cmd{\date} commands. 
+It also keeps the values
+of these commands so that they may be printed again later in the
+document.
+   The class also inhibits the normal automatic cancellation of titling
+commands after \cmd{\maketitle}. This means that you can have multiple
+instances of the same, or perhaps different, titles in one document;
+for example on a half title page\index{half-title page} and the
+full title page\index{title page}.
+Hooks are provided so that additional titling elements can be defined
+and printed by \cmd{\maketitle}.
+  The \cmd{\thanks} command is enhanced to provide various configurations
+for both the marker symbol and the layout of the thanks\index{thanks} notes.
+
+\begin{figure}
+\centering
+\begin{showtitle}
+\titleDS
+\end{showtitle}
+\caption{Example of a mandated title page style for a doctoral thesis}\label{figure:titleDS}
+\end{figure}
+
+\begin{figure}%\setlength{\unitlength}{1pt}
+\centering
+%\begin{showtitle}
+{\titleRB}
+%\end{showtitle}
+\caption{Example of a Victorian title page}\label{figure:titleRB}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{showtitle}
+\titleDB
+\end{showtitle}
+\caption{Layout of a title page for a book on book design}\label{figure:titleDB}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{showtitle}
+\titleGM
+\end{showtitle}
+\caption{Layout of a title page for a book about books}\label{figure:titleGM}
+\end{figure}
+
+    Generally speaking, if you want anything other than minor variations
+on the \cmd{\maketitle} layout then it is better to ignore \cmd{\maketitle}
+and take the whole layout into your own hands so you can place everthing 
+just where you want it on the page.
+
+\section{Styling the titling}
+
+
+\index{title!styling|(}
+
+   The facilities provided for typesetting titles are limited, essentially
+catering for the kind of titles of articles published in technical journals.
+They can also be used as a quick and dirty method for typesetting titles
+on reports, but for serious work, such as a title page for a book or thesis,
+each title page\index{title page} should be handcrafted. 
+For instance, a student of mine, Donald Sanderson\index{Sanderson, Donald}
+used \ltx\ to typeset his doctoral thesis, and \fref{figure:titleDS} shows 
+the title page style mandated by Rensselear Polytechnic Institute as of 1994.
+Many other examples of title pages, together with the code to create them,
+are in~\cite{TITLEPAGES}.
+
+    Another handcrafted title page\index{title page} from~\cite{TITLEPAGES} is 
+shown in \fref{figure:titleRB}. This one is based on an old booklet I found 
+that was 
+published towards the end of the 19th century and exhibits the love of 
+Victorian printers in displaying a variety of types; the rules are
+an integral part of the title page. For the purposes of this manual I 
+have used New Century\index{New Century Schoolbook} Schoolbook, which 
+is part of the regular
+\ltx\ distribution, rather than my original choice of 
+Century Old Style\index{Century Old Style}
+which is one of the commercial FontSite\index{FontSite} fonts licensed from 
+the 
+SoftMaker/ATF library, supported for \ltx\ through 
+Christopher\index{League, Christopher}
+League's estimable work~\cite{TEXFONTSITE}.
+
+    The title page in \fref{figure:titleDB} follows the style of 
+of \textit{The Design of Books}~\cite{ADRIANWILSON93}
+and a page similar to Nicholas Basbanes \textit{A Gentle Madness: Bibliophiles, 
+Bibliomanes, and the Eternal Passion for Books} is illustrated in 
+\fref{figure:titleGM}. These are all from~\cite{TITLEPAGES} and handcrafted.
+
+In contrast the following code produces the standard \cmd{\maketitle} layout.
+
+\begin{egsource}{eg:maketitle}
+\title{MEANDERINGS}
+\author{T. H. E. River \and
+        A. Wanderer\thanks{Supported by a grant from the 
+        R. Ambler's Fund}\\
+        Dun Roamin Institute, NY}
+\date{1 April 1993\thanks{First drafted on 29 February 1992}}
+...
+\maketitle
+\end{egsource}
+
+\begin{egresult}[Example \cs{maketitle} title]{eg:maketitle}
+%\begin{figure}
+%\centering
+%\caption{Example \cs{maketitle} title} \label{fig:maketitle}
+%\rule{\textwidth}{0.4pt}
+%
+%\vspace*{2ex}
+\begin{center}
+\vspace{0.5\onelineskip}
+\begin{minipage}{0.75\textwidth}
+\begin{center}
+{\Large MEANDERINGS} \\
+\vspace*{2ex}
+T. H. E. River and A. Wanderer\textsuperscript{*} \\
+Dun Roamin Institute, NY \\
+\vspace*{2ex}
+1 April 1993\textsuperscript{\dag}
+\begin{displaymath}
+\vdots
+\end{displaymath}
+\end{center}
+\begin{footnotesize}
+\rule{0.3\textwidth}{0.4pt} \\
+\noindent
+\textsuperscript{*} Supported by a grant from the R. Ambler's Fund \\
+\textsuperscript{\dag} First drafted on 29 February 1992
+\end{footnotesize}
+\end{minipage}
+\vspace{0.75\onelineskip}
+\end{center}
+
+%\rule{\textwidth}{0.4pt}
+%\end{figure}
+\end{egresult}
+
+   This part of the class is a reimplementation of the \Lpack{titling}
+package~\cite{TITLING}.
+
+The class provides a configurable \cmd{\maketitle} command.
+The \cmd{\maketitle} command as defined by the class 
+is essentially
+\begin{lcode}
+\newcommand{\maketitle}{%
+   \vspace*{\droptitle}
+   \maketitlehooka
+   {\pretitle \title \posttitle}
+   \maketitlehookb
+   {\preauthor \author \postauthor}
+   \maketitlehookc
+   {\predate \date \postdate}
+   \maketitlehookd
+   \thispagestyle{title}
+}
+\end{lcode}
+where the \pstyle{title} pagestyle is initially the same as the
+\pstyle{plain} pagestyle.
+The various macros used within \cmd{\maketitle} are described below.
+
+
+\begin{syntax}
+\cmd{\pretitle}\marg{text} \cmd{\posttitle}\marg{text} \\
+\cmd{\preauthor}\marg{text} \cmd{\postauthor}\marg{text} \\
+\cmd{\predate}\marg{text} \cmd{\postdate}\marg{text} \\
+\end{syntax}
+\glossary(pretitle)%
+  {\cs{pretitle}\marg{text}}%
+  {Command processed before the \cs{title} in \cs{maketitle}.} 
+\glossary(posttitle)%
+  {\cs{postitle}\marg{text}}%
+  {Command processed after the \cs{title} in \cs{maketitle}.} 
+\glossary(preauthor)%
+  {\cs{preauthor}\marg{text}}%
+  {Command processed before the \cs{author} in \cs{maketitle}.} 
+\glossary(postauthor)%
+  {\cs{postauthor}\marg{text}}%
+  {Command processed after the \cs{author} in \cs{maketitle}.} 
+\glossary(predate)%
+  {\cs{predate}\marg{text}}%
+  {Command processed before the \cs{date} in \cs{maketitle}.} 
+\glossary(postate)%
+  {\cs{postdate}\marg{text}}%
+  {Command processed after the \cs{date} in \cs{maketitle}.} 
+These six commands each have a single argument, \meta{text},
+which controls the typesetting of the 
+standard elements of the document's \cmd{\maketitle}
+command. The \cmd{\title} is effectively processed between the 
+\cmd{\pretitle} and \cmd{\posttitle} commands; that is, like:
+\begin{lcode}
+{\pretitle \title \posttitle}
+\end{lcode}
+and similarly for the \cmd{\author} and \cmd{\date} commands. The 
+commands are initialised to mimic the normal result of \cmd{\maketitle}
+typesetting in the \Lclass{report} class.
+That is, the default definitions of the commands are:
+\begin{lcode}
+\pretitle{\begin{center}\LARGE}
+\posttitle{\par\end{center}\vskip 0.5em}
+\preauthor{\begin{center}
+           \large \lineskip 0.5em%
+           \begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+\predate{\begin{center}\large}
+\postdate{\par\end{center}}
+\end{lcode}
+
+They can be changed to obtain different effects. For example to get
+a right justified sans-serif title and a left justifed small caps
+date:
+\begin{lcode}
+\pretitle{\begin{flushright}\LARGE\sffamily}
+\posttitle{\par\end{flushright}\vskip 0.5em}
+\predate{\begin{flushleft}\large\scshape}
+\postdate{\par\end{flushleft}}
+\end{lcode}
+
+\begin{syntax}
+\lnc{\droptitle} \\
+\end{syntax}
+\glossary(droptitle)%
+  {\cs{droptitle}}%
+  {Length controlling the position of \cs{maketitle} on the page (default 0pt).}
+ The \cmd{\maketitle} command puts the title at a particular height on the 
+page. 
+ You can change the vertical position of the title via the length
+\lnc{\droptitle}. Giving this a positive value will lower the title and a
+negative value will raise it. The default definition is: 
+\begin{lcode}
+\setlength{\droptitle}{0pt}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\maketitlehooka} \cmd{\maketitlehookb} \\
+\cmd{\maketitlehookc} \cmd{\maketitlehookd} \\
+\end{syntax}
+\glossary(maketitlehooka)%
+  {\cs{maketitlehooka}}%
+  {Hook into \cs{maketitle} applied before the \cs{title}.}
+\glossary(maketitlehookb)%
+  {\cs{maketitlehookb}}%
+  {Hook into \cs{maketitle} applied between the \cs{title} and \cs{author}.}
+\glossary(maketitlehookc)%
+  {\cs{maketitlehookc}}%
+  {Hook into \cs{maketitle} applied between the \cs{author} and \cs{date}.}
+\glossary(maketitlehookd)%
+  {\cs{maketitlehookd}}%
+  {Hook into \cs{maketitle} applied after the \cs{date}.}
+ These four hook commands are provided so that additional elements may
+be added to \cmd{\maketitle}. These are initially defined to do nothing
+but can be renewed. For example, some publications
+want a statement about where an article is published immediately
+before the actual titling text. The following defines a command
+\cmd{\published} that can be used to hold the publishing information
+which will then be automatically printed by \cmd{\maketitle}.
+\begin{lcode}
+\newcommand{\published}[1]{%
+   \gdef\puB{#1}}
+\newcommand{\puB}{}
+\renewcommand{\maketitlehooka}{%
+   \par\noindent \puB}
+\end{lcode}
+You can then say:
+\begin{lcode}
+\published{Originally published in 
+          \textit{The Journal of ...}\thanks{Reprinted with permission}}
+...
+\maketitle
+\end{lcode}
+to print both the published and the normal titling information. Note
+that nothing extra had to be done in order to use the \cmd{\thanks} command
+in the argument to the new \cmd{\published} command.
+
+\index{title page|(}
+
+\begin{syntax}
+\senv{titlingpage} text \eenv{titlingpage} \\
+\senv{titlingpage*} text \eenv{titlingpage*}\\
+\cmd{\titlingpageend}\marg{twoside code}\marg{oneside code} 
+\end{syntax}
+\glossary(titlingpage)%
+  {\senv{titlingpage}}%
+  {Environment for a title page, resets the page counter to 1 after it}
+\glossary(titlingpage*)%
+  {\senv{titlingpage*}}%
+  {Like \senv{titlingpage}, but does not reset the page counter.}%
+\glossary(titlingpageend)%
+  {\cs{titlingpageend}}%
+  {Can be used to set what kind of page clearing is issued at the end
+    of a titling page. The default for the two args are
+    \cs{cleardoublepage} and \cs{clearpage}.}
+When one of the standard classes is used with the \Lopt{titlepage}
+option, \cmd{\maketitle} puts the title elements on an unnumbered page
+and then starts a new page numbered page 1. 
+The standard classes also provide
+a \Ie{titlepage} environment which starts a new unnumbered page and at the
+end starts a new page numbered 1. You are entirely responsible
+for specifying exactly what and where is to go on this title page.
+If \cmd{\maketitle} is used  within the \Ie{titlepage} environment it
+will start yet another page.
+
+   This class provides neither a \Lopt{titlepage} option nor
+a \Ie{titlepage} environment; instead it provides the \Ie{titlingpage}
+environment which falls between the \Lopt{titlepage}
+option and the \Ie{titlepage} environment. Within the \Ie{titlingpage}
+environment you can use the \cmd{\maketitle} command, and any others 
+you wish. The \pstyle{titlingpage} pagestyle is used, and 
+at the end it starts another ordinary page numbered one
+(\senv{titlingpage*} does note reset the page number). 
+The \pstyle{titlingpage} pagestyle is initially defined to be the same
+as the \pstyle{empty} pagestyle.
+
+At the end of a \Ie{titlingpage} clearing code is issued, which can
+send you to the next page or the next right handed page. Using
+\cmd{\titlingpageend}\marg{twoside code}\marg{oneside code}, you can
+specify what this clearing code should be. The default is
+\cs{cleardoublepage} and \cs{clearpage} respectively.\footnote{Thus
+  this refactorization will not change existing documents, LM, 2018/03/06.} However a
+better choice might be to just let it follow \cs{clearforchapter}:
+\begin{lcode}
+  \titlingpageend{\clearforchapter}{\clearforchapter}
+\end{lcode}
+-- using this value, \Ie{titlingpage} will work as expected with \Lopt{openany}.
+
+
+   For example, to put both the title and an abstract\index{abstract} 
+on a title page,
+with a \pstyle{plain} pagestyle:
+\begin{lcode}
+\begin{document}
+\begin{titlingpage}
+\aliaspagestyle{titlingpage}{plain}
+\setlength{\droptitle}{30pt} lower the title
+\maketitle
+\begin{abstract}...\end{abstract}
+\end{titlingpage}
+\end{lcode}
+
+However, it is not required to use \senv{titlingpage} to create a
+title page, you can use regular \ltx\ typesetting without any special
+environment.  That is like:
+\begin{lcode}
+\pagestyle{empty}
+%%% Title, author, publisher, etc.,  here
+\cleardoublepage
+...
+\end{lcode}
+
+   By default, titling information is centered with respect to the
+width of the typeblock\index{typeblock}.
+   Occasionally someone asks on the \texttt{comp.text.tex} newsgroup how
+to center the titling information on a title page 
+with respect to the width of the physical 
+page. If the typeblock\index{typeblock} is centered with respect to the physical page,
+then the default centering suffices. If the typeblock\index{typeblock} is not physically
+centered, then the titling information either has to be shifted 
+horizontally or \cmd{\maketitle} has to be made to think that the typeblock\index{typeblock}
+has been shifted horizontally. The simplest solution is to use the
+\cmd{\calccentering} and \Ie{adjustwidth*} command and environment. For
+example:
+\begin{lcode}
+\begin{titlingpage}
+  \calccentering{\unitlength}
+  \begin{adjustwidth*}{\unitlength}{-\unitlength}
+    \maketitle
+  \end{adjustwidth*}
+\end{titlingpage}
+\end{lcode}
+
+\index{title page|)}
+
+\begin{syntax}
+\cmd{\title}\marg{text} \cmd{\thetitle} \\
+\cmd{\author}\marg{text} \cmd{\theauthor} \\
+\cmd{\date}\marg{text} \cmd{\thedate} \\
+\end{syntax}
+\glossary(title)
+  {\cs{title}\marg{text}}%
+  {Used by \cs{maketitle} to typeset \meta{text} as the document  title.}
+\glossary(thetitle)
+  {\cs{thetitle}}%
+  {Copy of \meta{text} from \cs{title}.}
+\glossary(author)
+  {\cs{author}\marg{text}}%
+  {Used by \cs{maketitle} to typeset \meta{text} as the document author.}
+\glossary(theauthor)
+  {\cs{theauthor}}%
+  {Copy of \meta{text} from \cs{author}.}
+\glossary(date)
+  {\cs{date}\marg{text}}%
+  {Used by \cs{maketitle} to typeset \meta{text} as the document date.}
+\glossary(thedate)
+  {\cs{thedate}}%
+  {Copy of \meta{text} from \cs{date}.}
+
+   In the usual document classes, the contents (\meta{text}) of
+the \cmd{\title}, \cmd{\author} and \cmd{\date}
+macros used for \cmd{\maketitle} are unavailable once \cmd{\maketitle} 
+has been
+issued. The class provides the \cmd{\thetitle},
+\cmd{\theauthor} and \cmd{\thedate} commands that can be used for printing
+these elements of the title later in the document, 
+if desired. 
+
+\begin{syntax}
+\cmd{\and} \cmd{\andnext} \\
+\end{syntax}
+\glossary(and)%
+  {\cs{and}}%
+  {Use within the argument to \cs{author} to separate author's names.}
+\glossary(andnext)%
+  {\cs{andnext}}%
+  {Use within the argument to \cs{author} to insert a newline..}
+   The macro \cmd{\and} is used within the argument to the
+\cmd{\author} command to add some extra space between the author's names.
+The class \cmd{\andnext} macro inserts a newline instead of a space.
+Within the \cmd{\theauthor} macro both \cmd{\and} and \cmd{\andnext}
+are replaced by a comma.
+
+   The class does not follow the standard classes' habit
+of automatically killing the titling
+commands after \cmd{\maketitle} has been issued. You can have multiple
+\cmd{\title}, \cmd{\author}, \cmd{\date} and \cmd{\maketitle} 
+commands in your
+document if you wish. For example, some reports are issued with
+a title page, followed by an executive summary, and then they
+have another, possibly modified, title at the start of
+the main body of the report. This can be accomplished like this:
+\begin{lcode}
+\title{Cover title}
+...
+\begin{titlingpage}
+\maketitle
+\end{titlingpage}
+...
+\title{Body title}
+\maketitle
+...
+\end{lcode}
+
+\begin{syntax}
+\cmd{\killtitle} \cmd{\keepthetitle} \\
+\cmd{\emptythanks} \\
+\end{syntax}
+\glossary(killtitle)%
+  {\cs{killtitle}}%
+  {Makes all aspects of \cs{maketitle} unavailable.}
+\glossary(keepthetitle)%
+  {\cs{keepthetitle}}%
+  {Makes most aspects of \cs{maketitle} unavailable but keeps \cs{thetitle},
+  \cs{theauthor} and \cs{thedate}.}
+\glossary(emptythanks)%
+  {\cs{emptythanks}}%
+  {Discards any text from previous uses of \cs{thanks}.}
+    The \cmd{\killtitle} macro makes all aspects of titling, including
+\cmd{\thetitle} etc.,
+unavailable from the point that it is issued (using this command will save
+some macro space if the \cmd{\thetitle}, etc., commands are not required).
+Using this command is the class's manual version
+of the automatic killing performed by the standard classes.
+The \cmd{\keepthetitle} command performs a similar function, except that
+it keeps the \cmd{\thetitle}, \cmd{\theauthor} and \cmd{\thedate} commands,
+ while killing everything else.
+
+The \cmd{\emptythanks} command discards any text from prior use of 
+\cmd{\thanks}.
+This command is useful when \cmd{\maketitle} is used multiple times ---
+the \cmd{\thanks} commands in each use just stack up the texts for output
+at each use, so each subsequent use of \cmd{\maketitle} will output all 
+previous \cmd{\thanks} texts together with any new ones. To avoid this,
+put \cmd{\emptythanks} before each \cmd{\maketitle} after the first.
+
+\index{title!styling|)}
+
+
+\section{Styling the thanks} \label{sec:thanks}
+
+\index{thanks}
+\index{thanks!styling|(}
+
+    The class provides a configurable \cmd{\thanks} command.
+
+\begin{syntax}
+\cmd{\thanksmarkseries}\marg{format} \\
+\cmd{\symbolthanksmark} \\
+\end{syntax}
+\glossary(thanksmarkseries)%
+  {\cs{thanksmarkseries}\marg{format}}%
+  {Thanks marks will be printed using \meta{format} series of symbols.}
+\glossary(symbolthanksmark)%
+  {\cs{symbolthanksmark}}
+  {Set the thanks marks to be printed using the footnote series of symbols.}
+ Any \cmd{\thanks} are marked with symbols in the 
+titling and footnotes\index{footnote}.
+The command \cmd{\thanksmarkseries} 
+can be used to change the marking style. The \meta{format} argument
+is the name of one of the formats for printing a counter. The name 
+is the same as that of a counter format but without the backslash.
+To have the \cmd{\thanks} marks as lowercase letters instead of symbols 
+do:
+\begin{lcode}
+\thanksmarkseries{alph}
+\end{lcode}
+Just for convenience the \cmd{\symbolthanksmark} command sets the series
+to be footnote\index{footnote} symbols.
+Using this class the potential names for \meta{format} are:
+\texttt{arabic}, \texttt{roman}, \texttt{Roman}, \texttt{alph}, 
+\texttt{Alph}, and \texttt{fnsymbol}. 
+
+\begin{syntax}
+\cmd{\continuousmarks} \\
+\end{syntax}
+\glossary(continuousmarks)%
+  {\cs{continuousmarks}}%
+  {Specifies that the thanks/footnote marker is not zeroed after titling.}
+The \cmd{\thanks} command uses the \Icn{footnote} counter, 
+and normally the counter
+is zeroed after the titling so that the footnote marks\index{footnote!mark} start from 1.
+If the counter should not be zeroed, then just specify 
+\cmd{\continuousmarks}.
+This might be required if numerals are used as the thanks markers.
+
+\begin{syntax}
+\cmd{\thanksheadextra}\marg{pre}\marg{post} \\
+\end{syntax}
+\glossary(thanksheadextra)%
+  {\cs{thanksheadextra}\marg{pre}\marg{post}}%
+  {Inserts \meta{pre} and \meta{post} before and after thanks markers
+   in the titling code.}
+The \cmd{\thanksheadextra} command will insert
+\meta{pre} and \meta{post} before and after the thanks markers in the
+titling block. By default \meta{pre} and \meta{post} are empty.
+For example, to put parentheses round the titling markers do:
+\begin{lcode}
+\thanksheadextra{(}{)}
+\end{lcode}
+
+
+\begin{syntax}
+\cmd{\thanksmark}\marg{n} \\
+\end{syntax}
+\glossary(thanksmark)%
+  {\cs{thanksmark}\marg{n}}%
+  {Prints a thanks mark identical to the n'th (previously) printed mark.}
+It is sometimes desireable to have the same thanks text be applied to,
+say, four out of six authors, these being the first 3 and the last one.
+The command \cmd{\thanksmark}\marg{n} is similar to 
+\cmd{\footnotemark}\oarg{n} in that it prints a thanks mark identical
+to that of the \meta{n}'th  \cmd{\thanks} command. No changes are made
+to any thanks in the footnotes\index{footnote}. For instance, in the following
+the authors Alpha and Omega will have the same mark:
+\begin{lcode}
+\title{The work\thanks{Draft}}
+\author{Alpha\thanks{ABC},
+        Beta\thanks{XYZ} and 
+        Omega\thanksmark{2}} 
+\maketitle
+\end{lcode}
+
+%\begin{syntax}
+%\cmd{\thanksgap}\marg{length} \\
+%\end{syntax}
+%The marks in the titling block printed by the 
+%\cmd{\thanks} and \cmd{\thanksmark}
+%commands take zero space. This is acceptable if they come at the end of
+%a line, but not in the middle of a line. Use the 
+%\cmd{\thanksgap} command immediately after a mid-line
+%\cmd{\thanks} or \cmd{\thanksmark} command to add \meta{length} amount of
+%space before the next word. For example, if there are three authors
+%from two different institutions:
+%\begin{lcode}
+%\author{Alpha\thanks{ABC},
+%        Omega\thanks{XYZ}\thanksgap{1ex} and 
+%        Beta\thanksmark{1}} 
+%\end{lcode}
+
+\begin{syntax}
+\cmd{\thanksmarkstyle}\marg{defn} \\
+\end{syntax}
+\glossary(thanksmarkstyle)%
+  {\cs{thanksmarkstyle}\marg{defn}}%
+  {Sets the style for the thanks marks at the foot.}
+By default the thanks mark at the foot is typeset as a superscript. In
+the class this is specifed via
+\begin{lcode}
+\thanksmarkstyle{\textsuperscript{#1}}
+\end{lcode}
+where \verb?#1? will be replaced by the thanks mark symbol. You can change
+the mark styling
+if you wish. For example, to put parentheses round the
+mark and typeset it at normal size on the baseline:
+\begin{lcode}
+\thanksmarkstyle{(#1)}
+\end{lcode}
+
+
+\begin{syntax}
+\lnc{\thanksmarkwidth} \\
+\end{syntax}
+\glossary(thanksmarkwidth)%
+  {\cs{thanksmarkwidth}}%
+  {Width of box for the thanks marks at the foot.}
+ The thanks mark in the footnote\index{footnote} is typeset right justified in a box
+of width \lnc{\thanksmarkwidth}. The first line of the thanks text starts
+after this box. The initialisation is 
+\begin{lcode}
+\setlength{\thanksmarkwidth}{1.8em}
+\end{lcode}
+giving the default position.
+
+\begin{syntax}
+\lnc{\thanksmarksep} \\
+\end{syntax}
+\glossary(thanksmarksep)%
+  {\cs{thanksmarksep}}%
+  {Indentation of second and subsequent thanks text lines at the foot.}
+The value of the length
+ \lnc{\thanksmarksep} controls the indentation the
+second and subsequent lines of the thanks text, with respect to
+the end of the mark box. As examples: 
+\begin{lcode}
+\setlength{\thanksmarksep}{0em}
+\end{lcode}
+ will align the left hand ends of of a multiline thanks text, while: 
+\begin{lcode}
+\setlength{\thanksmarksep}{-\thanksmarkwidth}
+\end{lcode}
+will left justify any second and subsequent lines of the thanks text. 
+This last
+setting is the initialised value, giving the default appearance.
+
+\begin{syntax}
+\cmd{\thanksfootmark} \\
+\end{syntax}
+\glossary(thanksfootmark)%
+  {\cs{thanksfootmark}}%
+  {Typesets a thanks mark at the foot.}
+    A thanks mark in the footnote\index{footnote} region is typeset by \cmd{\thanksfootmark}.
+The code for this is roughly:
+\LMnote{2012/07/02}{Text changed to reflect the actual code}
+\begin{lcode}
+\newcommand{\thanksfootmark}{%
+  \hbox to\thanksmarkwidth{\hfil\normalfont%
+     \thanksscript{\thefootnote}}}
+\end{lcode}
+You should not need to change the definition
+of \cmd{\thanksfootmark} 
+but you may want to change the default definitions of one or more
+of the macros it uses.
+
+\begin{syntax}
+\cmd{\thanksscript}\marg{text} \\
+\end{syntax}
+\glossary(thanksfootmark)%
+  {\cs{thanksfootmark}}%
+  {Handle the inner part of the thanks mark at the foot.}
+This is initially defined as: 
+\begin{lcode}
+\newcommand{\thanksscript}[1]{\textsuperscript{#1}}
+\end{lcode}
+so that \cmd{\thanksscript} typesets its argument as a superscript, which
+is the default for thanks notes.
+
+
+
+\begin{comment}
+
+\begin{syntax}
+\cmd{\thanksscript}\marg{text} \\
+\end{syntax}
+Note that the thanks mark, together with the \verb?\...pre? and \verb?\...post?
+commands form the \meta{text} argument to the \cmd{\thanksscript} command. 
+This is initially defined as: 
+\begin{lcode}
+\newcommand{\thanksscript}[1]{\textsuperscript{#1}}
+\end{lcode}
+so that \cmd{\thanksscript} typesets its argument as a superscript, which
+is the default for thanks notes. If you would prefer the mark to be
+set at the baseline instead, for example, just do: 
+\begin{lcode}
+\renewcommand{\thanksscript}[1]{#1}
+\end{lcode}
+ and if you also wanted very small symbols on the baseline you could do:
+\begin{lcode}
+\renewcommand{\thanksscript}[1]{\tiny #1}
+\end{lcode}
+
+Alternatively 
+\begin{lcode}
+\renewcommand{\thanksscript}[1]{#1}
+\thanksfootextra{\bfseries}{.}
+\end{lcode}
+will give a bold baseline mark followed by a dot.
+
+   Using combinations of these macros you can easily define
+different layouts for the thanks footnotes\index{footnote}. Here are some
+sample, but to shorten them I have ignored any
+\cs{renewcommand}s and \cs{setlength}s, leaving these to be implied
+as necessary.
+\begin{itemize}
+\item Setting \verb?\thanksfootextra{}{\hfill}? left justifies the mark
+    in its box:
+   \begin{itemize}
+   \item \verb?\thanksscript{\llap{#1\space}}}, \verb?\thanksmarkwidth{0em}? and \\
+         \verb?\thanksmargin{0em}? puts the baseline mark in the margin\index{margin}
+         and the text left justified.
+   \item Using \verb?\thanksscript{#1}?, \verb?\thanksmarkwidth{1em}? and \\
+         \verb?\thanksmargin{-\thanksmarkwidth}? makes the baseline mark 
+         and text left adjusted.
+   \item \verb?\thanksscript{#1}?, \verb?\thanksmarkwidth{1em}? and
+         \verb?\thanksmargin{0em}? puts the baseline mark left adjusted
+         and the text indented and aligned, like this marked
+         sentence is typeset.
+   \end{itemize}
+
+\item Setting \verb?\thanksfootextra{ }? and \verb?\thanksscript{#1}? 
+      right justifies the baseline mark and a space in the mark box:
+   \begin{itemize}
+   \item The normal style is
+         defined by \verb?\thanksmarkwidth{1.8em}? and \\
+         \verb?\thanksmargin{-\thanksmarkwidth}? which put the mark 
+         indented and the text left adjusted, like a normal indented
+         paragraph\index{paragraph!indentation}.
+   \item \verb?\thanksmarkwidth{1.8em}? and
+         \verb?\thanksmargin{0em}? put the mark indented 
+         and the text indented and aligned.
+   \end{itemize}
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%
+
+\begin{syntax}
+\cmd{\makethanksmark} \\
+\cmd{\makethanksmarkhook} \\
+\end{syntax}
+\glossary(makethanksmark)%
+  {\cs{makethanksmark}}%
+  {Typesets the thanks marker and text at the foot.}
+\glossary(makethanksmarkhook)
+  {\cs{makethanksmarkhook}}
+  {Code hook into \cs{makethanksmark}.}
+The macro \cmd{\makethanksmark} typesets both the thanks marker (via
+\cmd{\thanksfootmark}) and the thanks text. You probably will not need
+to change its default definition. Just in case, though, 
+\cmd{\makethanksmark}
+calls the macro \cmd{\makethanksmarkhook} before it does any typesetting.
+The default definition of this is: 
+\begin{lcode}
+\newcommand{\makethanksmarkhook}{}
+\end{lcode}
+which does nothing.
+
+   You can redefine \cmd{\makethanksmarkhook} to do something useful. For
+example, if you wanted a slightly bigger baseline skip you could do:
+\begin{lcode}
+\renewcommand{\makethanksmarkhook}{\fontsize{8}{11}\selectfont}
+\end{lcode}
+where the numbers \texttt{8} and \texttt{11} specify the point size of the font 
+and the baseline skip
+respectively. In this example 8pt is the normal \cmd{\footnotesize} in
+a 10pt document, and 11pt is the baselineskip for \cmd{\footnotesize}
+text in an 11pt document (the normal baseline skip for \cmd{\footnotesize}
+in a 10pt document is 9.5pt);
+adjust these numbers to suit.
+
+\begin{syntax}
+\cmd{\thanksrule} \\
+\cmd{\usethanksrule} \\
+\cmd{\cancelthanksrule} \\
+\end{syntax}
+\glossary(thanksrule)%
+  {\cs{thanksrule}}%
+  {The rule to be typeset before the thanks in the foot.}
+\glossary(usethanksrule)%
+  {\cs{usethanksrule}}%
+  {Specifies that the \cs{thanksrule} is to be typeset in the 
+   \texttt{titlingpage} environment.}
+\glossary(cancelthanksrule)%
+  {\cs{cancelthanksrule}}%
+  {Specifies that the \cs{footnoterule} is to be used from now on.}
+By default, there is no rule above \cmd{\thanks}
+text that appears in a \Ie{titlingpage} environment.
+If you want a rule in that environment, put \cmd{\usethanksrule} 
+before the \cmd{\maketitle} command, which will then print a rule according
+to the current definition of \cmd{\thanksrule}.
+\cmd{\thanksrule} is initialised to be a copy of \cmd{\footnoterule} as it 
+is defined at the
+end of the preamble\index{preamble}. The definition of \cmd{\thanksrule} can be changed
+after \verb?\begin{document}?. If the definition of \cmd{\thanksrule} is modified
+and a \cmd{\usethanksrule} command has been issued, then the redefined
+rule may also be used for footnotes\index{footnote}. Issuing the command 
+\cmd{\cancelthanksrule} will cause the normal \cmd{\footnoterule} definition
+to be used from thereon; another \cmd{\usethanksrule}
+command can be issued later
+if you want to swap back again.
+
+The parameters for the vertical positioning of footnotes\index{footnote} 
+and thanks notes, and the default \cmd{\footnoterule} are the same
+(see \fref{fig:fn} on \pref{fig:fn}).
+You will have to change one or more of these if the vertical spacings of 
+footnotes\index{footnote}
+and thanks notes are meant to be different.
+
+\index{thanks!styling|)}
+
+%#% extend
+%#% extstart include abstracts.tex

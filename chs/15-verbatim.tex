@@ -1,0 +1,1997 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Boxes, verbatims and files} \label{chap:bvf}\label{chap:boxes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    The title of this chapter indicates that it deals with three 
+disconnected topics, but there is method in the seeming peculiarity.
+By the end of the chapter you will be able to write \ltx\ code that
+lets you put things in your document source at one place and have them
+typeset at a different place, or places. For example, if you are writing
+a text book that includes questions and answers then you could write 
+a question and answer together yet have the answer typeset at the
+end of the book. 
+
+    Writing in one place and printing in another is based on outputting
+stuff to a file\index{file!write} and then inputting 
+it\index{file!read} for processing at another place 
+or time. This is just how \ltx\ produces the \toc. It is often important
+when writing to a file that \ltx\ does no processing of any macros, which
+implies that we need to be able to write verbatim. One use of verbatim
+in \ltx\ is to typeset computer code or the like, and to clearly
+distinguish the code from the main text it is often typeset within a box.
+Hence the chapter title.
+
+    The class extends the kinds of boxes\index{box} normally provided, 
+extends the default verbatims\index{verbatim}, and provides a simple means 
+of writing\index{file!write} and reading\index{file!read} files.
+
+    One problem with verbatims\index{verbatim!in argument} is that they 
+can not be used as part of
+an argument to a command. For example to typeset something in a 
+framed\index{frame!minipage}
+\Ie{minipage} the obvious way is to use the \Ie{minipage} as the argument
+to the \cmd{\fbox} macro:
+\begin{lcode}
+\fbox{\begin{minipage}{6cm} 
+      Contents of framed minipage 
+      \end{minipage}}
+\end{lcode}
+This works perfectly well until the contents includes some verbatim
+material, whereupon you will get nasty 
+error\index{\cs{verb} illegal in command argument} messages. However this 
+particular conundrum is solvable, even if the solution is not particularly
+obvious. Here it is.
+
+    We can put things into a box, declared via \cmd{\newsavebox}, and typeset
+the contents of the box later via \cmd{\usebox}. The most common way
+of putting things into a save box is by the \cmd{\sbox} or \cmd{\savebox}
+macros, but as the material for saving is one of the arguments to these 
+macros this approach fails. But, \Ie{lrbox} is an environment form of
+\cmd{\sbox}, so it can handle verbatim material. The code below,
+after getting a new save box, defines a new \Ie{framedminipage} 
+environment\index{frame!minipage!verbatim} which is used just 
+like the standard \Ie{minipage}. 
+The \Ie{framedminipage} 
+starts an \Ie{lrbox} environment and then
+starts a \Ie{minipage} environment, after which comes the contents.
+At the end it closes the two environments and calls \cmd{\fbox} with its
+argument being the contents of the saved box \emph{which have already been
+typeset}.
+\begin{lcode}
+\newsavebox{\minibox}
+\newenvironment{framedminipage}[1]{%
+  \begin{lrbox}{\minibox}\begin{minipage}{#1}}%
+  {\end{minipage}\end{lrbox}\fbox{\usebox{\minibox}}}
+\end{lcode}
+
+\vspace{\onelineskip}
+\noindent\textbf{Question 1.} Can you think of any improvements to
+  the definition of the \Ie{framedminipage} environment?
+
+\vspace{\onelineskip}
+\noindent\textbf{Question 2.} An answer to question 1 is at the end of this
+  chapter. Suggest how it was put there.
+
+
+
+\section{Boxes}
+
+\index{box!framed|(}
+\index{frame!box|(}
+
+    \ltx\ provides some commands to put a box round some text. The class
+extends the available kinds of boxes.
+
+
+\begin{syntax}
+\senv{framed} text \eenv{framed} \\
+\senv{shaded} text \eenv{shaded} \\
+\senv{snugshade} text \eenv{snugshade} \\
+%%%%%\cmd{\frameasnormaltrue} \cmd{\frameasnormalfalse} \\
+\end{syntax}
+\glossary(framed)%
+  {\senv{framed}}%
+  {Put a ruled box around the contents of the environment; the box can include
+   pagebreaks.}
+\glossary(shaded)%
+  {\senv{shaded}}%
+  {Put a colored background behind the contents of the environment, which
+   can include pagebreaks. The color extends into the margins a little.}
+\glossary(snugshade)%
+  {\senv{snugshade}}%
+  {Like \Pe{shaded} but does not bleed into the margins.}
+The \Ie{framed}, \Ie{shaded}, and \Ie{snugshade}  
+environments, which were created by Donald Arseneau\index{Arseneau, Donald} 
+as part of his \Lpack{framed} package~\cite{FRAMED},
+put their contents
+into boxes\index{box!include pagebreak} that break across pages. 
+The \Ie{framed} environment delineates
+the box by drawing a rectangular frame. If there is a pagebreak in
+the middle of the box, frames are drawn on both pages.
+
+    The \Ie{shaded} environment typesets the box with a 
+shaded\index{box!shaded background} or
+colored background. This requires the use of the \Lpack{color} 
+package~\cite{COLOR}, which is one of the required \ltx\ packages,
+or the \Lpack{xcolor} package~\cite{XCOLOR}.
+The shading color is \texttt{shadecolor}, which you have to define before
+using the environment. For
+example, to have a light gray background:
+\begin{lcode}
+\definecolor{shadecolor}{gray}{0.9}
+\end{lcode}
+For complete information on this see the documentation for the
+\Lpack{color} or \Lpack{xcolor} packages, or one of the \ltx\ books like the
+\textit{Graphics Companion}~\cite{GCOMPANION}.
+In the \Ie{snugshaded} environment the box clings more closely to its
+contents than it does in the \Ie{shaded} environment.
+
+\begin{recommended}
+  Since the class was originally written, much have happened in the
+  gfx generating capabilities in LaTeX, especially the popularity of
+  TikZ has provided many more extensive box and graphics generating
+  packages.
+
+  As of 2018 one of the most impressive packages for all sorts of
+  boxes is the \Lpack{tcolorbox} package by Thomas~F.~Sturm.
+\end{recommended}
+
+
+
+%%    Following the declaration \cmd{\frameasnomaltrue}, which is the
+%default, normal paragraphing is used for the framed text. On the
+%%other hand, following the declaration \cmd{\frameasnormalfalse}
+%the paragraphing follows the \Ie{minipage} style layout (i.e.,
+%%no indentation of the first line).
+
+Be aware that the boxes we present in this manual are somewhat
+delicate; they do not work in all circumstances. For example they will
+not work with the \Lpack{multicol} package~\cite{MULTICOL}, and any
+floats or footnotes in the boxes will disappear.
+
+\begin{syntax}
+\lnc{\FrameRule} \lnc{\FrameSep} \lnc{\FrameHeightAdjust} \\
+\end{syntax}
+\glossary(FrameRule)%
+  {\cs{FrameRule}}%
+  {Thickness of the rules around an \Pe{framed} environment.}
+\glossary(FrameSep)%
+  {\cs{FrameSep}}%
+  {Separation between the surrounding box and text in a \Pe{framed} or
+   \Pe{shaded} environment.}
+\glossary(FrameHeightAdjust)%
+  {\cs{FrameHeightAdjust}}%
+  {Height of the top of a frame in a \Pe{framed} environment
+  above the baseline at the top of a page.}
+The \Ie{framed} environment puts the text into an `\cmd{\fbox}' with
+the settings:
+\begin{lcode}
+\setlength{\FrameRule}{\fboxrule}
+\setlength{\FrameSep}{3\fboxsep}
+\end{lcode}
+The macro \cmd{\FrameHeightAdjust} specifies the height of the top of the frame
+above the baseline at the top of a page; its initial definition is:
+\begin{lcode}
+\providecommand*{\FrameHeightAdjust}{0.6em}
+\end{lcode}
+
+\index{frame!box!styling}
+\begin{syntax}
+\cmd{\MakeFramed}\marg{settings} \cmd{\endMakeFramed} \\
+\cmd{\FrameCommand} \cmd{\FrameRestore} \\
+\end{syntax}
+\glossary(MakeFramed)%
+  {\cs{MakeFramed}\marg{settings}}%
+  {The \Pe{MakeFramed} environment is the workhorse for the
+   \Pe{framed}, \Pe{shaded}, etc., environments.
+   The \meta{settings} argument controls the final appearance and
+   should include a \cs{FrameRestore} to reset things back to normal.}
+\glossary(endMakeFramed)%
+  {\cs{endMakeFramed}}%
+  {Ends the \Pe{MakeFramed} environment.}
+\glossary(FrameCommand)%
+  {\cs{FrameCommand}}%
+  {Draws a `frame'.}
+\glossary(FrameRestore)%
+  {\cs{FrameRestore}}%
+  {Restores settings after a `frame'.}
+Internally, the environments are specified using the \Ie{MakeFramed}
+environment. The \meta{setting} should contain any adjustments to the 
+text width
+(applied to \lnc{\hsize} and using the \lnc{\width} of the frame itself)
+and a `restore' command, which is normally the provided \cmd{\FrameRestore}
+macro. The frame itself is drawn via the 
+\cmd{\FrameCommand}, which can be changed to obtain other boxing styles. The
+default definition equates to an \cmd{\fbox} and is:
+\begin{lcode}
+\newcommand*{\FrameCommand}{%
+  \setlength{\fboxrule}{\FrameRule}\setlength{\fboxsep}{\FrameSep}%
+  \fbox}
+\end{lcode}
+For example, the \Ie{framed}, \Ie{shaded} and \Ie{snugshade} environments 
+are defined as
+\begin{lcode}
+\newenvironment{framed}{% % uses default \FrameCommand
+  \MakeFramed{\advance\hsize -\width \FrameRestore}}%
+  {\endMakeFramed}
+\newenvironment{shaded}{% % redefines \FrameCommand as \colorbox
+  \def\FrameCommand{\fboxsep=\FrameSep \colorbox{shadecolor}}%
+  \MakeFramed{\FrameRestore}}%
+  {\endMakeFramed}
+\newenvironment{snugshade}{% A tight version of shaded
+  \def\FrameCommand{\colorbox{shadecolor}}%
+  \MakeFramed{\FrameRestore\@setminipage}}%
+  {\par\unskip\endMakeFramed}
+\end{lcode}
+
+    If you wanted a narrow, centered, framed\index{frame!narrow box} 
+environment you could do something like this:
+\begin{lcode}
+\newenvironment{narrowframed}{%
+  \MakeFramed{\setlength{\hsize}{22pc}\FrameRestore}}%
+  {\endMakeFramed}
+\end{lcode}
+where \texttt{22pc} will be the width of the new framed environment.
+
+
+\begin{syntax}
+\senv{leftbar} text \eenv{leftbar} \\
+\end{syntax}
+\glossary(leftbar)%
+  {\senv{leftbar}}%
+  {Draws a thick vertical line in the left margin alongside the contents 
+   of the environment.}
+
+The \Ie{leftbar} environment draws a thick vertical line at the 
+left\index{rule!in margin} of the text. It is defined as
+\begin{lcode}
+\newenvironment{leftbar}{%
+  \def\FrameCommand{\vrule width 3pt \hspace{10pt}}%
+  \MakeFramed{\advance\hsize -\width \FrameRestore}}%
+  {\endMakeFramed}
+\end{lcode}
+
+    By changing the \meta{setting} for \cmd{\MakeFramed} and the
+definition of \cmd{\FrameCommand} you can obtain a variety of framing
+styles. For instance, to have rounded corners to the 
+frame\index{frame!rounded corners} instead of
+the normal sharp ones, you can use the \Lpack{fancybox} 
+package~\cite{FANCYBOX} and the following code:
+\begin{lcode}
+\usepackage{fancybox}
+\newenvironment{roundedframe}{%
+  \def\FrameCommand{%
+    \cornersize*{20pt}%
+    \setlength{\fboxsep}{5pt}%
+    \ovalbox}%
+  \MakeFramed{\advance\hsize-\width \FrameRestore}}%
+  {\endMakeFramed}
+\end{lcode}
+
+\index{frame!title|(}
+     A framed environment is normally used to distinguish its contents
+from the surrounding text. A title for the environment may be useful, and
+if there was a pagebreak in the middle, a title on the continuation could
+be desireable. Doing this takes a bit more work than I have shown so far.
+This first part was inspired by a posting to \ctt\ by 
+Donald Arseneau\index{Arseneau, Donald}.\footnote{On 2003/10/24 in the thread
+\textit{framed.sty w/heading?}. The particulars are no longer applicable as 
+the framing code in question then has since been revised.}.
+\PWnote{2009/06/25}{Rewrote section and code for titled frames.}
+\begin{comment}
+This first part is from a posting to \ctt\ by 
+Donald Arseneau\index{Arseneau, Donald}.\footnote{On 2003/10/24 in the thread
+\textit{framed.sty w/heading?}}.
+
+\begin{lcode}
+\newcommand{\FrameTitle}[2]{%
+  \fboxrule=\FrameRule \fboxsep=\FrameSep
+  \fbox{\vbox{\nobreak \vskip -0.7\FrameSep
+    \rlap{\strut#1}\nobreak\nointerlineskip% left justified
+    \vskip 0.7\FrameSep
+    \hbox{#2}}}}
+\newenvironment{framewithtitle}[2][\FrameFirst@Lab\ (cont.)]{%
+  \def\FrameFirst@Lab{\textbf{#2}}%
+  \def\FrameCont@Lab{\textbf{#1}}%
+  \def\FrameCommand##1{%
+    \FrameTitle{\FrameCurrent@Lab}{##1}%
+    \global\let\FrameCurrent@Lab\FrameNext@Lab
+    \global\let\FrameNext@Lab\FrameCont@Lab
+  }%
+  \global\let\FrameCurrent@Lab\FrameFirst@Lab
+  \global\let\FrameNext@Lab\FrameFirst@Lab
+  \MakeFramed{\advance\hsize-\width \FrameRestore}}%
+  {\endMakeFramed}
+\end{lcode}
+\end{comment}
+
+\begin{lcode}
+\newcommand{\FrameTitle}[2]{%
+  \fboxrule=\FrameRule \fboxsep=\FrameSep
+  \fbox{\vbox{\nobreak \vskip -0.7\FrameSep
+    \rlap{\strut#1}\nobreak\nointerlineskip% left justified
+    \vskip 0.7\FrameSep
+    \hbox{#2}}}}
+\newenvironment{framewithtitle}[2][\FrameFirst@Lab\ (cont.)]{%
+  \def\FrameFirst@Lab{\textbf{#2}}%
+  \def\FrameCont@Lab{\textbf{#1}}%
+  \def\FrameCommand##1{%
+    \FrameTitle{\FrameFirst@Lab}{##1}}%
+  \def\FirstFrameCommand##1{%
+    \FrameTitle{\FrameFirst@Lab}{##1}}%
+  \def\MidFrameCommand##1{%
+    \FrameTitle{\FrameCont@Lab}{##1}}%
+  \def\LastFrameCommand##1{%
+    \FrameTitle{\FrameCont@Lab}{##1}}%
+  \MakeFramed{\advance\hsize-\width \FrameRestore}}%
+  {\endMakeFramed}
+\end{lcode}
+
+The \Ie{framewithtitle} environment, which is the end goal of this
+exercise, acts like the \Ie{framed} environment except that it puts
+a left-justified title just after the top of the frame box and before the
+regular contents.
+\begin{syntax}
+\senv{framewithtitle}\oarg{cont-title}\marg{title} text \\
+ \eenv{framewithtitle} \\
+\end{syntax}
+The \meta{title} is set in a bold font. If the optional \meta{cont-title}
+argument is given then \meta{cont-title} is used as the title on
+any suceeding pages, otherwise the phrase `\meta{title} (cont.)' is used
+for the continuation title.
+
+    If you would like the titles centered, replace the line 
+marked `left justified' in the code for \cmd{\FrameTitle} with the line:
+\begin{lcode}
+\rlap{\centerline{\strut#1}}\nobreak\nointerlineskip% centered
+\end{lcode}
+
+    The code for the \Ie{frametitle} environment is not obvious. The difficulty
+in creating the environment was that the underlying framing code goes through
+the `stuff' to be framed by first trying to fit it all onto one page 
+(\cs{FrameCommand}). If it does not fit, then it takes as much as will fit
+and typesets that using \cs{FirstFrameCommand}, then tries to typeset the 
+remainder on the next page. If it all fits then it uses \cs{LastFrameCommand}.
+If it doesn't fit, it typesets as much as it can using \cs{MidFrameCommand}, 
+and then tries to set the remainder on the following page. The process repeats
+until all has been set.
+
+    If you would prefer to have the title at the top outside the frame the 
+above code needs adjusting.
+\begin{comment}
+\begin{lcode}
+\newcommand{\TitleFrame}[2]{%
+  \fboxrule=\FrameRule \fboxsep=\FrameSep
+  \vbox{\nobreak \vskip -0.7\FrameSep
+    \rlap{\strut#1}\nobreak\nointerlineskip% left justified
+    \vskip 0.7\FrameSep
+    \noindent\fbox{#2}}}
+\newenvironment{titledframe}[2][\FrameFirst@Lab\ (cont.)]{%
+  \def\FrameFirst@Lab{\textbf{#2}}%
+  \def\FrameCont@Lab{\textbf{#1}}%
+  \def\FrameCommand##1{%
+    \TitleFrame{\FrameCurrent@Lab}{##1}
+    \global\let\FrameCurrent@Lab\FrameNext@Lab
+    \global\let\FrameNext@Lab\FrameCont@Lab
+  }%
+  \global\let\FrameCurrent@Lab\FrameFirst@Lab
+  \global\let\FrameNext@Lab\FrameFirst@Lab
+  \MakeFramed{\hsize\textwidth
+              \advance\hsize -2\FrameRule
+              \advance\hsize -2\FrameSep
+              \FrameRestore}}%
+  {\endMakeFramed}
+\end{lcode}
+\end{comment}
+
+\begin{lcode}
+\newcommand{\TitleFrame}[2]{%
+  \fboxrule=\FrameRule \fboxsep=\FrameSep
+  \vbox{\nobreak \vskip -0.7\FrameSep
+    \rlap{\strut#1}\nobreak\nointerlineskip% left justified
+    \vskip 0.7\FrameSep
+    \noindent\fbox{#2}}}
+\newenvironment{titledframe}[2][\FrameFirst@Lab\ (cont.)]{%
+  \def\FrameFirst@Lab{\textbf{#2}}%
+  \def\FrameCont@Lab{\textbf{#1}}%
+  \def\FrameCommand##1{%
+    \TitleFrame{\FrameFirst@Lab}{##1}}
+  \def\FirstFrameCommand##1{%
+    \TitleFrame{\FrameFirst@Lab}{##1}}
+  \def\MidFrameCommand##1{%
+    \TitleFrame{\FrameCont@Lab}{##1}}
+  \def\LastFrameCommand##1{%
+    \TitleFrame{\FrameCont@Lab}{##1}}
+  \MakeFramed{\hsize\textwidth
+              \advance\hsize -2\FrameRule
+              \advance\hsize -2\FrameSep
+              \FrameRestore}}%
+  {\endMakeFramed}
+\end{lcode}
+
+\begin{syntax}
+\senv{titledframe}\oarg{cont-title}\marg{title} text \eenv{titledframe} \\
+\end{syntax}
+The \Ie{titledframe} environment is identical to \Ie{framewithtitle}
+except that the title is placed just before the frame. Again, if
+you would like a centered title, replace the line marked `left justified'
+in \cmd{\TitleFrame} by
+\begin{lcode}
+\rlap{\centerline{\strut#1}}\nobreak\nointerlineskip% centered
+\end{lcode}
+
+    You can adjust the code for the \Ie{framewithtitle} and \Ie{titledframe}
+environments to suit your own purposes, especially as they are not 
+part of the class so you would have to type them in yourself anyway
+if you wanted to use them, using whatever names you felt suitable.
+
+\index{frame!title|)}
+
+    The class provides two further environments in addition to those
+from the \Lpack{framed} package.
+\begin{syntax}
+\senv{qframe} text \eenv{qframe} \\
+\senv{qshade} text \eenv{qshade} \\
+\end{syntax}
+
+   When used within, say, a \Ie{quotation} environment, the \Ie{framed}
+and \Ie{shaded} environments do not closely box the indented text. The
+\Ie{qframe} and \Ie{qshade} environments do provide close 
+boxing.\footnote{Donald Arseneau has said that he may put something similar
+in a later version the \Ie{framed} package.}
+The difference can be seen in the following \Ie{quotation}.
+
+\begin{quotation}
+This is the start of a \Ie{quotation} environment. It forms the basis showing
+the difference between the \Ie{framed} and \Ie{qframe} environments.
+
+\begin{qframe}
+This is the second paragraph in the \Ie{quotation} environment and in turn it 
+is within the \Ie{qframe} environment.
+\end{qframe}
+
+\begin{framed}
+This is the third paragraph in the \Ie{quotation} environment and in turn it 
+is within the \Ie{framed} environment.
+\end{framed}
+
+This is the fourth and final paragraph within the \Ie{quotation} environment
+and is not within either a \Ie{qfame} or \Ie{framed} environment.
+\end{quotation}
+
+    If you want to put a frame inside an \Ie{adjustwidth} environment
+then you may well find that \Ie{qframe} or \Ie{qshade} meet your
+expections better than \Ie{framed} of \Ie{shaded}. Of course, it does
+depend on what your expectations are.
+
+\index{frame!box|)}
+\index{box!framed|)}
+
+\section{Long comments}
+
+    The \% comment character can be used to comment out (part of) a
+line of \tx\ code, but this gets tedious if you need to comment out
+long chunks of code.
+
+\begin{syntax}
+\senv{comment} text to be skipped over \eenv{comment} \\
+\end{syntax}
+\glossary(comment)%
+  {\senv{comment}}%
+  {Skip over the environment.}
+\index{comment out text}
+As an extreme form of font changing, although it doesn't actually work that 
+way, anything in a \Ie{comment} environment will not appear in the
+document; effectively, \ltx\ throws it all away. This can be useful
+to temporarily discard chunks of stuff instead of having to mark each line
+with the \% comment character. 
+
+\begin{syntax}
+\cmd{\newcomment}\marg{name} \\
+\cmd{\commentsoff}\marg{name} \\
+\cmd{\commentson}\marg{name} \\
+\end{syntax}
+\glossary(newcomment)%
+  {\cs{newcomment}\marg{name}}%
+  {Define a new comment environment called \meta{name}.}
+\glossary(commentsoff)%
+  {\cs{commentsoff}\marg{name}}%
+  {Process contents of the \meta{name} comment environment.}
+\glossary(commentson)%
+  {\cs{commentson}\marg{name}}%
+  {Skip contents of the \meta{name} comment environment.}
+The class lets you define your own comment environment via the 
+\cmd{\newcomment} command which defines a comment environment called
+\meta{name}. In fact the class itself uses \verb?\newcomment{comment}? to
+define the \Ie{comment} environment. A comment environment \meta{name}
+may be switched off so that its contents are not ignored by using the
+\cmd{\commentsoff} declaration. It may be switched on later by the
+\cmd{\commentson} declaration. In either case \meta{name} must have
+been previously declared as a comment environment via \cmd{\newcomment}.
+
+    Suppose, for example, that you are preparing a draft document for 
+review by some others and you want to include some notes for the reviewers.
+Also, you want to include some private comments in the source for yourself.
+You could use the \Ie{comment} environment for your private comments and
+create another environment for the notes to the reviewers. These notes
+should not appear in the final document. Your source might then look like:
+\begin{lcode}
+\newcomment{review}
+\ifdraftdoc\else
+  \commentsoff{review}
+\fi
+...
+\begin{comment}
+Remember to finagle the wingle!
+\end{comment}
+...
+\begin{review}
+\textit{REVIEWERS: Please pay particular attention to this section.}
+\end{review}
+...
+\end{lcode}
+
+    Comment environments cannot be nested, nor can they overlap. 
+The environments in the code below will not work in the manner that might
+be expected:
+\begin{lcode}
+\newcomment{acomment} \newcomment{mycomment}
+\begin{comment}
+  \begin{acomment} %% comments cannot be nested
+  ...
+  \end{acomment}
+  ...
+  \begin{mycomment}
+  ...
+\end{comment}
+...
+  \end{mycomment}  %% comments cannot overlap
+\end{lcode}
+
+    More encompassing \Ie{comment} environments are available if you
+use Victor Eijkhout's \Lpack{comment} package~\cite{COMMENT}.
+
+
+\section{Verbatims}
+
+\index{verbatim|(}
+
+    Standard \ltx\ defines the \cmd{\verb} and \cmd{\verb*} commands
+for typesetting short pieces of text verbatim, short because they
+cannot include a linebreak. For longer verbatim texts the
+\Ie{verbatim} or \Ie{verbatim*} environments can be used. The star forms
+indicate spaces in the verbatim text by outputing a \verb*? ? mark for 
+each space. The class extends the standard verbatims in various ways.
+
+\index{verbatim!short}
+    If you have to write a lot of \cmd{\verb} text, as I have had to do for
+this book, it gets tedious to keep on typing this sort of thing:
+\verb?\verb!verbatim text!?. Remember that the character immediately after
+the \cmd{\verb}, or \cmd{\verb*}, ends the verbatim processing.
+\begin{syntax}
+\cmd{\MakeShortVerb}\marg{backslash-char} \\
+\cmd{\DeleteShortVerb}\marg{backslash-char} \\
+\end{syntax}
+\glossary(MakeShortVerb)%
+  {\cs{MakeShortVerb}\marg{backslash-char}}%
+  {Makes \meta{char} a shorthand for \cs{verb}\meta{char}.}
+\glossary(DeleteShortVerb)%
+  {\cs{DeleteShortVerb}\marg{backslash-char}}%
+  {Returns \meta{char} to its normal meaning instead of being a shorthand 
+   for \cs{verb}\meta{char}.}
+The \cmd{\MakeShortVerb} macro takes a character preceded by a backslash
+as its argument, say \verb?\!?, and makes that character equivalent to 
+\verb?\verb!?. Using the character a second time will stop the verbatim 
+processing.
+Doing, for example \verb?\MakeShortVerb{\!}?, lets you then use 
+\verb?!verbatim text!?
+instead of the longer winded \verb?\verb!verbatim text!?. 
+
+    You have to pick
+as the short verb character one that you are unlikely to use; a good choice
+is often the \verb?|? bar character as this rarely used in normal text.
+This choice, though may be unfortunate if you want to have any tabulars with
+vertical lines, as the bar character is used to specify those. The
+\cmd{\DeleteShortVerb} macro is provided for this contingency; give it the
+same argument as an earlier \cmd{\MakeShortVerb} and it will restore
+the short verb character to its normal state.
+
+    The \cmd{\MakeShortVerb} and \cmd{\DeleteShortVerb} macros come from the
+\Lpack{shortvrb} package which is part of the \ltx\ base system, but I 
+have found them so convenient that I added them to the class.
+
+\begin{syntax}
+\cmd{\setverbatimfont}\marg{font-declaration} \\
+\end{syntax}
+\glossary(setverbatimfont)%
+  {\cs{setverbatimfont}\marg{fontspec}}%
+  {Sets the font to be used for verbatim text.}
+The default font\index{verbatim!changing font} for verbatims is the normal 
+sized monospaced font. The declaration
+\cmd{\setverbatimfont} can be used to specify a different font.
+The class default is 
+\begin{lcode}
+\setverbatimfont{\normalfont\ttfamily}
+\end{lcode}
+To use a smaller version simply say 
+\begin{lcode}
+\setverbatimfont{\normalfont\ttfamily\small}
+\end{lcode}
+
+    A monospaced font is normally chosen as verbatim text is often used 
+to present program code or typewritten text. If you want a more exotic
+font, try this
+\begin{lcode}
+\setverbatimfont{\fontencoding{T1}\fontfamily{cmss}\selectfont}
+\end{lcode}
+and your verbatim text will then look like %%
+\setverbatimfont{\fontencoding{T1}\fontfamily{cmss}\selectfont}
+\begin{verbatim}
+We are no longer using the boring old typewriter font
+for verbatim text. We used the T1 encoding 
+to make sure that characters that are often ligatures
+like ``, or '', or ---, or <, or >, print as expected.
+After this we will switch back to the default verbatim font via
+\setverbatimfont{\normalfont\ttfamily}
+\end{verbatim}
+\setverbatimfont{\normalfont\ttfamily}
+In the normal way of things with an OT1 fontencoding, 
+typesetting the ligatures mentioned above
+in the sans font produces: 
+{\fontencoding{OT1}\fontfamily{cmss}\selectfont ligatures like ``, or '', or ---, or <, or >}, 
+which is not what happens in the \cmd{\verbatim} environment.
+
+
+\begin{syntax}
+\senv{verbatim} anything \eenv{verbatim} \\
+\senv{verbatim*} anything \eenv{verbatim*} \\
+\end{syntax}
+\glossary(verbatim)%
+  {\senv{verbatim}}%
+  {Typeset the contents verbatim.}
+In the \Ie{verbatim} environment\footnote{This version of the \Ie{verbatim}
+environment is heavily based on the \Lpack{verbatim} package~\cite{VERBATIM}
+but does provide some extensions.}
+ you can write anything you want (except
+\eenv{verbatim}), and it will be typeset exactly as written. The \Ie{verbatim*}
+environment is similar except, like with \cmd{\verb*}, spaces will be
+indicated with a \verb*? ? mark.
+
+\begin{syntax}
+\cmd{\tabson}\oarg{number} \\
+\cmd{\tabsoff} \\
+\end{syntax}
+\glossary(tabson)%
+  {\cs{tabson}\oarg{number}}%
+  {Set \meta{number} of spaces in a verbatim for a TAB character;
+   default 4.}
+\glossary(tabsoff)%
+  {\cs{tabsoff}}%
+  {Ignore extra TAB spaces in a verbatim.} 
+\index{verbatim!with tab spaces}
+The standard \Ie{verbatim} environment ignores any TAB characters; with
+the class's environment after calling the \cmd{\tabson} declaration 
+the environment will handle TAB characters. By default 4 spaces are used
+to represent a TAB; the optional \meta{number} argument to the declaration
+will set the number of spaces for a TAB to be \meta{number}.
+Some folk like to use 8 spaces for a TAB, in which case they would need
+to declare \verb?\tabson[8]?. Unremarkably, the declaration \cmd{\tabsoff}
+switches off TABs. The class default is \cmd{\tabsoff}.
+
+\begin{syntax}
+\cmd{\wrappingon} \\
+\cmd{\wrappingoff} \\
+\lnc{\verbatimindent} \\
+\cmd{\verbatimbreakchar}\marg{char} \\
+\end{syntax}
+\glossary(wrappingon)%
+  {\cs{wrappingon}}%
+  {Wrap overlong verbatim lines.}
+\glossary(wrappingoff)%
+  {\cs{wrappingoff}}%
+  {The normal behaviour of not wrapping overlong verbatim lines.}
+\glossary(verbatimindent)%
+  {\cs{verbatimindent}}%
+  {Indent for wrapped overlong verbatim lines.}
+\glossary(verbatimbreakchar)%
+  {\cs{verbatimbreakchar}\marg{char}}%
+  {Character indicating a verbatim line is being wrapped.}
+As noted, whatever is written in a \Ie{verbatim} environment is output
+just as written, even if lines are too long\index{verbatim!wrap long lines} 
+to fit on the page. The
+declaration \cmd{\wrappingon} lets the environment break lines so that they
+do not overflow. The declaration \cmd{\wrappingoff} restores the normal
+behaviour.
+
+    The following is an example of how a wrapped verbatim line looks. In
+the source the contents of the \Ie{verbatim} was written as a single line.
+\wrappingon
+\begin{verbatim}
+This is an example of line wrapping in the verbatim environment. It is a single line in the source and the \wrappingon declaration has been used.
+\end{verbatim}
+\wrappingoff
+
+   The wrapped portion of verbatim lines are indented from the left margin
+by the length \lnc{\verbatimindent}. The value can be changed by the usual
+length changing commands. The end of each line that has been wrapped is marked
+with the \meta{char} character of the \cmd{\verbatimbreakchar} macro.
+The class default is \verb?\verbatimbreakchar{\char`\%}?, so that lines are 
+marked with \verb?%?.
+To put a `/' mark at the end of wrapped lines you can do
+\begin{lcode}
+\setverbatimbreak{\char'\/}
+\end{lcode}
+or similarly if you would like another character. Another possibility
+is
+\begin{lcode}
+\setverbatimchar{\char'\/\char'\*}
+\end{lcode}
+which will make `/*' the end marker.
+
+\subsection{Boxed verbatims}
+
+    Verbatim environments are often used to present program code or, as
+in this book, \ltx\ code. For such applications it can be useful to
+put the code in a box, or to number the code lines, or perhaps both.
+
+\begin{syntax}
+\senv{fboxverbatim} anything \eenv{fboxverbatim} \\
+\end{syntax}
+\glossary(fboxverbatim)%
+  {\senv{fboxverbatim}}%
+  {Puts a frame around the verbatim material. Page breaks are not allowed.}
+The \Ie{fboxverbatim} environment\index{frame!verbatim}\index{verbatim!frame} 
+typesets its contents verbatim and
+puts a tightly fitting frame around the result; in a sense it is similar
+to the \cmd{\fbox} command.
+
+\begin{syntax}
+\senv{boxedverbatim} anything \eenv{boxedverbatim} \\
+\senv{boxedverbatim*} anything \eenv{boxedverbatim*} \\
+\end{syntax}
+\glossary(boxedverbatim)%
+  {\senv{boxedverbatim}}%
+  {May put a box around the verbatim material; lines may be numbered and page
+   breaks are allowed.}
+\glossary(boxedverbatim*)%
+  {\senv{boxedverbatim*}}%
+  {May put a box around the verbatim* material; lines may be numbered and page
+   breaks are allowed.}
+The \Ie{boxedverbatim} and \Ie{boxedverbatim*} environments are like
+the \Ie{verbatim} and \Ie{verbatim*} environments except that a box,
+allowing page breaks, may be put around the verbatim text and the lines
+of text\index{line number} may be numbered.\index{boxed verbatim}\index{numbered lines}
+The particular format of the output can be 
+controlled as described below.
+\begin{syntax}
+\cmd{\bvbox} \cmd{\bvtopandtail} \cmd{\bvsides} \cmd{\nobvbox} \\
+\lnc{\bvboxsep} \\
+\end{syntax}
+\glossary(bvbox)%
+  {\cs{bvbox}}%
+  {Rectangular boxes will be drawn for \Pe{boxedverbatim} environments.}
+\glossary(nobvbox)%
+  {\cs{nobvbox}}%
+  {\Pe{boxedverbatim} environments will not be framed in any way.}
+\glossary(bvtopandtail)%
+  {\cs{bvtopandtail}}%
+  {Draw horizontal rules before and after \Pe{boxedverbatim} environments.}
+\glossary(bvsides)%
+  {\cs{bvsides}}%
+  {Draw vertical rules on each side of \Pe{boxedverbatim} environments.}
+\glossary(bvboxsep)%
+  {\cs{bvboxsep}}%
+  {Separation between text and framing in \Pe{boxedverbatim} environments.}
+Four styles of boxes are provided and you can extend these. Following
+the \cmd{\bvbox} declaration, a box is drawn round the verbatim text, breaking
+at page boundaries if necessary; this is the default style. Conversely,
+no boxes are drawn after the \cmd{\nobvbox} declaration. With the
+\cmd{\bvtopandtail} declaration horizontal lines are drawn at the start and 
+end of the verbatim text, and with the \cmd{\bvsides} declarations, vertical
+lines are drawn at the left and right of the text. The separation between
+the lines and the text is given by the length \lnc{\bvboxsep}.
+
+    The following hooks are provided to set your own 
+boxing\index{frame!verbatim!styling}\index{verbatim!frame!styling} style.
+\begin{syntax}
+\cmd{\bvtoprulehook} \cmd{\bvtopmidhook} \cmd{\bvendrulehook} \\
+\cmd{\bvleftsidehook} \cmd{\bvrightsidehook} \\
+\end{syntax}
+\glossary(bvtoprulehook)%
+  {\cs{bvtoprulehook}}%
+  {Called at the start of a \Pe{boxedverbatim} environment and after a pagebreak.}
+\glossary(bvtopmidhook)%
+  {\cs{bvtopmidhook}}%
+  {Called after \cs{bvtoprulehook} at the start of a \Pe{boxedverbatim} environment.}
+\glossary(bvendrulehook)%
+  {\cs{bvendrulehook}}%
+  {Called at the end of a \Pe{boxedverbatim} environment, and before a pagebreak.}
+\glossary(bvleftsidehook)%
+  {\cs{bvleftsidehook}}%
+  {Called before each line in a \Pe{boxedverbatim} environment.}
+\glossary(bvrightsidehook)%
+  {\cs{bvrightsidehook}}%
+  {Called after each line in a \Pe{boxedverbatim} environment.}
+The macros \cmd{\bvtoprulehook} and \cmd{\bvendrulehook} are called at
+the start and end of the \Ie{boxedverbatim} environment, and before and after
+page breaks. The macros
+\cmd{\bvleftsidehook} and \cmd{\bvrightsidehook} are called at the start
+and end of each verbatim line. The macro \cmd{\bvtopmidhook} is
+called after \cmd{\bvtoprulehook} at the start of the environment.
+It can be used to add some space if \cmd{\bvtoprulehook} is empty.
+
+\begin{syntax}
+\cmd{\bvperpagetrue} \cmd{\bvperpagefalse} \\
+\cmd{\bvtopofpage}\marg{text} \cmd{\bvendofpage}\marg{text} \\
+\end{syntax}
+\glossary(bvperpagetrue)%
+  {\cs{bvperpagetrue}}%
+  {Visibly break a \Pe{boxedverbatim} at a page break using \cs{bvtopofpage}
+   and \cs{bvendofpage}.}
+\glossary(bvperpagefalse)%
+  {\cs{bvperpagefalse}}%
+  {Do not mark page breaks in a \Pe{boxedverbatim}.}
+\glossary(bvtopofpage)%
+  {\cs{bvtopofpage}\marg{text}}%
+  {Use \meta{text} as the \Pe{boxedverbatim} page break marker at the top of 
+   a page.}
+\glossary(bvendofpage)%
+  {\cs{bvendofpage}\marg{text}}%
+  {Use \meta{text} as the \Pe{boxedverbatim} page break marker at the bottom 
+   of a page.}
+The command \cmd{\bvperpagetrue} indicates
+that a box should be visibly broken at a pagebreak, while there should
+be no visible break for \cmd{\bvperpagefalse}. 
+If the box continues on to another page then it may be advantageous
+to place some sort of heading before the verbatim continues. Following
+the declaration \cmd{\bvperpagetrue} the \meta{text} argument to
+\cmd{\bvtopofpage} will be typeset after any pagebreak. For example you
+could set:
+\begin{lcode}
+\bvtopofpage{continued}
+\end{lcode}
+to print `continued' in the normal text font. 
+
+By default, the class sets
+\begin{lcode}
+\bvendofpage{\hrule\kern-.4pt}
+\end{lcode}
+which causes the \cmd{\hrule} to be drawn at the end of a page as the
+visible break (the rule is 0.4pt thick and the kern backs up
+that amount after the rule, so it effectively takes no vertical space).
+This is not always suitable. For instance, if there will be
+a `continued' message at the top of the following page it may seem odd
+to draw a line at the bottom of the previous page. In this case, setting
+\begin{lcode}
+\bvendofpage{}
+\end{lcode}
+will eliminate the rule.
+
+As examples of the use of
+these hooks, here is how some of the boxed verbatim styles are defined.
+
+The default style is \cmd{\bvbox}, 
+which puts separate full boxes on each page. 
+\begin{lcode}
+\newcommand{\bvbox}{%
+  \bvperpagetrue
+  \renewcommand{\bvtoprulehook}{\hrule \nobreak \vskip-.1pt}%
+  \renewcommand{\bvleftsidehook}{\vrule}%
+  \renewcommand{\bvrightsidehook}{\vrule}%
+  \renewcommand{\bvendrulehook}{\hrule}%
+  \renewcommand{\bvtopmidhook}{\rule{0pt}{2\fboxsep} \hss}%
+}
+\end{lcode}
+The \cmd{\nobvbox} turns off all boxing, and is defined as
+\begin{lcode}
+\newcommand{\nobvbox}{%
+  \bvperpagefalse
+  \renewcommand{\bvtoprulehook}{}%
+  \renewcommand{\bvleftsidehook}{}%
+  \renewcommand{\bvrightsidehook}{}%
+  \renewcommand{\bvendrulehook}{}%
+  \renewcommand{\bvtopmidhook}{\rule{0pt}{2\fboxsep} \hss}%
+}
+\end{lcode}
+The definitions of the other styles, \cmd{\bvtopandtail} and \cmd{\bvsides},
+are intermediate between \cmd{\bvbox} and \cmd{\nobvbox} in the obvious
+manner.
+
+
+\begin{syntax}
+\cmd{\linenumberfrequency}\marg{nth} \\
+\cmd{\resetbvlinenumber} \\
+\cmd{\setbvlinenums}\marg{first}\marg{startat} \\
+\cmd{\linenumberfont}\marg{font declaration} \\
+\end{syntax}
+\glossary(linenumberfrequency)%
+  {\cs{linenumberfrequency}\marg{nth}}%
+  {Number every \meta{nth} line in a \Pe{boxedverbatim} or a \Pe{verse}.}
+\glossary(resetbvlinenumber)%
+  {\cs{resetbvlinenumber}}%
+  {Resets the \Pe{boxedverbatim} line number to zero.}
+\glossary(setbvlinenums)%
+  {\cs{setbvlinenums}\marg{first}\marg{startat}}%
+  {The first line of the following \Pe{boxedverbatim} is number \marg{first} 
+   and the
+   first printed line number should be \meta{startat}.}
+\glossary(linenumberfont)%
+  {\cs{linenumberfont}\marg{fontspec}}%
+  {Specify the font for line numbers.}
+
+The command \cmd{\linenumberfrequency} controls the 
+numbering\index{line number!frequency} of lines in
+a \Ie{boxedverbatim} --- every \meta{nth} line will be numbered. 
+If \meta{nth} is 0 or less, 
+then no lines are numbered, if \meta{nth} is 1 then each line is numbered,
+and if \meta{nth} is \texttt{n}, where \texttt{n} is 2 or more, then 
+only every \texttt{n}th line is numbered. Line numbering is continuous 
+from one instance
+of the \Ie{boxedverbatim} environment to the next. Outside the environment
+the line numbers\index{line number!reset} can be reset at any time by the 
+command \cmd{\resetbvlinenumber}.
+
+The \cmd{\setbvlinenums} macro can be
+used to specify that the number of the first line of the following 
+\Ie{boxedverbatim}
+shall be \meta{first} and the first printed number shall be \meta{startat}.
+
+The \cmd{\linenumberfont} declaration sets
+\meta{font declaration} as the font\index{line number!font} for the 
+line numbers. The default specification for this is:
+\begin{lcode}
+\linenumberfont{\footnotesize\rmfamily}
+\end{lcode}
+Line numbers\index{line number!position} are always set at the left of 
+the lines because there
+is no telling how long a line might be and it might clash with a line number
+set at the right.
+\begin{syntax}
+\cmd{\bvnumbersinside} \\
+\cmd{\bvnumbersoutside} \\
+\end{syntax}
+\glossary(bvnumbersinside)%
+  {\cs{bvnumbersinside}}%
+  {Line numbers typeset inside a \Pe{boxedverbatim} box.}
+\glossary(bvnumbersoutside)%
+  {\cs{bvnumbersoutside}}%
+  {Line numbers typeset outside a \Pe{boxedverbatim} box.}
+Line numbers are typeset inside the box after the declaration 
+\cmd{\bvnumberinside} and are typeset outside the box after the
+declaration \cmd{\bvnumbersoutside}. The default is to print
+the numbers inside the box.
+
+    Verbatim tabbing, but not wrapping, applies to the \Ie{boxedverbatim}
+environment.
+
+\begin{recommended}
+  Again the \Lpack{tcolorbox} package offers boxes vs verbatim text.
+\end{recommended}
+
+
+\subsection{New verbatims}
+
+\index{verbatim!new|(}
+    The class implementation of verbatims lets you define your
+own kind of verbatim environment. Unfortunately this is not quite
+as simple as saying
+\begin{lcode}
+\newverbatim{myverbatim}{...}{...} 
+\end{lcode}
+as you can for defining normal environments. Instead, the general scheme
+is
+\begin{lcode}
+\newenvironment{myverbatim}%
+{<non-verbatim stuff> \verbatim <more non-verbatim stuff>}%
+{\endverbatim}
+\end{lcode}
+In particular, you cannot use either the \cmd{\begin} or \cmd{\end}
+macros inside the definition of the new verbatim environment. For example,
+the following code will not work
+\begin{lcode}
+\newenvironment{badverbatim}%
+  {NBG\begin{verbatim}}{\end{verbatim}}
+\end{lcode}
+and this won't work either
+\begin{lcode}
+\newenvironment{badverbatim}%
+  {\begin{env}\verbatim}{\endverbatim\end{env}}
+\end{lcode}
+And, as with the standard \Ie{verbatim} environment, you cannot use
+the new one in the definition of a new command.
+
+    For an example of something that does work, this next little piece of 
+typesetting was done in a new verbatim environment I have called 
+\texttt{verbexami}, which starts and ends with a horizontal rule, and it
+shows the definition of \texttt{verbexami}.
+\newenvironment{verbexami}%
+  {\par\noindent\hrule The verbexami environment \verbatim}%
+  {\endverbatim\hrule}
+
+\vspace{0.5\onelineskip}
+\begin{verbexami}
+\newenvironment{verbexami}%
+  {\par\noindent\hrule The verbexami environment \verbatim}%
+  {\endverbatim\hrule}
+\end{verbexami}
+\vspace{0.5\onelineskip}
+
+    And this is a variation on the theme, with the environment again being
+enclosed by horizontal rules.
+\newenvironment{verbexamii}%
+  {\vspace{0.5\baselineskip}\hrule 
+   \vspace{0.2\baselineskip} Verbexamii \verbatim \textsc{Is this fun?}}%
+  {\endverbatim\hrule\vspace{0.3\baselineskip}}
+
+\vspace{0.5\onelineskip}
+\begin{verbexamii}
+\newenvironment{verbexamii}%
+  {\vspace{0.5\baselineskip}\hrule \vspace{0.2\baselineskip}
+    Verbexamii \verbatim \textsc{Is this fun?}}%
+  {\endverbatim\hrule\vspace{0.3\baselineskip}}
+\end{verbexamii}
+\vspace{0.5\onelineskip}
+
+    As no doubt you agree, these are not memorable examples of
+the typesetter's art but do indicate that you can define your own
+verbatim environments and may need to take a bit of care to get something
+that passes muster.
+
+    I will give some more useful examples, but mainly based on environments
+for writing verbatim files as I think that these provide a broader
+scope. 
+
+
+\subsection{Example: the \texttt{lcode} environment}
+
+    In this manual all the example \ltx\ code has been typeset in
+the \Ie{lcode} environment; this is a verbatim environment defined
+especially for the purpose. Below I describe the
+code for defining my \Ie{lcode} environment, but first here 
+is a simple definition of a verbatim environment, which I will 
+call \texttt{smallverbatim},
+that uses the \cmd{\small} font\index{verbatim!font} instead of the 
+normalsize font.
+\begin{lcode}
+\newenvironment{smallverbatim}%
+  {\setverbatimfont{\normalfont\ttfamily\small}%
+   \verbatim}%
+  {\endverbatim}
+\end{lcode}
+
+    The \Ie{verbatim} environment is implemented as a kind of \Ie{trivlist},
+and lists usually have extra vertical space before and after them. For
+my environment I did not want any extra spacing\index{list!spaces} 
+so I defined the
+macro \cmd{\@zeroseps} to zero the relevant list spacings. I also wanted
+the code lines to be inset a little, so I defined a new length
+called \lnc{\gparindent} to use as the indentation.
+\begin{lcode}
+\makeatletter
+\newcommand{\@zeroseps}{\setlength{\topsep}{\z@}%
+                        \setlength{\partopsep}{\z@}%
+                        \setlength{\parskip}{\z@}}
+\newlength{\gparindent} \setlength{\gparindent}{\parindent}
+\setlength{\gparindent}{0.5\parindent}
+% Now, the environment itself
+\newenvironment{lcode}{\@zeroseps
+  \renewcommand{\verbatim@startline}{%
+                \verbatim@line{\hskip\gparindent}}
+  \small\setlength{\baselineskip}{\onelineskip}\verbatim}%
+  {\endverbatim
+   \vspace{-\baselineskip}%
+  \noindent
+ }
+\makeatother
+\end{lcode}
+
+    Unless you are intimately familiar with the inner workings of the
+\Ie{verbatim} processing you deserve an explanation of the \Ie{lcode}
+definition.
+
+    Extremely roughly, the code for \cmd{\verbatim} looks like this:
+\begin{lcode}
+\def\verbatim{%
+  \verbatim@font
+  % for each line, until \end{verbatim}
+    \verbatim@startline 
+    % collect the characters in \verbatim@line 
+    \verbatim@processline{\the\verbatim@line\par}
+    % repeat for the next line
+}
+\end{lcode}
+The code first calls \cmd{\verbatim@font} to set the font to be used.
+Then, for each line it does the following:
+\begin{itemize}
+\item Calls the macro \cmd{\verbatim@startline} to start
+      off the output version of the line.
+\item Collects all the characters comprising the line 
+      as a single token called \cmd{\verbatim@line}.
+\item If the characters are the string `\verb?\end{verbatim}?' it finishes
+      the verbatim environment.
+\item Otherwise it calls the macro \cmd{\verbatim@processline} whose 
+      argument is the characters in the 
+      line, treated as a paragraph. It then starts all over again with
+      the next line.
+\end{itemize}
+
+    I configured the \cmd{\verbatim@startline}
+macro to indent the line of text using a horizontal skip of \lnc{\gparindent}.
+The rest of the initialisation code, before calling \cmd{\verbatim}
+to do the real processing, just sets up the vertical spacing. 
+
+
+\index{verbatim!new|)}
+
+\index{verbatim|)}
+
+
+
+
+\section{Files}
+
+\index{file|(}
+
+    \ltx\ reads and writes various files as it processes a document.
+Obviously it reads the document source file, or files, and it writes
+the \pixfile{log} file recording what it has done. It also reads and writes
+the \pixfile{aux} file, and may read and write other files like a 
+\pixfile{toc} file. 
+
+    On occasions it can be useful to get \ltx\ to read and/or write 
+other files of your own choosing. Unfortunately standard \ltx\ does
+not provide any easy method for doing this. The \Mname\ class
+tries to rectify this.
+
+\begin{syntax}
+\cmd{\jobname} \\
+\end{syntax}
+\glossary(jobname)%
+  {\cs{jobname}}%
+  {The name of the document's main source file.}
+When you run \ltx\ on your source file, say \texttt{fred.tex}, \ltx\
+stores the name of this file (\texttt{fred}) in the macro \cmd{\jobname}.
+\ltx\ uses this to name the various files that it writes out --- the
+\pixfile{dvi} or \pixfile{pdf} file, the \pixfile{log} file, the
+\pixfile{aux} file, etc.
+
+\index{stream|(}
+
+    \tx\ can read from 16 input streams\index{stream!limited number} 
+and can write to 16 output
+streams. Normally an input stream\index{stream!input} is allocated for each 
+kind of file that will be read\index{file!read} and an 
+output\index{stream!output} stream for each kind of file that will
+be written\index{file!write}. On the input side, then, at least two 
+streams are allocated, one for the source \pixfile{tex} file and 
+one for the \pixfile{aux} file. 
+On the output side again at least two streams are allocated, one for 
+the \pixfile{log} file and one for the \pixfile{aux} file. 
+When \pixfile{toc} and other similar
+files are also part of the \ltx\ process you can see that many of the
+16 input and output streams may be allocated before you can get to use one
+yourself.
+
+\begin{syntax}
+\cmd{\newoutputstream}\marg{stream} \\
+\cmd{\newinputstream}\marg{stream} \\
+\end{syntax}
+\glossary(newoutputstream)%
+  {\cs{newoutputstream}\marg{stream}}%
+  {Creates a new output stream called \meta{stream}.}
+\glossary(newinputstream)%
+  {\cs{newinputstream}\marg{stream}}%
+  {Creates a new input stream called \meta{stream}.}
+The macros \cmd{\newoutputstream} and \cmd{\newinputstream} respectively
+create a new output\index{stream!new output} and input\index{stream!new input} 
+stream called \meta{stream}, where \meta{stream}
+should be a string of alphabetic characters, like \texttt{myout} or 
+\texttt{myin}.
+The \meta{stream} names must be unique, you cannot use the same name 
+for two streams even if one is a input stream and the other is an output 
+stream. If all the 16 streams of the given type have already been allocated
+\tx\ will issue a message telling you about this, of the form:%
+\index{No room for a new write}\index{No room for a new read}
+\begin{lcode}
+No room for a new write   % for an output stream
+No room for a new read    % for an input stream
+\end{lcode}
+
+    The two \cs{new...stream} commands also provide two empty macros called
+\verb?\atstreamopen<stream>? and \verb?\atstreamclose<stream>?. 
+If these macros already exist then they are left undisturbed. 
+For example if you do:
+\begin{lcode}
+\newcommand{\atstreamopenmyout}{...}
+\newoutputstream{myout}
+\newinputstream{myin}
+\end{lcode}
+Then you will find that three new commands have been created like:
+\begin{lcode}
+\newcommand{\atstreamclosemyout}{}
+\newcommand{\atstreamopenmyin}{}
+\newcommand{\atstreamclosemyin}{}
+\end{lcode}
+You can use \cmd{\renewcommand} to change the definitions of these if you
+wish.
+
+\begin{syntax}
+\cmd{\IfStreamOpen}\marg{stream}\marg{true-code}\marg{false-code} \\
+\end{syntax}
+\glossary(IfStreamOpen)%
+  {\cs{IfStreamOpen}\marg{stream}\marg{yes}\marg{no}}%
+  {If \meta{stream} is open then the \meta{yes} argument is processed
+   otherwise the \meta{no} argument is processed.}
+The macro \cmd{\IfStreamOpen} checks whether or not the \meta{stream}
+stream\index{stream!check open} is open. If it is then 
+the \meta{true-code} argument is processed,
+while when it is not open the \meta{false-code} argument is processed.
+
+\subsection{Writing to a file}
+
+\index{file!write|(}
+
+    One stream may be used for writing to several different files, although not
+simultaneously.
+
+\begin{syntax}
+\cmd{\openoutputfile}\marg{filename}\marg{stream} \\
+\cmd{\closeoutputstream}\marg{stream} \\
+\end{syntax}
+\glossary(openoutputfile)%
+  {\cs{openoutputfile}\marg{filename}\marg{stream}}%
+  {Attaches the file \meta{filename} to the output \meta{stream}.}
+\glossary(closeoutputstream)%
+  {\cs{closeoutputstream}\marg{stream}}%
+  {Detaches and closes the file associated with the output \meta{stream}.}
+The command \cmd{\openoutputfile} opens\index{file!open} the file 
+called \meta{filename},
+either creating it if it does not exist, or emptying it if it already exists.
+It then attaches the file to the output\index{stream!output} 
+stream called \meta{stream} so that
+it can be written to, and then finally calls the macro 
+named \verb?\atstreamopen<stream>?. 
+
+    The command \cmd{\closeoutputstream} firstly calls the macro named
+\verb?\atstreamclose<stream>? then closes\index{stream!close output} the
+output stream \meta{stream}, and finally detaches and 
+closes\index{file!close} the associated file.
+
+\begin{syntax}
+\cmd{\addtostream}\marg{stream}\marg{text} \\
+\end{syntax}
+\glossary(addtostream)%
+  {\cs{addtostream}\marg{stream}\marg{text}}%
+  {Adds \meta{text} to the file associated with the output \meta{stream}.}
+The \cmd{\addtostream} command writes \meta{text} to the output stream
+\meta{stream}, and hence to whatever file is currently attached to the
+stream. The \meta{stream} must be open. Any commands within the \meta{text}
+argument will be processed before being written. To prevent command
+expansion, precede the command in question with \cmd{\protect}.
+
+    Writing\index{file!write!verbatim} verbatim text to a file is 
+treated specially as it is likely
+to be the most common usage.
+\begin{syntax}
+\senv{verbatimoutput}\marg{file} anything \eenv{verbatimoutput} \\
+\senv{writeverbatim}\marg{stream} anything \eenv{writeverbatim} \\
+\end{syntax}
+\glossary(verbatimoutput)%
+  {\senv{verbatimoutput}\marg{file}}%
+  {The contents of the environment are written verbatim to the \meta{file} 
+   file, overwriting anything previously in the file.}
+\glossary(writeverbatim)%
+  {\senv{writeverbatim}\marg{stream}}%
+  {The contents of the environment are written verbatim to the \meta{stream} 
+   stream.}
+The text within a \Ie{verbatimoutput} environment is written verbatim
+to the \meta{file} file. Alternatively, the contents of the
+\Ie{writeverbatim} environment are written verbatim to the \meta{stream} 
+stream. 
+
+    Specifically, \Ie{verbatimoutput} opens the specified file, writes
+to it, and then closes the file. This means that if \Ie{verbatimoutput}
+is used more than once to write to a given
+file, then only the contents of the last of these outputs is captured 
+in the file.
+On the other hand, you can use \Ie{writeverbatim} several times to write
+to the file attached to the stream and, providing the stream has not
+been closed in the meantime, all will be captured.
+
+\index{file!write|)}
+
+\subsection{Reading from a file}
+
+\index{file!read|(}
+
+   One stream may be used for reading from several files, although not
+simultaneously.
+
+\begin{syntax}
+\cmd{\openinputfile}\marg{filename}\marg{stream} \\
+\cmd{\closeinputstream}\marg{stream} \\
+\end{syntax}
+\glossary(openinputfile)%
+  {\cs{openinputfile}\marg{filename}\marg{stream}}%
+  {Attaches the file \meta{filename} to the input \meta{stream}.}
+\glossary(closeinputstream)%
+  {\cs{closeinputstream}\marg{stream}}%
+  {Detaches and closes the file associated with the input \meta{stream}.}
+The command \cmd{\openinputfile} opens\index{file!open} the file 
+called \meta{filename}
+and attaches it to the input\index{stream!input} stream called 
+\meta{stream} so that
+it can be read from. Finally it calls the macro named 
+\verb?\atstreamopen<stream>?.
+It is an error if \meta{filename} can not be found.
+
+    The command \cmd{\closeinputstream} calls the macro named
+\verb?\atstreamclose<stream>?, closes\index{stream!close input} the
+output stream \meta{stream}, and then detaches and closes\index{file!close} 
+the associated file.
+
+\begin{syntax}
+\cmd{\readstream}\marg{stream} \\
+\end{syntax}
+\glossary(readstream)%
+  {\cs{readstream}\marg{stream}}%
+  {Reads the entire contents of the file associated with the input \meta{stream}.}
+The command \cmd{\readstream} reads the entire contents of the file
+currently associated with the input stream \meta{stream}. This
+provides the same functionality as \cmd{\input}\marg{filename}.
+
+\begin{syntax}
+\cmd{\readaline}\marg{stream} \\
+\end{syntax}
+\glossary(readaline)%
+  {\cs{readaline}\marg{stream}}%
+  {Reads a single line from the file associated with the input \meta{stream}.}
+The \cmd{\readaline} reads\index{file!read!single line} what \tx\ 
+considers to be one line from
+the file that is currently associated with the input stream \meta{stream}.
+
+Multiple lines can be read by calling \cmd{\readaline} multiple times.
+A warning is issued if there are no more lines to be read (i.e., the
+end of the file has been reached).
+
+Just as for writing, reading files\index{file!read!verbatim} 
+verbatim is treated specially.
+\begin{syntax}
+\cmd{\verbatiminput}\marg{file} \cmd{\verbatiminput*}\marg{file} \\
+\cmd{\boxedverbatiminput}\marg{file} \cmd{\boxedverbatiminput*}\marg{file} \\
+\cmd{\readverbatim}\marg{stream} \cmd{\readverbatim*}\marg{stream} \\
+\cmd{\readboxedverbatim}\marg{stream} \cmd{\readboxedverbatim*}\marg{stream} \\
+\end{syntax}
+\glossary(verbatiminput)%
+  {\cs{verbatiminput}\marg{file}}%
+  {Acts like \Pe{verbatim} except the contents is read from the \meta{file} file.}
+\glossary(verbatiminput*)%
+  {\cs{verbatiminput*}\marg{file}}%
+  {Acts like \Pe{verbatim*} except the contents is read from the \meta{file} file.}
+\glossary(boxedverbatiminput)%
+  {\cs{boxedverbatiminput}\marg{file}}%
+  {Acts like \Pe{boxedverbatim} except the contents is read from the \meta{file} file.}
+\glossary(boxedverbatiminput*)%
+  {\cs{boxedverbatiminput*}\marg{file}}%
+  {Acts like \Pe{boxedverbatim*} except the contents is read from the \meta{file} file.}
+\glossary(readverbatim)%
+  {\cs{readverbatim}\marg{stream}}%
+  {Acts like \Pe{verbatim} except the contents is read from the file 
+   associated with the input \meta{stream}.}
+\glossary(readverbatim*)%
+  {\cs{readverbatim*}\marg{stream}}%
+  {Acts like \Pe{verbatim*} except the contents is read from the file 
+   associated with the input \meta{stream}.}
+\glossary(readboxedverbatim)%
+  {\cs{readboxedverbatim}\marg{stream}}%
+  {Acts like \Pe{boxedverbatim} except the contents is read from the file 
+   associated with the input \meta{stream}.}
+\glossary(readboxedverbatim*)%
+  {\cs{readboxedverbatim*}\marg{stream}}%
+  {Acts like \Pe{boxedverbatim*} except the contents is read from the file 
+   associated with the input \meta{stream}.}
+The commands \cmd{\verbatiminput} and 
+\cmd{\boxedverbatiminput},\index{frame!verbatim}\index{verbatim!frame} 
+ and their
+starred versions, act like the \Ie{verbatim} and \Ie{boxedverbatim}
+environments, except that they get their text from the \meta{file} file.
+It is an error if \meta{file} cannot be found.
+Similarly, \cmd{\readverbatim} and \cmd{\readboxedverbatim} get their
+text from the file currently attached to the \meta{stream} input stream.
+It is an error if \meta{stream} is not open for input.
+
+\index{file!read|)}
+
+\subsection{Example: endnotes}
+
+\LMnote{2010/10/28}{It is confusing for users that the manual contain
+  an example as to how one manual provide endnotes, when memoir
+  actually provide the functionality in a later section.}
+\index{endnotes}
+\begin{itshape}
+  In an earier version of the manual, this section contained an
+  example as to how one could make endnotes. The example is now
+  irrelevant, since \theclass\ contain something similar to end notes
+  called page notes, see section~\ref{sec:endnotes} on
+  page~\pageref{sec:endnotes}. 
+
+  Those interested in the code from the old example, can find it in
+  the manual source (it has just been commented out).
+\end{itshape}
+
+\begin{comment}
+\index{endnotes|(}
+
+    Books like biographies often quote sources for quotations by the subject,
+or sources for statements of fact and so on, at the end of the book or chapter.
+These are often like a collected set of footnotes. The example shows
+a somewhat rough and ready approach to implementing endnotes.
+
+    Typically endnotes come in one of two forms: they are like a normal
+footnote, except that the note text is on another page, or; there is
+no mark in the body of the text and the note is identified via a small
+quote from the text and its page number. 
+The example is for the footnote-like form and for endnotes collected
+at the end of the document, with an appropriate heading to distinguish
+notes from different chapters.
+
+     We have to be careful in choosing names for the macros we will be
+defining for endnotes. Remember, you cannot use \cmd{\newcommand}
+to define a new command whose name starts \cs{end...}, so \cs{endnote} 
+appears to be out.
+However, the \tx\ primitive \cmd{\def} command does let you define
+a command starting with \cs{end...}. The syntax of the \cmd{\def} command, 
+like 
+that of many of \tx\ macros, looks strange to \ltx\ eyes. The major
+disadvantage in using \cmd{\def} is that it will merrily overwrite any
+previous definition with the same name (the \ltx\ \cmd{\newcommand} won't
+let you do that). I could use \cmd{\def} for an \cs{endnote} macro, like
+\begin{lcode}
+\long\def\endnote#1{...}
+\end{lcode}
+I won't do that, though, as there is at least one \ltx\ class that includes
+a \texttt{note} environment and that means that \cs{endnote} is already defined
+in that class. To avoid potential pitfalls like that I'll use \cs{enote}
+rather than the more evocative \cs{endnote}.
+
+    We need a new counter for the endnotes, starting afresh with each chapter,
+and to print in arabic numerals. 
+\begin{lcode}
+\newcounter{enote}[chapter]
+  \renewcommand{\theenote}{\arabic{enote}}
+\end{lcode}
+And we need a macro to typeset the text of the note. This will take two
+arguments, the number of the note, and the text.
+\begin{lcode}
+\DeclareRobustCommand{\enotetext}[2]{%
+  \par\noindent \textsuperscript{#1} #2\par
+      \vspace{\baselineskip}}
+\end{lcode}
+This makes sure that it starts a new non-indented paragraph, then typesets
+the first argument (the number) as a superscript and then processes the
+second argument (the text of the note). After that it makes sure that 
+any paragraph is ended and puts some vertical space in case there is
+another note following.
+
+    The basic idea is to define a command, \cs{enote}\marg{text}, like
+\cmd{\footnote}, that will write \meta{text} to a file\index{file!write} 
+which will be read in later to typeset the \meta{text}. 
+
+    To this end, we need an output stream, and we will use a file with 
+extension \pixfile{ent}, the first
+part of the file name being the name of the \ltx\ source file; this is
+available via the \cmd{\jobname} macro.
+\begin{lcode}
+\newoutputstream{notesout}
+  \openoutputfile{\jobname.ent}{notesout}
+\newcommand{\printendnotes}{%
+  \closeoutputstream{notesout}%
+  \input{\jobname.ent}}
+\end{lcode}
+The \cmd{\printendnotes} macro can be called at the appropriate place in the
+document to print any endnotes. It closes the output file and 
+then inputs it\index{file!read} to print the endnotes.
+
+    As well as putting the notes into the file we are also going to
+add a heading indicating the chapter. Rather than invent a completely
+new kind of heading I'll simply use \cmd{\subsection*} --- the starred
+form so that there will be no \prtoc{} entry.
+\begin{lcode}
+\DeclareRobustCommand{\enotehead}[1]{%
+  \subsection*{Notes for chapter #1}}
+\end{lcode}
+The argument to the \cs{enotehead} macro is the number of a chapter. Also
+needed is a method for determining when this heading should be added to 
+the endnote file. One simple way is using a counter holding the chapter
+number. Initialise the counter to something that is an invalid
+chapter number.
+\begin{lcode}
+\newcounter{savechap}
+  \setcounter{savechap}{-1000}
+\end{lcode}
+
+    We have the pieces ready, and all that remains is to define
+the \cs{enote} macro, which will take one argument --- the text of the
+note.
+\begin{lcode}
+\newcommand{\enote}[1]{%
+  \refstepcounter{enote}%      increment the counter
+  \textsuperscript{\theenote}% typeset it as a superscript
+  \ifnum\value{savechap}=\value{chapter}\else % in a new chapter
+    \setcounter{savechap}{\value{chapter}%      save the number
+    \addtostream{notesout}{\enotehead{\thechapter}}% the heading
+  \fi
+  \addtostream{notesout}{\enotetext{\theenote}{#1}}}
+\end{lcode}
+\cs{enote}, which is used just like \cmd{\footnote}, increments the 
+counter for endnotes, typesets that as a superscript, and then writes
+the \cs{enotetext} command to the endnotes file. Entries in the \pixfile{ent}
+file will look like:
+\begin{lcode}
+...
+\enotehead{3}     % for chapter 3
+\enotetext{1}{First end note in chapter 3.}
+\enotetext{2}{The next end note.}
+...
+\end{lcode}
+
+    You can try this, perhaps changing the definition of \cs{enotetext}
+to give a better looking presentation of an endnote. There is, however,
+a caveat if you use \cs{enote}. 
+
+\vspace{\onelineskip}
+\noindent\textbf{Question 3.} What is the caveat?
+
+If you can't
+think what it might be, don't worry as it will be dealt with in another
+example. 
+
+\index{endnotes|)}
+\end{comment}
+
+\subsection{Example: end floats}
+
+\index{end floats|(}
+
+    There are some documents where all figures are required to be grouped
+in one place, for instance at the end of the document or perhaps at the
+end of each chapter. Grouping at the end of a document with 
+chapters is harder, so we'll tackle that one.
+
+   The basic idea is to write out verbatim\index{verbatim!write} 
+each figure environment and then read them all back in at the end. 
+We will use a stream,\index{stream} let's call
+it \texttt{tryout}, and call our file for figures \file{tryout.fig}.
+\begin{lcode}
+\newoutputstream{tryout}
+\openoutputfile{tryout.fig}{tryout}
+\end{lcode}
+
+    If all were simple, in the document we could then just do
+\begin{lcode}
+\begin{writeverbatim}{tryout}
+\begin{figure} ... \end{figure}
+\end{writeverbatim}
+...
+\closeoutputstream{tryout}
+\input{tryout.fig}
+\end{lcode}
+
+    So, what's the problem?
+
+    By default figure captions are numbered per chapter, and are preceeded
+by the chapter number; more precisely, the definition of a figure number
+is 
+\begin{lcode}
+\thechapter.\arabic{figure}
+\end{lcode}
+If we simply lump all the figures at 
+the end, then they
+will all be numbered as if they were in the final chapter. 
+For the sake of argument assume that the last chapter is number 10.
+The nth figure will then be numbered 10.n.
+One thing that we
+can do rather simply is to change the definition of the figure by using
+another counter, let's call it \texttt{pseudo}, instead of the chapter.
+\begin{lcode}
+\newcounter{pseudo}
+  \renewcommand{\thepseudo}{\arabic{pseudo}}
+\renewcommand{\thefigure}{\thepseudo.\arabic{figure}}
+\end{lcode}
+Now, all we should have to do is arrange that the proper value of 
+\texttt{pseudo}
+is available before each figure is typeset at the end. The code around
+the \Ie{figure} environments might then look like this
+\begin{lcode}
+\addtostream{tryout}{\protect\setcounter{pseudo}{\thechapter}}
+\begin{writeverbatim}{tryout}
+\begin{figure}...
+\end{lcode}
+and a part of the file might then look like
+\begin{lcode}
+...
+\setcounter{pseudo}{4}
+\begin{figure}...
+\end{lcode}
+The \cmd{\protect} before the \cmd{\setcounter} command will stop it
+from expanding before it is written to the file, while the \cmd{\thechapter}
+command \emph{will} be expanded to give the actual number of the current 
+chapter. This looks better as now at least the figure will be numbered 4.n 
+instead of 10.n.
+
+    There is one last snag --- figure numbers are reset at the start of each
+chapter --- but if we just dump the figures at the end of the document
+then although the chapter part of the number will alter appropriately
+because of the \texttt{pseudo} process,
+the second part of the number will just increase continuously. It looks
+as though we should write out a change to the chapter counter at the start
+of each chapter. If we do that, then we should be able to get rid of the
+\texttt{pseudo} counter, which sounds good. But, and this is almost the 
+last but,
+what if there are chapters after we have read in the figure file? To
+cater for this the chapter number of the last chapter before the file must
+be saved, and then restored after the figures have been processed.
+
+    Finally, wouldn't it be much better for the user if everything was
+wrapped up in an environment that handled all the messy stuff?
+
+    Here is the final code that I am going to produce which, by the way,
+is displayed in the \Ie{boxedverbatim} environment\index{line number} 
+with line numbers and the following settings, just in case there is
+a page break in the middle of the box.
+\begin{lcode}
+\nobvbox
+\bvperpagetrue
+\bvtopofpage{\begin{center}\normalfont%
+             (Continued from previous page)\end{center}}
+\bvendofpage{}
+\resetbvlinenumber
+\linenumberfrequency{1}
+\bvnumbersoutside
+\linenumberfont{\footnotesize\rmfamily}
+\begin{boxedverbatim}
+...
+\end{lcode}
+
+\nobvbox
+\bvperpagetrue
+\bvtopofpage{\begin{center}\normalfont%
+             (Continued from previous page)\end{center}}
+\bvendofpage{}
+\resetbvlinenumber
+\linenumberfrequency{1}
+\bvnumbersoutside
+\linenumberfont{\footnotesize\rmfamily}
+\begin{boxedverbatim}
+\newoutputstream{tryout}
+\openoutputfile{\jobname.fig}{tryout}
+\newcounter{pseudo}
+\renewcommand{\thefigure}{\thepseudo.\arabic{figure}}
+\newenvironment{writefigure}{%
+  \ifnum\value{chapter}=\value{pseudo}\else
+    \setcounter{pseudo}{\value{chapter}}
+    \addtostream{tryout}{\protect\stepcounter{chapter}}
+    \addtostream{tryout}{\protect\addtocounter{chapter}{-1}}
+    \addtostream{tryout}{%
+      \protect\setcounter{pseudo}{\thechapter}}
+  \fi
+  \addtostream{tryout}{\protect\begin{figure}}
+  \writeverbatim{tryout}}%
+ {\endwriteverbatim\finishwritefigure}
+\newcommand{\finishwritefigure}{%
+  \addtostream{tryout}{\protect\end{figure}}}
+\newcommand{\printfigures}{%
+  \closeoutputstream{tryout}%
+  \input{\jobname.fig}%
+}
+\end{boxedverbatim}
+\linenumberfrequency{0}
+    The above code should be either put in the preamble\index{preamble} 
+or in a separate package\index{package} file.
+
+   The first four lines of the code perform the initial setup described
+earlier. Lines 1 and 2 set up for outputting\index{file!write} to a file 
+\verb?\jobname.fig?, which
+is where the figures will be collected. Lines 3 and 4 create the 
+new counter\index{new!counter}
+we need and change the construction of the figure number. The rest of the code
+defines a new environment\index{new!environment} \Ie{writefigure} 
+which is to be used instead 
+of the \Ie{figure} environment. It writes its content out to the 
+\texttt{tryout} stream.
+
+    In line 6 a check is made to see if the current values of the 
+\Icn{chapter} and \Icn{pseudo} counters are the same; 
+nothing is done if they are. If they are
+different, it means that this is the first figure in the chapter and we have
+to put appropriate information into the figure file. Line 7 sets the
+\Icn{pseudo} counter to the value of the \Icn{chapter} counter 
+(if there is another \Ie{writefigure} in the chapter it will then 
+skip over the code in lines 7 to 11).
+The next lines put (where N is the number of the current chapter):
+\begin{lcode}
+\stepcounter{chapter}
+\addtocounter{chapter}{-1}
+\setcounter{pseudo}{N}
+\end{lcode}
+into the figure file. Stepping the chapter number (by one) resets the 
+following figure number, and then subtracting one from the stepped number
+returns the chapter number to its original value. 
+Finally the counter \Icn{pseudo} is set to the number of the 
+current chapter.
+
+    Line 13 puts
+\begin{lcode}
+\begin{figure}
+\end{lcode}
+into the figure file, and line 14 starts the 
+\Ie{writeverbatim}\index{verbatim!write} environment.
+
+    For the end of the \Ie{writefigure} environment (line 15), the 
+\Ie{writeverbatim} environment is ended and after that the 
+\cmd{\finishwritefigure} macro
+is called. This is defined in lines 16 and 17, and simply writes
+\begin{lcode}
+\end{figure}
+\end{lcode}
+out to the figure file. The \cmd{\endwriteverbatim}, and any other kind of
+\cs{end...verbatim}, command is very sensitive to anything that follows it,
+and in this case did not like to be immediately followed by an
+\verb?\addtostream{...}?, but did not mind it being wrapped up in 
+the \cmd{\finishwritefigure} macro.
+
+    The \cmd{\printfigures} macro defined in the last three lines of the code
+simply closes the output stream\index{stream!output} and then inputs the 
+figures\index{file!read} file.
+
+    As an example of how this works, if we have the following source code:
+\begin{lcode}
+\chapter{The fifth chapter}
+...
+\begin{writefigure}
+%% illustration and caption
+\end{writefigure}
+...
+\begin{writefigure}
+%% another illustration and caption
+\end{writefigure}
+\end{lcode}
+then the figure file will contain the following (shown verbatim in the 
+\Ie{fboxverbatim}\index{framed!verbatim} environment).
+
+\begin{fboxverbatim}
+\stepcounter{chapter}
+\addtocounter{chapter}{-1}
+\setcounter{pseudo}{5}
+\begin{figure}
+%% illustration and caption
+\end{figure}
+\begin{figure}
+%% another illustration and caption
+\end{figure}
+\end{fboxverbatim}
+
+\index{end floats|)}
+
+
+\subsection{Example: questions and answers}
+
+\index{questions and answers|(}
+
+    Text books often have questions at the end of a chapter. Sometimes answers
+are also provided at the end of the book, or in a separate teachers guide.
+During the draft stages of such a book it is useful to keep the
+questions and answers together in the source and paper drafts, only removing
+or repositioning the answers towards the end of the writing process.
+
+    This example provides an outline for meeting these desires. For 
+pedagogical purposes I use a \cmd{\label} and \cmd{\ref} technique although
+there are better methods. The example also shows that not
+everything works as expected --- it is a reasonably accurate rendition
+of the process that I actually went through in designing it.
+
+    First we need a counter for the questions and we'll use an 
+environment\index{environment!new}
+for questions as these may be of any complexity. The environment takes one
+argument --- a unique key to be used in a \cmd{\label}.
+\begin{lcode}
+\newcounter{question} \setcounter{question}{0}
+\renewcommand{\thequestion}{\arabic{question}}
+\newenvironment{question}[1]%
+  {\refstepcounter{question}
+   \par\noindent\textbf{Question \thequestion:}\label{#1}}%
+  {\par}
+\end{lcode}
+I have used \cmd{\refstepcounter} to increment\index{counter!increment} 
+the counter so that
+the \cmd{\label} will refer to it, and not some external counter.
+
+    We will use a file, called \verb?\jobname.ans? to collect the answers
+and this will be written\index{file!write} to by a stream.\index{stream} 
+There is also a convenience
+macro, \cmd{\printanswers}, for the user to call to print the answers.
+\begin{lcode}
+\newoutputstream{ansout}
+\end{lcode}
+
+
+    A matching environment\index{environment!new} for answers is required. 
+The argument to the environment is the key of the question.
+
+   In \Lopt{draft} mode it is simple, just typeset the answer and no need to
+bother with any file printing (remember that \piif{ifdraftdoc} is \ptrue\ for a 
+\Lopt{draft} mode document). 
+\begin{lcode}
+\ifdraftdoc                       % when in draft mode
+\newenvironment{answer}[1]%
+  {\par\noindent\textbf{Answer \ref{#1}:}}%
+  {\par}
+\newcommand{\printanswers}{}
+\else                             % when not in draft mode
+\end{lcode}
+
+   In \Lopt{final} mode the \Ie{answer} environment must write its contents 
+verbatim to the \pixfile{ans} file for printing by \cmd{\printanswers}.
+Dealing with these in reverse order, this is the definition of
+\cmd{\printanswer} when not in \Lopt{draft} mode.
+\begin{lcode}
+\newcommand{\printanswers}{%
+  \closeoutputstream{ansout}
+  \input{\jobname.ans}}
+\end{lcode}
+ 
+    Now for the tricky bit, the \Ie{answer} environment. First define an
+environment\index{environment!new} that makes sure our 
+output\index{stream!output} stream is open, and which then
+writes the answer title to the stream.
+\begin{lcode}
+\newenvironment{@nswer}[1]{\@bsphack
+  \IfStreamOpen{ansout}{}{%
+    \openoutputfile{\jobname.ans}{ansout}%
+  }%
+  \addtostream{ansout}{\par\noindent\textbf{Answer \ref{#1}:}}%
+  }{\@esphack}
+\end{lcode}
+The macros \cmd{\@bsphack} and \cmd{\@esphack} are \ltx\ kernel macros
+that will gobble\index{space!gobble} extraneous spaces around the 
+environment. In other words,
+this environment will take no space in the typeset result. The
+\cmd{\IfStreamOpen} macro is used to test whether or not the stream is open, 
+and if it isn't then it opens it. The answer title is then written
+out to the stream. Now we can define the \Ie{answer} environment so that
+its contents get written out\index{write!verbatim} verbatim.
+\begin{lcode}
+\newenvironment{answer}[1]%
+  {\@bsphack\@nswer{#1}\writeverbatim{ansout}}%
+  {\par\endwriteverbatim\end@nswer\@esphack}
+\fi                               % end of \ifdraftdoc ...\else ...
+\end{lcode}
+
+    When I was testing this code I had a surprise as I got nasty error messages
+from \ltx\ the first time around, but it worked fine when I processed the
+source a second time! The problem lies in the code line
+\begin{lcode}
+\addtostream{ansout}{\par\noindent\textbf{Answer \ref{#1}:}}%
+\end{lcode}  
+
+    The first time around, \ltx\ processed the \cmd{\ref} command and of
+course it was undefined. In this case \cmd{\ref} gets replaced by the
+code to print the error message, which involves macros that have \texttt{@}
+in their names, which \ltx\ only understands under special circumstances.
+The second time around \cmd{\ref} gets replaced by the question number
+and all is well. I then remembered that some commands need 
+protecting\index{protect}
+when they are written out, so I tried (I've wrapped the line to fit)
+\begin{lcode}
+\addtostream{ansout}{\par\noindent
+  \protect\makeatletter\textbf{Answer 
+  \protect\ref{#1}:}\protect\makeatother}%
+\end{lcode}  
+which did work but seemed very clumsy.
+
+    I then took another line of attack, and looked at the definition
+of \cmd{\ref} to see if I could come up with something that didn't
+expand into \texttt{@} names. The result of this was
+\begin{lcode}
+\addtostream{ansout}{\par\noindent\textbf{Answer 
+                                          \quietref{#1}:}}%
+\end{lcode}  
+In the kernel file \file{ltxref.dtx} I found the definition of \cmd{\ref}
+and it used a macro \cmd{\@setref} (shown below) to do its work.
+My \cmd{\quietref} locally changes the definition of \cmd{\@setref} 
+and then calls \cmd{\ref}, which will then use the modified \cmd{\@setref}.
+\begin{lcode}
+\def\@setref#1#2#3{%        %% kernel definition
+  \ifx#1\relax
+    \protect\G@refundefinedtrue
+    \nfss@text{\reset@font\bfseries ??}%
+    \@latex@warning{Reference `#3' on page \thepage \space
+                    undefined}%
+  \else
+    \expandafter#2#1\null
+  \fi}
+
+\DeclareRobustCommand{\quietref}[1]{\begingroup
+  \def\@setref##1##2##3{%
+    \ifx##1\relax ??\else
+      \expandafter##2##1\null
+    \fi
+  \ref{#1}\endgroup}
+\end{lcode}
+
+    Having gone all round the houses, the simplest solution was actually
+one that I had skipped over
+\begin{lcode}
+\addtostream{ansout}{\par\noindent\textbf{Answer 
+                                          \protect\ref{#1}:}}%
+\end{lcode}  
+
+    The advantage of using the \cmd{\label} and \cmd{\ref} mechanism is that
+a question and its answer need not be adjacent in the source; I think that
+you have seen some of the disadvantages. Another disadvantage is that it
+is difficult to use, although not impossible, if you want the answers in
+a separate document.
+
+    The real answer to all the problems is force an answer to come immediately
+after the question in the source and to use the \Icn{question} counter
+directly, as in the endnotes\index{endnotes} example. In the traditional manner,
+this is left as an exercise for the 
+reader.
+
+\index{questions and answers|)}
+
+\index{stream|)}
+
+\index{file|)}
+
+\section{Answers}
+
+\noindent\textbf{Question 1.} As a convenience, the 
+argument\index{argument!optional} to the 
+environment could be made optional, defaulting, say, to the current
+line width. If the default width is used the frame will be wider
+than the line width, so we really ought to make the width argument
+specify the width of the frame instead of the minipage. This 
+means calculating a reduced width for the minipage based on
+the values of \lnc{\fboxsep} and \lnc{\fboxrule}.
+\begin{lcode}
+\newsavebox{\minibox}
+\newlength{\minilength}
+\newenvironment{framedminipage}[1][\linewidth]{%
+  \setlength{\minilength}{#1}
+  \addtolength{\minilength}{-2\fboxsep} 
+  \addtolength{\minilength}{-2\fboxrule}
+  \begin{lrbox}{\minibox}\begin{minipage}{\minilength}}%
+  {\end{minipage}\end{lrbox}\fbox{\usebox{\minibox}}}
+\end{lcode}
+
+
+\vspace{\onelineskip}
+\noindent\textbf{Question 2.} There are at least three reasonable answers.
+In increasing or decreasing order of probability (your choice) they are:
+\begin{itemize}
+\item I took Sherlock Holmes' advice and followed the methods outlined
+   in the chapter;
+\item I used a package, such as the \Lpack{answer} package which is designed
+  for the purpose;
+\item I just wrote the answers here.
+\end{itemize}
+
+\LMnote{2010/10/28}{Removed this answer as we have removed the question}
+% \vspace{\onelineskip}
+% \noindent\textbf{Question 3.} If \ltx\ writes text out to an external
+% file which will be read by \ltx\ at some time, any 
+% fragile\index{fragile} commands 
+% in the text must be \cmd{\protect}ed.\index{protect}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% mbook
+
+%#% extend
+%#% extstart include cross-referencing.tex
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2013-04-24 17:14:15 +0200 (Wed, 24 Apr 2013) $}
+{$LastChangedRevision: 442 $}
+{$LastChangedBy: daleif $}

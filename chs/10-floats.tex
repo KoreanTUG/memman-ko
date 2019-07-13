@@ -1,0 +1,2864 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\chapterstyle{hangnum}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \chapter{Floats and captions} \label{chap:captions}
+
+
+    A float\index{float} environment is a particular kind of 
+box\index{box}  --- one that \ltx\ decides where it should go although
+you can provide hints as to where it should be placed; 
+all other boxes are put at the point where they are defined. 
+Within reason you can put what you like within a float but it is 
+unreasonable, for example, to put a float inside 
+another float. The standard classes provide two kinds of float 
+environments, namely \Ie{figure} and \Ie{table}. The only difference
+between these is the naming and numbering of any caption\index{caption} 
+within the environments --- a \cmd{\caption} in a \Ie{figure} 
+environment uses \cmd{\figurename} while a \cmd{\caption} in a 
+\Ie{table} environment uses \cmd{\tablename}. Figures and tables are 
+numbered sequentially but the two numbering schemes are independent 
+of each other.
+
+    The class provides means of defining new kinds of floats. It also
+provides additional forms of captions for use both within and outside 
+float environments together with handles for changing the style 
+of captions.
+
+\section{New float environments} \label{sec:newfloat}
+
+    It is often forgotten that the \ltx\ float environments come
+in both starred and unstarred forms. The unstarred form typesets the 
+float contents\index{float!single column} in one column, which is 
+the most usual form for a book. The starred form typesets the contents 
+of the float across the top of both columns\index{float!double column} 
+in a \Lopt{twocolumn} document. In a \Lopt{onecolumn} document there 
+is no difference between the starred and unstarred forms.
+
+\index{float!new|(} %)| emacs
+
+\begin{syntax}
+ \cmd{\newfloat}\oarg{within}\marg{fenv}\marg{ext}\marg{capname} \\
+\end{syntax}
+\glossary(newfloat)%
+  {\cs{newfloat}\oarg{within}\marg{fenv}\marg{ext}\marg{capname}}%
+  {Creates new float environments, \texttt{fenv} and \texttt{fenv*},
+   using counter \texttt{fenv}, which may be restarted by the 
+   \meta{within} counter, putting captioning information into the
+   file with extension \meta{ext}, and using \meta{capname} as the
+   name for a caption.}
+ The \cmd{\newfloat} command creates two new floating environments 
+called \meta{fenv} and \meta{fenv*}. If there
+is not already a counter\index{counter} defined for \meta{fenv} a new 
+one will be created to be restarted by the counter \meta{within}, 
+if that is specified.  A caption\index{caption} within the environment 
+will be written out to a file with extension \meta{ext}.
+The caption, if present, will start with \meta{capname}. For example, 
+the \texttt{figure} float\index{figure!float definition} for the class 
+is defined as:
+\begin{lcode}
+\newfloat[chapter]{figure}{lof}{\figurename}
+\renewcommand{\thefigure}{%
+  \ifnum\c@chapter>\z@ \thechapter.\fi \@arabic\c@figure}
+\end{lcode}
+The last bit of the definition is internal code to make sure that if a
+figure\index{figure} is in the document before chapter numbering starts, 
+then the figure\index{figure} number will not be preceeded by a 
+non-existent chapter number.
+
+ The captioning style\index{caption!style} for floats defined 
+with \cmd{\newfloat} is the same as
+for the figures\index{figure} and tables\index{table}.
+
+    The \cmd{\newfloat} command generates several new commands, some of
+which are internal \ltx\ commands. For convenience, assume that the 
+command was called as 
+\begin{lcode}
+\newfloat{F}{X}{capname}
+\end{lcode}
+so \texttt{F} is the name of the float environment and also the name of 
+the counter for the caption, and \texttt{X} is the file extension.
+The following float environment and related commands are then created.
+
+\begin{syntax}
+\senv{F} float material \eenv{F} \\
+\senv{F*} float material \eenv{F*} \\
+\end{syntax}
+ The new float environment is called \texttt{F}, and can be used as 
+either \senv{F} or \senv{F*}, with the matching \eenv{F} or \eenv{F*}.
+It is given the standard default position\index{float!position} 
+specification of 
+[\textsf{t}\ixposarg{t}\textsf{b}\ixposarg{b}\textsf{p}\ixposarg{p}].
+
+\begin{syntax}
+ \Icn{Xdepth} \\
+\end{syntax}
+ The \Icn{Xdepth} counter is analogous to the standard \Icn{tocdepth} 
+counter in that it specifies that entries in a listing should not be
+typeset\index{ToC!controlling entries} if their numbering level is 
+greater than \Icn{Xdepth}. The default definition is 
+\begin{lcode}
+\setcounter{Xdepth}{1}
+\end{lcode}
+To have a subfloat of \texttt{X} appear in the listing do
+\begin{lcode}
+\setcounter{Xdepth}{2}
+\end{lcode}
+
+
+    As an example, suppose you wanted both figures\index{figure} 
+(which come with the class), and diagrams\index{float!new diagram}. 
+You could then do something 
+like the following.
+\begin{lcode}
+\newcommand{\diagramname}{Diagram}
+\newcommand{\listdiagramname}{List of Diagrams}
+\newlistof{listofdiagrams}{dgm}{\listdiagramname}
+\newfloat{diagram}{dgm}{\diagramname}
+\newlistentry{diagram}{dgm}{0}
+\begin{document}
+ ...
+\listoffigures
+\listfofdiagrams
+ ...
+\begin{diagram}
+\caption{A diagram} \label{diag1}
+ ...
+\end{diagram}
+As diagram~\ref{diag1} shows ...
+\end{lcode}
+
+
+\begin{syntax}
+  \cmd{\setfloatadjustment}\marg{floatname}\marg{code}
+\end{syntax}
+\glossary(setfloatadjustment)%
+  {\cs{setfloatadjustment}\marg{floatname}\marg{code}}%
+  {Add global internal adjustment to a given type of float. Empty by
+    default, but can easily be used to make all floats centered or all
+  tables in a smaller font size.}
+Often it is useful to add some global configuration to a given type of
+float such that one will not have to add this to each and every
+float. For example to have all (floating) figures and tables automatically
+centered plus have all (floating) tables typeset in \cmd{\small} use
+\begin{lcode}
+  \setfloatadjustment{figure}{\centering}
+  \setfloatadjustment{table}{\small\centering}
+\end{lcode}
+\LMnote{2011/02/18}{I've removed the figure*adjustment feature, so
+  there is no differenting between starred and non starred floats when
+it comes to inner adjustment}
+
+
+\subsection{Margin floats}
+\label{sec:margin-floats}
+
+We also provide two environments to insert an image or table into the
+margin (using \cmd{\marginpar}). The construction is inspired by the
+Tufte \LaTeX\ collection.
+\begin{syntax}
+  \senv{marginfigure}\oarg{len} float material \eenv{marginfigure} \\
+  \senv{margintable}\oarg{len} float material \eenv{margintable} \\
+\end{syntax}
+\glossary(marginfigure)%
+  {\senv{marginfigure}\oarg{length}}%
+  {Environment which inserts its contents into the margin, and enables
+  figure captions. The optional argument should be a length and is used
+to perform manual up/down adjustments to the placement.}
+\glossary(margintable)%
+  {\senv{margintable}\oarg{length}}%
+  {Environment which inserts its contents into the margin, and enables
+  figure captions.The optional argument should be a length and is used
+to perform manual up/down adjustments to the placement.}
+Because this is inserted differently than the ordinary \Ie{figure} or
+\Ie{table} floats, one might get into the situation where a figure
+float inserted before a margin float, might float \emph{past} the
+margin float and thus have different caption numbering. For this
+reason the margin float contain a float blocking device such that any
+unplaced floats are forced to be placed before we start typesetting a
+margin figure.
+
+\fancybreak{}
+
+The \Ie{marginfigure} and \Ie{margintable} environments can of course
+be adjusted using \cmd{\setfloatadjustment}, default
+\begin{lcode}
+  \setfloatadjustment{marginfigure}{\centering}
+  \setfloatadjustment{margintable}{\centering}
+\end{lcode}
+It may be useful to adjust the captioning separately, for this we have
+added
+\begin{syntax}
+  \cmd{\setmarginfloatcaptionadjustment}\marg{float}\marg{code}
+\end{syntax}
+where \meta{float} is \verb?figure? or \verb?table?. The intent is to
+enable the user to choose a different captioning style (or similar)
+within a margin float, for example typesetting the caption ragged
+left/right depending on the page.
+
+This \emph{left/right depending on the page} is a little hard to do,
+so for the \cmd{\marginpar} (which the margin float use internally) we
+provide the following two macros
+\begin{syntax}
+  \cmd{\setmpjustification}\marg{at left of textblock}\marg{at right
+    of textblock}\\
+  \cmd{\mpjustification}
+\end{syntax}
+\glossary(setmpjustification)%
+  {\cs{setmpjustification}\marg{at left of textblock}\marg{at right
+    of textblock}}%
+  {Loads the \cs{mpjustification} command to execute the left part
+    when placed at the left of the text block and vice versa.}%
+\glossary(mpjustification)%
+  {\cs{mpjustification}}%
+  {Specialized macro to be used within \cs{marginpar}s}
+Basically \cmd{\mpjustification} execute \meta{at left of textblock}
+when it is executed at the left of the text block and vice versa. For
+it to work the margin into which the \cmd{marginpar} should do,
+\emph{has} to be specified using \cmd{marginparmargin}. The default is
+\begin{lcode}
+  \setmpjustification{\raggedleft}{\raggedright}
+\end{lcode}
+To have both a margin figure and its caption typeset ragged against
+the text block, use
+\begin{lcode}
+  \setfloatadjustment{marginfigure}{\mpjustification}
+  \setmarginfloatcaptionadjustment{figure}{\captionstyle{\mpjustification}}
+\end{lcode}
+It may be useful to allow hyphenation within the raggedness, which can
+be done using the \Lpack{ragged2e} package and
+\begin{lcode}
+  \setmpjustification{\RaggedLeft}{\RaggedRight}
+\end{lcode}
+
+
+
+
+
+
+
+\index{float!new|)} %|
+
+\section{Setting off a float} \label{sec:floatsetoff}
+
+\index{float!set off|(} %|
+
+    Sometimes it is desireable to set off a float, more probably
+an illustration than a tabular, from its surroundings. The \Ie{framed}
+environment, described later in \Cref{chap:bvf}, might come in handy 
+for this.
+
+    The following code produces the example\indextwo{framed}{float} 
+\figurerefname s~\ref{fig:framef} and~\ref{fig:framefcap}.
+
+\begin{lcode}
+\begin{figure}
+\centering
+\begin{framed}\centering
+FRAMED FIGURE
+\end{framed}
+\caption{Example framed figure}\label{fig:framef}
+\end{figure}
+
+\begin{figure}
+\begin{framed}\centering
+FRAMED FIGURE AND CAPTION
+\caption{Example framed figure and caption}\label{fig:framefcap}
+\end{framed}
+\end{figure}
+\end{lcode}
+
+\begin{figure}
+%\begin{shadefigure}
+\centering
+\begin{framed}\centering
+FRAMED FIGURE
+\end{framed}
+\caption{Example framed figure}\label{fig:framef}
+%\end{shadefigure}
+\end{figure}
+
+\begin{figure}
+\begin{framed}\centering
+FRAMED FIGURE AND CAPTION
+\caption{Example framed figure and caption}\label{fig:framefcap}
+\end{framed}
+\end{figure}
+
+    If framing seems overkill then you can use 
+rules\indextwo{ruled}{float} instead, as in the example code below
+which produces 
+\figurerefname s~\ref{fig:rulef} and~\ref{fig:rulefcap}.
+
+\begin{lcode}
+\begin{figure}
+\centering
+\hrule\vspace{\onelineskip}
+RULED FIGURE
+\vspace{\onelineskip}\hrule
+\vspace{\onelineskip}
+\caption{Example ruled figure}\label{fig:rulef}
+\end{figure}
+
+\begin{figure}
+\centering
+\hrule\vspace{\onelineskip}
+RULED FIGURE AND CAPTION
+\vspace{\onelineskip}\hrule
+\vspace{0.2pt}\hrule
+\vspace{\onelineskip}
+\caption{Example ruled figure and caption}\label{fig:rulefcap}
+\hrule
+\end{figure}
+\end{lcode}
+
+\begin{shadefigure}
+%\centering
+%\definecolor{shadecolor}{gray}{0.75}
+%\begin{shaded}
+\hrule\vspace{\onelineskip}
+RULED FIGURE
+\vspace{\onelineskip}\hrule
+\vspace{\onelineskip}
+\caption{Example ruled figure}\label{fig:rulef}
+%\end{shaded}
+\end{shadefigure}
+
+\begin{shadefigure}
+%\centering
+%\definecolor{shadecolor}{gray}{0.75}
+%\begin{shaded}
+\hrule\vspace{\onelineskip}
+RULED FIGURE AND CAPTION
+\vspace{\onelineskip}\hrule
+\vspace{0.2pt}\hrule
+\vspace{\onelineskip}
+\caption{Example ruled figure and caption}\label{fig:rulefcap}
+\hrule
+%\end{shaded}
+\end{shadefigure}
+
+\index{float!set off|)}%|
+
+ \section{Multiple floats} \label{sec:multfloats}
+
+\index{float!multiple|(}%|
+
+You can effectively put what you like inside a float box. Normally there 
+is just a single picture or tabular in a float but you can include 
+as many of these as will fit inside the box.
+
+% \begin{figure}
+ \begin{shadefigure}
+ \centering
+ \hspace*{\fill} 
+   {ILLUSTRATION 1} \hfill {ILLUSTRATION 2} 
+ \hspace*{\fill}
+ \caption{Example float with two illustrations} \label{fig:mult1}
+ \end{shadefigure}
+% \end{figure}
+
+    Three typical cases of multiple figures\index{figure}/tables\index{table} 
+in a single float come to mind:
+ \begin{itemize}
+ \item Multiple illustrations\index{illustration}/tabulars with a single 
+caption.
+ \item Multiple illustrations\index{illustration}/tabulars each 
+individually captioned.
+ \item Multiple illustrations\index{illustration}/tabulars with one 
+main caption and individual subcaptions.
+ \end{itemize}
+
+    Figure~\ref{fig:mult1} is an example of multiple 
+illustrations\index{illustration!multiple} in a single float 
+with a single caption. The figure was produced by the following code.
+ \begin{lcode}
+ \begin{figure}
+ \centering
+ \hspace*{\fill} 
+   {ILLUSTRATION 1} \hfill {ILLUSTRATION 2} 
+ \hspace*{\fill}
+ \caption{Example float with two illustrations} \label{fig:mult1}
+ \end{figure}
+ \end{lcode}
+ The \verb?\hspace*{\fill}? and \cmd{\hfill} commands were used to 
+space the two illustrations\index{illustration} equally. Of course 
+\cmd{\includegraphics} 
+or \Ie{tabular} environments could just as well be used instead of the 
+\verb?{ILLUSTRATION N}? text.
+
+    The following code produces \figurerefname s~\ref{fig:mult2} 
+and~\ref{fig:mult3} which are examples of two separately 
+captioned\index{caption!multiple}
+illustrations\index{illustration} in one float.
+ \begin{lcode}
+ \begin{figure}
+ \centering
+ \begin{minipage}{0.4\textwidth}
+   \centering
+   GRAPHIC 1
+   \caption{Graphic 1 in a float} \label{fig:mult2}
+ \end{minipage} 
+ \hfill
+ \begin{minipage}{0.4\textwidth}
+   \centering
+   GRAPHIC 2
+   \caption{Graphic 2 in same float} \label{fig:mult3}
+ \end{minipage} 
+ \end{figure}
+ \end{lcode}
+ In this case the illustrations\index{illustration} (or graphics or 
+tabulars) are put into separate \Ie{minipage} 
+environments\index{minipage!in float} within the float, 
+and the captions are also put within the \Ie{minipage}s. Note that 
+any required \cmd{\label} must also be inside the \Ie{minipage}. 
+If you wished, you could add yet another (main) caption after the end 
+of the two \Ie{minipage}s.
+
+%\begin{figure}
+ \begin{shadefigure}
+ \centering
+ \begin{minipage}{0.4\textwidth}
+   \centering
+   GRAPHIC 1
+   \caption{Graphic 1 in a float} \label{fig:mult2}
+ \end{minipage} 
+ \hfill
+ \begin{minipage}{0.4\textwidth}
+   \centering
+   GRAPHIC 2
+   \caption{Graphic 2 in same float} \label{fig:mult3}
+ \end{minipage} 
+ \end{shadefigure}
+% \end{figure}
+
+    It is slightly more complex if you want to put, say, both a 
+tabulation captioned as a table and a graph, captioned as a figure, 
+which illustrates the tabulation, as a 
+float\index{float!multiple!table and figure} 
+only permits one kind of caption. The class solves this problem by 
+letting you define `fixed' captions\index{caption!fixed} which are
+independent of the particular kind of the float. These are described in 
+detail later.
+
+    Things do get a little trickier, though, if the bodies and/or
+the captions in a float are different heights 
+(as in \figurerefname s~\ref{fig:mult2} and~\ref{fig:mult3}) 
+and you want to align them horizontally.
+Here are some examples.
+
+
+    This code produces \figurerefname s~\ref{fig:left1} 
+and~\ref{fig:right1}. The new \cmd{\hhrule} macro produces a rule
+twice as thick as \cmd{\hrule} does.
+\begin{lcode}
+\newcommand*{\hhrule}{\hrule height 0.8pt}% double thickness
+
+\begin{figure}
+\hhrule \vspace{\onelineskip}
+\null\hfill\parbox{0.45\linewidth}{%
+  \centering
+  Aligned to the center of the right figure
+}\hfill
+\parbox{0.45\linewidth}{%
+  \centering
+   This is the right figure which is taller
+   than the first one (the one at the left)
+}\hfill\null
+\vspace{\onelineskip}\hrule
+\null\hfill\parbox[t]{0.4\linewidth}{%
+  \caption{Left figure}\label{fig:left1}%
+}\hfill
+\parbox[t]{0.4\linewidth}{%
+  \caption{Right figure. This has more text than the adjacent
+           caption (\ref{fig:left1}) so the heights are unequal}%
+           \label{fig:right1}%
+}\hfill\null
+\hhrule
+\end{figure}
+\end{lcode}
+
+\newcommand*{\hhrule}{\hrule height 0.8pt}% double thickness
+
+%\begin{figure}
+\begin{shadefigure}
+\hhrule \vspace{\onelineskip}
+\null\hfill\parbox{0.45\linewidth}{%
+  \centering
+  Aligned to the center of the right figure
+}\hfill
+\parbox{0.45\linewidth}{%
+  \centering
+   This is the right figure which is taller
+   than the first one (the one at the left)
+}\hfill\null
+\vspace{\onelineskip}\hrule
+\null\hfill\parbox[t]{0.4\linewidth}{%
+  \caption{Left center aligned}\label{fig:left1}%
+}\hfill
+\parbox[t]{0.4\linewidth}{%
+  \caption{Right figure. This has more text than the adjacent
+           caption (\ref{fig:left1}) so the heights are unequal}%
+           \label{fig:right1}%
+}\hfill\null
+\hhrule
+\end{shadefigure}
+%\end{figure}
+
+
+    The following code produces \figurerefname s~\ref{fig:left2} 
+and~\ref{fig:right2}.
+\begin{lcode}
+\begin{figure}
+\hhrule \vspace{0.5\onelineskip}
+\null\hfill\parbox[t]{0.45\linewidth}{%
+  \centering
+  Aligned to the top of the right figure
+}\hfill
+\parbox[t]{0.45\linewidth}{%
+  \centering
+   This is the right figure which is taller
+   than the first one (the one at the left)
+}\hfill\null
+\vspace{0.5\onelineskip}\hrule
+\null\hfill\parbox[t]{0.4\linewidth}{%
+  \caption{Left top aligned}\label{fig:left2}%
+}\hfill
+\parbox[t]{0.4\linewidth}{%
+  \caption{Right figure. This has more text than the adjacent
+           caption (\ref{fig:left2}) so the heights are unequal}%
+           \label{fig:right2}%
+}\hfill\null
+\hhrule
+\end{figure}
+\end{lcode}
+
+%\begin{figure}
+\begin{shadefigure}
+\hhrule \vspace{0.5\onelineskip}
+\null\hfill\parbox[t]{0.45\linewidth}{%
+  \centering
+  Aligned to the top of the right figure
+}\hfill
+\parbox[t]{0.45\linewidth}{%
+  \centering
+   This is the right figure which is taller
+   than the first one (the one at the left)
+}\hfill\null
+\vspace{0.5\onelineskip}\hrule
+\null\hfill\parbox[t]{0.4\linewidth}{%
+  \caption{Left top aligned}\label{fig:left2}%
+}\hfill
+\parbox[t]{0.4\linewidth}{%
+  \caption{Right figure. This has more text than the adjacent
+           caption (\ref{fig:left2}) so the heights are unequal}%
+           \label{fig:right2}%
+}\hfill\null
+\hhrule
+\end{shadefigure}
+%\end{figure}
+
+    The next code produces \figurerefname s~\ref{fig:left3} 
+and~\ref{fig:right3}.
+\begin{lcode}
+\begin{figure}
+\hhrule \vspace{0.5\onelineskip}
+\null\hfill\parbox[b]{0.45\linewidth}{%
+  \centering
+  Aligned to the bottom of the right figure
+}\hfill
+\parbox[b]{0.45\linewidth}{%
+  \centering
+   This is the right figure which is taller
+   than the first one (the one at the left)
+}\hfill\null
+\vspace{0.5\onelineskip}\hrule
+\null\hfill\parbox[t]{0.4\linewidth}{%
+  \caption{Left bottom aligned}\label{fig:left3}%
+}\hfill
+\parbox[t]{0.4\linewidth}{%
+  \caption{Right figure. This has more text than the adjacent
+           caption (\ref{fig:left3}) so the heights are unequal}%
+           \label{fig:right3}%
+}\hfill\null
+\hhrule
+\end{figure}
+\end{lcode}
+
+%\begin{figure}
+\begin{shadefigure}
+\hhrule \vspace{0.5\onelineskip}
+\null\hfill\parbox[b]{0.45\linewidth}{%
+  \centering
+  Aligned to the bottom of the right figure
+}\hfill
+\parbox[b]{0.45\linewidth}{%
+  \centering
+   This is the right figure which is taller
+   than the first one (the one at the left)
+}\hfill\null
+\vspace{0.5\onelineskip}\hrule
+\null\hfill\parbox[t]{0.4\linewidth}{%
+  \caption{Left bottom aligned}\label{fig:left3}%
+}\hfill
+\parbox[t]{0.4\linewidth}{%
+  \caption{Right figure. This has more text than the adjacent
+           caption (\ref{fig:left3}) so the heights are unequal}%
+           \label{fig:right3}%
+}\hfill\null
+\hhrule
+\end{shadefigure}
+%\end{figure}
+
+
+\begin{syntax}
+ \cmd{\newsubfloat}\marg{float} \\
+\end{syntax}
+\glossary(newsubfloat)%
+  {\cs{newsubfloat}\marg{float}}%
+  {Creates subcaptions for use in the \meta{float} float.}
+ The \cmd{\newsubfloat} command\index{float!new subfloat}  
+creates subcaptions\index{caption!new subcaption}
+(\cmd{\subcaption}, \cmd{\subtop} and \cmd{\subbottom})
+for use within the float environment \meta{fenv} previously
+defined via \cmd{\newfloat}\oarg{...}\marg{fenv}\marg{...}. 
+Subcaptions are discussed below in \Sref{sec:subcaps}. 
+\PWnote{2009/08/23}{Improved cross references between \cs{newsubfloat} 
+and \cs{subcaption}.}
+
+\index{float!multiple|)}%|
+
+ \section{Where \ltx\ puts floats} \label{sec:floatplace}
+
+\index{float!placement|(}%|
+
+ The general format for a float environment is: \\
+ \senv{float}\oarg{loc} ... \eenv{float} 
+or for double column\index{float!double column} floats: \\
+ \senv{float*}\oarg{loc} ... \eenv{float*} \\
+where the optional argument \meta{loc}, consisting of one or more characters,
+specifies a location where the float may be placed. Note that the 
+\Lpack{multicol}\index{column!multiple} package only supports the 
+starred floats and it will not let you have a single 
+column\index{float!single column} float. The possible \meta{loc} values 
+are one or more of the following:
+\begin{itemize}
+\item[\textsf{b}\ixposarg{b}] \emph{bottom}: at the bottom\index{float!bottom}
+    of a page. 
+    This does not apply to double column\index{float!double column} floats 
+    as they may only be placed at the top of a page.
+\item[\textsf{h}\ixposarg{h}] \emph{here}: if possible exactly where 
+  the float\index{float!here} environment is defined. 
+  It does not apply to double 
+  column\index{float!double column} floats.
+\item[\textsf{p}\ixposarg{p}] \emph{page}: on a separate page
+  containing only floats\index{float!page} (no text); this is called
+  a \emph{float page}.
+\item[\textsf{t}\ixposarg{t}] \emph{top}: at the top\index{float!top} 
+    of a page. 
+\item[\textsf{!}] make an extra effort to place the float at the 
+  earliest place specified by the rest of the argument.
+\end{itemize}
+The default for \meta{loc} is \textsf{t}\textsf{b}\textsf{p}, 
+so the float may be placed at the top, or bottom, or on a 
+float\index{float!page} page; the default works well 95\% of the time.
+Floats of the same kind are output in
+definition order, except that a double column\index{float!double column} float 
+may be output before
+a later single column\index{float!single column} float of the same kind, or 
+\textit{vice-versa}\footnote{As of 2015 this has been fixed in the
+  \LaTeX{} kernel.}. 
+A float is never put on an earlier page than its definition but may be 
+put on the same or later page of its definition. If a float cannot be 
+placed, all suceeding floats will be held up, and \ltx\ can store no 
+more than 16 held up floats. A float cannot be placed if it would cause 
+an overfull page, or it otherwise cannot be fitted according the  
+float placement parameters.
+A \cmd{\clearpage} or \cmd{\cleardoublepage} or \eenv{document} 
+flushes\index{float!flush}
+out all unprocessed floats, irrespective of the \meta{loc} and float
+parameters, putting them on float-only\index{float!page} pages. 
+
+\begin{syntax}
+\cmd{\setfloatlocations}\marg{float}\marg{locs} \\
+\end{syntax}
+\glossary(setfloatlocations)%
+  {\cs{setfloatlocations}\marg{float}\marg{locs}}%
+  {Sets the default location for the \meta{float} (e.g., \Pe{table})
+   to \meta{locs} (default \texttt{tbp}).}
+You can set the location for all floats of type \meta{float} to
+\meta{locs} with the \cs{setfloatlocations} declaration. The class
+initialises these using:
+\begin{lcode}
+\setfloatlocations{figure}{tbp}
+\setfloatlocations{table}{tbp}
+\end{lcode}
+
+\begin{syntax}
+ \cmd{\suppressfloats}\oarg{pos} \\
+\end{syntax}
+\glossary(suppressfloats)%
+  {\cs{suppressfloats}\oarg{pos}}%
+  {Suppresses any floats on the current page at the given \meta{pos} placement.}
+    You can use the command \cmd{\suppressfloats} to 
+suppress\index{float!suppress} floats
+at a given \meta{pos} on the current page. 
+\cmd{\suppressfloats}\verb?[t]? 
+prevents any floats at the top\index{float!suppress top} of the page and 
+\cmd{\suppressfloats}\verb?[b]? 
+prevents any floats at the bottom\index{float!suppress bottom} of the page. 
+The simple \cmd{\suppressfloats} prevents both top and bottom floats.
+
+\begin{syntax}
+  \cmd{\FloatBlock}\\
+  \cmd{\FloatBlockAllowAbove}\\
+  \cmd{\FloatBlockAllowBelow}
+\end{syntax}
+\glossary(FloatBlock)%
+  {\cs{FloatBlock}}%
+  {Force \LaTeX\ to place all unplaced floats before proceeding this point.}
+\glossary(FloatBlockAllowAbove)%
+  {\cs{FloatBlockAllowAbove}}%
+  {Lessens the restriction by \cs{FloatBlock} such that a float
+    inserted \emph{after} a \cs{FloatBlock} can appear at the top of
+    the same page as \cs{FloatBlock}.}
+\glossary(FloatBlockAllowBelow)%
+  {\cs{FloatBlockAllowBelow}}%
+  {Lessens the restriction by \cs{FloatBlock} such that a float
+    inserted \emph{before} a \cs{FloatBlock} can appear at the bottom of
+    the same page as \cs{FloatBlock}.}
+Contrary to \cmd{\suppressfloats} \cmd{\FloatBlock}\footnote{Yes, it
+  \emph{is} the same as \cs{FloatBarrier} from the
+  \Lpack{placeins} package, kudos to Donald Arseneau. For various
+  reasons we cannot emulate the \Lpack{placeins} package and its
+  options, thus we have verbatimly copied and renamed it instead.} will block
+floats from passing this point, i.e.\ it demands \LaTeX\ to place any
+unprocessed floats before proceeding. It is similar to
+\cmd{\clearpage} but it does not necessarily introduce a page break
+before proceeding.
+
+\cmd{\FloatBlockAllowAbove} lessens the restriction a little, in a
+situation like this
+\begin{lcode}
+  \FloatBlock
+  some float here
+\end{lcode}
+\cmd{\FloatBlockAllowAbove} will allow the float to be placed at the
+top of the same page as \cmd{\FloatBlock}. \cmd{\FloatBlockAllowBelow}
+is the reverse situation.
+
+It may be beneficial to be able to add \cmd{\FloatBlock} to sectional
+commands. This can be done via
+\begin{syntax}
+  \cmd{\setFloatBlockFor}\marg{sectional name}
+\end{syntax}
+\glossary(setFloatBlockFor)%
+{\cs{setFloatBLockFor}\marg{sectional name}}%
+{Adds \cs{FloatBlock} within the \cs{\meta{section name}} macro.}
+where \meta{sectional name} is \emph{withput} the \cs{}, i.e.\
+\begin{lcode}
+  \setFloatBlockFor{section}
+\end{lcode}
+
+
+
+ 
+\fancybreak{}
+
+    The \Lpack{flafter} package, which should have come with your \ltx\
+distribution, provides a means of preventing floats from moving
+backwards from their definition position in the text. This can be useful to
+ensure, for example, that a float early in a \verb?\section{...}? is not 
+typeset before the section heading\index{heading}.
+
+\begin{figure}
+\centering
+\drawparameterstrue
+\drawfloatpage
+\caption{Float and text page parameters}\label{fig:fpp}
+\end{figure}
+
+\begin{figure}
+\centering
+\drawparameterstrue
+\setlayoutscale{0.9}
+\drawfloat
+\caption{Float parameters}\label{fig:flp}
+\end{figure}
+
+ \begin{table}
+\begin{adjustwidth}{-3cm}{-3cm}
+ \centering
+%% \captionnamefont{\small\sffamily}
+%% \captiontitlefont{\small\sffamily}
+ \setlength{\belowcaptionskip}{10pt}
+ \caption{Float placement parameters}\label{tab:fpp}
+ \begin{tabular}{lp{0.5\textwidth}r} \toprule
+ Parameter & Controls & Default \\ \midrule
+ \multicolumn{3}{c}{Counters --- change with \cs{setcounter} } \\ \midrule
+ \Icn{topnumber}  & max number of floats at top of a page & 2 \\
+ \Icn{bottomnumber} & max number of floats at bottom of a page & 1 \\
+ \Icn{totalnumber} & max number of floats on a text page & 3 \\
+ \Icn{dbltopnumber} & like \Icn{topnumber} for double column 
+                      floats\index{float!double column} & 2 \\ \midrule
+ \multicolumn{3}{c}{Commands --- change with \cs{renewcommand} } \\ \midrule
+ \cmd{\topfraction} & max fraction of page reserved for top 
+                      floats\index{float!top} & 0.7 \\
+ \cmd{\bottomfraction} & max fraction of page reserved for bottom 
+                         floats\index{float!bottom} & 0.3 \\
+ \cmd{\textfraction} & min fraction of page that must have text & 0.2 \\
+ \cmd{\dbltopfraction} & like \cmd{\topfraction} for double column
+                         floats\index{float!double column} floats & 0.7 \\
+ \cmd{\floatpagefraction} & min fraction of a float page that must have float(s) & 0.5 \\
+ \cmd{\dblfloatpagefraction} & like \cmd{\floatpagefraction} for double column
+                              floats\index{float!double column} & 0.5 \\ \bottomrule
+\end{tabular}
+\end{adjustwidth}
+\end{table}
+
+
+ \begin{table}
+\begin{adjustwidth}{-3cm}{-3cm}
+ \centering
+%% \captionnamefont{\small\sffamily}
+%% \captiontitlefont{\small\sffamily}
+ \setlength{\belowcaptionskip}{10pt}
+ \caption{Float spacing parameters}\label{tab:fsp}
+ \begin{tabular}{lp{0.5\textwidth}r} \toprule
+ Parameter & Controls & Default \\ \midrule
+ \multicolumn{3}{c}{Text page lengths --- change with \cs{setlength} } \\ \midrule
+ \lnc{\floatsep} & vertical space between floats & 12pt \\
+ \lnc{\textfloatsep} & vertical space between a top (bottom) float and 
+                       suceeding (preceeding) text & 20pt  \\
+ \lnc{\intextsep} & vertical space above and below an \texttt{h} 
+                    float\index{float!here} & 12pt \\
+ \lnc{\dblfloatsep} & like \lnc{\floatsep} for double column
+                      floats\index{float!double column} & 12pt \\
+ \lnc{\dbltextfloatsep} & like  \lnc{\textfloatsep} for double column
+                          floats\index{float!double column} & 20pt \\ \midrule
+ \multicolumn{3}{c}{Float page lengths --- change with \cs{setlength} } \\ \midrule
+ \lnc{\@fptop} & space at the top of the page & \verb?0pt plus 1fil? \\
+ \lnc{\@fpsep} & space between floats & \verb?8pt plus 2fil? \\
+ \lnc{\@fpbot} & space at the bottom of the page & \verb?0pt plus 1fil? \\
+ \lnc{\@dblfptop} & like \lnc{\@fptop} for double column
+                    floats\index{float!double column} & \verb?0pt plus 1fil? \\
+ \lnc{\@dblfpsep} & like \lnc{\@fpsep} for double column 
+                    floats\index{float!double column} & \verb?8pt plus 2fil? \\
+ \lnc{\@dblfpbot} & like \lnc{\@fpbot} for double column 
+                    floats\index{float!double column} & \verb?0pt plus 1fil? \\ 
+\bottomrule
+ \end{tabular}
+\end{adjustwidth}
+ \end{table}
+
+ Figures~\ref{fig:fpp} and~\ref{fig:flp} illustrate the many float 
+parameters\index{float!parameters}
+and \tref{tab:fpp} lists the float parameters and the typical 
+standard default values. The lengths controlling the spaces surroundind
+floats are listed
+in \tref{tab:fsp}; typical values are shown as they depend on both
+the class and the size option.
+
+    Given the displayed defaults, the height of a top float must be 
+less than 70\% of the textheight and there can be no more than 2 top 
+floats\index{float!top}
+on a text page. Similarly, the height of a bottom float must not
+exceed 30\% of the textheight and there can be no more than 1 bottom
+float\index{float!bottom} on a text page. There can be no more than 
+3 floats (top, bottom and here\index{float!here})
+on the page. At least 20\% of a text page with floats must be text.
+On a float page\index{float!page} (one that has no text, only floats) 
+the sum of the heights
+of the floats must be at least 50\% of the textheight. The floats on a float
+page should be vertically centered.
+
+    Under certain extreme and unlikely conditions and with the defaults
+\ltx\ might have trouble finding a place for a float. 
+Consider what will happen if a float is specified as a bottom float and
+its height is 40\% of the textheight and this is followed by a float whose
+height is 90\% of the textheight. The first is too large to actually 
+go at the bottom of a text page but too small to go on a float page by 
+itself. The second has to go on a float page but it is too large to share 
+the float page with the first float. \ltx\ is stuck!
+
+    At this point it is worthwhile to be precise about the effect of a
+ one character \meta{loc} argument:
+\begin{itemize}
+\item[\textsf{b}\ixposarg{b}] means: 
+      `put the float at the bottom of a page with some
+      text above it, and nowhere else'. 
+      The float must fit into the \cmd{\bottomfraction} space 
+      otherwise it and subsequent floats will be held up.
+\item[\textsf{h}\ixposarg{h}] means: 
+      `put the float at this point and nowhere else'. 
+      The float must fit into the space left on the page 
+      otherwise it and subsequent floats will be held up.
+\item[\textsf{p}\ixposarg{p}] means: 
+      `put the float on a page that has no text but may
+      have other floats on it'. 
+      There must be at least `\cmd{\floatpagefraction}' worth of 
+      floats to go on a float only page before the float will be output.
+\item[\textsf{t}\ixposarg{t}] means: 
+      `put the float at the top of a page with some
+      text below it, and nowhere else'. 
+      The float must fit into the \cmd{\topfraction} space 
+      otherwise it and subsequent floats will be held up.
+\item[\textsf{!...}] means: 
+      `ignore the \cs{...fraction} values for this float'.
+\end{itemize}
+
+ You must try and pick a combination from these that will let \ltx\ find
+a place to put your floats. However, you can 
+also change the float parameters to make it easier to find places
+to put floats. Some examples are:
+\begin{itemize}
+\item Decrease \cmd{\textfraction} to get more `float' on a text page, 
+  but the sum of \cmd{\textfraction} and \cmd{\topfraction} and the sum 
+  of \cmd{\textfraction} and \cmd{\bottomfraction} should not exceed 1.0, 
+  otherwise the placement algorithm falls apart. A minimum value for 
+  \cmd{\textfraction} is about 0.10 --- a page with less than 10\% text 
+  looks better with no text at all, just floats.
+
+\item Both \cmd{\topfraction} and \cmd{\bottomfraction} can be increased, 
+  and it does not matter if their sum exceeds 1.0. A good typographic 
+  style is that floats are encouraged to go at the top of a page, and 
+  a better balance is achieved if the float space on a page is larger
+  at the top than the bottom.
+
+\item Making \cmd{\floatpagefraction} too small might have the effect of a
+ float page just having one small float. However, to make sure that a float
+ page never has more than one float on it, do: 
+\begin{lcode}
+\renewcommand{\floatpagefraction}{0.01}
+\setlength{\@fpsep}{\textheight}
+\end{lcode}
+
+\item Setting \lnc{\@fptop} and \lnc{\@dblftop} to \texttt{0pt}, 
+      \lnc{\@fpsep} to \texttt{8pt}, 
+       and \lnc{\@fpbot} and \lnc{\@dblfpbot} to \texttt{0pt plus 1fil} 
+       will force floats on 
+       a float page to start at the top of the page.
+
+
+\item Setting \lnc{\@fpbot} and \lnc{\@dblfpbot} to \texttt{0pt}, 
+      \lnc{\@fpsep} to \texttt{8pt},
+       and \lnc{\@fptop} and \lnc{\@dblfptop} to \texttt{0pt plus 1fil} 
+       will force floats on 
+       a float page to the bottom of the page.
+\end{itemize}
+
+     If you are experimenting, a reasonable starting position is:
+\begin{lcode}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.5}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.7}
+\end{lcode}
+and similarly for double column\index{float!double column} floats if you will 
+have any. Actually, there is no need
+to try these settings as they are the default for this class.
+
+    One of \ltx's little quirks is that on a text page, the `height' of 
+a float is its actual height plus \lnc{\textfloatsep} or \lnc{\floatsep}, 
+while on a float page the `height' is the actual height. This means that 
+when using the default \meta{loc} of \verb?[tbp]? at least one of the text 
+page float fractions (\cmd{\topfraction} and/or \cmd{\bottomfraction}) 
+must be larger than the \cmd{\floatpagefraction} by an amount sufficient 
+to take account of the maximum text page separation value.
+ 
+
+\index{float!placement|)} % |
+
+\section{Captions}
+
+\index{caption|(} %)|
+
+ Some publishers require, and some authors prefer, captioning styles
+other than the one style provided by standard \ltx. 
+Further, some demand that documents that include multi-part
+tables\index{table} use a \textit{continuation caption} on all but the first
+part of the multi-part table\index{table}. For the times where such 
+a table\index{table} is specified by the author as a set of 
+tables\index{table}, the class provides a simple `continuation' 
+caption\index{caption!continuation} command to meet this 
+requirement. It also provides a facility for an `anonymous' 
+caption\index{caption!anonymous}
+which can be used in any float\index{float} environment. 
+Captions can be defined that are suitable for use in non-float
+environments, such as placing a picture in a minipage and captioning
+it just as though it had been put into a normal 
+figure\index{figure} environment.
+
+    The commands described below are very similar to
+those supplied by the \Lpack{ccaption} package~\cite{CCAPTION}.
+
+\section{Caption styling} 
+
+\index{caption!style|(} %)|
+
+    Just as a reminder, the default appearance of a caption for, say,
+a table looks like this:
+\begin{center}
+Table 11.7: Title for the table
+\end{center}
+That is, it is typeset in the normal body font, with a colon after
+the number.
+
+    The class uses the following to specify the standard \ltx\ caption
+style:
+\begin{lcode}
+\captionnamefont{}
+\captiontitlefont{}
+\captionstyle{}
+\captionwidth{\linewidth}
+\normalcaptionwidth
+\normalcaption
+\captiondelim{: }
+\end{lcode}
+These macros are explained in detail below.
+
+\begin{syntax}
+\cmd{\captiondelim}\marg{delim} \\
+\end{syntax}
+\glossary(captiondelim)%
+  {\cs{captiondelim}\marg{delim}}%
+  {Specifies \meta{delim} to be the delimeter between the number and title in a caption.}
+ The default captioning style is to put a delimeter\index{caption!delimeter} 
+in the form of a colon between the caption
+number and the caption title. The command \cmd{\captiondelim}
+can be used to change the delimeter. For example, to have an en-dash instead
+of the colon, \verb?\captiondelim{-- }? will do the trick. 
+Notice that no space is put between the delimeter and the title unless 
+it is specified in the \meta{delim} parameter. 
+The class initially specifies \verb?\captiondelim{: }? to give the normal 
+delimeter.
+% \begin{syntax}
+%   \cmd{\captiondelimnocap}\marg{code}
+% \end{syntax}
+% \glossary(captiondelimnocap)%
+%   {\cs{captiondelimnocap}\marg{code}}%
+%   {Used as the delimiter after the caption number when the caption is
+%     empty. Empty by default.}
+% Whenever the caption text is empty, it looks a little strange to have
+% \texttt{Figure 2.3:} and nothing else. Instead, in this case we replace
+% \cmd{\captiondelim} by \cmd{\captiondelimnocap}, which is empty by
+% default, i.e., we end up with \texttt{Figure 2.3} instead.
+
+
+
+\begin{syntax}
+\cmd{\captionnamefont}\marg{fontspec} \\
+\end{syntax}
+\glossary(captionnamefont)%
+  {\cs{captionnamefont}\marg{fontspec}}%
+  {Set the font for the first part (name and number) of a caption, upto and including
+   the delimeter.}
+ The \meta{fontspec} specified by \cmd{\captionnamefont} is used
+for typesetting the caption\index{caption!font} name; 
+that is, the first part of the caption
+up to and including the delimeter (e.g., the portion `Table 3:').
+\meta{fontspec} can be any kind of font specification and/or command and/or 
+text. This first part of the caption is treated like: 
+\begin{lcode}
+{\captionnamefont Table 3: }
+\end{lcode}
+so font declarations, not font text-style commands, are needed for 
+\meta{fontspec}. For instance, 
+\begin{lcode}
+\captionnamefont{\Large\sffamily}
+\end{lcode} 
+to specify a large sans-serif font. The class initially specifies 
+\verb?\captionnamefont{}? to give the normal font.
+ 
+
+\begin{syntax}
+\cmd{\captiontitlefont}\marg{fontspec} \\
+\end{syntax}
+\glossary(captiontitlefont)%
+  {\cs{captiontitlefont}\marg{fontspec}}%
+  {Set the font for the caption title text.}
+ Similarly, the \meta{fontspec} specified by \cmd{\captiontitlefont}
+is used for typesetting the title text\index{caption!font} of a caption. 
+For example,
+\verb?\captiontitlefont{\itshape}? for an italic title text.
+The class initially specifies \verb?\captiontitlefont{}?
+to give the normal font.
+
+\begin{syntax}
+\cmd{\captionstyle}\oarg{short}\marg{style} \\
+\cmd{\raggedleft} \cmd{\centering} \cmd{\raggedright} \cmd{\centerlastline} \\
+\end{syntax}
+\glossary(captionstyle)%
+  {\cs{captionstyle}\oarg{short}\marg{style}}%
+  {Set the paragraph style for the caption. The optional \meta{short} is
+   the style for captions shorter than a full line.}
+   By default the name and title of a caption are typeset as a block 
+(non-indented) paragraph\index{paragraph!block}. 
+\cmd{\captionstyle} can be used to alter this.
+Sensible values for \meta{style} are: \cmd{\centering}, \cmd{\raggedleft} or
+\cmd{\raggedright} for styles\index{caption!paragraph style} 
+corresponding to these declarations. 
+The \cmd{\centerlastline} style gives a block paragraph\index{paragraph!block}
+but with the last line centered.
+The class initially specifies \verb?\captionstyle{}?
+to give the normal block paragraph style.
+
+    If a caption is less than one line in length it may look odd if the
+\meta{style} is \cmd{\raggedright}, say, as it will be left justified. 
+The optional \meta{short} argument to \cmd{\captionstyle} can be used to
+specify the style\index{caption!short style} for such short captions 
+if it should differ from that for multiline\index{caption!multiline} 
+captions. For example, I think that short captions look better 
+centered:
+\begin{lcode}
+\captionstyle[\centering]{\raggedright}
+\end{lcode} 
+
+\begin{syntax}
+\cmd{\hangcaption} \\
+\cmd{\indentcaption}\marg{length} \\
+\cmd{\normalcaption} \\
+\end{syntax}
+\glossary(hangcaption)%
+  {\cs{hangcaption}}%
+  {Multiline captions will be typeset as a hanging paragraph.}
+\glossary(indentcaption)%
+  {\cs{indentcaption}\marg{length}}%
+  {Multiline captions will be typeset as a hanging paragraph hung by \meta{length}.}
+\glossary(normalcaption)%
+  {\cs{normalcaption}}%
+  {Multiline captions will be typeset as a block paragraph.}
+\PWnote{2009/06/25}{Hang/indent no longer affects short captions}
+ The declaration \cmd{\hangcaption} causes captions to be typeset with 
+the second and later lines of a multiline\index{caption!multiline} 
+caption title indented by 
+the width of the caption name. 
+The declaration \cmd{\indentcaption} will indent title lines after 
+the first by \meta{length}. These commands are independent of 
+the \cmd{\captionstyle}\verb?{...}? and have no effect on short captions.
+Note that a caption will not 
+be simultaneously hung and indented. The \cmd{\normalcaption} declaration 
+undoes any previous \cmd{\hangcaption} or \cmd{\indentcaption} declaration.
+The class initially specifies \cmd{\normalcaption} to give the normal 
+ non-indented paragraph\index{paragraph!indentation} style.
+
+\begin{syntax}
+\cmd{\changecaptionwidth} \\
+\cmd{\captionwidth}\marg{length} \\
+\cmd{\normalcaptionwidth} \\
+\end{syntax}
+\glossary(changecaptionwidth)%
+  {\cs{changecaptionwidth}}%
+  {Captions will be set within the width specified by \cs{captionwidth}.}
+\glossary(captionwidth)%
+  {\cs{captionwidth}\marg{length}}%
+  {Set the caption width to \meta{length}.}
+\glossary(normalcaptionwidth)%
+  {\cs{normalcaptionwidth}}%
+  {Captions will be set to the full width.}
+   Issuing the declaration \cmd{\changecaptionwidth} causes the captions to
+be typeset within a total width\index{caption!width} \meta{length} 
+as specified by \cmd{\captionwidth}. 
+Issuing the declaration \cmd{\normalcaptionwidth}
+causes captions to be typeset as normal full width captions.
+The class initially specifies
+\begin{lcode}
+\normalcaptionwidth
+\captionwidth{\linewidth}
+\end{lcode}
+to give the normal width. If a caption is being set within the 
+side captioned\index{caption!side caption} environments from 
+the \Lpack{sidecap} package~\cite{SIDECAP}
+then it must be a \cmd{\normalcaptionwidth} caption.
+
+\begin{syntax}
+\cmd{\precaption}\marg{pretext} \\
+\cmd{\captiontitlefinal}\marg{text} \\
+\cmd{\postcaption}\marg{posttext} \\
+\end{syntax}
+\glossary(precaption)%
+  {\cs{precaption}\marg{pretext}}%
+  {\meta{pretext} will be processed at the start of a caption.}
+\glossary(captiontitlefinal)%
+  {\cs{captiontitlefinal}\marg{text}}%
+  {\meta{text} will be put immediately at the end of a caption title,
+   but will not appear in a \listofx.}
+\glossary(postcaption)%
+  {\cs{postcaption}\marg{posttext}}%
+  {\meta{posttext} will be processed at the end of a caption.}
+
+  The commands \cmd{\precaption} and  \cmd{\postcaption}
+specify \meta{pretext} and \meta{posttext} that will be processed at the
+start and end of a caption. For example 
+\begin{lcode}
+\precaption{\rule{\linewidth}{0.4pt}\par}
+\postcaption{\rule{\linewidth}{0.4pt}}
+\end{lcode}
+  will draw a horizontal line\index{caption!ruled} above and below 
+the captions.
+The class initially specifies
+\begin{lcode}
+\precaption{}
+\postcaption{}
+\end{lcode}
+to give the normal appearance.
+
+    The argument to \cmd{\captiontitlefinal} is put immediately after the 
+title text but will not appear in the LoF or LoT. The default is
+\begin{lcode}
+\captiontitlefinal{}
+\end{lcode}
+but it could be used instead as, say
+\begin{lcode}
+\captiontitlefinal{.}
+\end{lcode}
+to put a period (full stop) after the title.
+ 
+    If any of the above commands are used in a float\index{float}, 
+or other, environment their effect is limited to the environment. 
+If they are used in the preamble\index{preamble}
+or the main text, their effect persists until replaced by a similar
+command with a different parameter value. The commands do not affect the
+appearance of the title in any \listofx.
+
+\begin{syntax}
+\cmd{\\}\oarg{length} \\
+\cmd{\\*}\oarg{length} \\
+\end{syntax}
+ The normal \ltx\  command \cmd{\\} can be used within the
+caption text to start a new line. Remember that \cmd{\\} is a fragile 
+command, so if it is used within text that will be added to a \listofx\
+it must be protected.
+ As examples: 
+\begin{lcode}
+\caption{Title with a \protect\\ new line in 
+         both the body and List of}
+\caption[List of entry with no new line]%
+        {Title with a \\ new line}
+\caption[List of entry with a \protect\\ new line]%
+        {Title text}
+\end{lcode}
+
+ Effectively, a caption is typeset as though it were:
+ \begin{lcode}
+ \precaption
+ {\captionnamefont NAME NUMBER\captiondelim}
+ {\captionstyle\captiontitlefont THE TITLE\captiontitlefinal}
+ \postcaption
+ \end{lcode}
+ Replacing the above commands by their defaults leads to the simple
+ format: \\
+ \verb?{NAME NUMBER: }{THE TITLE}?
+
+ As well as using the styling commands to make simple changes to the
+captioning style, more noticeable modifications can also be made.
+To change the captioning style so that the name and title are typeset in
+a sans font\index{caption!font} it is sufficient to do:
+ \begin{lcode}
+ \captionnamefont{\sffamily}
+ \captiontitlefont{\sffamily}
+ \end{lcode}
+
+ \begin{shadetable}
+% \centering
+ \captionnamefont{\sffamily}
+ \captiondelim{}
+ \captionstyle{\\}
+ \captiontitlefont{\scshape}
+ \setlength{\belowcaptionskip}{10pt}
+ \caption{Redesigned table caption style} \label{tab:style}
+ \begin{tabular}{lr} \toprule
+  three & III \\
+  five  & V \\
+  eight & VIII \\ \bottomrule
+  \end{tabular}
+ \end{shadetable}
+
+ A more obvious change in styling is shown in \tref{tab:style},
+ which was coded as:
+ \begin{lcode}
+ \begin{table}
+ \centering
+ \captionnamefont{\sffamily}
+ \captiondelim{}
+ \captionstyle{\\}
+ \captiontitlefont{\scshape}
+ \setlength{\belowcaptionskip}{10pt}
+ \caption{Redesigned table caption style} \label{tab:style}
+ \begin{tabular}{lr} \toprule
+  ...
+ \end{table}
+ \end{lcode}
+This leads to the approximate caption format 
+(processed within \cmd{\centering}): 
+\begin{lcode}
+{\sffamily NAME NUMBER}{\\ \scshape THE TITLE}
+\end{lcode}
+ Note that the newline command (\cmd{\\}) cannot be put in the first part
+ of the format (i.e., the \verb?{\sffamily NAME NUMBER}?); it has to go into
+ the second part, which is why it is specified via \verb?\captionstyle{\\}?
+ and not \verb?\captiondelim{\\}?.
+
+    If a mixture of captioning styles will be used you may want to
+define a special caption command for each non-standard style. For
+example for the style of the caption in \tref{tab:style}:
+\begin{lcode}
+\newcommand{\mycaption}[2][\@empty]{
+  \captionnamefont{\sffamily\hfill}
+  \captiondelim{\hfill}
+  \captionstyle{\centerlastline\\}
+  \captiontitlefont{\scshape}
+  \setlength{\belowcaptionskip}{10pt}
+  \ifx \@empty#1 \caption{#2}\else \caption[#1]{#2}\fi}
+\end{lcode}
+Remember that any code that involves the \idxatincode\texttt{@} sign must 
+be either in
+a package (\file{sty}) file or enclosed between a \cmd{\makeatletter} \ldots
+\cmd{\makeatother} pairing (\seeatincode).
+
+ The code for the \tref{tab:style} example can now be written as:
+\begin{lcode}
+\begin{table}
+\centering
+\mycaption{Redesigned table caption style} \label{tab:style}
+\begin{tabular}{lr} \toprule
+ ...
+\end{table}
+\end{lcode}
+ Note that in the code for \cs{mycaption} I have added two
+\cmd{\hfill} commands and \cmd{\centerlastline} compared with the original
+specification.
+It turned out that the original definitions
+worked for a single line caption but not for a 
+multiline\index{caption!multiline} caption.
+The additional commands makes it work in both cases, forcing the
+name to be centered as well as the last line of a multiline title,
+thus giving a balanced appearence.
+
+ \index{caption!style|)}%|
+
+
+ \section{Continuation captions and legends}
+
+\index{caption!continued|(}%|
+
+\begin{syntax}
+\cmd{\contcaption}\marg{text} \\
+\end{syntax}
+\glossary(contcaption)%
+  {\cs{contcaption}\marg{text}}%
+  {A continued caption, replacing the original title with \meta{text}.}
+    The \cmd{\contcaption} command can be used to put 
+ a `continued' or `concluded'
+ caption into a float\index{float} environment. It neither increments the
+ float number nor makes any entry into a float listing, but it
+ does repeat the numbering of the previous \cmd{\caption} command.
+ 
+
+   Table~\ref{tab:m} illustrates the use of the \cmd{\contcaption}
+ command. The table\index{table} was produced from the following code.
+ \begin{lcode}
+   \begin{table}
+   \centering
+   \caption{A multi-part table} \label{tab:m}
+   \begin{tabular}{lc} \toprule
+    just a single line & 1 \\ \bottomrule
+   \end{tabular}
+   \end{table}
+
+   \begin{table}
+   \centering
+   \contcaption{Continued}
+   \begin{tabular}{lc} \toprule
+    just a single line & 2 \\ \bottomrule
+   \end{tabular}
+   \end{table}
+
+   \begin{table}
+   \centering
+   \contcaption{Concluded}
+   \begin{tabular}{lc} \toprule
+    just a single line & 3 \\ \bottomrule
+   \end{tabular}
+   \end{table}
+ \end{lcode}
+
+   \begin{shadetable}
+%   \centering
+   \caption{A multi-part table} \label{tab:m}
+   \begin{tabular}{lc} \toprule
+    just a single line & 1 \\ \bottomrule
+   \end{tabular}
+   \end{shadetable}
+
+   \begin{shadetable}
+%   \centering
+   \contcaption{Continued}
+   \begin{tabular}{lc} \toprule
+    just a single line & 2 \\ \bottomrule
+   \end{tabular}
+   \end{shadetable}
+
+   \begin{shadetable}
+%   \centering
+   \contcaption{Concluded}
+   \begin{tabular}{lc} \toprule
+    just a single line & 3 \\ \bottomrule
+   \end{tabular}
+   \end{shadetable}
+
+\index{caption!continued|)}%|
+
+\index{legend}
+\index{caption!anonymous|(}%|
+
+\begin{syntax}
+\cmd{\legend}\marg{text} \\
+\end{syntax}
+\glossary(legend)%
+  {\cs{legend}\marg{text}}%
+  {A legend (an anonymous caption).}
+  The \cmd{\legend} command is intended to be used to put an 
+anonymous caption, or legend\index{legend} into a float\index{float} 
+environment, but may be used anywhere.
+
+   \begin{shadetable}
+%   \centering
+   \caption{Another table} \label{tab:legend}
+   \begin{tabular}{lc} \toprule
+    A legendary table & 5 \\
+    with two lines    & 6 \\ \bottomrule
+   \end{tabular}
+   \legend{The legend}
+   \end{shadetable}
+
+    For example, the following code was used to produce the two-line
+\tref{tab:legend}. The \cmd{\legend} command can be used within a 
+float\index{float}
+independently of any \cmd{\caption} command.
+\begin{lcode}
+\begin{table}
+  \centering
+  \caption{Another table} \label{tab:legend}
+  \begin{tabular}{lc} \toprule
+  A legendary table & 5 \\
+  with two lines    & 6 \\ \bottomrule
+  \end{tabular}
+  \legend{The legend}
+\end{table}
+\end{lcode}
+
+     \marginpar{\definecolor{shadecolor}{gray}{0.75}\begin{shaded}\legend{LEGEND}
+                This is a marginal note with a legend.\end{shaded}}
+
+  Captioned floats\index{float} are usually thought of in terms of the 
+\Ie{table} and \Ie{figure} environments. There can be other kinds of 
+float\index{float}.
+As perhaps a more interesting example, the following code produces
+the titled marginal\index{marginalia} note which should be displayed near here.
+\begin{lcode}
+     \marginpar{\legend{LEGEND}
+                This is a marginal note with a legend.}
+\end{lcode}
+
+%You can even \legend{Legend in running text} use the \cmd{\legend}
+%command in running text, as has been done in this sentence, 
+%but I'm not sure why one might want to do that as \ltx\ already
+%provides the \Ie{center} environment.
+
+ If you want the legend text to be included\index{legend!in list of} 
+in the \listofx{}
+you can do it like this with the \cmd{\addcontentsline} macro.
+\begin{lcode}
+\legend{Legend title}
+% left justified
+\addcontentsline{lot}{table}{Legend title}    % or
+% indented
+\addcontentsline{lot}{table}{\protect\numberline{}Legend title}
+\end{lcode}
+The first of these forms will align the first line of the legend text
+under the normal table\index{table} numbers. The second form will align 
+the first line of the legend text under the normal \Ie{table} titles. 
+In either case, second and later lines of a multi-line text will be 
+aligned under the normal title lines.
+
+   \begin{shadetable}
+%   \centering
+   \captiontitlefont{\sffamily}
+   \legend{Legendary table}
+   \addcontentsline{lot}{table}{Legendary table (toc 1)}
+   \addcontentsline{lot}{table}{\protect\numberline{}
+                                Legendary table (toc 2)}
+   \begin{tabular}{lc} \toprule
+    An anonymous table & 5 \\
+    with two lines     & 6 \\ \bottomrule
+   \end{tabular}
+   \end{shadetable}
+
+ As an example, the \textsf{Legendary table} is produced by the following code:
+\begin{lcode}
+\begin{table}
+\centering
+\captiontitlefont{\sffamily}
+\legend{Legendary table}
+\addcontentsline{lot}{table}{Legendary table (toc 1)}
+\addcontentsline{lot}{table}{\protect\numberline{}
+                             Legendary table (toc 2)}
+\begin{tabular}{lc} \toprule
+   An anonymous table & 5 \\
+   with two lines     & 6 \\ \bottomrule
+\end{tabular}
+\end{table}
+\end{lcode}
+ Look at the List of Tables to see how the two forms of \cmd{\addcontentsline}
+are typeset.
+
+
+\begin{syntax}
+\cmd{\namedlegend}\oarg{short-title}\marg{long-title} \\
+\end{syntax}
+\glossary(namedlegend)%
+  {\cs{namedlegend}\oarg{short}\marg{long}}%
+  {Like \cs{caption} but no number and no \listofx\ entry.}
+ As a convenience, the \cmd{\namedlegend}\index{legend!named}
+command is like the \cmd{\caption} command except that it does not number
+the caption and, by default, puts no entry into a \listofx{} file. Like
+the \cmd{\caption} command, it picks up the name to be prepended to the
+title text from the float\index{float} environment in which it is called (e.g.,
+it will use \cmd{\tablename} if called within a \Ie{table} environment). The
+following code is the source of the \textit{Named legendary table}.
+ \begin{lcode}
+ \begin{table}
+ \centering
+ \captionnamefont{\sffamily}
+ \captiontitlefont{\itshape}
+ \namedlegend{Named legendary table}
+ \begin{tabular}{lr} \toprule
+ seven & VII \\
+ eight & VIII \\ \bottomrule
+ \end{tabular}
+ \end{table}
+ \end{lcode}
+
+ \begin{shadetable}
+% \centering
+ \captionnamefont{\sffamily}
+ \captiontitlefont{\itshape}
+ \namedlegend{Named legendary table}
+ \begin{tabular}{lr} \toprule
+ seven & VII \\
+ eight & VIII \\ \bottomrule
+ \end{tabular}
+ \end{shadetable}
+
+\begin{syntax}
+\cmd{\flegfloat}\marg{name} \\
+\cmd{\flegtocfloat}\marg{title} \\
+\end{syntax}
+\glossary(flegfloat)%
+  {\cs{flegfloat}\marg{name}}%
+  {Where \texttt{float} is a float type (e.g. \texttt{table}), defines the \meta{name} used by \cs{namedlegend}.}
+\glossary(flegtocfloat)%
+  {\cs{flegtocfloat}\marg{title}}%
+  {Where \texttt{float} is a float type (e.g., \texttt{figure}), called by 
+   \cs{namedlegend} to add \meta{title} to a \listofx.}
+ The macro \cmd{\flegfloat}, where \texttt{float} is the name 
+of a float\index{float} environment
+(e.g., \texttt{figure}) is called by the \cmd{\namedlegend} macro. 
+It is provided as a hook that defines the \meta{name} to be used as 
+the name in \cmd{\namedlegend}. Two defaults are provided, \cmd{\flegtable}
+and \cmd{\flegfigure} defined as:
+ \begin{lcode}
+ \newcommand{\flegtable}{\tablename}
+ \newcommand{\flegfigure}{\figurename}
+ \end{lcode}
+\glossary(flegtable)%
+  {\cs{flegtable}}%
+  {The name for a \cs{legend} in a \texttt{table}.}
+\glossary(flegfigure)%
+  {\cs{flegfigure}}%
+  {The name for a \cs{legend} in a \texttt{figure}.}
+which may be altered via \cmd{\renewcommand} if desired. 
+
+The macro \cmd{\flegtocfloat}, where again \texttt{float} is the name 
+of a float\index{float} environment
+(e.g., \texttt{table}) is also called by the \cmd{\namedlegend} macro. 
+It is provided as a hook that can be used to add \meta{title} to the \listofx.
+Two examplars are provided, \cmd{\flegtocfigure} and \cmd{\flegtoctable}.
+By default they are defined to do nothing, and can be changed via
+\cmd{\renewcommand}. For instance, one could be changed for 
+tables\index{table} as:
+ \begin{lcode}
+ \renewcommand{\flegtoctable}[1]{
+   \addcontentsline{lot}{table}{#1}}
+ \end{lcode}
+
+\index{caption!anonymous|)}%|
+\index{caption!outside a float|(}%|
+
+  The \cmd{\legend} command produces a plain, unnumbered heading. It can also
+be useful sometimes to have named and numbered captions outside
+a floating\index{float} environment, perhaps in a \Ie{minipage},
+if you want the table\index{table} or picture\index{illustration} 
+to appear at a precise location in your document.
+
+
+\index{caption!fixed|(}%|
+
+\begin{syntax}
+\cmd{\newfixedcaption}\oarg{capcommand}\marg{command}\marg{float} \\
+\cmd{\renewfixedcaption}\oarg{capcommand}\marg{command}\marg{float} \\
+\cmd{\providefixedcaption}\oarg{capcommand}\marg{command}\marg{float} \\
+\end{syntax}
+\glossary(newfixedcaption)%
+  {\cs{newfixedcaption}\oarg{capcommand}\marg{command}\marg{float}}%
+  {Defines a captioning command \cs{command} that may used outside the
+   \meta{float} float as though it was inside it. The \cs{capcommand}
+  must have been previously defined as a captioning command for \meta{float}.}
+\glossary(renewfixedcaption)%
+  {\cs{renewfixedcaption}\oarg{capcommand}\marg{command}\marg{float}}%
+  {A `renew' version of \cs{newfixedcaption}.}
+\glossary(providefixedcaption)%
+  {\cs{providefixedcaption}\oarg{capcommand}\marg{command}\marg{float}}%
+  {A `provide' version of \cs{newfixedcaption}.}
+ The \cmd{\newfixedcaption} command, and its friends, can be used 
+to create or modify a captioning \meta{command} that may be used 
+outside the float\index{float} environment \meta{float}.
+Both the environment \meta{float} and a captioning command, 
+\meta{capcommand}, for that environment must have been defined before
+calling \cmd{\newfixedcaption}. Note that \cmd{\namedlegend} can be used
+as \meta{capcommand}.
+% The \cmd{\renewfixedcaption} and \cmd{\providefixedcaption} commands 
+% take the same arguments as \cmd{\newfixedcaption}; the three commands 
+% are analagous to those in the \cmd{\newcommand} family.
+
+ For example, to define a new \cs{figcaption} command for captioning pictures
+ outside the \Ie{figure} environment, do
+\begin{lcode}
+ \newfixedcaption{\figcaption}{figure}
+\end{lcode}
+ The optional \meta{capcommand} argument is the name of the float\index{float}
+captioning command that is being aliased. It defaults to \cmd{\caption}.
+As an example of where the optional argument is required, if you
+want to create a new continuation\index{caption!continued!outside a float} 
+caption command for non-floating
+tables\index{table}, say \cs{ctabcaption}, then do
+\begin{lcode}
+ \newfixedcaption[\contcaption]{\ctabcaption}{table}
+\end{lcode}
+
+ Captioning commands created by \cmd{\newfixedcaption} will be named and
+ numbered in the same style as the original \meta{capcommand}, can
+ be given a \cmd{\label}, and will appear in the appropriate 
+ \listofx. They can also be used within floating\index{float}
+ environments, but will not use the environment name as a guide to
+ the caption name or entry into the \listofx. For
+ example, using \cs{ctabcaption} in a \Ie{figure} environment will still
+ produce a \textbf{Table\ldots} named caption.
+
+   Sometimes captions are required on the 
+opposite\index{caption!on opposite page} page to a 
+figure\index{figure}, and a fixed caption can be useful in this context. 
+For example, if figure\index{figure} captions should be placed on an 
+otherwise empty page immediately before the actual figure\index{figure}, 
+then this can be accomplished by the following hack:
+\begin{lcode}
+\newfixedcaption{\figcaption}{figure}
+ ...
+\afterpage{ % fill current page then flush pending floats
+  \clearpage
+  \begin{midpage}  %  vertically center the caption
+  \figcaption{The caption} %  the caption
+  \end{midpage}
+  \clearpage
+  \begin{figure}THE FIGURE, NO CAPTION HERE\end{figure}
+  \clearpage
+ }  % end of \afterpage
+ \end{lcode}
+ Note that the \Lpack{afterpage} package~\cite{AFTERPAGE} is needed, 
+which is part of the required tools bundle. 
+The \Lpack{midpage} package supplies the \verb?midpage?
+environment, which can be simply defined as:
+\begin{lcode}
+\newenvironment{midpage}{\vspace*{\fill}}{\vspace*{\fill}}
+\end{lcode}
+The code, in particular the use of \cmd{\clearpage}, might need 
+adjusting\index{start new page} to meet your particular requirements.
+\begin{itemize}
+\item \cmd{\clearpage} gets you to the next page, which may be odd or even.
+\item \cmd{\cleardoublepage} gets you to the next odd-numbered page.
+\item \cmd{\cleartoevenpage} ensures that you get to the next
+even-numbered page.
+\end{itemize}
+
+    As a word of warning, if you mix both floats and fixed environments 
+with the same kind of caption you have to ensure that they get printed 
+in the correct order in the final document. If you do not do this, then 
+the \listofx\ captions will come out in the wrong order (the lists are 
+ordered according the
+page number in the typeset document, \emph{not} your source input order).
+
+
+\index{caption!fixed|)}%|
+
+\index{caption!outside a float|)}%|
+
+ \section{Bilingual captions}
+
+\index{caption!bilingual|(}%|
+\index{bilingual captions|(}%|
+
+    Some documents require bilingual (or more) captions. The class 
+ provides a set of commands for bilingual captions. Extensions to the
+ set, perhaps to support trilingual captioning, are left as an exercise
+ for the document author.
+Essentially, the bilingual commands call the \cmd{\caption}
+command twice, once for each language.
+
+    Several commands for bilingual captions are provided. They all produce
+the same appearance in the text but differ in what they put into 
+the \listofx. 
+
+\begin{syntax}
+\cmd{\bitwonumcaption}\oarg{label}\marg{short1}\marg{long1}\% \\
+                      \marg{NAME}\marg{short2}\marg{long2} \\
+\cmd{\bionenumcaption}\oarg{label}\marg{short1}\marg{long1}\% \\
+                      \marg{NAME}\marg{short2}\marg{long2} \\
+\end{syntax}
+\glossary(bitwonumcaption)%
+  {\cs{bitwonumcaption}\oarg{label}\marg{short1}\marg{long1}\marg{NAME}\marg{short2}\marg{long2}}%
+  {A bilingual caption with both captions numbered in the float and in the \listofx.}
+\glossary(bionenumcaption)%
+  {\cs{bionenumcaption}\oarg{label}\marg{short1}\marg{long1}\marg{NAME}\marg{short2}\marg{long2}}%
+  {A bilingual caption with both captions numbered in the float but only the first in the \listofx.}
+
+  Bilingual captions can be typeset by the \cmd{\bitwonumcaption} 
+ command which has six arguments. 
+ The first, optional argument \meta{label}, is the name of a label, if
+ required.
+ \meta{short1} and \meta{long1} are the short (i.e., equivalent
+ to the optional argument
+ to the \cmd{\caption} command) and long caption texts for
+ the main language of the document. The value of the \meta{NAME} argument
+ is used as the caption name for the second language caption, while
+ \meta{short2} and \meta{long2} are the short and long caption texts
+ for the second language. For example, if the main and secondary languages
+ are English and German and a figure\index{figure} is being captioned:
+\begin{lcode}
+\bitwonumcaption{Short}{Long}{Bild}{Kurz}{Lang}
+\end{lcode}
+If the short title text(s) is not required, then leave the appropriate
+argument(s) either empty or as one or more spaces, like:
+\begin{lcode}
+\bitwonumcaption[fig:bi1]{}{Long}{Bild}{  }{Lang}
+\end{lcode}
+Both language texts are entered into the 
+appropriate\index{caption!bilingual!in list of} \listofx,
+and both texts are numbered.
+
+ Figure~\ref{fig:bi1}, typeset from the following code, is an example.
+\begin{lcode}
+\begin{figure}
+\centering
+EXAMPLE FIGURE WITH BITWONUMCAPTION
+\bitwonumcaption[fig:bi1]%
+    {}{Long \cs{bitwonumcaption}}%
+    {Bild}{  }{Lang \cs{bitwonumcaption}} 
+\end{figure}
+\end{lcode}
+
+ \begin{shadefigure}
+% \centering
+ EXAMPLE FIGURE WITH BITWONUMCAPTION
+ \bitwonumcaption[fig:bi1]{}{Long \cs{bitwonumcaption}}{Bild}{  }{Lang \cs{bitwonumcaption}} 
+ \end{shadefigure}
+
+  Both \cmd{\bionenumcaption} and \cmd{\bitwonumcaption} take the same 
+arguments.
+The difference between the two commands is that \cmd{\bionenumcaption} does
+not number the second language text in the \listofx.
+Figure~\ref{fig:bi3}, typeset from the following, is an example of this.
+\begin{lcode}
+\begin{figure}
+\centering
+EXAMPLE FIGURE WITH BIONENUMCAPTION
+\bionenumcaption[fig:bi3]%
+    {}{Long English \cs{bionenumcaption}}%
+    {Bild}{  }{Lang Deutsch \cs{bionenumcaption}} 
+ \end{figure}
+\end{lcode}
+
+ \begin{shadefigure}
+% \centering
+ EXAMPLE FIGURE WITH BIONENUMCAPTION
+ \bionenumcaption[fig:bi3]%
+    {}{Long English \cs{bionenumcaption}}%
+    {Bild}{  }{Lang Deutsch \cs{bionenumcaption}} 
+ \end{shadefigure}
+
+\begin{syntax}
+\cmd{\bicaption}\oarg{label}\marg{short1}\marg{long1}\% \\
+                \marg{NAME}\marg{long2} \\
+\end{syntax}
+\glossary(bicaption)%
+  {\cs{bicaption}\oarg{label}\marg{short1}\marg{long1}\marg{NAME}\marg{long2}}%
+  {A bilingual caption in a float but only the first added to the \listofx.}
+
+When bilingual captions are typeset via the \cmd{\bicaption} 
+command the second language text is not put into
+the \listofx. 
+The command takes 5 arguments. 
+The optional \meta{label} is for a label if required.
+\meta{short1} and \meta{long1} are the short and long caption texts for
+the main language of the document. The value of the \meta{NAME} argument
+is used as the caption name for the second language caption. The last
+argument, \meta{long2}, is the caption text
+for the second language (which is not put into the \listofx). 
+
+ For example, if the main and secondary languages are English and German: 
+\begin{lcode}
+\bicaption{Short}{Long}{Bild}{Langlauf}
+\end{lcode}
+If the short title text is not required, then leave the appropriate
+argument either empty or as one or more spaces.
+
+ Figure~\ref{fig:bi2} is an example of using \cmd{\bicaption} and was 
+ produced by the following code:
+\begin{lcode}
+\begin{figure}
+\centering
+   EXAMPLE FIGURE WITH A RULED BICAPTION
+\precaption{\rule{\linewidth}{0.4pt}\par}
+\midbicaption{\precaption{}%
+              \postcaption{\rule{\linewidth}{0.4pt}}}
+\bicaption[fig:bi2]%
+    {Short English \cs{bicaption}}{Longingly}%
+    {Bild}{Langlauf}
+\end{figure}
+\end{lcode}
+
+ \begin{shadefigure}
+% \centering
+ EXAMPLE FIGURE WITH A RULED BICAPTION
+ \precaption{\rule{\linewidth}{0.4pt}\par}
+ \midbicaption{\precaption{}%
+               \postcaption{\rule{\linewidth}{0.4pt}}}
+ \bicaption[fig:bi2]{Short English \cs{bicaption}}{Longingly}%
+    {Bild}{Langlauf}
+ \end{shadefigure}
+
+\begin{syntax}
+\cmd{\bicontcaption}\marg{long1}\% \\
+                    \marg{NAME}\marg{long2} \\
+\end{syntax}
+\glossary(bicontcaption)%
+  {\cs{bicontcaption}\marg{long1}\marg{NAME}\marg{long2}}%
+  {A continued bilingual caption.}
+ Bilingual continuation captions can be typeset via the \cmd{\bicontcaption} 
+command. In this case, neither language text is put into the \listofx. 
+The command takes 3 arguments.
+\meta{long1} is the caption text for
+the main language of the document. The value of the \meta{NAME} argument
+is used as the caption name for the second language caption. The last
+argument, \meta{long2}, is the caption text
+for the second language.
+For example, if the main and secondary languages
+are again English and German:
+\begin{lcode}
+\bicontcaption{Continued}{Bild}{Fortgefahren}
+\end{lcode}
+
+\begin{syntax}
+ \cmd{\midbicaption}\marg{text} \\
+\end{syntax}
+\glossary(midbicaption)%
+  {\cs{midbicaption}\marg{text}}%
+  {In bilingual captions, \meta{text} is inserted after the first \cs{caption}
+   and immediately before the second \cs{caption}.}
+ The bilingual captions are implemented by calling \cmd{\caption} twice,
+ once for each language. The command \cmd{\midbicaption}, 
+ which is similar to the \cmd{\precaption} and \cmd{\postcaption} commands,
+ is executed 
+ just before calling the second \cmd{\caption}. Among other things,
+ this can be used to
+ modify the style\index{caption!bilingual!styling} of the second 
+caption with respect to the first.
+ For example, if there is a line above and below normal
+ captions, it is probably undesirable to have a double line in the
+ middle of a bilingual caption. So, for bilingual captions the
+ following may be done within the float\index{float} before the caption:
+\begin{lcode}
+\precaption{\rule{\linewidth}{0.4pt}\par}
+\postcaption{}
+\midbicaption{\precaption{}%
+              \postcaption{\rule{\linewidth}{0.4pt}}}
+\end{lcode}
+ This sets a line before the first of the two captions, then the
+\cmd{\midbicaption}\verb?{...}? nulls the pre-caption line and adds 
+a post-caption line for the second caption. The class initially specifies
+\verb?\midbicaption{}?.
+
+\index{bilingual captions|)}%|
+\index{caption!bilingual|)}%|
+
+ \section{Subcaptions}  \label{sec:subcaps}
+
+\index{caption!subcaption|(}%|
+\index{figure!subfigure|(}%|
+\index{table!subtable|(}%|
+\index{float!subfloat|(}%|
+
+     The \Lpack{subfigure} package enables the captioning of 
+sub-figures within a larger figure\index{figure}, 
+and similarly for tables\index{table}.
+The \Lpack{subfigure} package may be used with the class, or you
+can use the class commands described below; these commands can only
+be used inside a float environment for which a 
+subfloat\footnote{See \Sref{sec:multfloats}.} has been specified
+via \cmd{\newsubfloat}.
+
+\begin{syntax}
+\cmd{\subcaption}\oarg{list-entry}\marg{subtitle} \\
+\end{syntax}
+\glossary(subcaption)%
+  {\cs{subcaption}\oarg{list-entry}\marg{subtitle}}%
+  {Analagous to \cs{caption} but for an identified subcaption within a float.}
+The \cmd{\subcaption} command is similar to the \cmd{\caption} command
+and can only be used inside a float environment.
+It typesets an identified \meta{subtitle}, where the identification
+is an alphabetic character enclosed in parentheses. If the optional
+\meta{list-entry} argument is present, \meta{list-entry} is added to
+the caption listings for the float. If it is not present, then
+\meta{subtitle} is added to the listing.
+
+    The \meta{subtitle} is typeset within a box which is the width of
+the surrounding environment, so \cmd{\subcaption} should only be used
+within a fixed width box of some kind, for example a \Ie{minipage} as shown
+below.
+\begin{lcode}
+\begin{figure}
+\centering
+\begin{minipage}{0.3\textwidth}
+  \verb?Some verbatim text?
+  \subcaption{First text}
+\end{minipage}
+\hfill
+\begin{minipage}{0.3\textwidth}
+  \verb?More verbatim text?
+  \subcaption{Second text}
+\end{minipage}
+\caption{Verbatim texts}
+\end{figure}
+\end{lcode}
+As the example code shows, the \cmd{\subcaption} command provides a 
+means of putting verbatim elements into subfigures.
+
+\begin{syntax}
+\cmd{\subtop}\oarg{list-entry}\oarg{subtitle}\marg{text} \\
+\cmd{\subbottom}\oarg{list-entry}\oarg{subtitle}\marg{text} \\
+\end{syntax}
+\glossary(subtop)%
+  {\cs{subtop}\oarg{list-entry}\oarg{subtitle}\marg{text}}%
+  {Puts a subcaption identifier, and optionally \meta{subtitle}, on top of \meta{text}.}
+\glossary(subbottom)%
+  {\cs{subbottom}\oarg{list-entry}\oarg{subtitle}\marg{text}}%
+  {Puts a subcaption identifier, and optionally \meta{subtitle}, below \meta{text}.}
+The command \cmd{\subtop} puts a subcaption identifier on top of
+\meta{text}. If both optional arguments are present, \meta{list-entry}
+will be added to the appropriate\index{caption!subcaption!in list of} 
+listing, and \meta{subtitle} is
+placed above the \meta{text} with the identifier. If only one optional
+argument is present this is treated as being \meta{subtitle}; the
+identifier and \meta{subtitle} are placed above the \meta{text}
+and \meta{subtitle} is added to the listing. Regardless of the optional
+arguments the identifier is always added to the listing and placed above
+the \meta{text}.
+
+    The \cmd{\subbottom} command is identical to \cmd{\subtop} except
+that the identifier, and potentially the \meta{subtitle}, is placed
+below the \meta{text}. Note that verbatim text cannot be used
+in the \meta{text} argument to \cmd{\subbottom} or \cmd{\subtop}.
+
+    The main caption can be at either the top or the bottom of the float.
+The positioning of the main and subcaptions are independent.
+For example
+\begin{lcode}
+\begin{figure}
+  \subbottom{...}   % captioned as (a) below
+  \subtop{...}      % captioned as (b) above
+  \caption{...}
+\end{figure}
+\end{lcode}
+
+
+    If a figure that\index{figure} includes subfigures
+is itself continued then it may be desirable to
+continue the captioning of the subfigures. For example, if Figure~3
+has three subfigures, say A, B and C, and Figure~3 is continued then
+the subfigures in the continuation should be D, E, etc.
+\begin{syntax}
+\cmd{\contsubcaption}\oarg{list-entry}\marg{subtitle} \\
+\cmd{\contsubtop}\oarg{list-entry}\oarg{subtitle}\marg{text} \\
+\cmd{\contsubbottom}\oarg{list-entry}\oarg{subtitle}\marg{text} \\
+\cmd{\subconcluded} \\
+\end{syntax}
+\glossary(contsubcaption)%
+  {\cs{contsubcaption}\oarg{list-entry}\marg{subtitle}}%
+  { A continued \cs{subcaption}.}
+\glossary(contsubtop)%
+  {\cs{contsubtop}\oarg{list-entry}\oarg{subtitle}\marg{text}}%
+  { A continued \cs{subtop}.}
+\glossary(contsubbottom)%
+  {\cs{contsubbottom}\oarg{list-entry}\oarg{subtitle}\marg{text}}%
+  { A continued \cs{subbottom}.}
+\glossary(subconcluded)%
+  {\cs{subconcluded}}
+  {Indicates (to \ltx) that a continued subfloat is finished.}
+
+The \cmd{\contsubcaption}, \cmd{\contsuptop} and \cmd{\contsubbottom}
+commands are the continued\index{caption!subcaption!continued} 
+versions of the respective subcaptioning
+commands. These continue the subcaption numbering scheme across
+(continued) floats. In any event, the main caption can 
+ be at the top or bottom of the float\index{float}.
+ The \cmd{\subconcluded} command is used to indicate that the continued 
+ (sub) float has been concluded and the numbering
+ scheme is reinitialized. The command should be placed immediately
+ before the end of the last continued environment.
+    For example:
+ \begin{lcode}
+ \begin{figure}
+ \subbottom{...}  captioned as (a) below
+ \subbottom{...}  captioned as (b) below
+ \caption{...}
+ \end{figure}
+ \begin{figure}
+ \contsubtop{...}  captioned as (c) above
+ \contsubtop{...}  captioned as (d) above
+ \contcaption{Concluded}
+ \subconcluded
+ \end{figure}
+ ...
+ \begin{table}
+ \caption{...}
+ \subtop{...}     captioned as (a) above
+ \subbottom{...}  captioned as (b) below
+ \end{table}
+ \end{lcode}
+
+
+\begin{syntax}
+\cmd{\label}\parg{bookmark}\marg{labstr} \\
+\cmd{\subcaptionref}\marg{labstr} \\
+\end{syntax}
+\glossary(label)%
+  {\cs{label}\parg{bookmark}\marg{labstr}}%
+  {Associates \meta{labstr} with the current (section, caption, etc.)
+   number and page number. If used inside a subfloat and with the 
+  \Ppack{hyperref} package the optional \meta{bookmark} (note the parentheses
+  not square brackets) is available to specify a hyperref bookmark.}
+\glossary(subcaptionref)%
+  {\cs{subcaptionref}\marg{labstr}}%
+  {Print the subcaption identifer for a \meta{labstr} labelled subcaption.}
+A \cmd{\label} command may be included in the \meta{subtitle} argument
+of the subcaptioning\index{caption!subcaption!referencing} commands. 
+Using the normal \cmd{\ref} macro to
+refer to the label will typeset the number of the float (obtained
+from a \cmd{\label}ed main \cmd{\caption}) and the subcaption
+identifier. If the \cmd{\subcaptionref} macro is used instead of 
+\cmd{\ref} then only the subcaption identifier is printed.
+
+    In cases where the \Lpack{hyperref} package is used, the \cmd{\label}
+command when used inside the \meta{subtitle} argument can take an optional
+\meta{bookmark} argument, 
+\emph{enclosed in parenthese \emph{not} square brackets},
+which will create a bookmark field of the form `Subfigure 4.7(d)'.
+
+    As an example to show the difference between \cmd{\subcaptionref} and
+\cmd{\ref}, \fref{fig:twosubfig} and the paragraph immediately
+following this one were produced by the code shown below.
+
+    Figure \ref{fig:twosubfig} has two subfigures,
+namely \ref{sf:1} and \subcaptionref{sf:2}.
+\begin{shadefigure}
+%\centering
+\subbottom[Subfigure 1]{\fbox{SUBFIGURE ONE}\label{sf:1}}
+\hfill
+\subbottom[Subfigure 2]{\fbox{SUBFIGURE TWO}\label{sf:2}}
+\caption{Figure with two subfigures} \label{fig:twosubfig}
+\end{shadefigure}
+\begin{lcode}
+    Figure \ref{fig:twosubfig} has two subfigures,
+namely \ref{sf:1} and \subcaptionref{sf:2}.
+\begin{figure}
+\centering
+\subbottom[Subfigure 1]{\fbox{SUBFIGURE ONE}\label{sf:1}}
+\hfill
+\subbottom[Subfigure 2]{\fbox{SUBFIGURE TWO}\label{sf:2}}
+\caption{Figure with two subfigures} \label{fig:twosubfig}
+\end{figure}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\tightsubcaptions} \cmd{\loosesubcaptions} \\
+\end{syntax}
+\glossary(tightsubcaptions)%
+  {\cs{tightsubcaptions}}%
+  {Specifies the default vertical space around subcaptions.}
+\glossary(loosesubcaptions)%
+  {\cs{loosesubcaptions}}%
+  {Specifies extra vertical space around subcaptions.}
+As with many other aspects of typesetting the style of 
+subcaptions\index{caption!subcaption!styling} may 
+be specified. There is a small amount of vertical space 
+surrounding a subcaption. More space is used after the \cmd{\loosesubcaptions}
+declaration compared to that produced after the default
+\cmd{\tightsubcaptions} declaration.
+
+\begin{syntax}
+\cmd{\subcaptionsize}\marg{size} \\
+\cmd{\subcaptionlabelfont}\marg{fontspec} \\
+\cmd{\subcaptionfont}\marg{fontspec} \\
+\end{syntax}
+\glossary(subcaptionsize)%
+  {\cs{subcaptionsize}\marg{size}}%
+  {Font size for subcaptions.}
+\glossary(subcaptionlabelfont)%
+  {\cs{subcaptionlabelfont}\marg{fontspec}}%
+  {Font for subcaption identifiers.}
+\glossary(subcaptionfont)%
+  {\cs{subcaptionfont}\marg{fontspec}}%
+  {Font for subcaption titles.}
+
+The size of the font used for subcaptions is specified by 
+\cmd{\subcaptionsize}, and the fonts for the identifier and text
+are specified by \cmd{\subcaptionlabelfont} for the identifier and by
+\cmd{\subcaptionfont} for the title text. The defaults are:
+\begin{lcode}
+\subcaptionsize{\footnotesize}
+\subcaptionlabelfont{\normalfont}
+\subcaptionfont{\normalfont}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\subcaptionstyle}\marg{style} \\
+\cmd{\raggedleft} \cmd{\centering} \cmd{\raggedright} \cmd{\centerlastline} \\
+\end{syntax}
+\glossary(subcaptionstyle)%
+  {\cs{subcaptionstyle}\marg{style}}%
+  {Paragraph \meta{style} for subcaptions.}
+The identifier and title of a subcaption is typeset as a block (i.e.,
+non-indented) paragraph by specifying
+\begin{lcode}
+\subcaptionstyle{}
+\end{lcode}
+Other styles are available by calling \cmd{\subcaptionstyle}
+with a styling \meta{cmd}. Values that you might use are:
+\cmd{\centering} for a centered paragraph, \cmd{\raggedleft} or
+\cmd{\raggedright} for ragged left or right paragraphs, or
+\cmd{\centerlastline} which calls for a block paragraph with the last
+line centered.
+
+\begin{syntax}
+\cmd{\hangsubcaption} \\
+\cmd{\shortsubcaption} \\
+\cmd{\normalsubcaption} \\
+\end{syntax}
+\glossary(hangsubcaption)%
+  {\cs{hangsubcaption}}%
+  {The subcaption version of \cs{hangcaption}.}
+\glossary(shortsubcaption)%
+  {\cs{shortsubcaption}}%
+  {The subcaption version of \cs{shortcaption}.}
+\glossary(normalsubcaption)%
+  {\cs{normalsubcaption}}%
+  {The subcaption version of \cs{normalcaption}.}
+The \cmd{\hangsubcaption} declaration causes subcaptions to be typeset
+with the identifier above the title. Following the \cmd{\shortsubcaption}
+declaration subcaptions that are less than a full line in length are
+typeset left justified instead of centered. The \cmd{\normalsubcaption}
+declaration, which is the default, undoes any previous \cmd{\hangsubcaption}
+or \cmd{\shortsubcaption} declaration, so that subcaptions are normally
+centered.
+
+\index{float!subfloat|)}%|
+\index{table!subtable|)}%|
+\index{figure!subfigure|)}%|
+\index{caption!subcaption|)}%|
+
+\section{Side captions}
+
+\index{caption!side|(}%|
+
+    Typically captions are put either above or below the element they
+are describing. Sometimes it is desireable to put a caption at the
+side of the element instead.
+
+
+\begin{syntax}
+\senv{sidecaption}\oarg{fortoc}\marg{title}\oarg{label} \\
+ the body of the float \\
+\eenv{sidecaption} \\
+\end{syntax}
+\glossary(sidecaption)%
+  {\senv{sidecaption}\oarg{fortoc}\marg{title}\oarg{label}}%
+  {Environment for setting a sidecaption.}%
+    The \Ie{sidecaption} environment is used for a sidecaption rather than a
+macro. The body of the float is put inside the environment. For example:
+\begin{lcode}
+\begin{figure}
+  \begin{sidecaption}{An illustration}[fig:ill]
+    \centering
+    \includegraphics{...}
+  \end{sidecaption}
+\end{figure}
+\end{lcode}
+whereby the caption, `Figure N: An illustration', will be placed in the 
+margin alongside the graphic, and for reference purposes will be given 
+given the \cs{label} \texttt{fig:ill}.
+
+\begin{syntax}
+\lnc{\sidecapwidth} \lnc{\sidecapsep} \\
+\cmd{\setsidecaps}\marg{sep}\marg{width} \\
+\end{syntax}
+\glossary(sidecapwidth)%
+  {\cs{sidecapwidth}}%
+  {Length specifying the maximum width of a sidecaption.}%
+\glossary(sidecapsep)%
+  {\cs{sidecapsep}}%
+  {Length specifying the horizontal separation between a sidecaption and the float.}%
+\glossary(setsidecaps)%
+  {\cs{setsidecaps}\marg{sep}\marg{width}}%
+  {Sets the lengths \cs{sidecapsep} and \cs{sidcapwidth} to the given
+   values.}%
+
+The caption is set in a box \lnc{\sidecapwidth} wide (the default is
+\lnc{\marginparwidth}) offset \lnc{\sidecapsep} (default \lnc{\marginparsep})
+into the margin.
+The command \cmd{\setsidcaps} sets the \lnc{\sidecapsep} and 
+\lnc{\sidecapwidth} to the given values. Changing the marginpar parameters,
+for example with \cmd{\setmarginnotes}, will not change the side caption
+settings. Note also that \cmd{\checkandfixthelayout}
+neither checks nor fixes the side caption parameters.
+
+\begin{syntax}
+\cmd{\sidecapmargin}\marg{margin} \\
+\piif{ifscapmargleft} \piif{scapmarglefttrue} \piif{scapmargleftfalse} \\
+\end{syntax}
+\glossary(sidecapmargin)%
+  {\cs{sidecapmargin}\marg{margin}}%
+  {Sets the margin for sidecaptions.}%
+\glossary(ifsidecapleft)%
+  {\cs{ifsidecapleft}}%
+  {\ptrue\ if sidecaptions will be set in the left margin,
+    otherwise they will be set in the right margin.}%
+
+    If the float is a single column float in a twocolumn document then
+the caption is 
+always\footnote{Well, nearly always. See the \cs{overridescapmargin} command 
+later.}
+placed in the adjacent margin, otherwise the \cmd{\sidecapmargin} command
+controls the margin where the sidecaption will be placed. 
+The possible values for \meta{margin} are one of: 
+\texttt{left}, 
+\texttt{right},
+\texttt{inner}, or
+\texttt{outer}.
+If \texttt{left} or \texttt{right} is specified the caption will go into
+the left or right margin. If \texttt{inner} or \texttt{outer} is specified
+then in a two sided document the caption will be on different sides of the
+typeblock according to whether it is a recto or verso page; in a one sided
+document the caption margin is fixed. The left margin is the default.
+
+    When the caption is to be set in the left margin, \piif{ifscapmargleft} is
+set \ptrue, and for a right margin it is set \pfalse.
+
+\begin{syntax}
+\cmd{\setsidecappos}\marg{pos} \\
+\end{syntax}
+\glossary(setsidcappos)%
+  {\cs{setsidcappos}\marg{pos}}%
+  {Declaration of the vertical position of a sidecaption with respect
+   to the float.}%
+By default a sidecaption is vertically centered with respect to the float
+it is captioning. This can be altered by using the \cmd{\setsidecappos}
+declaration. The allowed values for \meta{pos} are:
+\begin{description}
+\item[\texttt{t}] --- the top of the caption is aligned 
+                      with the top of the float
+\item[\texttt{c}] --- (the default) the center of the caption is aligned 
+                      with the center of the float
+\item[\texttt{b}] --- the bottom of the caption is aligned 
+                      with the bottom of the float
+\end{description}
+
+    The other kinds of simple captions can also be put at the side
+of a float. The positioning and styling commands for these are exactly
+those for \Ie{sidecaption}. 
+Bilingual captions, which are not considered to be simple, can only be 
+placed above or below a float; 
+no facilities are provided for setting them at the side..
+
+\begin{syntax}
+\senv{sidecontcaption}\marg{title}\oarg{label} \\
+ the body of the float \\
+\eenv{sidecontcaption} \\
+\end{syntax}
+\glossary(sidecontcaption)%
+  {\senv{sidecontcaption}\marg{title}\oarg{label}}%
+  {Environment for setting a continued sidecaption.}%
+Sidecaptions may be continued with the \Ie{sidecontcaption} environment.
+
+\begin{syntax}
+\senv{sidenamedlegend}\oarg{fortoc}\marg{title} \\
+ the body of the float \\
+\eenv{sidenamedlegend} \\
+\end{syntax}
+\glossary(sidenamedlegend)%
+  {\senv{sidenamedlegend}\marg{title}\oarg{label}}%
+  {Environment for setting a named legend kind of sidecaption.}%
+Named legends may be set at the side with the \Ie{sidenamedlegend} environment.
+
+\begin{syntax}
+\senv{sidelegend}\marg{title} \\
+ the body of the float \\
+\eenv{sidelegend} \\
+\end{syntax}
+\glossary(sidelegend)%
+  {\senv{sidelegend}\marg{title}\oarg{label}}%
+  {Environment for setting a legend kind of sidecaption.}%
+Legends may be set at the side with the \Ie{sidelegend} environment.
+
+\fancybreak{}
+
+\textbf{Caveat}: Note that the \texttt{side...} envs expect the body
+of the float to be \emph{taller} than the typeset caption/legend. In
+case you write a long caption/legend for a short float, you may want
+to visit this answer:
+\url{http://tex.stackexchange.com/a/228412/3929}.
+
+
+\subsection{Tweaks}
+
+\begin{syntax}
+\cmd{\sidecapstyle} \\
+\end{syntax}
+\glossary(sidecapstyle)%
+  {\cs{sidecapstyle}}%
+  {Style settings for a sidecaption.}%
+Just before the caption is set, the \cmd{\sidecapstyle} command is called.
+This may be used to set the styling for the particular caption. By default
+it sets captions that are in the left margin raggedleft, and those
+that are in the right margin are set raggedright. The default definition
+is:
+%\begin{lcode}
+\begin{shadecode}
+\newcommand*{\sidecapstyle}{%
+%%  \captionnamefont{\bfseries}
+  \ifscapmargleft
+    \captionstyle{\raggedleft}%
+  \else
+    \captionstyle{\raggedright}%
+  \fi}
+\end{shadecode}
+%\end{lcode}
+ You can change the command to suit your purposes; for example, uncommenting
+the \cmd{\captionnamefont} line would result in the caption's float name being
+set in a bold font. 
+
+\begin{syntax}
+\cmd{\overridescapmargin}\marg{margin} \\
+\lnc{\sidecapraise} \\
+\end{syntax}
+\glossary(overridescapmargin)%
+  {\cs{overridescapmargin}\marg{margin}}%
+  {A one-time override of \cs{sidecapmargin}.}%
+\glossary(sidecapraise)%
+  {\cs{sidecapraise}}%
+  {Vertical distance added to the default vertical placement of a sidecaption.}%
+Sometimes the caption may not be placed exactly where you want it --- it
+may be in the wrong margin or at the wrong height.
+
+The command \cmd{\overridescapmargin} will force the following caption into
+the \meta{margin} you specify which can only be \texttt{left} or
+\texttt{right}. In a twosided document where \cmd{\sidecapmargin}
+is \texttt{inner} or \texttt{outer} and the caption goes in the wrong margin,
+it is likely that the declaration \piif{strictpagecheck} will solve
+the problem. The wrong margin might be chosen in a twocolumn document
+where the float is in the second column; use 
+\begin{lcode}
+\overridescapmargin{right}
+\end{lcode}
+to fix this.
+
+    The caption may not be at quite the height you want with respect to the
+float. The caption will be raised by the length \lnc{\sidecapraise} 
+in addition to the calculated movement (or lowered if \lnc{\sidecapraise}
+is negative). 
+
+\begin{syntax}
+\cmd{\sidecapfloatwidth}\marg{length} \\
+\end{syntax}
+\glossary(sidecapfloatwidth)%
+  {\cs{sidecapfloatwidth}\marg{length}}%
+  {Macro holding the width of a float with a sidecaption.}%
+
+    The float is set in a \Ie{minipage} with width \cmd{sidecapfloatwidth},
+whose default definition is
+\begin{lcode}
+\newcommand*{\sidecapfloatwidth}{\linewidth}
+\end{lcode}
+That is, the normal width is the same as the current \lnc{\linewidth}.
+For a narrow table, say, you may want to reduce this, for example to
+half by
+\begin{lcode}
+\renewcommand*{\sidecapfloatwidth}{0.5\linewidth}
+\end{lcode}
+    Note that \cmd{\sidecapfloatwidth} is a macro, not a length, 
+so it must be altered by using a \cmd{\renewcommand*}, 
+\emph{not} by \cmd{\setlength}.
+
+    If you do reduce the \cmd{\sidecapfloatwidth} you may notice that the
+sidecaption is actually placed a distance \lnc{\sidecapsep} with respect
+to the float's \Ie{minipage}, not with respect to the text block.
+
+\newlength{\mylength}
+\setlength{\mylength}{\linewidth}
+\addtolength{\mylength}{-\sidecapsep}
+\addtolength{\mylength}{-\sidecapwidth}
+\begin{shadetable}
+  \sidecapmargin{left}%
+  \renewcommand*{\sidecapfloatwidth}{\mylength}%
+  \raggedleft
+  \begin{sidecaption}{%
+    Permitted arguments for some sidecaption related commands}[scap:one]
+  \centering
+%  \begin{tabular}{ccc} \toprule
+%  \cs{setsidecappos} & \cs{sidecapmargin} & \cs{overridescapmargin} \\ \midrule
+%  \texttt{t}         & \texttt{left}      & \texttt{left}       \\
+%  \texttt{c}         & \texttt{right}     & \texttt{right}       \\
+%  \texttt{b}         & \texttt{inner}      &  \\
+%                     & \texttt{outer}      &  \\ \bottomrule
+%  \end{tabular}
+  \begin{tabular}{cc} \toprule
+  \cs{sidecapmargin} & \cs{overridescapmargin} \\ \midrule
+  \texttt{left}      & \texttt{left}       \\
+  \texttt{right}     & \texttt{right}       \\
+  \texttt{inner}      &  \\
+  \texttt{outer}      &  \\ \bottomrule
+  \end{tabular}
+\end{sidecaption}
+\end{shadetable}
+
+Table~\ref{scap:one} was created by the following code.
+%\begin{lcode}
+\begin{shadecode}
+\newlength{\mylength}
+\setlength{\mylength}{\linewidth}
+\addtolength{\mylength}{-\sidecapsep}
+\addtolength{\mylength}{-\sidecapwidth}
+\begin{table}
+  \sidecapmargin{left}%
+  \renewcommand*{\sidecapfloatwidth}{\mylength}%
+  \raggedleft
+  \begin{sidecaption}{%
+    Permitted arguments for some sidecaption related commands}[scap:one]
+  \centering
+  \begin{tabular}{cc} \toprule
+  \cs{sidecapmargin} & \cs{overridescapmargin} \\ \midrule
+  \texttt{left}      & \texttt{left}       \\
+  \texttt{right}     & \texttt{right}       \\
+  \texttt{inner}     &  \\
+  \texttt{outer}     &  \\ \bottomrule
+  \end{tabular}
+\end{sidecaption}
+\end{table}
+\end{shadecode}
+%\end{lcode} 
+
+    The calculations on the \cs{mylength} length are so that the sidecaption
+and float will just fit inside the typeblock.
+
+Note that the \cmd{\raggedleft} command before the \Ie{sidecaption} environment
+makes the float's \Ie{minipage} be placed raggedleft (i.e., moved across to
+the right hand edge of the typeblock) while the \cmd{\centering} centers
+the \Ie{tabular} within the minipage. You can get a variety of horizontal
+placements by judicious use of \cmd{\raggedright}, \cmd{\centering}
+and \cmd{\raggedleft} commands. If you do move the float sideways to leave
+space for the caption make sure that the caption will go to the side you
+want. In the example code I `moved' the float to the right so I made
+sure that the caption would go on the left by explicitly setting
+\begin{lcode}
+\sidecapmargin{left}
+\end{lcode}
+
+    As far as \tx\ is concerned a sidecaption takes no horizontal space. If
+you use a sidecaption in a wrapped float from, say, the \Lpack{wrapfig} 
+package, make sure that the sidecaption gets placed where it won't be 
+overlaid by the main text.
+
+\index{caption!side|)}%|
+
+ \section{How \ltx\ makes captions} \label{sec:ltx}%|
+
+\index{caption!\ltx\ methods|(}%|
+
+ This section provides an overview of how \ltx\ creates captions and
+ gives some examples of how to change the captioning style directly.
+ The section need not be looked at more than once unless you like 
+ reading \ltx\ code
+ or you want to make changes to \ltx's style of captioning not supported
+by the class.
+
+ The \ltx\ kernel provides tools to help in the definition of captions,
+ but it is the particular class that decides on their format.
+
+\begin{syntax}
+ \cmd{\caption}\oarg{short}\marg{long} \\
+\end{syntax}
+\glossary(caption)%
+  {\cs{caption}\oarg{short}\marg{long}}%
+  {Typeset a caption with title \meta{long}, and add it, or \meta{short}
+   instead if given, to a \listofx.} 
+ The kernel (in \file{ltfloat.dtx}) defines the caption command via 
+\begin{lcode}
+\def\caption{%
+    \refstepcounter\@captype \@dblarg{\@caption\@captype}}
+\end{lcode}
+
+\begin{syntax}
+ \cmd{\@captype} \\
+\end{syntax}
+ \cmd{\@captype} is defined by the code that creates a new float\index{float} 
+environment and is set to the environment's name (see the code for 
+\cmd{\@xfloat} in \file{ltfloat.dtx}). For a \Ie{figure} environment,
+ there is an equivalent to 
+\begin{lcode}
+\def\@captype{figure}
+\end{lcode}
+
+\begin{syntax}
+ \cmd{\@caption}\marg{type}\oarg{short}\marg{long} \\
+\end{syntax}
+ The kernel also provides the \cmd{\@caption} macro as:
+\begin{lcode}
+\long\def\@caption#1[#2]#3{\par
+  \addcontentsline{\csname ext@#1\endcsname}{#1}%     <-
+    {\protect\numberline{\csname the#1\endcsname}%
+     {\ignorespaces #2}}
+  \begingroup
+    \@parboxrestore
+    \if@minipage
+      \@setminipage
+    \fi
+    \normalsize
+    \@makecaption{\csname fnum@#1\endcsname}%         <-
+                 {\ignorespaces #3}\par
+  \endgroup}
+ \end{lcode}
+ where \meta{type} is the name of the environment in which the caption
+ will be used. Putting these three commands together results in the user's 
+view of the caption command as \cmd{\caption}\oarg{short}\marg{long}.
+
+ It is the responsibilty of the class (or package) which defines 
+floats\index{float} to provide definitions for \cmd{\ext@type}, 
+\cmd{\fnum@type} and \cmd{\@makecaption} which appear in the 
+definition of \cmd{\@caption} (in the lines marked \verb?<-? above).
+
+\begin{syntax}
+ \cmd{\ext@type} \\
+\end{syntax}
+ This macro holds the name of the extension for a \listofx{} file.
+ For example for the \Ie{figure} float\index{float} environment there is the
+ definition equivalent to 
+\begin{lcode}
+ \newcommand{\ext@figure}{lof}
+\end{lcode}
+
+\begin{syntax}
+ \cmd{\fnum@type} \\
+\end{syntax}
+ This macro is responsible for typesetting the caption number. For example,
+ for the \Ie{figure} environment there is the definition equivalent to
+\begin{lcode}
+ \newcommand{\fnum@figure}{\figurename~\thefigure}
+\end{lcode}
+
+\begin{syntax}
+ \cmd{\@makecaption}\marg{number}\marg{text} \\
+\end{syntax}
+ The \cmd{\@makecaption} macro, where \meta{number}
+ is a string such as `Table~5.3' and \meta{text} is the caption text,
+ performs the typesetting of the caption, and
+ is defined in the standard classes (in \file{classes.dtx}) as the
+ equivalent of:
+\begin{lcode}
+\newcommand{\@makecaption}[2]{
+  \vskip\abovecaptionskip         <- 1
+  \sbox\@tempboxa{#1: #2}         <- 2
+  \ifdim \wd\@tempboxa >\hsize
+    #1: #2\par                    <- 3
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}
+  \fi
+  \vskip\belowcaptionskip}        <- 4
+\end{lcode}
+
+\begin{syntax}
+ \lnc{\abovecaptionskip}
+ \lnc{\belowcaptionskip} \\
+\end{syntax}
+\glossary(abovecaptionskip)%
+  {\cs{abovecaptionskip}}%
+  {Vertical space above a caption.}
+\glossary(belowcaptionskip)%
+  {\cs{belowcaptionskip}}%
+  {Vertical space below a caption.}
+  Vertical space is added before and after a caption (lines marked 1 and 4
+in the code for \cmd{\@makecaption} above) and the amount of space is given
+by the lengths \lnc{\abovecaptionskip}\index{caption!space above} 
+and \lnc{\belowcaptionskip}. The
+standard classes set these to 10pt and 0pt respectively. If you want
+to change the space before or after a caption, use \cmd{\setlength} to change
+the values. In figures\index{figure}, the caption is usually placed below the
+illustration\index{illustration}. The actual space between the bottom 
+of the illustration\index{illustration} and the baseline of the first 
+line of the caption\index{caption!space above} is 
+the \lnc{\abovecaptionskip} plus the 
+\lnc{\parskip} plus the \lnc{\baselineskip}.
+If the illustration\index{illustration} is in a \Ie{center} environment 
+then additional space will be added by the \eenv{center}; it is usually 
+better to use the \cmd{\centering} command rather than the 
+\Ie{center} environment.
+
+ The actual typesetting of a caption is effectively performed by the code
+in lines marked 2 and 3 in the code for \cmd{\@makecaption}; note that
+these are where the colon that is typeset after the number is specified. 
+If you want to
+make complex changes to the default captioning style you may have to
+create your own version of \cmd{\@caption} using 
+\cmd{\renewcommand}. On the other hand, many such changes can be achieved
+by changing the definition of the 
+the appropriate \cmd{\fnum@type} command(s). For example, to make the 
+figure\index{figure} name and number\index{caption!font} bold: 
+\begin{lcode}
+\renewcommand{\fnum@figure}{\textbf{\figurename~\thefigure}}
+\end{lcode}
+
+ REMEMBER: If you are doing anything involving commands that include
+the \idxatincode\texttt{@} character, and it's not in a class or package 
+file, you have
+to do it within a \cmd{\makeatletter} and \cmd{\makeatother} pairing
+(\seeatincode). So,
+if you modify the \cmd{\fnum@figure} command anywhere in your document
+it has to be done as:
+\begin{lcode}
+ \makeatletter
+ \renewcommand{\fnum@figure}{......}
+ \makeatother
+\end{lcode}
+
+ \makeatletter
+\let\oldfnum@figure\fnum@figure
+ \renewcommand{\fnum@figure}{\textsc{\figurename~\thefigure}}
+ \makeatother
+ \begin{shadefigure}
+ \centering
+ A THOUSAND WORDS\ldots
+ \caption{A picture is worth a thousand words}\label{fig:sc}
+ \end{shadefigure}
+
+ As an example, \fref{fig:sc} was created by the following code:
+\begin{lcode}
+ \makeatletter
+ \renewcommand{\fnum@figure}{\textsc{\figurename~\thefigure}}
+ \makeatother
+ \begin{figure}
+ \centering
+ A THOUSAND WORDS\ldots
+ \caption{A picture is worth a thousand words}\label{fig:sc}
+ \end{figure}
+\end{lcode}
+
+ As another example, suppose that you needed to typeset the \cmd{\figurename}
+and its number in a bold font, replace the 
+colon\index{caption!delimeter} that normally appears
+after the number by a long dash, and typeset the actual title 
+text\index{caption!font} in
+a sans-serif font, as is illustrated by the caption for 
+\fref{fig:sf}. The following code does this.
+
+ \makeatletter
+ \renewcommand{\fnum@figure}[1]{\textbf{\figurename~\thefigure} --- \sffamily}
+ \makeatother
+ \begin{shadefigure}
+  \centering
+  ANOTHER THOUSAND WORDS\ldots
+ \caption{A different kind of figure caption}\label{fig:sf}
+ \end{shadefigure}
+
+\begin{lcode}
+ \makeatletter
+ \renewcommand{\fnum@figure}[1]{\textbf{\figurename~\thefigure} 
+                                --- \sffamily}
+ \makeatother
+ \begin{figure}
+  \centering
+  ANOTHER THOUSAND WORDS\ldots
+ \caption{A different kind of figure caption}\label{fig:sf}
+ \end{figure}
+\end{lcode}
+ Perhaps a little description of how this works is in order.
+ Doing a little bit of \tx's macro processing by hand, the typesetting
+ lines in \cmd{\@makecaption} (lines 2 and 3) get instantiated like:
+\begin{lcode}
+\fnum@figure{\figurename~\thefigure}: text
+\end{lcode}
+ Redefining \cmd{\fnum@figure} to take one argument and then not using the
+ value of the argument essentially gobbles up the colon. Using
+\begin{lcode}
+\textbf{\figurename~\thefigure}
+\end{lcode}
+in the definition causes \cmd{\figurename} and the number to be typeset in
+a bold font. After this comes the long dash. Finally, putting \cmd{\sffamily}
+at the end of the redefinition causes any following text (i.e., the actual 
+title) to be typeset using the sans-serif font.
+
+ If you do modify \cmd{\@makecaption}, then spaces in the definition may be
+important; also you must use the comment (\%) character in the same
+places as I have done above. Hopefully, though, the class provides the
+tools that you need to make most, if not all, of any likely caption styles.
+
+\makeatletter
+\let\fnum@figure\oldfnum@figure
+\makeatother
+
+\index{caption!\ltx\ methods|)}%|
+
+
+ \section{Footnotes in captions}
+
+\index{caption!footnote|(}%|
+\index{footnote!in caption|(}%|
+
+    If you want to have a caption with a footnote, think long and hard
+ as to whether this is really essential. It is not normally considered
+ to be good typographic practice, and to rub the point in \ltx\ does not
+ make it necessarily easy to do. However, if you (or your publisher)
+ insists, read on.
+
+    If it is present, the optional argument to \cmd{\caption} is put into
+the \listofx\ as appropriate. If the argument is not present, then the
+text of the required argument is put into the \listofx. In the first case,
+the optional argument is moving, and in the second case the required
+argument is moving. The \cmd{\footnote} command\index{footnote!fragile} 
+is fragile and must be
+\cmd{\protect}ed (i.e., \verb?\protect\footnote{}?) if it is used in a moving 
+argument. If you don't want the footnote to appear in 
+the \listofx, use a
+footnoteless optional argument and a footnoted required argument.
+
+   You will probably be surprised if you just do, for example:
+ \begin{lcode}
+ \begin{figure}
+ ...
+ \caption[For LoF]{For figure\footnote{The footnote}}
+ \end{figure}
+ \end{lcode}
+because (a) the footnote number may be greater than you thought, and (b)
+the footnote text has vanished. This latter is because \ltx\ won't typeset
+footnotes\index{footnote!in float} from a float\index{float}. 
+To get an actual footnote within the float you have to use a minipage, 
+like:
+ \begin{lcode}
+ \begin{figure}
+ \begin{minipage}{\linewidth}
+ ...
+ \caption[For LoF]{For figure\footnote{The footnote}}
+ \end{minipage}
+ \end{figure}
+ \end{lcode}
+ If you are using the standard classes you may now find that you get two 
+footnotes for the price of one. Fortunately this will not occur with this 
+class, nor will an unexpected increase of the footnote number.
+
+    When using a minipage as above, the footnote text is typeset at the
+bottom of the minipage (i.e., within the float\index{float}). 
+If you want the footnote text typeset at the bottom of the page, 
+then you have to use the
+\cmd{\footnotemark} and \cmd{\footnotetext} commands like:
+ \begin{lcode}
+ \begin{figure}
+ ...
+ \caption[For LoF]{For figure\footnotemark}
+ \end{figure}
+ \footnotetext{The footnote}
+ \end{lcode}
+ This will typeset the argument of the \cmd{\footnotetext} command at the
+bottom of the page where you called the command. 
+Of course, the figure\index{figure} might have floated\index{float} to a 
+later page, and then it's a matter of some manual fiddling to get everything 
+on the same page, and possibly to get the footnote 
+marks\index{footnote!mark} to match correctly with the 
+footnote\index{footnote!text} text.
+
+ At this point, you are on your own.
+\index{footnote!in caption|)}%|
+\index{caption!footnote|)}%|
+
+
+\section{The class versus the caption package (and its friends)}
+\label{sec:class-versus-caption}
+
+For some, the configurations for captions provided by the class, are
+either a bit too complicated or not complicated enough.
+
+The \Lpack{caption} package by Alex Sommerfeldt may provide a simpler
+and much more extensive configuration interface for captions. The
+package can be used with the class, but there are a few caveats:
+\begin{enumerate}[(a)]
+\item All of the special configuration macros provided by the class
+  will no longer have any effect (\Lpack{caption} overwrites the core,
+  and thus our interfaces will have no effect),
+\item \cmd{\abovecaptionskip} will be reset to 10\,pt, and
+  \cmd{\belowcaptionskip} to zero. (The class would set both to
+  0.5\cmd{\onelineskip}, so if you need to change these, move the
+  change until after \Lpack{caption} has been loaded) 
+\end{enumerate}
+
+
+
+
+
+
+
+
+\index{caption|)}%|
+
+
+%#% extend
+%#% extstart include rows-and-columns.tex
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-09-06 15:05:23 +0200 (Thu, 06 Sep 2018) $}
+{$LastChangedRevision: 612 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Original memman
+
+%%%%%%%%%%%%%%% end original memman
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%\DeleteShortVerb{\|}
+%%%%\MakeShortVerb{\=}
+%%%%\input{tabmanbody}  %% rows & columns
+%%%%  tabmanbody.tex

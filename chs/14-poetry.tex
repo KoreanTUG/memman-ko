@@ -1,0 +1,1156 @@
+\chapter{Poetry} \label{chap:verse}
+
+
+    The typesetting of a poem should ideally be dependent on the
+particular poem. Individual problems do not usually admit of a
+general solution, so this manual and code should be used more
+as a guide towards some solutions rather than providing a ready
+made solution for any particular piece of verse.
+
+    The doggerel used as illustrative material has been taken 
+from~\cite{RUMOUR}.
+
+    Note that for the examples in this section I have made no attempt
+to do other than use the minimal \alltx\ capabilities; in particular
+I have made no attempt to do any special page breaking so some stanzas
+may cross onto the next page --- most undesireable for publication.
+
+\index{verse|(}
+\index{verse!typesetting environments|(}
+
+    The standard \ltx\ classes provide the \Ie{verse} environment which 
+is defined as a particular kind of list. Within the environment you 
+use \cmd{\\}\index{verse!end a line} to end a line, 
+and a blank line will end\index{verse!end a stanza}\index{stanza!end} a 
+stanza. For example, here is the text of a single stanza poem:
+\begin{lcode}
+\newcommand{\garden}{
+I used to love my garden \\
+But now my love is dead \\
+For I found a bachelor's button \\
+In black-eyed Susan's bed.
+}
+\end{lcode}
+\newcommand{\garden}{
+I used to love my garden \\
+But now my love is dead \\
+For I found a bachelor's button \\
+In black-eyed Susan's bed.
+}
+When this is typeset as a normal \ltx\ paragraph\index{paragraph} 
+(with no paragraph indentation), i.e.,
+\begin{lcode}
+\noident\garden
+\end{lcode}
+it looks like: \\[\baselineskip]
+\garden{}
+
+\vspace*{\onelineskip}
+
+   Typesetting it within the \Ie{verse} environment produces:% \\[\baselineskip]
+
+\begin{verse}\index[lines]{I used to love my garden}  
+\garden
+\end{verse}
+
+%\ablankline
+
+The stanza could also be typeset within the \Ie{alltt} environment, defined
+in the standard \Lpack{alltt} package~\cite{ALLTT}, 
+using a normal font and no \cmd{\\} line endings.
+\begin{lcode}
+\begin{alltt}\normalfont
+I used to love my garden 
+But now my love is dead 
+For I found a bachelor's button 
+In black-eyed Susan's bed.
+\end{alltt}
+\end{lcode}
+which produces:
+
+\begin{alltt}\normalfont
+I used to love my garden 
+But now my love is dead 
+For I found a bachelor's button 
+In black-eyed Susan's bed.
+\end{alltt}
+
+The \Ie{alltt} environment is like the \Ie{verbatim} environment except that
+you can use LaTeX macros inside it. 
+   In the \Ie{verse} environment long lines\index{verse!long lines}  
+will be wrapped and indented
+but in the \Ie{alltt} environment there is no indentation. 
+
+Some stanzas have certain lines\index{verse!indent line} indented, 
+often alternate ones. To
+typeset stanzas like this you have to add your own spacing. For
+instance:
+\begin{lcode}
+\begin{verse}
+There was an old party of Lyme \\
+Who married three wives at one time. \\
+\hspace{2em} When asked: `Why the third?' \\
+\hspace{2em} He replied: `One's absurd, \\
+And bigamy, sir, is a crime.'
+\end{verse}
+\end{lcode}
+is typeset as: 
+\begin{verse}\index[lines]{There was an old party of Lyme}
+There was an old party of Lyme \\
+Who married three wives at one time. \\
+\hspace{2em} When asked: `Why the third?' \\
+\hspace{2em} He replied: `One's absurd, \\
+And bigamy, sir, is a crime.'
+\end{verse}
+\vspace{\onelineskip}
+
+Using the \Ie{alltt} environment you can put in the spacing via ordinary
+spaces. That is, this:
+\begin{lcode}
+\begin{alltt}\normalfont
+There was an old party of Lyme
+Who married three wives at one time.
+      When asked: `Why the third?' 
+      He replied: `One's absurd, 
+And bigamy, sir, is a crime.'
+\end{alltt}
+\end{lcode}
+is typeset as
+
+\begin{alltt}
+\normalfont
+There was an old party of Lyme
+Who married three wives at one time.
+      When asked: `Why the third?' 
+      He replied: `One's absurd, 
+And bigamy, sir, is a crime.'
+\end{alltt}
+
+More exotically you could use the TeX \cmd{\parshape} 
+command\footnote{See the \btitle{\tx book} for how to use this.}:
+\begin{lcode}
+\parshape = 5 0pt \linewidth 0pt \linewidth 
+              2em \linewidth 2em \linewidth 0pt \linewidth
+\noindent There was an old party of Lyme \\
+Who married three wives at one time. \\
+When asked: `Why the third?' \\
+He replied: `One's absurd, \\
+And bigamy, sir, is a crime.' \par
+\end{lcode}
+which will be typeset as:
+
+\vspace*{\onelineskip}
+
+\parshape = 5 0pt \linewidth 0pt \linewidth 
+              2em \linewidth 2em \linewidth 0pt \linewidth
+\noindent There was an old party of Lyme \\
+Who married three wives at one time. \\
+When asked: `Why the third?' \\
+He replied: `One's absurd, \\
+And bigamy, sir, is a crime.' \par
+
+
+\vspace*{\onelineskip}
+
+   This is about as much assistance as standard \alltx\ provides, except
+to note that in the \Ie{verse} environment the \cmd{\\*} version of \cmd{\\}
+will prevent\index{verse!prevent page break} a following page break. 
+You can also make judicious use
+of the \cmd{\needspace} macro to keep things together.
+
+\index{verse!typesetting environments|)}
+
+   Some books of poetry, and especially anthologies, have two or more
+indexes\index{index}\index{verse!multiple indexes}, one, say for the 
+poem titles and another for the 
+first lines, and maybe even a third for the poets' names. 
+If you are not using \Lclass{memoir} then 
+the \Lpack{index}~\cite{INDEX} and \Lpack{multind}~\cite{MULTIND}
+packages provide support for multiple indexes\index{index!multiple} 
+in one document.
+
+%\clearpage
+\section{Classy verse} 
+
+    The code provided by the \Lclass{memoir} class is meant to help
+with some aspects of typesetting poetry but does not, and cannot,
+provide a comprehensive solution to all the requirements that
+will arise.
+
+    The main aspects of typesetting poetry that differ from typesetting
+plain text are:
+\begin{itemize}
+\item Poems are usually visually centered\index{verse!centering} on the page.
+\item Some lines\index{verse!indent line} are indented, and often there 
+      is a pattern\index{verse!indent pattern} to the indentation.
+\item When a line is too wide\index{verse!long line} for the page it is 
+      broken and the
+      remaining portion indented with respect to the original start
+      of the line.
+\end{itemize}
+These are the ones that the class attempts to deal with.
+
+\begin{syntax}
+\senv{verse}\oarg{length} ... \eenv{verse} \\
+\lnc{\versewidth} \\
+\end{syntax}
+\glossary(verse)%
+  {\senv{verse}\oarg{length}}%
+  {Environment for typesetting verse; if given the midpoint of \meta{length}
+   is placed at the center of the typeblock measure.}
+\glossary(versewidth)%
+  {\cs{versewidth}}%
+  {Scratch length, typically for use in verse typesetting.}
+The \Ie{verse} environment provided by the class is an extension
+of the usual LaTeX environment. The environment takes one optional
+parameter, which is a length; for example \verb?\begin{verse}[4em]?.
+You may have noticed that the earlier verse examples are all
+near the left margin\index{margin!left}, whereas verses usually look better 
+if they
+are typeset about the center of the page. The length parameter,
+if given, should be about the length of an average line, and then
+the entire contents\index{verse!centering} will be typeset with the mid 
+point of the length centered horizontally on the page.
+
+The length \lnc{\versewidth} is provided as a convenience. It may be used,
+for example, to calculate the length of a line of text for use
+as the optional argument to the \Ie{verse} environment: 
+\begin{lcode}
+\settowidth{\versewidth}{This is the average line,}
+\begin{verse}[\versewidth]
+\end{lcode}
+
+\begin{syntax}
+\lnc{\vleftmargin} \\
+\end{syntax}
+\glossary(vleftmargin)%
+  {\cs{vleftmargin}}%
+  {General verse indent from the left of the typeblock.}
+In the basic \ltx\ \Ie{verse} environment the body of the verse is indented
+from the left of the typeblock by an amount \lnc{\leftmargini}, as is the
+text in many other environments based on the basic \ltx\ \Ie{list}
+environment. For the class's version of \Ie{verse} the default indent
+is set by the length \lnc{\vleftmargin} (which is initially set to
+\lnc{leftmargini}). For poems with particularly long 
+lines\index{verse!long line} it could perhaps be
+advantageous to eliminate any general indentation by:
+\begin{lcode}
+\setlength{\vleftmargin}{0em}
+\end{lcode}
+If necessary the poem could even be moved into the left margin by giving
+\lnc{\vleftmargin} a negative length value, such as -1.5em.
+
+\begin{syntax}
+\lnc{\stanzaskip} \\
+\end{syntax}
+\glossary(stanzaskip)%
+  {\cs{stanzaskip}}%
+  {Vertical space between verse stanzas.}
+    The vertical space\index{stanza!space} between stanzas is the 
+length \lnc{\stanzaskip}. It can be changed by the usual methods.
+
+\begin{syntax}
+\cmd{\vin} \\
+\lnc{\vgap} \\
+\lnc{\vindent} \\
+\end{syntax}
+The command \cmd{\vin} is shorthand for \verb?\hspace*{\vgap}? for use
+at the start of an indented\index{verse!indent space} line of verse. 
+The length \lnc{\vgap}
+(initially 1.5em) can be changed by \cmd{\setlength} or \cmd{\addtolength}.
+When a verse line\index{verse!long line} is too long to fit within the 
+typeblock\index{typeblock} it is wrapped\index{verse!wrapped line indent} 
+to the next line with an initial indent given by the value of the length
+\lnc{vindent}. Its initial value is twice the default value of \lnc{\vgap}.
+
+\begin{syntax}
+\cmd{\\}\oarg{length} \\
+\cmd{\\*}\oarg{length} \\
+\cmdprint{\\!}\oarg{length} \\
+\end{syntax}
+\glossary(\\)%
+  {\Vprint{\\}\oarg{length}}%
+  {Ends a verse line, and adds \meta{length} vertical space.}
+\glossary(\\*)%
+  {\Vprint{\\*}\oarg{length}}%
+  {Ends a line while preventing a pagebreak, and adds \meta{length} vertical space.}
+\glossary(\\!)
+  {\Vprint{\\!}\oarg{length}}%
+  {Ends a verse stanza, and adds \meta{length} vertical space.}
+
+Each line in the \Ie{verse} environment, except possibly for the last line
+in a stanza\index{stanza!last line}, 
+must be ended by \cmd{\\}, which comes in several variants. In each variant
+the optional \meta{length} is the vertical space to be left before the next
+line. The \cmd{\\*} form prohibits a page 
+break\index{stanza!prevent page break} after the line. 
+The \pixslashbang\ form is to be used only for the last 
+line\index{stanza!last line!numbering} in a stanza
+when the lines are being numbered; this is because the line 
+numbers\index{line number} are incremented by the \cmd{\\} macro. 
+It would normally be followed by a blank line.
+
+\begin{syntax}
+\cmd{\verselinebreak}\oarg{length} \\
+\cmdprint{\\>}\oarg{length} \\
+\end{syntax}
+\glossary(verselinebreak)
+  {\cs{verselinebreak}\oarg{length}}%
+  {Makes a break in a verse line, indenting the next part by twice \cs{vgap},
+   or by \meta{length} if it is given.}
+\glossary(\\>)
+  {\Vprint{\\>}\oarg{length}}%
+  {Shorthand for \cs{verselinebreak}.}
+Using \cmd{\verselinebreak} will cause later\index{stanza!line break}
+text in the line to be typeset 
+indented\index{stanza!line break!indent} on the following line. 
+If the optional \meta{length} is not given
+the indentation is twice \lnc{\vgap}, otherwise it is \meta{length}.
+The broken line will count as a single line as far as the \Ie{altverse}
+and \Ie{patverse} environments are concerned. The macro \cmd{\\>} is
+shorthand for \cmd{\verselinebreak}, and unlike other members of the \cmd{\\}
+family the optional \meta{length} is the indentation of the following 
+partial\index{stanza!line break!indent} line, not a vertical skip. 
+Also, the \cmd{\\>} macro does not increment any 
+line number\index{line number}.
+
+\begin{syntax}
+\cmd{\vinphantom}\marg{text} \\
+\end{syntax}
+\glossary(vinphantom)%
+  {\cs{vinphantom}\marg{text}}%
+  {Leaves a space as wide as \meta{text}.}
+Verse lines are sometimes indented according to the space taken by
+the text on the previous line. The macro \cmd{\vinphantom} can be used
+at the start of a line\index{verse!indent space} to give an indentation 
+as though the
+line started with \meta{text}. For example here are a few lines from
+the portion of \textit{Fridthjof's Saga} where Fridthjof and Ingeborg part:
+\begin{egsource}{eg:fridthjof}
+\settowidth{\versewidth}{Nay, nay, I leave thee not, 
+                         thou goest too}
+\begin{verse}[\versewidth]
+\ldots \\* 
+His judgement rendered, he dissolved the Thing. \\*
+\flagverse{Ingeborg} And your decision? \\*
+\flagverse{Fridthjof} \vinphantom{And your decision?} 
+                      Have I ought to choose? \\*
+Is not mine honour bound by his decree? \\*
+And that I will redeem through Angantyr \\*
+His paltry gold doth hide in Nastrand's flood. \\*
+Today will I depart. \\*
+\flagverse{Ingeborg} \vinphantom{Today will I depart.} 
+                     And Ingeborg leave? \\*
+\flagverse{Fridthjof} Nay, nay, I leave thee not, 
+                      thou goest too. \\*
+\flagverse{Ingeborg} Impossible! \\*
+\flagverse{Fridthjof} \vinphantom{Impossible!} 
+                      O! hear me, ere thou answerest.
+\end{verse}
+\end{egsource}
+
+\begin{egresult}[Phantom text in verse]{eg:fridthjof}%
+\settowidth{\versewidth}{Nay, nay, I leave thee not, 
+                         thou goest too}%
+\begin{verse}[\versewidth]
+\ldots\index[lines]{His judgement rendered, he dissolved the Thing} \\*
+His judgement rendered, he dissolved the Thing. \\*
+\flagverse{Ingeborg} And your decision? \\*
+\flagverse{Fridthjof} \vinphantom{And your decision?} 
+                      Have I ought to choose? \\*
+Is not mine honour bound by his decree? \\*
+And that I will redeem through Angantyr \\*
+His paltry gold doth hide in Nastrand's flood. \\*
+Today will I depart. \\*
+\flagverse{Ingeborg} \vinphantom{Today will I depart.} 
+                      And Ingeborg leave? \\*
+\flagverse{Fridthjof} Nay, nay, I leave thee not, 
+                      thou goest too. \\*
+\flagverse{Ingeborg} Impossible! \\*
+\flagverse{Fridthjof} \vinphantom{Impossible!} 
+                       O! hear me, ere thou answerest.
+\end{verse}
+\end{egresult}
+
+    Use of \cmd{\vinphantom} is not restricted to the start of verse lines ---
+it may be used anywhere in text to leave some some 
+blank\index{blank space} space.
+For example, compare the two lines below, which are produced by this code:
+\begin{lcode}
+   \noindent Come away with me and be my love --- Impossible. \\
+Come away with me \vinphantom{and be my love} --- Impossible.
+\end{lcode}
+\noindent Come away with me and be my love --- Impossible. \\
+          Come away with me \vinphantom{and be my love} --- Impossible.
+
+\begin{syntax}
+\cmd{\vleftofline}\marg{text} \\
+\end{syntax}
+\glossary(vleftofline)%
+  {\cs{vleftofline}\marg{text}}%
+  {`Hanging left' \meta{text} at the start of a verse line.}
+A verse line may start with something, for example open quote marks, 
+where it is desireable that it is ignored as far as the alignment of the
+rest of the line is concerned\footnote{Requested by Matthew 
+Ford\index{Ford, Matthew} who also provided the example text.} --- a sort
+of `hanging left punctuation'. When it is put at the start of a line
+in the \Ie{verse} environment the \meta{text} is typeset but ignored as 
+far as horizontal indentation is concerned.
+Compare the two examples.
+
+\begin{egsource}{eg.joel1}
+\noindent ``No, this is what was spoken by the prophet Joel:
+\begin{verse}
+``\,`\,``In the last days,'' God says, \\
+``I will pour out my spirit on all people. \\
+Your sons and daughters will prophesy, \\
+\ldots \\
+And everyone who calls \ldots ''\,'
+\end{verse}
+\end{egsource}
+
+\begin{egresult}[Verse with regular quote marks]{eg.joel1}
+\noindent ``No, this is what was spoken by the prophet Joel:
+\begin{verse}
+``\,`\,``In the last days,'' God says, \\
+``I will pour out my spirit on all people. \\
+Your sons and daughters will prophesy, \\
+\ldots \\
+And everyone who calls \ldots ''\,'
+\end{verse}
+\end{egresult}
+
+\begin{egsource}{eg.joel2}
+\noindent ``No, this is what was spoken by the prophet Joel:
+\begin{verse}
+\vleftofline{``\,`\,``}In the last days,'' God says, \\
+\vleftofline{``}I will pour out my spirit on all people. \\
+Your sons and daughters will prophesy, \\
+\ldots \\
+And everyone who calls \ldots ''\,'
+\end{verse}
+\end{egsource}
+
+\begin{egresult}[Verse with hanging left quote marks]{eg.joel2}
+\noindent ``No, this is what was spoken by the prophet Joel:
+\begin{verse}
+\vleftofline{``\,`\,``}In the last days,'' God says, \\
+\vleftofline{``}I will pour out my spirit on all people. \\
+Your sons and daughters will prophesy, \\
+\ldots \\
+And everyone who calls \ldots ''\,'
+\end{verse}
+\end{egresult}
+
+
+
+\subsection{Indented lines}
+
+Within the \Ie{verse} environment stanzas are normally separated by a 
+blank line in the input. 
+
+\begin{syntax}
+\senv{altverse} ... \eenv{altverse} \\
+\end{syntax}
+\glossary(altverse)%
+  {\senv{altverse}}%
+  {Alternate lines in the stanza are indented.}
+Individual stanzas within \Ie{verse} may, however, 
+be enclosed in the \Ie{altverse}\index{stanza!indent alternate lines} 
+environment. This has the effect of
+indenting the 2nd, 4th, etc., lines of the stanza by the length \lnc{\vgap}.
+
+\begin{syntax}
+\senv{patverse} ... \eenv{patverse} \\
+\senv{patverse*} ... \eenv{patverse*} \\
+\cmd{\indentpattern}\marg{digits} \\
+\end{syntax}
+\glossary(patverse)%
+  {\senv{patverse}}%
+  {Stanza lines are indented according to the \cs{indentpattern};
+   lines after the pattern is completed are not indented.}
+\glossary(patverse*)%
+  {\senv{patverse*}}%
+  {Like \Pe{patverse} except that the pattern will keep repeating.}
+\glossary(indentpattern)%
+  {\cs{indentpattern}\marg{digits}}%
+  {Stanza lines in \Pe{patverse} environment are indented according to
+   the \meta{digits} pattern.}
+As an alternative to the \Ie{altverse} environment, 
+individual stanzas within the \Ie{verse} environment may be enclosed
+in the \Ie{patverse} environment. Within this environment the indentation
+of each line is specified by an indentation\index{stanza!indent pattern} 
+pattern, which consists
+of an array of digits, \(d_{1}\) to \(d_{n}\), and the \(n\)th line is
+indented by \(d_{n}\) times \lnc{\vgap}. However, the first line is
+not indented, irrespective of the value of \(d_{1}\).
+
+    The indentation pattern for a \Ie{patverse} or \Ie{patverse*}
+environment is specified
+via the \cmd{\indentpattern} command, where \meta{digits} is a string
+of digits (e.g., \texttt{3213245281}). With the \Ie{patverse}
+environment, if the pattern is
+shorter than the number of lines in the stanza, the trailing lines will
+not be indented. However, in the \Ie{patverse*} environment the pattern
+keeps repeating until the end of the stanza.
+
+\subsection{Numbering}
+
+\begin{syntax}
+\cmd{\flagverse}\marg{flag} \\
+\lnc{\vleftskip} \\
+\end{syntax}
+\glossary(flagverse)%
+  {\cs{flagverse}\marg{flag}}%
+  {Used at the start of a verse line to put \meta{flag} distance
+  \cs{vleftskip} before the start of the line.}
+\glossary(vleftskip)%
+  {\cs{vleftskip}}%
+  {Space between the argument to \cs{flageverse} and \cs{flagverse}.}
+Putting \cmd{\flagverse} at the start of a line will typeset \meta{flag},
+for example the stanza\index{stanza!number} number,
+ending at a distance \lnc{\vleftskip} before the line. The default for
+\lnc{\vleftskip} is 3em.
+
+The lines in a poem may be numbered.
+
+\begin{syntax}
+\cmd{\linenumberfrequency}\marg{nth} \\
+\cmd{\setverselinenums}\marg{first}\marg{startat} \\
+\end{syntax}
+\glossary(setverselinenums)%
+  {\cs{setverselinenums}\marg{first}\marg{startat}}%
+  {The first line of the following verse is number \marg{first} and the
+   first printed line number should be \meta{startat}.}
+The declaration \cmd{\linenumberfrequency}\marg{nth} will cause every 
+\meta{nth} line\index{line number!frequency} 
+of succeeding verses to be numbered. 
+For example, 
+\verb?\linenumberfrequency{5}?
+will number every fifth line. The default is \verb?\linenumberfrequency{0}? 
+which prevents any numbering. The \cmd{\setverselinenums} macro can be
+used to specify that the number of the first line of the following \Ie{verse}
+shall be \meta{first} and the first printed number shall be \meta{startat}.
+For example, perhaps you are quoting part of a numbered poem. The original
+numbers every tenth line but if your extract starts with line 7, then
+\begin{lcode}
+\linenumberfrequency{10}
+\setverselinenums{7}{10}
+\end{lcode}
+is what you will need.
+
+\begin{syntax}
+\cmd{\thepoemline} \\
+\cmd{\linenumberfont}\marg{font-decl} \\
+\end{syntax}
+\glossary(thepoemline)%
+  {\cs{thepoemline}}%
+  {The numeric representation of verse line numbers (default arabic).}
+    The \Icn{poemline} counter is used in numbering the lines, so the
+number representation is \cmd{\thepoemline}, which defaults to 
+arabic numerals, and they are typeset using the font 
+specified\index{line number!font}
+via \cmd{\linenumberfont}; the default is 
+\begin{lcode}
+\linenumberfont{\small\rmfamily}
+\end{lcode}
+for small numbers in the roman font. 
+
+\begin{syntax}
+\cmd{\verselinenumbersright} \\
+\cmd{\verselinenumbersleft} \\
+\lnc{\vrightskip} \\
+\end{syntax}
+\glossary(verselinenumbersright)%
+  {\cs{verselinenumbersright}}%
+  {Following this declaration verse line numbers are set at the right of the
+   verse lines.}
+\glossary(verselinenumbersleft)%
+  {\cs{verselinenumbersleft}}%
+  {Following this declaration verse line numbers are set at the left of the
+   verse lines.}
+\glossary(vrightskip)
+  {\cs{vrightskip}}%
+  {Verse line numbers are set distance \cs{vrightskip} into the margin.}
+Following the declaration
+\cmd{\verselinenumbersright}, which is the default, any verse line numbers
+will be set\index{line number!position} in the righthand margin. 
+The \cmd{\verselinenumbersleft}
+declaration will set any subsequent line numbers to the left of the lines.
+The numbers are set at a distance
+\lnc{\vrightskip} (default 1em) into the margin. 
+
+
+\section{Titles}
+
+    The \cmd{\PoemTitle} command is provided for typesetting titles
+of poems.
+
+\begin{syntax}
+\cmd{\PoemTitle}\oarg{fortoc}\oarg{forhead}\marg{title} \\
+\cmd{\NumberPoemTitle} \\
+\cmd{\PlainPoemTitle} \\
+\cmd{\thepoem} \\
+\end{syntax}
+\glossary(PoemTitle)%
+  {\cs{PoemTitle}\oarg{fortoc}\oarg{forhead}\marg{title}}%
+  {Typesets the title for a poem and puts it into the ToC.}
+\glossary(NumberPoemTitle)%
+  {\cs{NumberPoemTitle}}%
+  {Declaration for \cs{PoemTitle} to be numbered.}
+\glossary(PlainPoemTitle)%
+  {\cs{PlainPoemTitle}}%
+  {Declaration for \cs{PoemTitle} to be unnumbered.}
+\glossary(thepoem)%
+  {\cs{thepoem}}%
+  {Typeset the current Poem Title number}%
+The \cmd{\PoemTitle} command takes the same arguments as the 
+\cmd{\chapter} command; it typesets the title for a poem\index{poem title} 
+and adds it to the ToC\index{poem title!in ToC}. 
+Following the declaration \cmd{\NumberPoemTitle}
+the title is numbered but there is no numbering after the
+\cmd{\PlainPoemTitle} declaration. 
+
+\begin{syntax}
+\cmd{\poemtoc}\marg{sec} \\
+\end{syntax}
+\glossary(poemtoc)%
+  {\cs{poemtoc}}%
+  {Kind of entry for a \cs{PoemTitle} in the ToC.}
+The kind of entry made in the \toc\ by\index{poem title!in ToC} 
+\cmd{\PoemTitle} is defined by \cmd{\poemtoc}. The initial definition is: 
+\begin{lcode}
+\newcommand{\poemtoc}{section}
+\end{lcode}
+for a section-like \toc\ entry. This can be changed to, say, \texttt{chapter}
+or \texttt{subsection} or \ldots.
+
+\begin{syntax}
+\cmd{\poemtitlemark}\marg{forhead} \\
+\cmd{\poemtitlepstyle} \\
+\end{syntax}
+\glossary(poemtitlemark)%
+  {\cs{poemtitlemark}\marg{forhead}}%
+  {Used to set marks for a \cs{PoemTitle}.}
+\glossary(poemtitlepstyle)%
+  {\cs{poemtitlepstyle}}%
+  {Page style for a \cs{PoemTitle}.}
+    The macro \cmd{\poemtitlemark}
+is called with the argument \meta{forhead} so that it may be used
+to set marks for use in a page header via the normal mark process. 
+The \cmd{\poemtitlepstyle}
+macro, which by default does nothing, is provided as a hook so that,
+for example, it can be redefined to specify a particular pagestyle that should
+be used. For example:
+\begin{lcode}
+\renewcommand*{\poemtitlemark}[1]{\markboth{#1}{#1}}
+\renewcommand*{\poemtitlepstyle}{%
+  \pagestyle{headings}%
+  \thispagestyle{empty}}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\PoemTitle*}\oarg{forhead}\marg{title} \\
+\cmd{\poemtitlestarmark}\marg{forhead} \\
+\cmd{\poemtitlestarpstyle} \\
+\end{syntax}
+\glossary(PoemTitle*)%
+  {\cs{PoemTitle*}\oarg{fortoc}\oarg{forhead}\marg{title}}%
+  {Typesets an unnumbered title for a poem but does not add it to the ToC.}
+\glossary(poemtitlestarmark)%
+  {\cs{poemtitlestarmark}\marg{forhead}}%
+  {Used to set marks for a \cs{PoemTitle*}.}
+\glossary(poemtitlestarpstyle)%
+  {\cs{poemtitlestarpstyle}}%
+  {Page style for a \cs{PoemTitle*}.}
+
+    The \cmd{\PoemTitle*} command produces an unnumbered title that is
+not added to the ToC. Apart from that it operates in the same manner
+as the unstarred version. The \cmd{\poemtitlestarmark} and 
+\cmd{\poemtitlestarpstyle} can be redefined to set marks and pagestyles.
+
+\subsection{Main Poem Title layout parameters}
+
+\begin{syntax}
+\cmd{\PoemTitleheadstart} \\
+\cmd{\printPoemTitlenonum} \\
+\cmd{\printPoemTitlenum} \\
+\cmd{\afterPoemTitlenum} \\
+\cmd{\printPoemTitletitle}\marg{title} \\
+\cmd{\afterPoemTitle} \\
+\end{syntax}
+\glossary(PoemTitleheadstart)%
+  {\cs{PoemTitleheadstart}}%
+  {Called at the start of typesetting a \cs{PoemTitle}.}
+\glossary(printPoemTitlenum)%
+  {\cs{printPoemTitlenum}}%
+  {Typesets the number for a \cs{PoemTitle}.}
+\glossary(printPoemTitlenonum)%
+  {\cs{printPoemTitlenonum}}%
+  {Used instead of \cs{printPoemTitlenum} for an unnumbered \cs{PoemTitle}.}
+\glossary(afterPoemTitlenum)%
+  {\cs{afterPoemTitlenum}}%
+  {Called after printing the number of a \cs{PoemTitle}.}
+\glossary(printPoemTitletitle)%
+  {\cs{printPoemTitletitle}\marg{title}}%
+  {Typesets the title of a \cs{PoemTitle}.}
+\glossary(afterPoemTitle)%
+  {\cs{afterPoemTitle}}%
+  {Called after printing the title of a \cs{PoemTitle}.}
+
+
+    The essence of the code used to typeset a numbered \meta{title} from
+a \cmd{\PoemTitle} is:
+\begin{lcode}
+\PoemTitleheadstart
+\printPoemTitlenum
+\afterPoemTitlenum
+\printPoemTitletitle{title}
+\afterPoemTitle
+\end{lcode}
+If the title is unnumbered then \cmd{\printPoemTitlenonum} is used
+instead of the \cmd{\printPoemTitlenum} and 
+\cmd{\afterPoemTitlenum} pair of macros.
+
+    The various elements of this can be modified to change the layout.
+By default the number is centered above the title, which is also typeset 
+centered, and all in a \cmd{\large} font.
+
+    The elements are detailed in the next section.
+
+\subsection{Detailed Poem Title layout parameters}
+
+\begin{syntax}
+\lnc{\beforePoemTitleskip} \\
+\cmd{\PoemTitlenumfont} \\
+\lnc{\midPoemTitleskip} \\
+\cmd{\PoemTitlefont} \\
+\lnc{\afterPoemTitleskip} \\
+\end{syntax}
+\glossary(beforePoemTitleskip)%
+  {\cs{beforePoemTitleskip}}%
+  {Vertical space before a poem title.}
+\glossary(midPoemTitleskip)%
+  {\cs{midPoemTitleskip}}%
+  {Vertical space between the number and text of a poem title.}
+\glossary(afterPoemTitleskip)%
+  {\cs{afterPoemTitleskip}}%
+  {Vertical space after a poem title}
+\glossary(PoemTitlenumfont)%
+  {\cs{PoemTitlenumfont}}%
+  {Font for the number of a poem title}
+\glossary(PoemTitlefont)%
+  {\cs{PoemTitlefont}}%
+  {Font for the text of a poem title}
+
+
+As defined, \cmd{\PoemTitleheadstart} inserts vertical space 
+before a poem title. The default definition is:
+\begin{lcode}
+\newcommand*{\PoemTitleheadstart}{\vspace{\beforePoemTitleskip}}
+\newlength{\beforePoemTitleskip}
+  \setlength{\beforePoemTitleskip}{1\onelineskip}
+\end{lcode}
+
+\cmd{\printPoemTitlenum} typesets the number for a poem title.
+The default definition, below, prints the number centered and in
+a large font.
+\begin{lcode}
+\newcommand*{\printPoemTitlenum}{\PoemTitlenumfont \thepoem}
+\newcommand*{\PoemTitlenumfont}{\normalfont\large\centering}
+\end{lcode}
+
+The definition of \cmd{\printPoemTitlenonum}, which is used
+when there is no number, is simply
+\begin{lcode}
+\newcommand*{\printPoemTitlenonum}{}
+\end{lcode}
+
+\cmd{\afterPoemTitlenum} is called between setting the number 
+and the title. It ends a paragraph (thus making sure any previous
+\cmd{\centering} is used) and then may add some vertical
+space. The default definition is:
+\begin{lcode}
+\newcommand*{\afterPoemTitlenum}{\par\nobreak\vskip \midPoemTitleskip}
+\newlength{\midPoemTitleskip}
+  \setlength{\midPoemTitleskip}{0pt}
+\end{lcode}
+
+The default definition of \cmd{\printPoemTitletitle} is below.
+It typesets the title centered and in a large font.
+\begin{lcode}
+\newcommand*{\printPoemTitletitle}[1]{\PoemTitlefont #1}
+\newcommand*{\PoemTitlefont}{\normalfont\large\centering}
+\end{lcode}
+
+The macro \cmd{\afterPoemTitle} finishes off the title 
+typesetting. The default definition is:
+\begin{lcode}
+\newcommand*{\afterPoemTitle}{\par\nobreak\vskip \afterPoemTitleskip}
+\newlength{\afterPoemTitleskip}
+  \setlength{\afterPoemTitleskip}{1\onelineskip}
+\end{lcode}
+
+
+
+%\clearpage
+\section{Examples}
+
+   Here are some sample verses using the class facilities.
+
+First a Limerick, but titled\index{poem title} and centered:
+\begin{lcode}
+\renewcommand{\poemtoc}{subsection}
+\PlainPoemTitle
+\PoemTitle{A Limerick}
+\settowidth{\versewidth}{There was a young man of Quebec}
+\begin{verse}[\versewidth]
+There was a young man of Quebec \\
+Who was frozen in snow to his neck. \\
+\vin When asked: `Are you friz?' \\
+\vin He replied: `Yes, I is, \\
+But we don't call this cold in Quebec.'
+\end{verse}
+\end{lcode}
+which gets typeset as below. The \cmd{\poemtoc} is redefined
+to \texttt{subsection} so that the \cmd{\poemtitle} titles
+are entered\index{poem title!in ToC} into the \toc\ as 
+subsections. The titles will not be numbered because of the
+\cmd{\PlainPoemTitle} declaration.
+
+\renewcommand{\poemtoc}{subsection}
+\PlainPoemTitle
+\PoemTitle{A Limerick}
+\settowidth{\versewidth}{There was a young man of Quebec}
+\begin{verse}[\versewidth] \index[lines]{There was a young man of Quebec}
+There was a young man of Quebec \\
+Who was frozen in snow to his neck. \\
+\vin When asked: `Are you friz?' \\
+\vin He replied: `Yes, I is, \\
+But we don't call this cold in Quebec.'
+\end{verse}
+
+\vspace{\onelineskip}
+%\ablankline
+
+    Next is the Garden verse within the \Ie{altverse} environment. Unlike
+earlier renditions this one is titled\index{poem title} and centered. 
+\begin{lcode}
+\settowidth{\versewidth}{But now my love is dead}
+\PoemTitle{Love's lost}
+\begin{verse}[\versewidth]
+\begin{altverse}
+\garden
+\end{altverse}
+\end{verse}
+\end{lcode}
+Note how the alternate lines\index{stanza!indent alternate lines} 
+are automatically indented in the typeset result below.
+
+\settowidth{\versewidth}{But now my love is dead}
+\PoemTitle{Love's lost}
+\begin{verse}[\versewidth]\index[lines]{I used to love my garden}
+\begin{altverse}
+\garden
+\end{altverse}
+\end{verse}
+
+\vspace{\onelineskip}
+% \ablankline
+
+It is left up to you how you might want to add information about
+the author\index{poem!author} of a poem. Here is one example of a 
+macro for this:
+\begin{lcode}
+\newcommand{\attrib}[1]{%
+   \nopagebreak{\raggedleft\footnotesize #1\par}}
+\end{lcode}
+\providecommand{\attrib}[1]{%
+   \nopagebreak{\raggedleft\footnotesize #1\par}}
+
+   This can be used as in the next bit of doggerel.
+\begin{lcode}
+\PoemTitle{Fleas}
+\settowidth{\versewidth}{What a funny thing is a flea}
+\begin{verse}[\versewidth]
+What a funny thing is a flea. \\
+You can't tell a he from a she. \\
+But he can. And she can. \\
+Whoopee!
+\end{verse}
+\attrib{Anonymous}
+\end{lcode}
+
+\PoemTitle{Fleas}
+\settowidth{\versewidth}{What a funny thing is a flea}
+\begin{verse}[\versewidth]\index[lines]{What a funny thing is a flea}
+What a funny thing is a flea. \\
+You can't tell a he from a she. \\
+But he can. And she can. \\
+Whoopee!
+\end{verse}
+\attrib{Anonymous}
+
+\vspace{\onelineskip}
+%\ablankline
+
+The next example demonstrates the automatic line wrapping for 
+overlong\index{stanza!long line} lines.
+\begin{lcode}
+\PoemTitle{In the beginning}
+\settowidth{\versewidth}{And objects at rest tended to 
+                         remain at rest}
+\begin{verse}[\versewidth]
+Then God created Newton, \\
+And objects at rest tended to remain at rest, \\
+And objects in motion tended to remain in motion, \\
+And energy was conserved
+   and momentum was conserved
+   and matter was conserved \\
+And God saw that it was conservative.
+\end{verse}
+\attrib{Possibly from \textit{Analog}, circa 1950}
+\end{lcode}
+
+%%\enlargethispage{\baselineskip}
+\PoemTitle{In the beginning}
+\settowidth{\versewidth}{And objects at rest tended to remain at rest}
+\begin{verse}[\versewidth]\index[lines]{Then God created Newton}
+Then God created Newton, \\
+And objects at rest tended to remain at rest, \\
+And objects in motion tended to remain in motion, \\
+And energy was conserved
+   and momentum was conserved
+   and matter was conserved \\
+And God saw that it was conservative.
+\end{verse}
+\attrib{Possibly from \textit{Analog}, circa 1950}
+
+\vspace{\onelineskip}
+%\ablankline
+
+The following verse demonstrates the use of a forced\index{stanza!line break} 
+linebreak; I have
+used the \cmd{\\>} command instead of the more descriptive,
+but discursive, \cmd{\verselinebreak}. It also
+has a slightly different title\index{poem title!styling} style.
+\begin{lcode}
+\renewcommand{\PoemTitlefont}{%
+              \normalfont\large\itshape\centering}
+\poemtitle{Mathematics}
+\settowidth{\versewidth}{Than Tycho Brahe, or Erra Pater:}
+\begin{verse}[\versewidth]
+In mathematics he was greater \\
+Than Tycho Brahe, or Erra Pater: \\
+For he, by geometric scale, \\
+Could take the size of pots of ale;\\ 
+\settowidth{\versewidth}{Resolve by}%
+Resolve, by sines \\>[\versewidth] and tangents straight, \\
+If bread or butter wanted weight; \\
+And wisely tell what hour o' the day \\
+The clock does strike, by Algebra.
+\end{verse}
+\attrib{Samuel Butler (1612--1680)}
+\end{lcode}
+
+%%\clearpage
+
+\renewcommand{\PoemTitlefont}{\normalfont\large\itshape\centering}
+\PoemTitle{Mathematics}
+\settowidth{\versewidth}{Than Tycho Brahe, or Erra Pater:}
+\begin{verse}[\versewidth]\index[lines]{In mathematics he was greater}
+In mathematics he was greater \\
+Than Tycho Brahe, or Erra Pater: \\
+For he, by geometric scale, \\
+Could take the size of pots of ale;\\ 
+\settowidth{\versewidth}{Resolve by}%
+Resolve, by sines \\>[\versewidth] and tangents straight, \\
+If bread or butter wanted weight; \\
+And wisely tell what hour o' the day \\
+The clock does strike, by Algebra.
+\end{verse}
+\attrib{Samuel Butler (1612--1680)}
+
+\vspace{\onelineskip}
+%\ablankline
+%\clearpage
+
+Another limerick, but this time taking advantage of 
+the \Ie{patverse}\index{verse!indent pattern}
+environment. If you are typesetting a series of limericks 
+a single \cmd{\indentpattern} will do for all of them.
+\begin{lcode}
+\settowidth{\versewidth}{There was a young lady of Ryde}
+\indentpattern{00110}
+\needspace{7\onelineskip}
+\PoemTitle{The Young Lady of Ryde}
+\begin{verse}[\versewidth]
+\begin{patverse}
+There was a young lady of Ryde \\
+Who ate some apples and died. \\
+The apples fermented \\
+Inside the lamented \\
+And made cider inside her inside.
+\end{patverse}
+\end{verse}
+\end{lcode}
+Note that I used the \cmd{\needspace} command to ensure that 
+the limerick will not get broken across a page.
+
+\settowidth{\versewidth}{There was a young lady of Ryde}
+\indentpattern{00110}
+\needspace{7\onelineskip}
+\PoemTitle{The Young Lady of Ryde}
+\begin{verse}[\versewidth]\index[lines]{There was a young lady of Ryde}
+\begin{patverse}
+There was a young lady of Ryde \\
+Who ate some apples and died. \\
+The apples fermented \\
+Inside the lamented \\
+And made cider inside her inside.
+\end{patverse}
+\end{verse}
+
+\vspace{\onelineskip}
+
+
+    The next example is a song you may have heard of. This uses 
+\cmd{\flagverse} for labelling\index{stanza!number} the stanzas, 
+and because the lines are numbered\index{line number} they can be referred to. 
+
+\begin{lcode}
+\settowidth{\versewidth}{In a cavern, in a canyon,}
+\PoemTitle{Clementine}
+\begin{verse}[\versewidth]
+\linenumberfrequency{2}
+\begin{altverse}
+\flagverse{1.} In a cavern, in a canyon, \\
+Excavating for a mine, \\
+Lived a miner, forty-niner, \label{vs:49} \\
+And his daughter, Clementine. \\!
+\end{altverse}
+
+\begin{altverse}
+\flagverse{\textsc{chorus}} Oh my darling, Oh my darling, \\
+Oh my darling Clementine. \\
+Thou art lost and gone forever, \\
+Oh my darling Clementine.
+\end{altverse}
+\linenumberfrequency{0}
+\end{verse}
+The `forty-niner' in line~\ref{vs:49} of the song
+refers to the gold rush of 1849.
+\end{lcode}
+
+\settowidth{\versewidth}{In a cavern, in a canyon,}
+\PoemTitle{Clementine}
+\begin{verse}[\versewidth]\index[lines]{In a cavern, in a canyon}
+\linenumberfrequency{2}
+\begin{altverse}
+\flagverse{1.} In a cavern, in a canyon, \\
+Excavating for a mine, \\
+Lived a miner, forty-niner, \label{vs:49} \\
+And his daughter, Clementine. \\!
+\end{altverse}
+
+\begin{altverse}
+\flagverse{\textsc{chorus}} Oh my darling, Oh my darling, \\
+Oh my darling Clementine. \\
+Thou art lost and gone forever, \\
+Oh my darling Clementine.
+\end{altverse}
+\linenumberfrequency{0}
+\end{verse}
+
+\vspace{\onelineskip}
+
+The `forty-niner' in line~\ref{vs:49} of the song
+refers to the gold rush of 1849.
+
+%\ablankline
+
+ The last example is a much more ambitious use\index{stanza!indent pattern} 
+of \cmd{\indentpattern}. In
+this case it is defined as: 
+\begin{lcode}
+\indentpattern{0135554322112346898779775545653222345544456688778899}
+\end{lcode}
+and the result is shown on the next page.
+
+
+\clearpage
+\PoemTitle{Mouse's Tale}
+\settowidth{\versewidth}{a mouse that morning}
+\indentpattern{0135554322112346898779775545653222345544456688778899}
+\begin{verse}[\versewidth]\index[lines]{Fury said to}
+\setlength{\vgap}{1em}
+\begin{patverse}
+\large Fury said to \\
+  a mouse, That \\
+  he met \\
+  in the \\
+  house, \\
+\normalsize `Let us \\
+  both go \\
+  to law: \\
+  \emph{I} will \\
+  prosecute \\
+  \textit{you.} --- \\
+  Come, I'll \\
+\small take no \\
+  denial; \\
+  We must \\
+  have a \\
+  trial: \\
+  For \\
+\footnotesize really \\
+  this \\
+  morning \\
+  I've \\
+  nothing \\
+  to do.' \\
+  Said the \\
+  mouse to \\
+\scriptsize the cur, \\
+  Such a \\
+  trial, \\
+  dear sir, \\
+  With no \\
+  jury or \\
+  judge, \\
+  would be \\
+  wasting \\
+  our breath.' \\
+\tiny  `I'll be \\
+  judge, \\
+  I'll be \\
+  jury.' \\
+  Said \\
+  cunning \\
+  old Fury; \\
+  `I'll try \\
+  the whole \\
+  cause \\
+  and \\
+  condemn \\
+  you \\
+  to \\
+  death.'  \par
+\end{patverse}
+\end{verse}
+\attrib{Lewis Carrol, \textit{Alice's Adventures in Wonderland}, 1865}
+
+
+\index{verse|)}
+
+%#% extend
+%#% extstart include boxes-verbatims-and-files.tex
+
+\svnidlong
+{$Ignore: $}
+{$LastChangedDate: 2018-03-06 15:58:01 +0100 (Tue, 06 Mar 2018) $}
+{$LastChangedRevision: 584 $}
+{$LastChangedBy: daleif@math.au.dk $}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% membook

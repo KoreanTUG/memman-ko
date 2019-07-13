@@ -1,0 +1,2306 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\chapterstyle{section}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter{Tops and tails} \label{chap:topsandtails}
+\chapter{Contents lists} \label{chap:toc}
+
+This chapter describes how to change the appearance of the Table of Contents
+(\toc) and similar lists like the List of Figures (\lof). In the standard
+classes the typographic design of these is virtually fixed as it is buried
+within the class definitions.
+
+    As well as allowing these lists to appear multiple times in a
+document, the \Mname\ class gives handles to easily manipulate the design 
+elements. The class also provides means for you to define your own new kinds of
+`\listofx'. 
+
+    The functionality described is equivalent to the combination
+of the \Lpack{tocloft} and \Lpack{tocbibind} 
+packages~\cite{TOCLOFT,TOCBIBIND}.
+
+\begin{syntax}
+\cmd{\tableofcontents} \cmd{\tableofcontents*} \\
+\cmd{\listoffigures} \cmd{\listoffigures*} \\
+\cmd{\listoftables} \cmd{\listoftables*} \\
+\end{syntax}
+The commands \cmd{\tableofcontents}, \cmd{\listoffigures} and 
+\cmd{\listoftables} typeset, repectively, the Table of Contents (\toc),
+List of Figures (\lof) and List of Tables (\lot). In \Mname, unlike the 
+standard classes, the unstarred versions add their respective titles to 
+the \toc. The starred versions act like the standard classes' unstarred 
+versions as they don't add their titles to the \toc.
+
+    This chapter explains the inner workings behind the \toc\ and friends,
+how to change their appearance and the apperance of the entries, and how to
+create new \listofx. If you don't need any of these then you can
+skip the remainder of the chapter.
+
+ \section{General \prtoc\ methods}
+
+ In \S\ref{sec:class-prtoc-methods} we will provide the class
+ configuration interface for the various parts of the ToC. 
+
+ In order to understand how these macros are used, we start by
+ providing some background information this is a general description
+ of how the standard \ltx\ classes process a Table of Contents (\toc).
+ As the processing of List of Figures (\lof) and List of Tables (\lot)
+ is similar I will just discuss the \toc. You may wish to skip this
+ section on your first reading.
+
+    The basic process is that each sectioning command writes out information
+about itself --- its number, title, and page --- to the \pixfile{toc} file.
+The \cmd{\tableofcontents} command reads this file and typesets the contents.
+
+    First of all, remember that each sectional division has an associated
+level as listed in in \tref{tab:seclevels} on 
+\pref{tab:seclevels}. \ltx\ will not typeset an entry in the \toc{}
+unless the value of the \Icn{tocdepth} counter is equal to or greater
+than the level of the entry. The value of the \Icn{tocdepth} counter
+can be changed by using \cmd{\setcounter} or \cmd{\settocdepth}.
+
+\begin{syntax}
+\cmd{\addcontentsline}\marg{file}\marg{kind}\marg{text} \\
+\end{syntax}
+\glossary(addcontentsline)%
+  {\cs{addcontentsline}\marg{file}\marg{kind}\marg{text}}%
+  {Writes heading/caption data to the \meta{file} in the form of
+   the \cs{contentsline} macro.}
+    \ltx\ generates a \pixfile{toc} file if the document contains a
+ \cmd{\tableofcontents} command. The sectioning 
+ commands\footnote{For figures and tables it is the 
+ \cmd{\caption} command
+ that populates the \pixfile{lof} and \pixfile{lot} files.}
+ put entries into the \pixfile{toc} file by calling the 
+ \cmd{\addcontentsline} 
+ command, where \meta{file} is the file extension (e.g., \texttt{toc}),
+ \meta{kind} is the kind of entry (e.g., \texttt{section} or \texttt{subsection}),
+ and \meta{text} is the (numbered) title text. In the cases where
+ there is a number, the \meta{text} argument is given in the
+ form \verb?{\numberline{number}title text}?.
+
+\begin{syntax}
+\cmd{\contentsline}\marg{kind}\marg{text}\marg{page} \\
+\end{syntax}
+\glossary(contentsline)%
+  {\cs{contentsline}\marg{kind}\marg{text}\marg{page}}%
+  {An entry in a `\listofx' file for a \meta{kind} entry, with
+  \meta{text} being the title which was on \meta{page}.}
+     The \cmd{\addcontentsline} command writes an entry to the given file
+ in the form: \\
+ \cmd{\contentsline}\marg{kind}\marg{text}\marg{page} \\
+ where \meta{page} is the page number.
+
+    For example, if \verb?\section{Head text}? was typeset as 
+`\textbf{3.4 Head text}' on page 27, then there would be the following
+entry in the \pixfile{toc} file:
+\begin{lcode}
+\contentsline{section}{\numberline{3.4} Head text}{27}
+\end{lcode}
+Extracts from \pixfile{toc}, \pixfile{lof} and \pixfile{lot} files are shown in
+\fref{fig:tocloflotfiles}.
+
+\begin{figure}
+\centering
+Parts of a \file{toc} file:
+\begin{lcode}
+...
+\contentsline{section}{\numberline{10.1}The spread}{77}
+\contentsline{section}{\numberline{10.2}Typeblock}{89}
+\contentsline{subsection}{\numberline{10.2.1}Color}{77}
+...
+\contentsline{chapter}{Index}{226}
+
+\end{lcode}
+
+Part of a \file{lof} file:
+
+\begin{lcode}
+...
+\contentsline{figure}{\numberline{8.6}Measuring scales}{56}
+\addvspace{10pt}
+\addvspace{10pt}
+\contentsline{figure}{\numberline{10.1}Two subfigures}{62}
+\contentsline{subfigure}{\numberline{(a)}Subfigure 1}{62}
+\contentsline{subfigure}{\numberline{(b)}Subfigure 2}{62}
+...
+\end{lcode}
+
+Part of a \file{lot} file:
+
+\begin{lcode}
+...
+\contentsline{table}{\numberline{1.7}Font declarations}{11}
+\contentsline{table}{\numberline{1.8}Font sizes}{13}
+\addvspace
+\contentsline{table}{\numberline{3.1}Division levels}{21}
+...
+\end{lcode}
+\caption{Example extracts from \file{toc}, \file{lof} and \file{lot} files}
+\label{fig:tocloflotfiles}
+\end{figure}
+
+     For each \meta{kind} that might appear in a \file{toc} 
+(\file{lof}, \file{lot}) file, \ltx\ provides a command: \\
+ \cmd{\l@kind}\marg{title}\marg{page} \\
+which performs the actual typesetting of the \cmd{\contentsline} entry. 
+
+
+\begin{figure}
+\setlayoutscale{0.8}
+\drawtoc
+\caption{Layout of a \prtoc{} (\prlof, \prlot) entry} \label{fig:ltoc}
+\end{figure}
+
+ 
+\begin{syntax}
+\cmd{\@pnumwidth}\marg{length} \\
+\cmd{\@tocrmarg}\marg{length} \\
+\cmd{\@dotsep}\marg{number} \\
+\end{syntax}
+\glossary(@pnumwidth)%
+  {\cs{@pnumwidth}\marg{length}}%
+  {Space for a page number in the \prtoc\ etc.}
+\glossary(@tocrmarg)%
+  {\cs{@tocrmarg}\marg{length}}%
+  {Right hand margin for titles in the \prtoc\ etc.}
+\glossary(@dotsep)%
+  {\cs{@docsep}\marg{num}}%
+  {Distance, as \meta{num} math units, bewteen dots in the dotted lines 
+   in the \prtoc\ etc.}
+The general layout of a typeset entry is illustrated in \fref{fig:ltoc}. 
+There are three
+internal \ltx\ commands that are used in the typesetting. The page
+number is typeset flushright in a box of width \cmd{\@pnumwidth}, and the box
+is at the righthand margin\index{margin!right}. If the page number is too long 
+to fit into  the box it will stick out into the righthand 
+margin\index{margin!right}.
+The title text is indented from the righthand margin\index{margin!right} by an 
+amount given by \cmd{\@tocrmarg}.
+Note that \cmd{\@tocrmarg} should be greater than \cmd{\@pnumwidth}. Some
+entries are typeset with a dotted leader between the end of the title
+title text and the righthand margin\index{margin!right} indentation. 
+The distance, in
+\index{math unit}\emph{math units}\footnote{There are 18mu to 1em.} 
+between the dots in the leader is given by the value of \cmd{\@dotsep}. 
+In the standard classes the same values are used for the \toc, \lof{} and 
+the \lot.
+
+    The standard values for these internal commands are:
+ \begin{itemize}
+ \item \cmd{\@pnumwidth} = 1.55em
+ \item \cmd{\@tocrmarg} = 2.55em 
+ \item \cmd{\@dotsep} = 4.5
+ \end{itemize}
+ The values can be changed by using \cmd{\renewcommand}, in spite of the
+ fact that the first two appear to be lengths.
+
+    Dotted leaders are not available for Part\index{part} and 
+Chapter\index{chapter} \toc{} entries.
+
+\begin{syntax}
+\cmd{\numberline}\marg{number} \\
+\end{syntax}
+    Each \cmd{\l@kind} macro is responsible for setting the general 
+ \textit{indent} from the lefthand margin\index{margin!left}, and the 
+\textit{numwidth}.
+The \cmd{\numberline} macro is responsible for typesetting the number 
+flushleft in a box of width \textit{numwidth}. If the number is too long 
+for the box then it will protrude into the title text. The title text is 
+indented by (\textit{indent + numwidth}) from the lefthand 
+margin\index{margin!left}. That is, the title text is typeset in a 
+block of width \\
+(\lnc{\linewidth} - \textit{indent} - \textit{numwidth} - \cmd{\@tocrmarg}). 
+
+ \begin{table}
+ \centering
+ \caption[Indents and Numwidths]{Indents and Numwidths (in ems)} \label{tab:indents}
+ \begin{tabular}{lcrrrr} \toprule
+ Entry & Level & \multicolumn{2}{c}{Standard} & \multicolumn{2}{c}{\Lclass{memoir} class} \\
+       &       & indent & numwidth & indent & numwidth \\ \midrule
+ book          & -2 & ---  & --- & 0    & --- \\
+ part          & -1 & 0    & --- & 0    & 1.5 \\
+ chapter       & 0  & 0    & 1.5 & 0    & 1.5 \\
+ section       & 1  & 1.5  & 2.3 & 1.5  & 2.3 \\
+ subsection    & 2  & 3.8  & 3.2 & 3.8  & 3.2 \\
+ subsubsection & 3  & 7.0  & 4.1 & 7.0  & 4.1 \\
+ paragraph     & 4  & 10.0 & 5.0 & 10.0 & 5.0 \\
+ subparagraph  & 5  & 12.0 & 6.0 & 12.0 & 6.0 \\
+ figure/table  & (1) & 1.5 & 2.3 & 0    & 1.5 \\ 
+ subfigure/table & (2) & ---& ---& 1.5  & 2.3 \\ 
+\bottomrule
+ \end{tabular}
+ \end{table}
+
+ Table~\ref{tab:indents} lists the standard values for the \textit{indent}
+and \textit{numwidth}. There is no explicit \textit{numwidth} for a
+part\index{part}; instead a gap of 1em is put between the number and the 
+title text. 
+Note that for a sectioning command the values
+depend on whether or not the document class provides the \cmd{\chapter}
+command; the listed values are for the \Lclass{book} and \Lclass{report} 
+classes --- in the \Lclass{article} class a \cmd{\section} is treated
+like a \cmd{\chapter}, and so on. Also, which somewhat surprises me, the 
+table\index{table} and figure\index{figure} entries are all indented.
+
+\begin{syntax}
+\cmd{\@dottedtocline}\marg{level}\marg{indent}\marg{numwidth} \\
+\end{syntax}
+\glossary(@dottedtocline)%
+  {\cs{@dottedtocline}\marg{level}\marg{indent}\marg{numwidth}}%
+  {For a \prtoc, (\prlof, \prlot) entry at \meta{level} specifies the
+   \meta{indent} and \meta{numwidth} and draws a dotted line between
+   the title and page number.}
+    Most of the \verb?\l@kind? commands are defined in terms of the
+ \cmd{\@dottedtocline} command. This command takes three arguments: 
+the \meta{level} argument is the level as shown in \tref{tab:indents},
+and \meta{indent} and \meta{numwidth} are the \textit{indent} and 
+\textit{numwidth} as illustrated in \fref{fig:ltoc}.
+ For example, one definition of the \cmd{\l@section} command is:
+\begin{lcode}
+\newcommand*{\l@section}{\@dottedtocline{1}{1.5em}{2.3em}}
+\end{lcode}
+If it is necessary to change the default typesetting of the entries,
+then it is usually necessary to change these definitions, but \Mname\ 
+gives you handles to easily alter things without having to know the \ltx\
+internals.
+
+    You can use the \cmd{\addcontentsline} command to add 
+\cmd{\contentsline} commands to a file. 
+\index{add to contents}\index{insert in contents}
+
+\begin{syntax}
+\cmd{\addtocontents}\marg{file}\marg{text} \\
+\end{syntax}
+\glossary(addtocontents)%
+  {\cs{addtocontents}\marg{file}\marg{text}}%
+  {Inserts \meta{text} into \meta{file} (\prtoc, etc).}
+    \ltx\ also provides the \cmd{\addtocontents}
+ command that will insert \meta{text} into \meta{file}. You can use
+ this for adding extra text and/or macros into the file, for processing
+ when the file is typeset by \cmd{\tableofcontents} (or whatever other
+ command is used for \meta{file} processing, such as \cmd{\listoftables}
+ for a \file{lot} file).
+
+ As \cmd{\addcontentsline} and \cmd{\addtocontents} write their arguments to a
+ file, any fragile commands used in their arguments must be \cmd{\protect}ed.
+ 
+    You can make certain adjustments to the \toc, etc., layout by modifying
+some of the above macros. Some examples are:
+ \begin{itemize}
+ \item If your page numbers stick out into the righthand margin\index{margin!right}
+  \begin{lcode}
+  \renewcommand{\@pnumwidth}{3em} 
+  \renewcommand{\@tocrmarg}{4em}
+  \end{lcode}
+ but using lengths appropriate to your document.
+
+ \item To have the (sectional) titles in the \toc, etc., typeset ragged 
+right with no  hyphenation
+ \begin{lcode}
+ \renewcommand{\@tocrmarg}{2.55em plus1fil}
+ \end{lcode}
+ where the value \texttt{2.55em} can be changed for whatever 
+margin\index{margin} space you want.
+
+ \item The dots in the leaders can be eliminated by increasing \cmd{\@dotsep}
+ to a large value:
+  \begin{lcode}
+  \renewcommand{\@dotsep}{10000}
+  \end{lcode}
+
+ \item To have dotted leaders in your \toc\ and \lof\ but not in your \lot:
+ \begin{lcode}
+ ...
+ \tableofcontents
+ \makeatletter \renewcommand{\@dotsep}{10000} \makeatother
+ \listoftables
+ \makeatletter \renewcommand{\@dotsep}{4.5} \makeatother
+ \listoffigures
+ ...
+ \end{lcode}
+
+ \item To add a horizontal line across the whole width of the \toc\ below 
+ an entry for a Part\index{part}:
+ \begin{lcode}
+ \part{Part title}
+ \addtocontents{toc}{\protect\mbox{}\protect\hrulefill\par}
+ \end{lcode}
+ As  said earlier any fragile commands in the arguments to 
+\cmd{\addtocontents} and \cmd{\addcontentsline} must be protected
+ by preceding each fragile command with \cmd{\protect}. 
+ The result of the example above
+ would be the following two lines in the \file{.toc} file (assuming that it
+ is the second Part and is on page 34):
+ \begin{lcode}
+ \contentsline {part}{II\hspace {1em}Part title}{34}
+ \mbox {}\hrulefill \par
+ \end{lcode}
+ If the \cmd{\protect}s were not used, then the second line would 
+instead be:
+ \begin{lcode}
+ \unhbox \voidb@x \hbox {}\unhbox \voidb@x \leaders \hrule \hfill 
+         \kern \z@ \par
+ \end{lcode}
+which would cause \ltx\ to stop and complain because of the commands
+that included the \texttt{@}\idxatincode\ (\seeatincode).
+If you are modifying any command that includes an 
+\texttt{@}\idxatincode\
+sign then this must be done in either a \file{.sty} file or if in the 
+document itself it must be surrounded by \cmd{\makeatletter} and 
+\cmd{\makeatother}. For example, if you
+ want to modify \cmd{\@dotsep} in the preamble\index{preamble} to your 
+document you have to do it like this:
+ \begin{lcode}
+ \makeatletter
+ \renewcommand{\@dotsep}{9.0}
+ \makeatother
+ \end{lcode}
+
+\item To change the level of entries printed in the \toc\ (for example
+      when normally subsections are listed in the \toc\ but for
+      appendices\index{appendix} only the main title is required)
+  \begin{lcode}
+  \appendix
+  \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+  \chapter{First appendix}
+  ...
+  \end{lcode}
+
+ \end{itemize}
+ 
+ \section{The class \prtoc{} methods} 
+ \label{sec:class-prtoc-methods}
+
+  The class provides various means of changing the look of the \toc, etc.,
+without having to go through some of the above. 
+
+\begin{syntax}
+\cmd{\tableofcontents} \cmd{\tableofcontents*} \\
+\cmd{\listoffigures} \cmd{\listoffigures*} \\
+\cmd{\listoftables} \cmd{\listoftables*} \\
+\end{syntax}
+\glossary(tableofcontents)%
+  {\cs{tableofcontents}}%
+  {Typeset the \prtoc, adding its title to the \prtoc\ itself.}
+\glossary(tableofcontents*)%
+  {\cs{tableofcontents*}}%
+  {Typeset the \prtoc.}
+\glossary(listoffigures)%
+  {\cs{listoffigures}}%
+  {Typeset the \prlof, adding its title to the \prtoc.}
+\glossary(listoffigures*)%
+  {\cs{listoffigures*}}%
+  {Typeset the \prlof.}
+\glossary(listoftables)%
+  {\cs{listoftables}}%
+  {Typeset the \prlot, adding its title to the \prtoc.}
+\glossary(listoftables*)%
+  {\cs{listoftables*}}%
+  {Typeset the \prlot.}
+ The \toc, \lof, and \lot\ are printed at the point in the document where
+ these commands are called, as per normal \ltx.
+    You can use \cmd{\tableofcontents}, \cmd{\listoffigures}, etc., more
+than once in a \Lclass{memoir} class document.
+
+
+However, there are
+ two differences between the standard \ltx\ behaviour and the behaviour
+ with this class. In the standard \ltx\ classes
+ that have \cmd{\chapter} headings\index{heading}, the \toc, \lof\ and \lot\ 
+each appear on a new page. With this class they do not necessarily
+ start new pages; if you want them to be on new pages you may have to
+ specifically issue an appropriate command beforehand. For example:
+ \begin{lcode}
+  ...
+ \clearpage
+ \tableofcontents
+ \clearpage
+ \listoftables
+ ...
+ \end{lcode}
+Also, the unstarred versions of the commands put their headings\index{heading} 
+into the \toc, while the starred versions do not.
+
+% \PWnote{2009/08/09}{Added description of KeepFromToc}
+\begin{syntax}
+\senv{KeepFromToc} \cs{listof...} \eenv{KeepFromToc} \\
+\end{syntax}
+\glossary(KeepFromToc)%
+  {\senv{KeepFromToc}}%
+  {Stop the titles of the enclosed \cs{listof...} commands from
+   being added to the ToC.}
+
+There is at least one package that uses \cs{tableofcontents} for its
+own \listofx. When used with the class this will put the package's 
+\listofx\ 
+title into the \toc, and the package doesn't seem to know about 
+\cs{tableofcontents*}.
+The heading of any \cs{listof...} command that is in the \Ie{KeepFromToc} 
+environment will not be added to the \toc. For example:
+\begin{lcode}
+\begin{KeepFromToc}
+\listoffigures
+\end{KeepFromToc}
+\end{lcode}
+is equivalent to \cs{listoffigures*}.
+
+
+\PWnote{2009/03/17}{Added \cs{(one|two|doc)coltocetc} descriptions.}
+\begin{syntax}
+\cmd{\onecoltocetc} \\
+\cmd{\twocoltocetc} \\
+\cmd{\doccoltocetc} \\
+\end{syntax}
+\glossary(onecoltocetc)%
+  {\cs{onecoltocetc}}%
+  {Set the ToC, etc., in one column.}
+\glossary(twocoltocetc)%
+  {\cs{twocoltocetc}}%
+  {Set the ToC, etc., in two columns.}
+\glossary(doccoltocetc)%
+  {\cs{doccoltocetc}}%
+  {Set the ToC, etc., in one or two columns according to the class option.}
+
+
+In the standard classes the \toc, etc., are set in one column even if the
+document as a whole is set in two columns. This limitation is removed.
+Following the \cmd{\onecoltocetc} declaration, which is the default, the
+\toc\ and friends will be set in one column but after the \cmd{\twocoltocetc}
+declaration they will be set in two columns. Following the \cmd{\doccoltocetc}
+declaration they will be set in either one or two columns to match the 
+document class \Lopt{onecolumn} or \Lopt{twocolumn} option. 
+
+\begin{syntax}
+\cmd{\maxtocdepth}\marg{secname} \\
+\cmd{\settocdepth}\marg{secname} \\
+\end{syntax}
+\glossary(maxtocdepth)%
+  {\cs{maxtocdepth}\marg{secname}}%
+  {Sets the maximum value of the \Pcn{tocdepth} counter.}
+\glossary(settocdepth)%
+  {\cs{settocdepth}\marg{secname}}%
+  {Sets the value of the \Pcn{tocdepth} counter in the \file{toc} file.}
+% The class \cmd{\maxtocdepth} command sets the maximum 
+% allowable value
+% for the \Icn{tocdepth} counter. If used, the command must appear
+% before the \cmd{\tableofcontents} command. By default, the class
+% sets \verb?\maxtocdepth{section}?.
+\LMnote{2013/04/24}{As far as I can see \cs{maxtocdepth} is not used
+  anywhere. Manual clarified, see http://tex.stackexchange.com/a/97018/3929}
+The class \cmd{\maxtocdepth} command sets the \Icn{tocdepth}
+counter. It is currently not used in the \Lclass{memoir} class.
+
+
+The \Lclass{memoir} class command \cmd{\settocdepth} is somewhat
+analagous to the \cmd{\setsecnumdepth} command described in
+\S\ref{sec:secnumbers}.  It sets the value of the \Icn{tocdepth}
+counter and puts it into the \toc{} to (temporarily) modify what will
+appear.  The \cmd{\settocdepth} and \cmd{\maxtocdepth} macros are from
+the \Lpack{tocvsec2} package~\cite{TOCVSEC2}.
+
+
+\begin{syntax}
+\cmd{\phantomsection} \\
+\end{syntax}
+\glossary(phantomsection)
+  {\cs{phantomsection}}%
+  {A macro to be put before \cs{addcontentsline} when the \Ppack{hyperref} 
+   package is used.}
+\Note{} The \Lpack{hyperref} package~\cite{HYPERREF} appears to dislike 
+authors using 
+ \cmd{\addcontentsline}. To get it to work properly with \Lpack{hyperref}
+ you normally have to put \cmd{\phantomsection} (a macro defined within
+this class and the \Lpack{hyperref} package) immediately 
+ before \cmd{\addcontentsline}.
+
+ \subsection{Changing the titles} \label{sec:titles}
+
+    Commands are provided for controlling the appearance of the
+\toc, \lof\ and \lot\ titles. 
+
+\begin{syntax}
+\cmd{\contentsname} \cmd{\listfigurename} \cmd{\listtablename} \\
+\end{syntax}
+\glossary(contentsname)%
+  {\cs{contentsname}}%
+  {The title for the Table of Contents.}
+\glossary(listfigurename)%
+  {\cs{listfigurename}}%
+  {The title for the List of Figures.}
+\glossary(listtablename)%
+  {\cs{listtablename}}%
+  {The title for the List of Tables.}
+Following \ltx\ custom, the title texts are the values
+of the \cmd{\contentsname}, \cmd{\listfigurename} and \cmd{\listtablename}
+commands.
+
+ The commands for controlling the typesetting of the \toc, \lof\ and \lot\ 
+titles all follow a similar pattern, so for convenience (certainly mine, 
+and hopefully yours) in the following descriptions I will use \texttt{X},
+as listed in \tref{tab:Xlistofxtitles},
+to stand for the file extension for the appropriate \listofx. That is, any
+of the following:
+\begin{itemize}
+\item \texttt{toc} or
+\item \texttt{lof} or
+\item \texttt{lot}. 
+\end{itemize}
+For example, \verb?\Xmark? stands for \cmd{\tocmark} or \cmd{\lofmark} or 
+\cmd{\lotmark}.
+
+\begin{table}
+\centering
+\caption{Values for \texttt{X} in macros for styling the titles of \listofx}
+\label{tab:Xlistofxtitles}
+\begin{tabular}{cccc}\toprule
+\texttt{toc} & \texttt{lof} & \texttt{lot} & \texttt{\ldots} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+    The code for typesetting the \toc\ title looks like:
+\begin{lcode}
+\tocheadstart
+\printtoctitle{\contentsname}
+\tocmark
+\thispagestyle{chapter}
+\aftertoctitle
+\end{lcode}
+where the macros are described below.
+
+\begin{syntax}
+\cmd{\Xheadstart} \\
+\end{syntax}
+\glossary(Xheadstart)%
+  {\cs{Xheadstart}}%
+  {Generic macro called before printing a 'X List of' title.}
+\begin{comment}
+\glossary(tocheadstart)%
+  {\cs{tocheadstart}}%
+  {Called before printing the \prtoc\ title.}
+\glossary(lofheadstart)%
+  {\cs{lofheadstart}}%
+  {Called before printing the \prlof\ title.}
+\glossary(lotheadstart)%
+  {\cs{lotheadstart}}%
+  {Called before printing the \prlot\ title.}
+\end{comment}
+This macro is called before the title is actually printed.
+Its default definition is
+\begin{lcode}
+\newcommand{\Xheadstart}{\chapterheadstart}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\printXtitle}\marg{title} \\
+\end{syntax}
+\glossary(printXtitle)%
+  {\cs{printXtitle}\marg{title}}%
+  {Generic macro printing \meta{title} as the title for the `X List of'.}
+\begin{comment}
+\glossary(printtoctitle)%
+  {\cs{printtoctitle}\marg{title}}%
+  {Prints \meta{title} as the title for the \prtoc.}
+\glossary(printloftitle)%
+  {\cs{printloftitle}\marg{title}}%
+  {Prints \meta{title} as the title for the \prlof.}
+\glossary(printlottitle)%
+  {\cs{printlottitle}\marg{title}}%
+  {Prints \meta{title} as the title for the \prlot.}
+\end{comment}
+The title is typeset via \cmd{\printXtitle}, which defaults to
+using \cmd{\printchaptertitle} for the actual typesetting. 
+
+\begin{syntax}
+\cmd{\Xmark} \\
+\end{syntax}
+\glossary(Xmark)%
+  {\cs{Xmark}}%
+  {Generic macro setting the marks for the 'X List of'.}
+\begin{comment}
+\glossary(tocmark)%
+  {\cs{tocmark}}%
+  {Macro setting the marks for the \prtoc.}
+\glossary(lofmark)%
+  {\cs{lofmark}}%
+  {Macro setting the marks for the \prlof.}
+\glossary(lotmark)%
+  {\cs{lotmark}}%
+  {Macro setting the marks for the \prlot.}
+\end{comment}
+ These macros sets the marks for use by the running heads on the \toc, \lof, and
+ \lot\ pages. The default definition is equivalent to:
+\begin{lcode}
+\newcommand{\Xmark}{\markboth{\...name}{\...name}}
+\end{lcode}
+where \verb?\...name? is \cmd{\contentsname} or \cmd{\listfigurename} or
+\cmd{\listtablename} as appropriate. You probably don't need to change these, and
+in any case they may well be changed by the particular \cmd{\pagestyle} in
+use.
+
+\begin{syntax}
+\cmd{\afterXtitle} \\
+\end{syntax}
+\glossary(afterXtitle)%
+  {\cs{afterXtitle}}%
+  {Generic macro called after typesetting the title of the `X List of'.}
+\begin{comment}
+\glossary(aftertoctitle)%
+  {\cs{aftertoctitle}}%
+  {Macro called after typesetting the title of the \prtoc.}
+\glossary(afterloftitle)%
+  {\cs{afterloftitle}}%
+  {Macro called after typesetting the title of the \prlof.}
+\glossary(afterlottitle)%
+  {\cs{afterlottitle}}%
+  {Macro called after typesetting the title of the \prlot.}
+\end{comment}
+ This macro is called after the title is typeset and by
+default it is defined to be \cmd{\afterchaptertitle}.
+
+    Essentially, the \toc, \lof\ and \lot\ titles use the same format
+as the chapter titles, and will be typeset according to the current
+chapterstyle. You can modify their appearance by either using a
+different chapterstyle for them than for the actual chapters, or
+by changing some of the macros. As examples:
+\begin{itemize}
+\item Doing
+      \begin{lcode}
+      \renewcommand{\printXtitle}[1]{\hfill\Large\itshape #1}
+      \end{lcode}
+      will print the title right justified in a Large italic font.
+\item For a Large bold centered title you can do
+      \begin{lcode}
+      \renewcommand{\printXtitle}[1]{\centering\Large\bfseries #1}
+      \end{lcode}
+\item Writing
+      \begin{lcode}
+      \renewcommand{\afterXtitle}{%
+                        \thispagestyle{empty}\afterchaptertitle}
+      \end{lcode}
+      will result in the first page of the listing using the \pstyle{empty}
+      pagestyle instead of the default \pstyle{chapter} pagestyle.
+\item Doing
+      \begin{lcode}
+      \renewcommand{\afterXtitle}{%
+        \par\nobreak \mbox{}\hfill{\normalfont Page}\par\nobreak}
+      \end{lcode}
+      will put the word `Page' flushright on the line following
+      the title.
+\end{itemize}
+
+
+ \subsection{Typesetting the entries} \label{sec:entries}
+
+ Commands are also provided to enable finer control over the typesetting
+ of the different kinds of entries. The parameters defining the default
+ layout of the entries are illustrated as part of the \Lpack{layouts}
+ package~\cite{LAYOUTS} or in~\cite[p. 51]{COMPANION}, and are repeated in
+ \fref{fig:ltoc}.
+
+    Most of the commands in this section start as \cs{cft...}, where
+\texttt{cft} is intended as a mnemonic for \textit{Table of \textbf{C}ontents, 
+List of \textbf{F}igures, List of \textbf{T}ables}.
+
+\begin{syntax}
+ \cmd{\cftdot} \\
+\end{syntax}
+\glossary(cftdot)%
+  {\cs{cftdot}}%
+ {The `dot' in the dotted leaders in \listofx.}
+  In the default \toc{} typesetting only the more minor entries have dotted
+ leader lines between the sectioning title and the page number. The
+ class provides for general leaders for all entries.
+ The `dot' in a leader is given by the value of \cmd{\cftdot}. Its default
+ definition is \verb?\newcommand{\cftdot}{.}? which gives the default
+ dotted leader. By changing \cmd{\cftdot} you can use symbols other than
+ a period in the leader. For example 
+ \begin{lcode}
+ \renewcommand{\cftdot}{\ensuremath{\ast}}
+ \end{lcode}
+ will result in a dotted leader using asterisks as the symbol.
+
+\begin{syntax}
+ \cmd{\cftdotsep} \\
+ \cmd{\cftnodots} \\
+\end{syntax}
+\glossary(cftdotsep)%
+  {\cs{cftdotsep}}%
+  {The separation between dots in a dotted leader in a \listofx.}
+\glossary(cftnodots)%
+  {\cs{cftnodots}}%
+  {A separation between dots in a dotted leader in a \listofx\
+   that is too large for any dots to occur.}
+    Each kind of entry can control the separation between the dots
+ in its leader (see below). For consistency though, all dotted leaders
+ should use the same spacing. The macro \cmd{\cftdotsep} specifies the
+ default spacing. 
+ However, if the separation is too large
+ then no dots will be actually typeset. The macro \cmd{\cftnodots} is
+ a separation value that is `too large'. 
+
+\begin{syntax}
+ \cmd{\setpnumwidth}\marg{length} \\
+ \cmd{\setrmarg}\marg{length} \\
+\end{syntax}
+\glossary(setpnumwidth)%
+  {\cs{setpnumwidth}\marg{length}}%
+  {Sets the width of the page number box (\cs{@pnumwidth}) in a \listofx\ to 
+   \meta{length}.}
+\glossary(setrmarg)%
+  {\cs{setrmarg}\marg{length}}%
+  {Sets the right hand title margin (\cs{@tocrmarg}) in a \listofx\ to
+   \meta{length}.}
+ The page numbers are typeset in a fixed width box. The command
+ \cmd{\setpnumwidth} can be used to change the width
+ of the box (LaTeX 's internal \cmd{\@pnumwidth}). 
+ The title texts will end before reaching the righthand 
+margin\index{margin!right}.
+ \cmd{\setrmarg} can be used to set this distance 
+ (LaTeX 's internal \cmd{\@tocrmarg}).
+ Note that the length used in \cmd{\setrmarg} should be greater
+ than the length set in \cmd{\setpnumwidth}. These values should remain
+ constant in any given document.
+
+    This manual requires more space for the page numbers than the default,
+so the following was set in the preamble\index{preamble}:
+\begin{lcode}
+\setpnumwidth{2.55em}
+\setrmarg{3.55em}
+\end{lcode}
+
+
+\begin{syntax}
+\lnc{\cftparskip} \\
+\end{syntax}
+\glossary(cftparskip)%
+  {\cs{cftparskip}}%
+  {The \cs{parskip} to be used in a \listofx.}
+ Normally the \lnc{\parskip} in the \toc, etc., is zero. This may be changed
+ by changing the length \lnc{\cftparskip}. Note that the current value
+ of \lnc{\cftparskip} is used for the \toc, \lof\ and \lot, but you can change
+ the value before calling \cmd{\tableofcontents} or \cmd{\listoffigures} or
+ \cmd{\listoftables} if one or other of these should have different values
+ (which is not a good idea).
+
+
+    Again for convenience, in the following I will use \texttt{K} to stand 
+for the \emph{kind} of entry, as listed in \tref{tab:Klistofxtitles}; that is, 
+any of the following:
+ \begin{itemize}
+ \item \texttt{book} for \cmd{\book} titles.
+ \item \texttt{part} for \cmd{\part} titles
+ \item \texttt{chapter} for \cmd{\chapter} titles
+ \item \texttt{section} for \cmd{\section} titles
+ \item \texttt{subsection} for \cmd{\subsection} titles
+ \item \texttt{subsubsection} for \cmd{\subsubsection} titles
+ \item \texttt{paragraph} for \cmd{\paragraph} titles
+ \item \texttt{subparagraph} for \cmd{\subparagraph} titles
+ \item \texttt{figure} for figure \cmd{\caption} titles
+ \item \texttt{subfigure} for subfigure \cmd{\caption} titles
+ \item \texttt{table} for table \cmd{\caption} titles
+ \item \texttt{subtable} for subtable \cmd{\caption} titles
+ \end{itemize}
+
+\begin{table}
+\centering
+\caption{Value of \texttt{K} in macros for styling entries in a \listofx}
+\label{tab:Klistofxtitles}
+\begin{tabular}{llcll} \toprule
+\multicolumn{1}{c}{\texttt{K}} & \multicolumn{1}{c}{Kind of entry} & & 
+\multicolumn{1}{c}{\texttt{K}} & \multicolumn{1}{c}{Kind of entry} \\ \midrule
+\texttt{book} & \cmd{\book} title & & \texttt{subparagraph} & \cmd{\subparagraph} title \\
+\texttt{part} & \cmd{\part} title & & \texttt{figure} & figure caption  \\
+\texttt{chapter} & \cmd{\chapter} title & & \texttt{subfigure} & subfigure caption \\
+\texttt{section} & \cmd{\section} title & & \texttt{table} & table caption \\
+\texttt{subsection} & \cmd{\subsection} title & & \texttt{subtable} & subtable caption \\
+\texttt{subsubsection} & \cmd{\subsubsection} title & & \texttt{\ldots} & \ldots  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{syntax}
+\cmd{\cftbookbreak} \\
+\cmd{\cftpartbreak} \\
+\cmd{\cftchapterbreak} \\
+\end{syntax}
+\glossary(cftbookbreak)%
+  {\cs{cftbookbreak}}%
+  {Starts a \cs{book} entry in the \prtoc.}
+\glossary(cftpartbreak)%
+  {\cs{cftpartbreak}}%
+  {Starts a \cs{part} entry in the \prtoc.}
+\glossary(cftchapterbreak)%
+  {\cs{cftchapterbreak}}%
+  {Starts a \cs{chapter} entry in the \prtoc.}
+When \cmd{\l@book} starts to typeset a \cmd{\book} entry in the
+\toc{} the first thing it does is to call the macro \cmd{\cftbookbreak}.
+This is defined as:
+\begin{lcode}
+\newcommand{\cftbookbreak}{\addpenalty{-\@highpenalty}}
+\end{lcode}
+which encourages a page break before rather than after the entry. As usual,
+you can change \cmd{\cftbookbreak} to do other things that you feel might
+be useful. The macros \cmd{\cftpartbreak} and \cmd{\cftchapterbreak} apply
+to \cmd{\part} and \cmd{\chapter} entries, respectively, and have the same
+default definitions as \cmd{\cftbookbreak}.
+
+\begin{syntax}
+\lnc{\cftbeforeKskip} \\
+\end{syntax}
+\glossary(cftbeforeKskip)%
+  {\cs{cftbeforeKskip}}%
+  {Generic vertical space before a `K' entry in a \listofx.}
+ This length controls the vertical space before an entry. It can be changed
+ by using \cmd{\setlength}. 
+
+\begin{syntax}
+\lnc{\cftKindent} \\
+\end{syntax}
+\glossary(cftKindent)%
+  {\cs{cftKindent}}%
+  {Generic indent of an `K' entry from the left margin in a \listofx.}
+ This length controls the indentation of an entry from the left 
+margin\index{margin!left} (\textit{indent} in \fref{fig:ltoc}). It
+ can be changed using \cmd{\setlength}. 
+
+\begin{syntax}
+\lnc{\cftKnumwidth} \\
+\end{syntax}
+\glossary(cftKnumwidth)%
+  {\cs{cftKnumwidth}}%
+  {Generic space for the number of a `K' entry in a \listofx.}
+ This length controls the space allowed for typesetting title numbers 
+ (\textit{numwidth} in \fref{fig:ltoc}). It can
+ be changed using \cmd{\setlength}. Second and subsequent lines of a multiline
+ title will be indented by this amount.
+
+ The remaining commands are related to the specifics of typesetting
+ an entry.
+ This is a simplified pseudo-code version for the typesetting of numbered 
+ and unnumbered entries.
+\LMnote{2012/07/29}{Added extra brace pair}
+ \begin{lcode}
+ {\cftKfont {{\cftKname \cftKpresnum SNUM\cftKaftersnum\hfil} \cftKaftersnumb TITLE}}
+         {\cftKleader}{\cftKformatpnum{PAGE}}\cftKafterpnum\par
+
+ {\cftKfont TITLE}{\cftKleader}{\cftKformatpnum{PAGE}}\cftKafterpnum\par
+ \end{lcode}
+ where \texttt{SNUM} is the section number, \texttt{TITLE} is the title text 
+and \texttt{PAGE} 
+ is the page number. In the numbered entry the pseudo-code
+\begin{lcode}
+{\cftKpresnum SNUM\cftKaftersnum\hfil}
+\end{lcode}
+ is typeset within a box of width \lnc{\cftKnumwidth}, see the
+ \cs{...numberlinebox} macros later on.
+
+\begin{syntax}
+\cmd{\cftKfont} \\
+\end{syntax}
+\glossary(cftKfont)%
+{\cs{cftKfont}}%
+{Controls the appearance of the number and title of a `K' entry in a \listofx.}
+This controls the appearance of the title (and its preceding number, 
+if any). It may be changed using \cmd{\renewcommand}. 
+
+\cmd{\cftKfont} takes no arguments as such, but the the number and
+title is presented to it as an argument. Thus one may end
+\cmd{\cftKfont} with a macro taking one argument, say
+\cmd{\MakeUppercase}, and which then readjust the text as needed.
+
+\begin{caveat}
+  Please read the section entitled
+  \emph{\titleref{sec:about-upper-or}} on
+  page~\pageref{sec:about-upper-or} if you consider using upper/lower
+  cased TOC entries and especially if you are also using the
+  \Lpack{hyperref} package.
+\end{caveat}
+
+
+\begin{syntax}
+\cmd{\cftKname} \\
+\end{syntax}
+\glossary(cftKname)
+  {\cs{cftKname}}%
+  {Called as the first element of the  `K' entry line in a \listofx.}
+    The first element typeset in an entry is 
+\cmd{\cftKname}.\footnote{Suggested by Danie\index{Els, Danie} Els.}
+Its default definition is 
+\begin{lcode}
+\newcommand*{\cftKname}{}
+\end{lcode}
+so it does nothing. However, to put the word `Chapter' before each chapter 
+number in a \toc\ and `Fig.' before each figure number in a \lof\ do:
+\begin{lcode}
+\renewcommand*{\cftchaptername}{Chapter\space}
+\renewcommand*{\cftfigurename}{Fig.\space}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\cftKpresnum} \cmd{\cftKaftersnum} \cmd{\cftKaftersnumb} \\
+\end{syntax}
+\glossary(cftKpresnum)%
+  {\cs{cftKpresnum}}%
+  {Called immediately before typesetting the number of a `K' entry in a \listofx.} 
+\glossary(cftKaftersnum)%
+  {\cs{cftKaftersnum}}%
+  {Called immediately after typesetting the number of a `K' entry in a \listofx.} 
+\glossary(cftKaftersnumb)%
+  {\cs{cftKaftersnumb}}%
+  {Called immediately after typesetting the number box of a `K' entry in a \listofx.} 
+ The section number is typeset within a box of width \lnc{\cftKnumwidth}.
+ Within the box the macro \cmd{\cftKpresnum} is first called, then the
+ number is typeset, and the \cmd{\cftKaftersnum}
+ macro is called after the number is typeset. The last command
+ within the box is \cmd{\hfil} to make the box contents flushleft.
+ After the box is
+ typeset the \cmd{\cftKaftersnumb} macro is called before typesetting
+ the title text. All three of these can be changed by \cmd{\renewcommand}.
+ By default they are defined to do nothing.
+
+
+\begin{syntax}
+\cmd{\numberline}\marg{num} \\
+\cmd{\partnumberline}\marg{num} \\
+\cmd{\partnumberline}\marg{num} \\
+\cmd{\chapternumberline}\marg{num} \\
+\end{syntax}
+\glossary(numberline)
+  {\cs{numberline}\marg{num}}
+  {Typeset sectional number for \cs{section} and siblings in ToC}
+\glossary(partnumberline)
+  {\cs{partnumberline}\marg{num}}
+  {Typeset part number in ToC}
+\glossary(booknumberline)
+  {\cs{booknumberline}\marg{num}}
+  {Typeset book number in ToC}
+\glossary(chapternumberline)
+  {\cs{chapternumberline}\marg{num}}
+  {Typeset chapter number in ToC}
+In the \toc, the macros \cmd{\booknumberline}, \cmd{\partnumberline} and 
+\cmd{\chapternumberline}
+are responsible respectively for typesetting the \cmd{\book}, \cmd{\part} 
+and \cmd{\chapter}
+numbers, whereas \cmd{\numberline} does the same for the sectional
+siblings. Internally they use \cmd{\cftKpresnum}, \cmd{\cftKaftersnum}
+and \cmd{\cftKaftersnumb} as above. If you do not want, say, 
+the \cmd{\chapter} number to appear you
+can do:
+\begin{lcode}
+\renewcommand{\chapternumberline}[1]{}
+\end{lcode}
+
+
+\begin{syntax}
+  \cmd{\numberlinehook}\marg{num}\\
+  \cmd{\cftwhatismyname}\\
+  \cmd{\booknumberlinehook}\marg{num}\\
+  \cmd{\partnumberlinehook}\marg{num}\\
+  \cmd{\chapternumberlinehook}\marg{num}\\
+  \cmd{\numberlinebox}\marg{length}\marg{code}\\
+  \cmd{\booknumberlinebox}\marg{length}\marg{code}\\
+  \cmd{\partnumberlinebox}\marg{length}\marg{code}\\
+  \cmd{\chapternumberlinebox}\marg{length}\marg{code}\\
+\end{syntax}
+\glossary(numberlinehook)
+ {\cs{numberlinehook}\marg{num}}
+ {The first thing to be called within \cs{numberline}, does nothing by
+ default.}
+\glossary(cftwhatismyname)
+ {\cs{cftwhatismyname}}
+ {Since \cs{numberline} is shared by \cs{section} and siblings, 
+   \cs{cftwhatismyname} can be used to tell which section type is
+   calling \cs{numberlinehook}}
+\glossary(partnumberlinehook)
+ {\cs{partnumberlinehook}\marg{num}}
+ {The first thing to be called within \cs{partnumberline}, does nothing by
+ default.}
+\glossary(booknumberlinehook)
+ {\cs{booknumberlinehook}\marg{num}}
+ {The first thing to be called within \cs{booknumberline}, does nothing by
+ default.}
+\glossary(chapternumberlinehook)
+ {\cs{chapternumberlinehook}\marg{num}}
+ {The first thing to be called within \cs{chapternumberline}, does nothing by
+ default.}
+\glossary(numberlinebox)
+ {\cs{numberlinebox}\marg{length}\marg{code}}
+ {The box command used to typeset the sectional number within the ToC,
+   note that it will automatically align to the left}
+\glossary(partnumberlinebox)
+ {\cs{partnumberlinebox}\marg{length}\marg{code}}
+ {The box command used to typeset the part number within the ToC, 
+   note that it will automatically align to the left}
+\glossary(booknumberlinebox)
+ {\cs{booknumberlinebox}\marg{length}\marg{code}}
+ {The box command used to typeset the book number within the ToC, 
+   note that it will automatically align to the left}
+\glossary(chapternumberlinebox)
+ {\cs{chapternumberlinebox}\marg{length}\marg{code}}
+ {The box command used to typeset the chapter number within the ToC, 
+   note that it will automatically align to the left}
+Inside the four \cs{...numberline} macros, the first thing we do is to
+give the \cs{...numberline} argument to a hook. By default this hook
+does nothing. But, with the right
+tools,\footnote{Which we do not currently supply\dots, but have a look
+at Sniplet~\ref{snip:autotoc} on page~\pageref{snip:autotoc}.}
+they can be used to record the widths of the sectional number. Which then
+can be used to automatically adjust the various \meta{numwidth} and
+\meta{indent} within the \cs{cftsetindents} macro. In order to 
+tell the section types apart (they all use \cmd{\numberline}), the
+value of the \cmd{\cftwhatismyname} macro will locally reflect the
+current type. 
+
+As mentioned earlier, the \cmd{\book}, \cmd{\part} and \cmd{\chapter}
+numbers are typeset inside a box of certain fixed widths. Sometimes it
+can be handy \emph{not} having this box around. For this you can
+redefine one of the four \cs{...numberlinebox} macros listed
+above. For example via
+\begin{lcode}
+  \renewcommand\chapternumberlinebox[2]{#2}
+\end{lcode}
+The first argument is the width of the box to be made.  All four
+macros are defined similar to this (where \texttt{\#1} is a length)
+\begin{lcode}
+\newcommand\chapternumberlinebox[2]{%
+  \hb@xt@#1{#2\hfil}}
+\end{lcode}
+
+
+\begin{comment}
+\Note{}  Because the \Lpack{hyperref} package~\cite{HYPERREF} 
+does not understand
+the \cmd{\partnumberline} and \cmd{\chapternumberline} commands,
+if you use the \Lpack{hyperref} package you will also have to use
+the \Lpack{memhfixc} package, which comes with memoir.
+\end{comment}
+
+
+\begin{syntax}
+\cmd{\cftKleader} \\
+\cmd{\cftKdotsep} \\
+\end{syntax}
+\glossary(cftKleader)
+  {\cs{cftKleader}}%
+  {Leader between the title and page number of a `K' entry in a \listofx.} 
+\glossary(cftKdotsep)
+  {\cs{cftKdotsep}}%
+  {Separation between dots in a leader between the title and page number of a `K' entry in a \listofx.} 
+ \cmd{\cftKleader} defines the leader between the title and the page number;
+ it can be changed by \cmd{\renewcommand}.
+ The spacing between any dots in the leader is controlled by \cmd{\cftKdotsep} 
+ (\cmd{\@dotsep} in \fref{fig:ltoc}).
+ It can be changed by \cmd{\renewcommand} and its value must be either a
+ number (e.g., 6.6 or \cmd{\cftdotsep}) or \cmd{\cftnodots} (to
+ disable the dots). The spacing is in terms of \emph{math units} where
+ there are 18mu to 1em. 
+
+The default leaders macro is similar to
+\begin{lcode}
+  \newcommand{\cftsectionleader}{\normalfont\cftdotfill{\cftsectiondotsep}}
+\end{lcode}
+Note that the spacing of the dots is affected by the font size (as the
+math unit is affected by the font size). Also note that the
+\cmd{\cftchapterleader} is bold by default.
+
+\begin{syntax}
+\cmd{\cftKformatpnum}\marg{pnum} \\
+\cmd{\cftKformatpnumhook}\marg{num}\\
+\cmd{\cftKpagefont} \\
+\end{syntax}
+\glossary(cftKformatpnum)%
+  {\cs{cftKformatpnum}\marg{pnum}}%
+  {Typesets the page number \meta{pnum} of a  `K' entry in a \listofx.} 
+\glossary(cftKpagefont)%
+  {\cs{cftKpagefont}}%
+  {Font for the page number of a  `K' entry in a \listofx.} 
+\glossary(cftKformatpnumhook)%
+ {\cs{cftKformatpnumhook}\marg{num}}%
+ {When formatting the page number in the ToC (via
+   \cs{cftKformatpnum}) this hook is given the page value. Does nothing by default}%
+The macro \cmd{\cftKformatpnum} typesets an entry's page number, using
+the \cmd{\cftKpagefont}.\footnote{This addition to the class was suggested
+by Dan\index{Luecking, Daniel} Luecking, \ctt\ \textit{Re: setting numbers in toc in their natural width box,} 2007/08/15.}
+The default definition is essentially:
+\begin{lcode}
+\newcommand*{\cftKformatpnum}[1]{%
+  \cftKformatpnumhook{#1}%
+  \hbox to \@pnumwidth{\hfil{\cftKpagefont #1}}}
+\end{lcode}
+which sets the number right justified in a box \lnc{\@pnumwidth} wide.
+To have, say, a \cmd{\part} page number left justified in its box, do:
+\begin{lcode}
+\renewcommand*{\cftpartformatpnum}[1]{%
+  \cftpartformatpnumhook{#1}%
+  \hbox to \@pnumwidth{{\cftpartpagefont #1}}}
+\end{lcode}
+The \cmd{\cftKformatpnumhook} does nothing by default (other than
+eating the argument), but could be redefined to record the widest page
+number and report it back, even reusing it to auto adjust on the next
+run to set \cs{@pnumwidth} (see \cmd{\setpnumwidth}).
+
+
+\begin{syntax}
+\cmd{\cftKafterpnum} \\
+\end{syntax}
+\glossary(cftKafterpnum)
+  {\cs{cftKafterpnum}}%
+  {Called after typesetting the page number of a  `K' entry in a \listofx.} 
+ This macro is called after the page number has been typeset. Its default
+ is to do nothing. It can be changed by \cmd{\renewcommand}.
+
+\begin{syntax}
+\cmd{\cftsetindents}\marg{kind}\marg{indent}\marg{numwidth} \\
+\end{syntax}
+\glossary(cftsetindents)%
+  {\cs{cftsetindents}\marg{kind}\marg{indent}\marg{numwidth}}%
+  {Set the \meta{kind} entry \textit{indent} to \meta{indent} and
+   its \textit{numwidth} to \meta{numwidth}.}
+ The command 
+ \cmd{\cftsetindents} sets the \meta{kind} entries \textit{indent} to the 
+length \meta{indent} and its
+ \textit{numwidth} to the length \meta{numwidth}. The \meta{kind} argument
+ is the name of one of the standard entries (e.g., \texttt{subsection}) or the 
+name of entry that has been defined within the document.
+ For example 
+\begin{lcode}
+ \cftsetindents{figure}{0em}{1.5em}
+\end{lcode}
+ will make figure\index{figure} entries left justified.
+
+    This manual requires more space for section numbers in the \toc{} than
+the default (which allows for three digits). Consequently the preamble\index{preamble}
+contains the following:
+\begin{lcode}
+\cftsetindents{section}{1.5em}{3.0em}
+\cftsetindents{subsection}{4.5em}{3.9em}
+\cftsetindents{subsubsection}{8.4em}{4.8em}
+\cftsetindents{paragraph}{10.7em}{5.7em}
+\cftsetindents{subparagraph}{12.7em}{6.7em}
+\end{lcode}
+Note that changing the indents at one level implies that any lower level
+indents should be changed as well.
+
+
+ Various effects can be achieved by changing the definitions of \cmd{\cftKfont},
+ \cmd{\cftKaftersnum}, \cmd{\cftKaftersnumb}, \cmd{\cftKleader} and 
+\cmd{\cftKafterpnum}, 
+ either singly or in combination.
+ For the sake of some examples, assume that we have the following initial
+ definitions
+ \begin{lcode}
+ \newcommand*{\cftKfont}{}
+ \newcommand*{\cftKaftersnum}{}
+ \newcommand*{\cftKaftersnumb}{}
+ \newcommand*{\cftKleader}{\cftdotfill{\cftKdotsep}}
+ \newcommand*{\cftKdotsep}{\cftdotsep}
+ \newcommand*{\cftKpagefont}{}
+ \newcommand*{\cftKafterpnum}{}
+ \end{lcode}
+Note that the same font should be used for the title, leader and page 
+ number to provide a coherent appearance.
+
+ \begin{itemize}
+ \item To eliminate the dots in the leader:
+ \begin{lcode}
+ \renewcommand*{\cftKdotsep}{\cftnodots}
+ \end{lcode}
+
+ \item To put something (e.g., a name) before the title (number):
+ \begin{lcode}
+ \renewcommand*{\cftKname}{SOMETHING }
+ \end{lcode}
+
+ \item To add a colon after the section number:
+ \begin{lcode}
+ \renewcommand*{\cftKaftersnum}{:}
+ \end{lcode}
+
+ \item To put something before the title number, add a double colon after 
+    the title number, set everything in bold font,
+ and start the title text on the following line:
+ \begin{lcode}
+ \renewcommand*{\cftKfont}{\bfseries}
+ \renewcommand*{\cftKleader}{\bfseries\cftdotfill{\cftKdotsep}}
+ \renewcommand*{\cftKpagefont}{\bfseries}
+ \renewcommand*{\cftKname}{SOMETHING }
+ \renewcommand{\cftKaftersnum}{::}
+ \renewcommand{\cftKaftersnumb}{\\}
+ \end{lcode}
+
+    If you are adding text in the number box in addition to the number,
+ then you will probably have to increase the width of the box so that
+ multiline titles have a neat vertical alignment; changing box widths
+ usually implies that the indents will require modification as 
+ well. One possible method of adjusting the box width for the above example
+ is:
+ \begin{lcode}
+ \newlength{\mylen}                  % a "scratch" length
+ \settowidth{\mylen}{\bfseries\cftKaftersnum}
+ \addtolength{\cftKnumwidth}{\mylen} % add the extra space
+ \end{lcode} 
+
+\LMnote{2012/07/29}{Added this example}
+\item To set the chapter number and title as just
+  `NUM\enspace\textperiodcentered\enspace TITLE', i.e. un-boxed number
+  plus a symbolic separator, use
+  \begin{lcode}
+  \renewcommand\cftchapteraftersnumb{\enspace\textperiodcentered\enspace}
+  \renewcommand\chapternumberlinebox[2]{#2}  
+  \end{lcode}
+  -- of couse, it works best, only if the TITLE is a single line.
+
+
+\item Make chapter titles lower case small caps
+  \begin{lcode}
+    \renewcommand\cftchapterfont{\scshape\MakeTextLowercase}
+  \end{lcode}
+  -- here we do not touch the case of any math.
+
+ \item To set the section numbers flushright:
+ \begin{lcode}
+ \setlength{\mylen}{0.5em}    % extra space at end of number
+ \renewcommand{\cftKpresnum}{\hfill} % note the double `l'
+ \renewcommand{\cftKaftersnum}{\hspace*{\mylen}}
+ \addtolength{\cftKnumwidth}{\mylen}
+ \end{lcode}
+ In the above, the added initial \cmd{\hfill} in the box overrides the
+ final \cmd{\hfil} in the box, thus shifting everything to the right hand
+ end of the box. The extra space is so that the number is not typeset
+ immediately at the left of the title text.
+
+ \item To set the entry ragged left (but this only looks good for single
+       line titles):
+ \begin{lcode}
+ \renewcommand{\cftKfont}{\hfill\bfseries}
+ \renewcommand{\cftKleader}{}
+ \end{lcode}
+
+\item To set the titles ragged right instead of the usual flushright.
+      Assuming that there are more than 100 pages in the document (otherwise
+      adjust the length):
+\begin{lcode}
+\setrmarg{3.55em plus 1fil}
+\end{lcode}
+where the last four characters before the closing brace are: digit 1, 
+lowercase F, lowercase I, and lowercase L.
+
+ \item To set the page number immediately after the entry text instead of at
+       the righthand margin\index{margin!right}:
+ \begin{lcode}
+ \renewcommand{\cftKleader}{}
+ \renewcommand{\cftKafterpnum}{\cftparfillskip}
+ \end{lcode}
+
+\end{itemize}
+
+\begin{syntax}
+\cmd{\cftparfillskip} \\
+\end{syntax}
+\glossary(cftparfillskip)%
+  {\cs{cftparfillskip}}%
+  {Fills the last line in a paragraph in a \listofx.}
+ By default the \cmd{\parfillskip} value is locally set to fill up the last
+ line of a paragraph\index{paragraph}. Just changing \cmd{\cftKleader} as
+in the above example puts horrible interword
+ spaces into the last line of the title. The \cmd{\cftparfillskip} 
+ command  is provided just so that the above effect can be achieved.
+
+\begin{syntax}
+\cmd{\cftpagenumbersoff}\marg{kind} \\
+\cmd{\cftpagenumberson}\marg{kind} \\
+\end{syntax}
+\glossary(cftpagenumbersoff)%
+  {\cs{cftpagenumbersoff}\marg{kind}}%
+  {Eliminates page numbers for the \meta{kind} entries in a \listofx.}
+\glossary(cftpagenumberson)%
+  {\cs{cftpagenumberson}\marg{kind}}%
+  {Reverses the effect of \cs{cftpagenumbersoff}.}
+ The command \cmd{\cftpagenumbersoff} will
+ eliminate the page numbers for \meta{kind} entries in the listing, where
+ \meta{kind} is the name of one of the standard
+ kinds of entries (e.g., \texttt{subsection}, or \texttt{figure}) or the 
+ name of a new entry defined in the document.
+
+    The command \cmd{\cftpagenumberson} reverses
+ the effect of a corresponding \cmd{\cftpagenumbersoff} for \meta{kind}.
+ 
+    For example, to eliminate page numbers for appendices\index{appendix} 
+in the \toc:
+ \begin{lcode}
+ ...
+ \appendix
+ \addtocontents{toc}{\cftpagenumbersoff{chapter}}
+ \chapter{First appendix}
+ \end{lcode}
+ If there are other chapter type headings\index{heading!chapter} to go 
+into the \toc{} after the  appendices\index{appendix} (perhaps a 
+bibliography\index{bibliography} or an index\index{index}), 
+ then it will be necessary to do a similar 
+ \begin{lcode}
+ \addtocontents{toc}{\cftpagenumberson{chapter}}
+ \end{lcode}
+ after the appendices\index{appendix} to restore the page numbering in 
+the \toc.
+
+ Sometimes it may be desirable to make a change to the global parameters
+ for an individual entry. For example, a figure\index{figure} might be 
+placed on the end paper\index{paper!end} of a book (the inside of the front 
+or back cover), and this needs to be placed in a \lof\ with the page number 
+set as, say,  `inside front cover'. If `inside front cover' is typeset as 
+an ordinary page number it will stick out into the margin\index{margin}. 
+Therefore, the parameters for this particular entry need to be changed.
+
+\begin{syntax}
+\cmd{\cftlocalchange}\marg{ext}\marg{pnumwidth}\marg{tocrmarg} \\
+\end{syntax}
+\glossary(cftlocalchange)%
+  {\cs{cftlocalchange}\marg{ext}\marg{pnumwidth}\marg{tocrmarg}}%
+  {Writes commands to the \meta{ext} \listofx\ file resetting
+   \cs{@pnumwidth} and \cs{@tocrmarg} to the specified values.}
+ The command \cmd{\cftlocalchange} 
+ will write an entry into the file with extension \meta{ext} to reset 
+the global \cmd{\@pnumwidth} and \cmd{\@tocrmarg} parameter lengths. 
+ The command should be called again after any special entry to reset
+ the parameters back to their usual values. Any fragile commands used
+ in the arguments must be protected.
+
+\begin{syntax}
+\cmd{\cftaddtitleline}\marg{ext}\marg{kind}\marg{title}\marg{page} \\
+\cmd{\cftaddnumtitleline}\marg{ext}\marg{kind}\marg{num}\marg{title}\marg{page} \\
+\end{syntax}
+\glossary(cftaddtitleline)%
+  {\cs{cftaddtitleline}\marg{ext}\marg{kind}\marg{title}\marg{page}}%
+  {Writes a \cs{contentsline} to the \listofx\ \meta{ext} file for
+   a \meta{kind} entry with \meta{title} and \meta{page} number.}
+\glossary(cftaddnumtitleline)%
+  {\cs{cftaddnumtitleline}\marg{ext}\marg{kind}\marg{num}\marg{title}\marg{page}}%
+  {Writes a \cs{contentsline} to the \listofx\ \meta{ext} file for
+   a \meta{kind} entry with number \meta{number} and \meta{title} and 
+   \meta{page} number.}
+ The command \cmd{\cftaddtitleline} 
+ will write a \cmd{\contentsline} entry into \meta{ext} for a \meta{kind}
+ entry with title \meta{title} and page number \meta{page}. 
+ Any fragile commands used in the arguments must be protected.
+That is,
+ an entry is made of the form: 
+\begin{lcode}
+\contentsline{kind}{title}{page}
+\end{lcode}
+ The command \cmd{\cftaddnumtitleline}
+ is similar to \cmd{\cftaddtitleline} except that it also includes 
+\meta{num} as the argument to
+ \cmd{\numberline}. That is, an entry is made of the form
+\begin{lcode}
+\contentsline{kind}{\numberline{num} title}{page}
+\end{lcode}
+
+ As an example of the use of these commands, 
+ noting that the default LaTeX values for 
+ \cmd{\@pnumwidth} and \cmd{\@tocrmarg} are 1.55em and 2.55em respectively, 
+ one might do the following for a figure\index{figure} on the 
+frontispiece\index{frontispiece} page.
+ \begin{lcode}
+ ...
+  this is the frontispiece page with no number
+  draw or import the picture (with no \caption)
+ \cftlocalchange{lof}{4em}{5em} % make pnumwidth big enough for 
+                                % frontispiece and change margin
+ \cftaddtitleline{lof}{figure}{The title}{frontispiece}
+ \cftlocalchange{lof}{1.55em}{2.55em} % return to normal settings
+ \clearpage
+ ...
+ \end{lcode}
+    Recall that a \cmd{\caption} command will put an entry in the \file{lof}
+file, which is not wanted here. If a caption\index{caption} is required, 
+then you can  either craft one youself or, assuming that your general 
+captions\index{caption} are not too exotic, use the \cmd{\legend} command 
+(see later). If the illustration\index{illustration} is numbered, use 
+\cmd{\cftaddnumtitleline} instead of \cmd{\cftaddtitleline}.
+
+
+\LMnote{2010/06/09}{Thought we needed a break here}
+\subsubsection{Inserting stuff into the content lists}
+\label{sec:inserting-stuff-into}
+
+
+The next functions were suggested by Lars\index{Madsen, Lars} Madsen who
+found them useful if, for example, you had two versions of the
+\toc\ and you needed some aspects to be formatted differently.
+\begin{syntax}
+\cmd{\cftinsertcode}\marg{name}\marg{code} \\
+\cmd{\cftinserthook}\marg{file}\marg{name} \\
+\end{syntax}
+\glossary(cftinsertcode)
+  {\cs{cftinsertcode}\marg{name}\marg{code}}%
+  {Defines Toc (LoF, LoT) \meta{name} insertion to be \meta{code}.}
+\glossary(cftinserthook)
+  {\cs{cftinserthook}\marg{file}\marg{name}}%
+  {Inserts code \meta{name} into \meta{file} (e.g., \texttt{toc}, \texttt{lof}, etc.}
+The \cmd{\cftinserthook} is somewhat like \cmd{\addtocontents} in that it 
+enables you to insert a code hook into the \toc, etc., where \meta{file} is 
+the (\texttt{toc}, \texttt{lof}, \ldots) file and \meta{name} is the `name'
+of the hook. The \meta{code} for the hook is specified via \cmd{\cftinsertcode}
+where \meta{name} is the name you give to the hook. These can be used to make
+alterations to a \listofx\ on the fly. For example:
+\begin{lcode}
+\cftinsertcode{A}{%
+  \renewcommand*{\cftchapterfont}{\normalfont\scshape}
+  ... }% code for ToC
+...
+\frontmatter
+\tableofcontents
+\cftinsertcode{G}{...}% code for LoF
+\cftinsertcode{F}{...}% code for LoF
+\listoffigures
+...
+\cftinserthook{lof}{G}
+...
+\chapter{...}
+...
+\mainmatter
+\cftinserthook{toc}{A}
+\cftinserthook{lof}{F}
+\chapter{...}
+...
+\end{lcode}
+If you do not use \cmd{\cftinsertcode} \emph{before} calling the command to
+type the \listofx\ that it is intended for then nothing will happen. No
+harm will come if a matching \cmd{\cftinserthook} is never used. No harm
+occurs either if you call \cmd{\cftinserthook} and there is no prior
+matching \cmd{\cftinsertcode}.
+
+One use of these \toc{} hooks is reusing the \toc{} data to, say,
+create chapter \toc's. The code for this is shown in
+Sniplet~\ref{snip:chaptertoc} on page~\pageref{snip:chaptertoc}. In
+the sniplet we use the following two hooks that are executed right
+before and right after \cmd{\chapter}, \cmd{\part}, \cmd{\book},
+\cmd{\appendixpage}  writes to the \toc{}. By default
+they do nothing.\footnote{More hooks may be added in later releases.}
+\begin{syntax}
+  \cmd{\mempreaddchaptertotochook}\\
+  \cmd{\mempostaddchaptertotochook}\\
+  \cmd{\mempreaddparttotochook}\\
+  \cmd{\mempostaddparttotochook}\\
+  \cmd{\mempreaddbooktotochook}\\
+  \cmd{\mempostaddbooktotochook}\\
+  \cmd{\mempreaddapppagetotochook}\\
+  \cmd{\mempostaddapppagetotochook}
+\end{syntax}
+\glossary(mempreaddchaptertotochook)%
+  {\cs{mempreaddchaptertotochook}}%
+  {Hook executed right \emph{before} \cs{chapter} writes to the \protect\toc{}}
+\glossary(mempostaddchaptertotochook)%
+  {\cs{mempostaddchaptertotochook}}%
+  {Hook executed right \emph{after} \cs{chapter} writes to the \protect\toc{}}
+\glossary(mempreaddparttotochook)%
+  {\cs{mempreaddparttotochook}}%
+  {Hook executed right \emph{before} \cs{part} writes to the \protect\toc{}}
+\glossary(mempostaddparttotochook)%
+  {\cs{mempostaddparttotochook}}%
+  {Hook executed right \emph{after} \cs{part} writes to the \protect\toc{}}
+\glossary(mempreaddbooktotochook)%
+  {\cs{mempreaddbooktotochook}}%
+  {Hook executed right \emph{before} \cs{book} writes to the \protect\toc{}}
+\glossary(mempostaddbooktotochook)%
+  {\cs{mempostaddbooktotochook}}%
+  {Hook executed right \emph{after} \cs{book} writes to the \protect\toc{}}
+\glossary(mempreaddapppagetotochook)%
+  {\cs{mempreaddapppagetotochook}}%
+  {Hook executed right \emph{before} \cs{appendixpage} writes to the \protect\toc{}}
+\glossary(mempostaddapppagetotochook)%
+  {\cs{mempostaddapppagetotochook}}%
+  {Hook executed right \emph{after} \cs{appendixpage} writes to the \protect\toc{}}
+
+
+
+\LMnote{2010/06/09}{Ineffective to have this seceral places in the manual.}
+\subsubsection{Extra chapter material in the ToC}
+\label{sec:extra-chapt-mater}
+
+\begin{syntax}
+\cmd{\precistoctext}\marg{text} \cmd{\precistocfont} \cmd{\precistocformat}\\
+\end{syntax}
+The \cmd{\chapterprecistoc} macro puts  \cmd{\precistoctext}\marg{text} into 
+the \pixfile{toc} file. Further information as to the definition of
+this macro can be found in section~\ref{sec:chapter-precis}.
+
+
+\LMnote{2012/09/21}{added}
+\subsubsection{About upper or lower casing TOC entries}
+\label{sec:about-upper-or}
+
+Some designs call for upper (or lower casing) TOC entries. This
+\emph{is} possible but the solution depends on whether the
+\Lpack{hyperref} package is used or not.
+
+Without \Lpack{hyperref} one can simply end the \cs{cftKfont} with say
+\cs{MakeTextUppercase} and the \texttt{K}-type entry will be upper cased.
+
+With \Lpack{hyperref} the possibilities are limited. Explanation: The
+upper/lower casing macros are not that robust, and need the content to
+be simple.\footnote{For some definition of simple.} When
+\Lpack{hyperref} is used, the hyperlink is wrapped around the entry
+before \cs{cftKfont} gains access to it, and is thus generally too
+complicated for, say, \cs{MakeTextUppercase} to handle. The follow
+workaround draw inspiration from
+\url{http://tex.stackexchange.com/q/11892/3929}.
+\begin{syntax}
+  \cmd{\settocpreprocessor}\marg{type}\marg{code}
+\end{syntax}
+\glossary(settocpreprocessor)%
+  {\cs{settocpreprocessor}\marg{type}\marg{code}}
+  {Provide a method for preprocessing certain TOC entries before they
+    are written to the \texttt{.toc} file.}
+Here \meta{type} is one of \texttt{chapter}, \texttt{part} or
+\texttt{book}.\footnote{If needed we will attempt to add a similar
+  feature to the rest of the sectional types, please write the
+  maintainer.} And \meta{code} can be something like this example:
+\begin{verbatim}
+\makeatletter
+\settocpreprocessor{chapter}{%
+  \let\tempf@rtoc\f@rtoc%
+  \def\f@rtoc{%
+    \texorpdfstring{\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
+}
+\makeatother
+\end{verbatim}
+Where \cs{f@rtoc} is a placeholder inside \cmd{\chapter}, \cmd{\part}
+and \cmd{\book}, holding the material to be written to the actual TOC
+file before \Lpack{hyperref} accesses it. This way the upper casing is
+sneaked into the TOC file, and the bookmark part of \Lpack{hyperref}
+will not complain about the \cmd{\MakeTextUppercase} in the data. Of
+course, you will not have upper cased titles in the bookmark list.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Example: No section number}
+
+    There are at least two ways of listing section titles in the \toc\
+without displaying their numbers and both involve the \cmd{\numberline}
+command which typesets the number in a box. 
+
+
+    The first method redefines \cmd{\numberline} so it throws away the
+argument. We do this by modifying the \cmd{\cftKfont} macro which is called
+before \cmd{\numberline} and the \cmd{\cftKafterpnum} which is called after
+the page number has been typeset.
+\begin{lcode}
+\let\oldcftsf\cftsectionfont%  save definition of \cftsectionfont
+\let\oldcftspn\cftsectionafterpnum% and of \cftsectionafterpnum
+\renewcommand*{\cftsectionfont}{%
+  \let\oldnl\numberline%       save definition of \numberline
+  \renewcommand*{\numberline}[1]{}% change it
+  \oldcftsf}                 % use original \cftsectionfont
+\renewcommand*{\cftsectionafterpnum}{%
+  \let\numberline\oldnl%     % restore orginal \numberline
+  \oldcftspn}                % use original \cftsectionafterpnum
+\end{lcode}
+
+    Probing a little deeper, the \cmd{\numberline} macro is called to
+typeset section numbers and is defined as:
+\begin{lcode}
+\renewcommand*{\numberline}[1]{%
+  \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
+\end{lcode}
+Each
+kind of heading \cmd{\let}s the \cmd{\@cftbsnum} macro to \cmd{\cftKpresnum},
+and the \cmd{\@cftasnum} macro to \cmd{\cftKaftersnum}, and the
+\cmd{\@cftasnumb} macro to \cmd{\cftKaftersnumb} as appropriate for the
+heading. The second method for killing the number uses a \tx\ method 
+for defining a macro with
+a delimited argument.
+\begin{lcode}
+\def\cftsectionpresnum #1\@cftasnum{}
+\end{lcode}
+The interpretation of this is left as an exercise for anyone who might 
+be interested.
+
+\subsection{Example: Multicolumn entries}
+
+    If the subsection entries, say, in the \toc\ are going to be very 
+short it might be worth setting them in multiple columns. Here is one way
+of doing that which depends on using the \Lpack{multicol}
+package~\cite{MULTICOL}. This assumes that subsections will be the lowest
+heading in the \toc.
+\begin{lcode}
+\newcounter{toccols}
+\setcounter{toccols}{3}
+\newenvironment{mysection}[1]{%
+  \section{#1}%
+  \addtocontents{toc}{\protect\begin{multicols}{\value{toccols}}}}%
+  {\addtocontents{toc}{\protect\end{multocols}}}
+\end{lcode}
+
+The counter \texttt{toccols} controls the number of columns to be used.
+For each section where you want subsections to be typeset in multiple columns
+in the \toc, use the \texttt{mysection} environment instead of \cmd{\section},
+like:
+\begin{lcode}
+\begin{mysection}{Columns}
+...
+\subsection{Fat}
+...
+\subsection{Thin}
+...
+\end{mysection}
+\end{lcode}
+
+Any \toc\ entries generated from within the environment will be enclosed
+in a \Ie{multicols} environment in the \toc. The \cmd{\protect}s have to be
+used because environment \cmd{\begin} and \cmd{\end} commands are 
+fragile\index{fragile}.
+  
+
+\subsection{Example: Multiple contents}
+
+\PWnote{2009/03/17}{Added bit about simple short \& long ToC.}
+    It is easy to have two \toc s, one short and one long, when they are
+of the same style, like this:
+\begin{lcode}
+...
+\renewcommand*{\contentsname}{Short contents}
+\setcounter{tocdepth}{0}%  chapters and above
+\tableofcontents
+% \clearpage
+\renewcommand*{\contentsname}{Contents}
+\setcounter{tocdepth}{2}%  subsections and above
+\tableofcontents
+\end{lcode}
+(Note that you can't use \cmd{\settocdepth} in this case as that writes the 
+change into the \toc, so that the second use would override the first.)
+
+
+    This book has both a short and a long \toc, neither of which look like
+those typically associated with \ltx. This is how they were done.
+
+    The general style for the \toc, etc., is specified in the \Lpack{memsty}
+package file.
+
+\begin{lcode}
+%%% need more space for ToC page numbers
+\setpnumwidth{2.55em}
+\setrmarg{3.55em}
+%%% need more space for ToC section numbers
+\cftsetindents{section}{1.5em}{3.0em}
+\cftsetindents{subsection}{4.5em}{3.9em}
+\cftsetindents{subsubsection}{8.4em}{4.8em}
+\cftsetindents{paragraph}{10.7em}{5.7em}
+\cftsetindents{subparagraph}{12.7em}{6.7em}
+%%% need more space for LoF & LoT numbers
+\cftsetindents{figure}{0em}{3.0em}
+\cftsetindents{table}{0em}{3.0em}
+%%% remove the dotted leaders
+\renewcommand{\cftsectiondotsep}{\cftnodots}
+\renewcommand{\cftsubsectiondotsep}{\cftnodots}
+\renewcommand{\cftsubsubsectiondotsep}{\cftnodots}
+\renewcommand{\cftparagraphdotsep}{\cftnodots}
+\renewcommand{\cftsubparagraphdotsep}{\cftnodots}
+\renewcommand{\cftfiguredotsep}{\cftnodots}
+\renewcommand{\cfttabledotsep}{\cftnodots}
+\end{lcode}
+
+Three macros are defined to control the appearance of the short and 
+the long \toc. First, the macro \cmd{\setupshorttoc} for the short 
+version.
+The first few lines ensure that only chapter or part titles will be set,
+and any chapter precis text or \Icn{tocdepth} changes will be ignored.
+The rest of the code specifies how the chapter titles are to be typeset,
+and finally the part and book titles.
+\begin{lcode}
+\newcommand*{\setupshorttoc}{%
+  \renewcommand*{\contentsname}{Short contents}
+  \let\oldchangetocdepth\changetocdepth
+  \renewcommand*{\changetocdepth}[1]{}
+  \let\oldprecistoctext\precistoctext
+  \renewcommand{\precistoctext}[1]{}
+  \let\oldcftchapterfillnum\cftchapterfillnum
+  \setcounter{tocdepth}{0}% chapters and above
+  \renewcommand*{\cftchapterfont}{\hfill\sffamily}
+  \renewcommand*{\cftchapterleader}{ \textperiodcentered\space}
+  \renewcommand*{\cftchapterafterpnum}{\cftparfillskip}
+%%  \setpnumwidth{0em}
+%%  \setpnumwidth{1.5em}
+  \renewcommand*{\cftchapterfillnum}[1]{%
+    {\cftchapterleader}\nobreak
+    \hbox to 1.5em{\cftchapterpagefont ##1\hfil}\cftchapterafterpnum\par}
+  \setrmarg{0.3\textwidth}
+  \setlength{\unitlength}{\@tocrmarg}
+  \addtolength{\unitlength}{1.5em}
+  \let\oldcftpartformatpnum\cftpartformatpnum
+  \renewcommand*{\cftpartformatpnum}[1]{%
+    \hbox to\unitlength{{\cftpartpagefont ##1}}}}
+  \let\oldcftbookformatpnum\cftbookformatpnum
+  \renewcommand*{\cftbookformatpnum}[1]{%
+    \hbox to\unitlength{{\cftbookpagefont ##1}}}}
+\end{lcode}
+
+    You can do many things using the \cs{cft...} macros to change the 
+appearance of a \toc\ but they can't be entirely coerced into specifying
+the paragraphing of the \cmd{\subsection} titles. The
+\cmd{\setupparasubsecs} also went in the preamble.
+\begin{lcode}
+\newcommand*{\setupparasubsecs}{%
+  \let\oldnumberline\numberline
+  \renewcommand*{\cftsubsectionfont}{\itshape}
+  \renewcommand*{\cftsubsectionpagefont}{\itshape}
+  \renewcommand{\l@subsection}[2]{%
+    \def\numberline####1{\textit{####1}~}%
+    \leftskip=\cftsubsectionindent
+    \rightskip=\@tocrmarg
+%% \advance\rightskip 0pt plus \hsize % uncomment this for raggedright
+%% \advance\rightskip 0pt plus 2em    % uncomment this for semi-raggedright
+    \parfillskip=\fill
+    \ifhmode ,\ \else\noindent\fi
+    \ignorespaces 
+    {\cftsubsectionfont ##1}~{\cftsubsectionpagefont##2}%
+    \let\numberline\oldnumberline\ignorespaces}
+}
+\AtEndDocument{\addtocontents{toc}{\par}
+\end{lcode}
+The above code changes the appearance of subsection titles in the \toc, 
+setting each group as a single paragraph (each is normally set with 
+a paragraph to itself). By uncommenting or commenting the noted lines 
+in the code you can change the layout a little. 
+
+
+\begin{caveat}
+  We have an interesting caveat regarding \cmd{\setupparasubsecs} if
+  you are using \Lpack{hyperref} \emph{and} you have subsubsections,
+  that are not shown in the ToC. You may see some inline subsection
+  entries showing up as `\dots\ text~15 ,\dots', that is a strange
+  space appears before the comma.
+
+  This is an artifact  due to the way \Lpack{hyperref} wraps itself
+  around the ToC entries, even the ones that are not typeset, and thus
+  an end of line space survives. We fix it using \cmd{\endlinechar}:
+  \begin{lcode}
+    \begingroup
+    \endlinechar=-1
+    \tableofcontents
+    \endgroup
+  \end{lcode}
+  Note again that it only happen if you have subsubsections with an
+  inline subsection entry list, \emph{and} you are using
+  \Lpack{hyperref}.
+\end{caveat}
+
+
+
+
+    Normally, section titles (and below) are set as individual 
+paragraphs. Effectively the first thing that is done is to end any 
+previous paragraph, and also the last thing is to end the current 
+paragraph. Notice that the main code above neither starts nor finishes 
+a paragraph. If the group of subsections is followed by a section title, 
+that supplies the paragraph end. The last line above ensures that
+the last entry in the \file{toc} file is \piif{par} as this might be
+needed to finish off a group of subsections if these are the last 
+entries.
+
+And thirdly for the main \toc, the macro \cmd{\setupmaintoc} reverts 
+everything back to normal.
+\begin{lcode}
+\newcommand*{\setupmaintoc}{%
+  \renewcommand{\contentsname}{Contents}
+  \let\changetocdepth\oldchangetocdepth
+  \let\precistoctext\oldprecistoctext
+  \let\cftchapterfillnum\oldcftchapterfillnum
+  \addtodef{\cftchapterbreak}{\par}{}
+  \renewcommand*{\cftchapterfont}{\normalfont\sffamily}
+  \renewcommand*{\cftchapterleader}{%
+                 \sffamily\cftdotfill{\cftchapterdotsep}}
+  \renewcommand*{\cftchapterafterpnum}{}
+  \renewcommand{\cftchapterbreak}{\par\addpenalty{-\@highpenalty}}
+  \setpnumwidth{2.55em}
+  \setrmarg{3.55em}
+  \setcounter{tocdepth}{2}}
+  \let\cftpartformatpnum\oldcftpartformatpnum
+    \addtodef{\cftpartbreak}{\par}{}
+  \let\cftbookformatpnum\oldcftbookformatpnum
+    \addtodef{\cftbookbreak}{\par}{}
+\end{lcode}
+The first few lines restore some macros to their original definitions.
+\begin{lcode}
+\addtodef{\cftchapterbreak}{\par}{}
+\end{lcode}
+ensures that a chapter entry starts off with a \piif{par}; this is needed
+when the previous entry is a group of subsections and their paragraph
+has to be ended. The remaining code lines simply set the appearance of 
+the chapter titles and restore that for parts and books, as well as ensuring
+that they start off new paragraphs.
+
+In the document itself, \cmd{\tableofcontents} was called twice, 
+after the appropriate setups:
+\begin{lcode}
+...
+\setupshorttoc
+\tableofcontents
+\clearpage
+\setupparasubsecs
+\setupmaintoc
+\tableofcontents
+\setlength{\unitlength}{1pt}
+...
+\end{lcode}
+After all this note that I ensured that \lnc{\unitlength} was set 
+to its default value (it had been used as a scratch length in the 
+code for \cmd{\setupparasubsecs}).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+ \section{New \listofx\ and entries}
+
+\index{list!new list of|(}
+
+ \begin{syntax}
+\cmd{\newlistof}\marg{listofcom}\marg{ext}\marg{listofname} \\
+\end{syntax}
+\glossary(newlistof)%
+  {\cs{newlistof}\marg{listofcom}\marg{ext}\marg{listofname}}%
+  {Creates two new List of \ldots commands, \cs{listofcom} 
+   and \cs{listofcom*}, which use
+   a file with extension \meta{ext} and \meta{listofname} for the
+  title.}
+ The command \cmd{\newlistof} 
+ creates a new \listofx, and assorted commands to go along with it.
+ The first argument, \meta{listofcom} is used to define a new
+ command called \verb?\listofcom? which can then be used like 
+\verb?\listoffigures?
+to typeset the \listofx. The \meta{ext} argument is the file 
+extension to
+be used for the new listing. The last argument, \meta{listofname} is
+the title for the \listofx. Unstarred and starred versions of
+\verb?\listofcom? are created. The unstarred version, \verb?\listofcom?, 
+will add \meta{listofname} to the \toc, while the starred version, 
+\verb?\listofcom*?, makes no entry in the \toc.
+
+ As an example:
+ \begin{lcode}
+ \newcommand{\listanswername}{List of Answers}
+ \newlistof{listofanswers}{ans}{\listanswername}
+ \end{lcode}
+ will create a new \cmd{\listofanswers} command that can be used
+to typeset a listing of answers under the
+title \cmd{\listanswername}, where the answer titles are in an \file{ans}
+file. 
+   It is up to the author of the document to specify the `answer' code
+for the answers in the document. For example:
+ \begin{lcode}
+ \newcounter{answer}[chapter]
+ \renewcommand{\theanswer}{\arabic{answer}}
+ \newcommand{\answer}[1]{
+   \refstepcounter{answer}
+   \par\noindent\textbf{Answer \theanswer. #1}
+   \addcontentsline{ans}{answer}{\protect\numberline{\theanswer}#1}\par}
+ \end{lcode}
+ which, when used like:
+\begin{lcode}
+\answer{Hard} The \ldots
+\end{lcode}
+ will print as:
+\begin{syntax}
+ \textbf{Answer 1. Hard} \\
+ \hspace*{2em} The \ldots \\
+\end{syntax}
+
+    As mentioned above, the \cmd{\newlistof} command creates several 
+new commands in addition to \verb?\listofcom?, most of which you should 
+now be familiar with. For convenience,
+assume that \verb?\newlistof{...}{X}{...}? has been issued so that
+\texttt{X} is the new file extension and corresponds to the \texttt{X} in
+\S\ref{sec:titles}. Then in addition to \verb?\listofcom? the following 
+new commands will be made available.
+
+ The four commands, \verb?\Xmark?, 
+ \verb?\Xheadstart?, 
+\verb?\printXtitle?, and
+\verb?\afterXtitle?, 
+are analagous to the commands of the same names
+described in \S\ref{sec:titles} (internally the class uses
+the \cmd{\newlistof} macro to define the \toc, \lof\ and \lot). 
+In particular the default definition of \verb?\Xmark? is equivalent to:
+\begin{lcode}
+\newcommand{\Xmark}{\markboth{listofname}{listofname}}
+\end{lcode}
+However, this may well be altered by the particular \cmd{\pagestyle} in
+use.
+
+\begin{syntax}
+\verb?Xdepth? \\
+\end{syntax}
+ The counter \verb?Xdepth? is analagous to the standard
+ \Icn{tocdepth} counter, in that it specifies that entries
+ in the new listing should not be typeset if their numbering level 
+ is greater
+ than \verb?Xdepth?. The default definition is equivalent to
+\begin{lcode}
+\setcounter{Xdepth}{1}
+\end{lcode}
+
+\begin{syntax}
+\cmd{\insertchapterspace} \\
+\cmd{\addtodef}\marg{macro}\marg{prepend}\marg{append} \\
+\end{syntax}
+Remember that the \cmd{\chapter} command uses \cmd{\insertchapterspace}
+to insert vertical spaces into the \lof{} and \lot. If you want similar
+spaces added to your new listing then you have to modify
+\cmd{\insertchapterspace}. The easiest way to do this is via
+the \cmd{\addtodef} macro, like:
+\begin{lcode}
+\addtodef{\insertchapterspace}{}%
+  {\addtocontents{ans}{\protect\addvspace{10pt}}}
+\end{lcode}
+The \cmd{\addtodef} macro is described later in \S\ref{sec:addtodef}.
+
+    The other part of creating a new \listofx, is to specify the 
+formatting of the entries, i.e., define an appropriate \verb?\l@kind? 
+macro.
+
+\begin{syntax}
+\cmd{\newlistentry}\oarg{within}\marg{cntr}\marg{ext}\marg{level-1} \\
+\end{syntax}
+\glossary(newlistentry)%
+  {\cs{newlistentry}\oarg{within}\marg{cntr}\marg{ext}\marg{level-1}}%
+  {Creates the commands for typesetting an entry in a \listofx.
+   \meta{cntr} is the new counter for the entry, which may be reset
+   by the \meta{within} counter. \meta{ext} is the file extension
+   and \meta{level-1} is one less than the entry's level.}
+
+ The command \cmd{\newlistentry} creates the commands necessary for
+typesetting an entry in a \listofx.
+ The first required argument, \meta{cntr} is used to define a new
+ counter called \texttt{cntr}, unless \texttt{cntr} is already defined. 
+The optional \meta{within} argument can be used so that \texttt{cntr} 
+gets reset to one every time the counter called \texttt{within} is changed. 
+That is, the first two arguments when \texttt{cntr} is not
+already defined, are equivalent to calling 
+\cmd{\newcounter}\marg{cntr}\oarg{within}. If \texttt{cntr} is already
+defined, \cmd{\newcounter} is not called. \texttt{cntr} is used for the 
+number that goes along with the title of the entry.
+
+The second required argument, \meta{ext}, is the file extension for
+the entry listing.  The last argument, \meta{level-1}, is a number
+specifying the numbering level minus one, of the entry in a listing.
+
+
+Calling \cmd{\newlistentry} creates several new commands used to
+configure the entry. So in order to configure the list look of  our
+previous answer example we would add
+\begin{lcode}
+\newlistentry{answer}{ans}{0}  
+\end{lcode}
+
+Assuming that \verb?\newlistentry? is called as
+ \verb?\newlistentry[within]{K}{X}{N}?, where \texttt{K} and
+ \texttt{X} are similar to the previous uses of them (e.g., \texttt{K}
+ is the kind of entry \texttt{X} is the file extension), and
+ \texttt{N} is an integer number, then the following commands are made
+ available.
+
+
+  The set of commands \verb?\cftbeforeKskip?, 
+ \verb?\cftKfont?, 
+ \verb?\cftKpresnum?, 
+ \verb?\cftKaftersnum?, 
+ \verb?\cftKaftersnumb?, 
+ \verb?\cftKleader?, 
+ \verb?\cftKdotsep?, 
+ \verb?\cftKpagefont?, and
+ \verb?\cftKafterpnum?,
+ are analagous to the commands of the same names
+ described in \Sref{sec:entries}. Their default values are also
+ as described earlier.
+
+ The default values of \verb?\cftKindent? and \verb?\cftKnumwidth? are 
+set according to the value of the \meta{level-1} argument 
+(i.e., \texttt{N} in this example). For \verb?N=0? the settings 
+correspond to those for figures\index{figure} and tables\index{table}, 
+as listed in \tref{tab:indents} for the \Lclass{memoir} class.
+For \verb?N=1? the settings correspond to subfigures\index{figure!sub-}, 
+and so on. For values of \verb?N? less than zero or greater than four, 
+or for non-default values, use the \cmd{\cftsetindents} command to 
+set the values.
+
+  \verb?\l@K? is an internal command that typesets an entry in the list, 
+and is defined in terms of the above \verb?\cft*K*? commands. It will 
+not typeset an entry if \verb?Xdepth? is \texttt{N} or less, where 
+\texttt{X} is the listing's file extension.
+
+ The command \verb?\theK? prints the value of the \texttt{K} counter. 
+It is initially defined so that it prints arabic numerals. If the 
+optional \meta{within} argument is used, \verb?\theK? is defined as 
+\begin{lcode}
+ \renewcommand{\theK}{\thewithin.\arabic{K}}
+\end{lcode}
+ otherwise as
+\begin{lcode}
+\renewcommand{\theK}{\arabic{K}}
+\end{lcode}
+
+ As an example of the independent use of \cmd{\newlistentry}, the 
+following will set up for sub-answers.
+ \begin{lcode}
+ \newlistentry[answer]{subanswer}{ans}{1}
+ \renewcommand{\thesubanswer}{\theanswer.\alph{subanswer}}
+ \newcommand{\subanswer}[1]{
+    \refstepcounter{subanswer}
+    \par\textbf{\thesubanswer) #1}
+    \addcontentsline{ans}{subanswer}{\protect\numberline{\thesubanswer}#1}
+ \setcounter{ansdepth}{2}
+ \end{lcode}
+ And then:
+ \begin{lcode}
+ \answer{Harder} The \ldots
+   \subanswer{Reformulate the problem} It assists \ldots
+ \end{lcode}
+ will be typeset as:
+\begin{syntax}
+\textbf{Answer 2. Harder} \\
+\hspace*{2em} The \ldots \\
+\hspace*{2em} \textbf{2.a) Reformulate the problem} It assists \ldots \\
+\end{syntax}
+
+     By default the answer entries will appear in the List of Answers 
+listing (typeset by the \cs{listofanswers} command).
+In order to get the subanswers to appear, 
+the \verb?\setcounter{ansdepth}{2}? command was used above.
+
+ To turn off page numbering for the subanswers, do
+\begin{lcode}
+\cftpagenumbersoff{subanswer}
+\end{lcode}
+
+    As another example of \cmd{\newlistentry}, suppose that an extra 
+sectioning division below \texttt{subparagraph} is required, 
+called \texttt{subsubpara}. The \verb?\subsubpara? command itself can 
+be defined via the \ltx\ kernel \cmd{\@startsection} command. 
+Also it is necessary to define a \verb?\subsubparamark? macro,
+a new \texttt{subsubpara} counter, a \verb?\thesubsubpara? macro and a 
+\verb?\l@subsubpara?  macro. Using \cmd{\newlistentry} takes care of 
+most of these as shown below; remember the caveats about commands 
+with \idxatincode\texttt{@} signs in them (\seeatincode).
+\begin{lcode}
+ \newcommand{\subsubpara}{\@startsection{subpara}
+    {6}                              %                    level
+    {\parindent}                     %  indent from left margin
+    {3.25ex \@plus1ex \@minus .2ex}  %     skip above heading
+    {-1em}       run-in heading with % 1em between title & text
+    {\normalfont\normalsize\itshape} % italic number and title 
+ }
+ \newlistentry[subparagraph]{subsubpara}{toc}{5}
+ \cftsetindents{subsubpara}{14.0em}{7.0em}
+ \newcommand*{\subsubparamark}[1]{}  % gobble heading mark
+ \end{lcode}
+
+     Each \listofx\ uses a file to store the list entries, and these
+ files must remain open for writing throughout the document processing.
+\tx\ has only a limited number of files that it can keep open, and this
+ puts a limit on the number of listings that can be used. For a document
+ that includes a \toc\ but no other extra ancilliary files (e.g., no
+ index\index{index} or bibliography\index{bibliography} output files) 
+the maximum number of LoX's, including a \lof\ and \lot, is no more 
+than about eleven. If you try and create too many new listings \ltx\ 
+will respond with the error message: 
+ \begin{center}
+ \texttt{No room for a new write} 
+ \end{center}
+ If you get such a message the only recourse is to redesign your 
+document.
+
+\subsection{Example: plates}
+
+    As has been mentioned earlier, some illustrations\index{illustration}
+may be tipped in\index{tip in} to a book. Often, these are called 
+\emph{plates}\index{plates} if they are on glossy paper\index{paper} 
+and the rest of the book is on ordinary paper\index{paper}.
+We can define a new kind of Listing for these.
+
+\begin{lcode}
+\newcommand{\listplatename}{Plates}
+\newlistof{listofplates}{lop}{\listplatename}
+\newlistentry{plate}{lop}{0}
+\cftpagenumbersoff{plate}
+\end{lcode}
+This code defines the \cmd{\listofplates} command to start the listing 
+which will be titled `Plates' from the \cmd{\listplatename} macro. 
+The entry name is \texttt{plate} and the file extension is \texttt{lop}. 
+As plate pages typically do not have printed folios\index{folio}, 
+the \cmd{\cftpagenumbersoff} command has been used to prohibit page 
+number printing in the listing.
+
+    If pages are tipped in, then they are put between a verso and 
+a recto page. The \Lpack{afterpage} package~\cite{AFTERPAGE} lets 
+you specify something that should happen after the current page 
+is finished. The next piece of code uses the package and its 
+\cmd{\afterpage} macro to define two macros which let you specify 
+something that is to be done after the next verso (\cmd{\afternextverso})
+or recto (\cmd{\afternextrecto}) page has been completed.
+\begin{lcode}
+\newcommand{\afternextverso}[1]{%
+  \afterpage{\ifodd\c@page #1\else\afterpage{#1}\fi}}
+\newcommand{\afternextrecto}[1]{%
+  \afterpage{\ifodd\c@page\afterpage{#1}\else #1\fi}}
+\end{lcode}
+
+
+    The \cmd{\pageref}\marg{labelid} command typesets the page number
+corresponding to the location in the document where 
+\cmd{\label}\marg{labelid} is specified. The following code defines
+two macros\footnote{These only work for arabic page numbers.} 
+that print the page number before (\cmd{\priorpageref}) or after 
+(\cmd{\nextpageref}) that given by \cmd{\pageref}.
+\begin{lcode}
+\newcounter{mempref}
+\newcommand{\priorpageref}[1]{%
+  \setcounter{mempref}{\pageref{#1}}\addtocounter{mempref}{-1}\themempref}
+\newcommand{\nextpageref}[1]{%
+  \setcounter{mempref}{\pageref{#1}}\addtocounter{mempref}{1}\themempref}
+\end{lcode}
+
+    With these preliminaries out of the way, we can use code like the 
+following for handling a set of physically tipped in plates.
+\begin{lcode}
+\afternextverso{\label{tip}
+  \addtocontents{lop}{%
+    Between pages \priorpageref{tip} and \pageref{tip}
+    \par\vspace*{\baselineskip}}
+  \addcontentsline{lop}{plate}{First plate}
+  \addcontentsline{lop}{plate}{Second plate}
+  ...
+  \addcontentsline{lop}{plate}{Nth plate}
+}
+\end{lcode}
+This starts off by waiting until the next recto page is started, which
+will be the page immediately after the plates, and then inserts the 
+label \texttt{tip}. The \cmd{\addtocontents} macro puts its argument
+into the plate list \texttt{lop} file, indicating the page numbers 
+before and after the set of plates. With the plates being physically 
+added to the document it is not possible to use \cmd{\caption}, 
+instead the \cmd{\addcontentsline} macros are used to add the plate 
+titles to the \texttt{lop} file.
+
+    With a few modifications the code above can also form the basis 
+for listing plates that are electronically tipped in but do not have 
+printed folios\index{folio} or \cmd{\caption}s.
+
+\index{list!new list of|)}
+
+
+
+\LMnote{2010/06/09}{Why do we have this exact section in two different
+chapters? No this links to the version i document-divisions.tex }
+\section{Chapter precis}
+
+See section~\ref{sec:chapter-precis} on page~\pageref{sec:chapter-precis}.
+
+
+% \index{chapter!precis|(}
+
+%    Some old style novels, and even some modern text 
+%  books,\footnote{For example, Robert Sedgewick, \textit{Algorithms},
+%  Addison-Wesley, 1983.} include a short synopsis of the contents of 
+%  the chapter either immediately
+%  after the chapter heading\index{heading!chapter} or in the \toc, or in both places.
+
+% \begin{syntax}
+% \cmd{\chapterprecis}\marg{text} \\
+% \end{syntax}
+%      The command \cmd{\chapterprecis} prints its argument 
+%  both at the
+%  point in the document where it is called, and also adds it to the \file{.toc}
+%  file. For example:
+%  \begin{lcode}
+%  ...
+%  \chapter{}  first chapter
+%  \chapterprecis{Our hero is introduced; family tree; early days.}
+%  ...
+%  \end{lcode}
+
+% \begin{syntax}
+% \cmd{\chapterprecishere}\marg{text} \\
+% \cmd{\chapterprecistoc}\marg{text} \\
+% \end{syntax}
+%  The \cmd{\chapterprecis} command calls these two commands to print the
+%  \meta{text} in the document (the \cmd{\chapterprecishere} command) 
+%  and to put it into the \toc{} (the \cmd{\chapterprecistoc} command). 
+%  These can be used individually if required.
+
+% \begin{syntax}
+% \cmd{\prechapterprecis} \cmd{\postchapterprecis} \\
+% \end{syntax}
+% The \cmd{\chapterprecishere} macro is intended for use immediately after 
+% a \cmd{\chapter}. The \meta{text} argument is typeset in
+% italics in a \Ie{quote} environment. The macro's definition is:
+% \begin{lcode}
+% \newcommand{\chapterprecishere}[1]{%
+%   \prechapterprecis #1\postchapterprecis}
+% \end{lcode}
+% where \cmd{\prechapterprecis} and \cmd{\postchapterprecis} are defined
+% as:
+% \begin{lcode}
+% \newcommand{\prechapterprecis}{%
+%   \vspace*{\prechapterprecisshift}%
+%   \begin{quote}\normalfont\itshape}
+% \newcommand{\postchapterprecis}{\end{quote}}
+% \end{lcode}
+% The \cmd{\prechapterprecis} and \cmd{\postchapterprecis} macros can be 
+% changed if another style of typesetting is required.
+
+% \begin{syntax}
+% \cmd{\precistoctext}\marg{text} \cmd{\precistocfont} \\
+% \end{syntax}
+% The \cmd{\chapterprecistoc} macro puts the macro \cmd{\precistoctext} into 
+% the \pixfile{toc} file. The default definition is
+% \begin{lcode}
+% \DeclareRobustCommand{\precistoctext}[1]{%
+%   {\leftskip \cftchapterindent\relax
+%    \advance\leftskip \cftchapternumwidth\relax
+%    \rightskip \@tocrmarg\relax
+%    \precistocfont #1\par}}
+% \end{lcode}
+% Effectively, in the \toc{} \cmd{\precistoctext} typesets its argument like 
+% a chapter title using the \cmd{\precistocfont} (default \cmd{\itshape}).
+
+% \index{chapter!precis|)}
+
+
+\section{Contents lists and bookmarks}
+\label{sec:cont-lists-bookm}
+
+\LMnote{2009/06/29}{Added section about contents lists and bookmarks}
+
+With the \Lpack{hyperref} package, the table of contents is often
+added as a list of bookmarks thus providing a nice navigation for the
+user. There is one slight problem though: when using, say, parts in
+the document, all chapters in that part ends up as a child of this
+part bookmark---including the index and bibliography. A simple fix to
+this is to add
+\begin{lcode}
+  \makeatletter
+  \renewcommand*{\toclevel@chapter}{-1}
+  \makeatother
+\end{lcode}
+just before the material you would like to pull out of the part tree.
+
+\LMnote{2010/06/09}{Heikos own recommendation}
+A better solution is the \Lpack{bookmark} package, add it to the
+preamble, and add 
+\begin{lcode}
+  \bookmarksetup{startatroot}
+\end{lcode}
+before the stuff you want to have moved out of, say, a part.
+
+
+%#% extend
+%#% extstart include flosts-and-captions.tex
