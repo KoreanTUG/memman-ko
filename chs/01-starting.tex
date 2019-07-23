@@ -1,51 +1,75 @@
+% !TEX root = ../memman-ko.tex
+%\chapter{Starting off} \label{chap:starting}
+\chapter{시작하기} \label{chap:starting}
 
-\chapter{Starting off} \label{chap:starting}
 
+%    As usual, the \Lclass{memoir} class is called by 
+%\cmd{\documentclass}\oarg{options}\texttt{\{memoir\}}. The \meta{options}\index{class options}
+%include being able to select a paper\indextwo{paper}{size} size from among a range of sizes, 
+%selecting a type size, selecting the kind of manuscript, and some related
+%specifically to the typesetting of mathematics.
 
-    As usual, the \Lclass{memoir} class is called by 
-\cmd{\documentclass}\oarg{options}\texttt{\{memoir\}}. The \meta{options}\index{class options}
-include being able to select a paper\indextwo{paper}{size} size from among a range of sizes, 
-selecting a type size, selecting the kind of manuscript, and some related
-specifically to the typesetting of mathematics.
+다른 클래스와 마찬가지로, \Lclass{memoir} 클래스는 
+\cmd{\documentclass}\oarg{options}\texttt{\{memoir\}}로 불러온다.
+옵션(option)\tidx{class options,클래스 옵션}으로는 
+종이 크기,\indextwo{paper}{size}\indextwo{종이}{크기} 본문의 활자 크기, 원고의 종류, 수식 조판상의 지시 등을 지정할 수 있다.
 
-\section{Stock paper size options}
+%\section{Stock paper size options}
+\section{용지 크기 옵션}
 
-    The stock\indextwo{stock}{size} size is the size of a single sheet of the 
-paper\index{paper} you expect to put through the printer. There is a range of 
-stock\indextwo{stock}{size} paper sizes from which to make a selection. 
-These are listed in\index{class options!stock size} \tref{tab:sizeoptsmetric} 
-through \tref{tab:sizeoptsbrit}. Also 
-included in the tables are commands that will set the stock size or paper size to 
-the same dimensions.
+%    The stock\indextwo{stock}{size} size is the size of a single sheet of the 
+%paper\index{paper} you expect to put through the printer. There is a range of 
+%stock\indextwo{stock}{size} paper sizes from which to make a selection. 
+%These are listed in\index{class options!stock size} \tref{tab:sizeoptsmetric} 
+%through \tref{tab:sizeoptsbrit}. Also 
+%included in the tables are commands that will set the stock size or paper size to 
+%the same dimensions.
+기본 용지 크기(stock size)\indextwo{stock}{size}\indextwo{용지}{크기}는 인쇄기에 공급되는 종이(paper)\tidx{paper,종이} 한 장의 크기를 말한다. 
+옵션으로 지정할 수 있는 용지 크기\indextwo{stock}{size}\indextwo{용지}{크기}가 \tref{tab:sizeoptsmetric}부터 \tref{tab:sizeoptsbrit}까지 나열되어\tidx{class options!stock size,클래스 옵션!크기} 있으며, 여기에는 용지 크기나 종이 크기를 같은 단위(dimension)로 설정하기 위한 명령도 들어 있다.
+
 
 \begin{table}
 \centering
-\caption{Class stock metric paper size options, and commands}\label{tab:sizeoptsmetric}
+%\caption{Class stock metric paper size options, and commands}\label{tab:sizeoptsmetric}
+\caption{미터법 표시 클래스 용지 옵션과 그 명령어}\label{tab:sizeoptsmetric}
 \begin{tabular}{llll} \toprule
-Option & Size & stock size command & page size command \\ \midrule
-\Lopt{a6paper}\index{paper!size!A6}\index{stock!size!A6} 
+%Option & Size & stock size command & page size command \\ \midrule
+옵션 & 크기 & 용지 크기 명령 & 페이지 크기 명령 \\ \midrule
+%\Lopt{a6paper}\index{paper!size!A6}\index{stock!size!A6} 
+\Lopt{a6paper}\tidx{paper!size!A6,종이!크기!A6}\tidx{stock!size!A6,용지!크기!A6} 
    & \abybm{148}{105}{mm} & \cmd{\stockavi} & \cmd{\pageavi} \\
-\Lopt{a5paper}\index{paper!size!A5}\index{stock!size!A5}
+%\Lopt{a5paper}\index{paper!size!A5}\index{stock!size!A5}
+\Lopt{a5paper}\tidx{paper!size!A5,종이!크기!A5}\tidx{stock!size!A5,용지!크기!A5}
    & \abybm{210}{148}{mm} & \cmd{\stockav} & \cmd{\pageav} \\
-\Lopt{a4paper}\index{paper!size!A4}\index{stock!size!A4} 
+%\Lopt{a4paper}\index{paper!size!A4}\index{stock!size!A4} 
+\Lopt{a4paper}\tidx{paper!size!A4,종이!크기!A4}\tidx{stock!size!A4,용지!크기!A4}
     & \abybm{297}{210}{mm} & \cmd{\stockaiv} & \cmd{\pageaiv} \\
-\Lopt{a3paper}\index{paper!size!A3}\index{stock!size!A3}
+%\Lopt{a3paper}\index{paper!size!A3}\index{stock!size!A3}
+\Lopt{a3paper}\tidx{paper!size!A3,종이!크기!A3}\tidx{stock!size!A3,용지!크기!A3}
     & \abybm{420}{297}{mm} & \cmd{\stockaiii} & \cmd{\pageaiii} \\
-\Lopt{b6paper}\index{paper!size!B6}\index{stock!size!B6} 
+%\Lopt{b6paper}\index{paper!size!B6}\index{stock!size!B6} 
+\Lopt{b6paper}\tidx{paper!size!B6,종이!크기!B6}\tidx{stock!size!B6,용지!크기!B6} 
    & \abybm{176}{125}{mm} & \cmd{\stockbvi} & \cmd{\pagebvi} \\
-\Lopt{b5paper}\index{paper!size!B5}\index{stock!size!B5} 
+%\Lopt{b5paper}\index{paper!size!B5}\index{stock!size!B5} 
+\Lopt{b5paper}\tidx{paper!size!B5,종이!크기!B5}\tidx{stock!size!B5용지!크기!B5} 
    &  \abybm{250}{176}{mm} & \cmd{\stockbv} & \cmd{\pagebv} \\
-\Lopt{b4paper}\index{paper!size!B4}\index{stock!size!B4} 
+%\Lopt{b4paper}\index{paper!size!B4}\index{stock!size!B4} 
+\Lopt{b4paper}\tidx{paper!size!B4,종이!크기!B4}\tidx{stock!size!B4용지!크기!B4} 
    & \abybm{353}{250}{mm} & \cmd{\stockbiv} & \cmd{\pagebiv} \\
-\Lopt{b3paper}\index{paper!size!B3}\index{stock!size!B3} 
+%\Lopt{b3paper}\index{paper!size!B3}\index{stock!size!B3} 
+\Lopt{b3paper}\tidx{paper!size!B3,종이!크기!B3}\tidx{stock!size!B3,용지!크기!B3} 
    & \abybm{500}{353}{mm} & \cmd{\stockbiii} & \cmd{\pagebiii} \\
-\Lopt{mcrownvopaper}\index{paper!size!metric crown octavo}\index{stock!size!metric crown octavo}
+%\Lopt{mcrownvopaper}\index{paper!size!metric crown octavo}\index{stock!size!metric crown octavo}
+\Lopt{mcrownvopaper}\tidx{paper!size!metric crown octavo,종이!크기!metric crown octavo}\tidx{stock!size!metric crown octavo,용지!크기!metric crown octavo}
    & \abybm{186}{123}{mm} & \cmd{\stockmetriccrownvo} & \cmd{\pagemetriccrownvo} \\
-\Lopt{mlargecrownvopaper}\index{paper!size!metric large crown octavo}\index{stock!size!metric large crown octavo}
+%\Lopt{mlargecrownvopaper}\index{paper!size!metric large crown octavo}\index{stock!size!metric large crown octavo}
+\Lopt{mlargecrownvopaper}\tidx{paper!size!metric large crown octavo,종이!크기!metric large crown octavo}\tidx{stock!size!metric large crown octavo,용지!크기!metric large crown octavo}
    & \abybm{198}{129}{mm} & \cmd{\stockmlargecrownvo} & \cmd{\pagemlargecrownvo} \\
-\Lopt{mdemyvopaper}\index{paper!size!metric demy octavo}\index{stock!size!metric demy octavo}
+%\Lopt{mdemyvopaper}\index{paper!size!metric demy octavo}\index{stock!size!metric demy octavo}
+\Lopt{mdemyvopaper}\tidx{paper!size!metric demy octavo,종이!크기!metric demy octavo}\tidx{stock!size!metric demy octavo,용지!크기!metric demy octavo}
    & \abybm{216}{138}{mm} & \cmd{\stockmdemyvo} & \cmd{\pagemdemyvo} \\
-\Lopt{msmallroyalvopaper}\index{paper!size!metric small royal octavo}\index{stock!size!metric small royal octavo}
+%\Lopt{msmallroyalvopaper}\index{paper!size!metric small royal octavo}\index{stock!size!metric small royal octavo}
+\Lopt{msmallroyalvopaper}\tidx{paper!size!metric small royal octavo,종이!크기!metric small royal octavo}\tidx{stock!size!metric small royal octavo,용지!크기!metric small royal octavo}
    & \abybm{234}{156}{mm} & \cmd{\stockmsmallroyalvo} & \cmd{\pagemsmallroyalvo} \\
 \bottomrule
 \end{tabular}
@@ -93,24 +117,25 @@ Option & Size & stock size command & page size command \\ \midrule
 
 \begin{table}
 \centering
-\caption{Class stock US paper size options, and commands}\label{tab:sizeoptsus}
+\caption{미국 용지의 클래스 옵션과 그 명령}\label{tab:sizeoptsus}
 \begin{tabular}{llll} \toprule
-Option & Size & stock size command & page size command \\ \midrule
-\Lopt{dbillpaper}\index{paper!size!dollar bill}\index{stock!size!dollar bill} 
+%Option & Size & stock size command & page size command \\ \midrule
+옵션 & 크기 & 용지 크기 명령 & 페이지 크기 명령 \\ \midrule
+\Lopt{dbillpaper}\tidx{paper!size!dollar bill,종이!크기!dollar bill}\tidx{stock!size!dollar bill,용지!크기!dollar bill} 
    & \abybm{7}{3}{in} & \cmd{\stockdbill} & \cmd{\pagedbill} \\
-\Lopt{statementpaper}\index{paper!size!statement}\index{stock!size!statement} 
+\Lopt{statementpaper}\tidx{paper!size!statement,종이!크기!statement}\tidx{stock!size!statement,용지!크기!statement} 
    & \abybm{8.5}{5.5}{in} & \cmd{\stockstatement} & \cmd{\pagestatement} \\
-\Lopt{executivepaper}\index{paper!size!executive}\index{stock!size!executive} 
+\Lopt{executivepaper}\tidx{paper!size!executive,종이!크기!executive}\tidx{stock!size!executive,용지!크기!executive} 
    & \abybm{10.5}{7.25}{in} & \cmd{\stockexecutive} & \cmd{\pageexecutive} \\
-\Lopt{letterpaper}\index{paper!size!letterpaper}\index{stock!size!letterpaper} 
+\Lopt{letterpaper}\tidx{paper!size!letterpaper,종이!크기!letterpaper}\tidx{stock!size!letterpaper,용지!크기!letterpaper} 
    & \abybm{11}{8.5}{in} & \cmd{\stockletter} & \cmd{\pageletter} \\
-\Lopt{oldpaper}\index{paper!size!old}\index{stock!size!old} 
+\Lopt{oldpaper}\tidx{paper!size!old,종이!크기!old}\tidx{stock!size!old,용지!크기!old} 
    & \abybm{12}{9}{in} & \cmd{\stockold} & \cmd{\pageold} \\
-\Lopt{legalpaper}\index{paper!size!legal}\index{stock!size!legal} 
+\Lopt{legalpaper}\tidx{paper!size!legal,종이!크기!legal}\tidx{stock!size!legal,용지!크기!legal} 
    & \abybm{14}{8.5}{in} & \cmd{\stocklegal} & \cmd{\pagelegal} \\
-\Lopt{ledgerpaper}\index{paper!size!ledger}\index{stock!size!ledger} 
+\Lopt{ledgerpaper}\tidx{paper!size!ledger,종이!크기!ledger}\tidx{stock!size!ledger,용지!크기!ledger} 
    & \abybm{17}{11}{in} & \cmd{\stockledger} & \cmd{\pageledger} \\
-\Lopt{broadsheetpaper}\index{paper!size!broadsheet}\index{stock!size!broadsheet} 
+\Lopt{broadsheetpaper}\tidx{paper!size!broadsheet,종이!크기!broadsheet}\tidx{stock!size!broadsheet,용지!크기!broadsheet} 
    & \abybm{22}{17}{in} & \cmd{\stockbroadsheet} & \cmd{\pagebroadsheet} \\
 \bottomrule
 \end{tabular}
@@ -143,35 +168,36 @@ Option & Size & stock size command & page size command \\ \midrule
 
 \begin{table}
 \centering
-\caption{Class stock British paper size options, and commands}\label{tab:sizeoptsbrit}
+\caption{영국 용지의 클래스 옵션과 그 명령}\label{tab:sizeoptsbrit}
 \begin{tabular}{llll} \toprule
-Option & Size & stock size command & page size command \\ \midrule
-\Lopt{pottvopaper}\index{paper!size!pott octavo}\index{stock!size!pott octavo} 
+%Option & Size & stock size command & page size command \\ \midrule
+옵션 & 크기 & 용지 크기 명령 & 페이지 크기 명령 \\ \midrule
+\Lopt{pottvopaper}\tidx{paper!size!pott octavo,종이!크기!pott octavo}\tidx{stock!size!pott octavo,용지!크기!pott octavo} 
    & \abybm{6.25}{4}{in} & \cmd{\stockpottvo} & \cmd{\pagepottvo} \\
-\Lopt{foolscapvopaper}\index{paper!size!foolscap octavo}\index{stock!size!foolscap octavo} 
+\Lopt{foolscapvopaper}\tidx{paper!size!foolscap octavo,종이!크기!foolscap octavo}\tidx{stock!size!foolscap octavo,용지!크기!foolscap octavo} 
    & \abybm{6.75}{4.25}{in} & \cmd{\stockfoolscapvo} & \cmd{\pagefoolscapvo} \\
-\Lopt{crownvopaper}\index{paper!size!crown octavo}\index{stock!size!crown octavo} 
+\Lopt{crownvopaper}\tidx{paper!size!crown octavo,종이!크기!crown octavo}\tidx{stock!size!crown octavo,용지!크기!crown octavo} 
    & \abybm{7.5}{5}{in} & \cmd{\stockcrownvo} & \cmd{\pagecrownvo} \\
-\Lopt{postvopaper}\index{paper!size!post octavo}\index{stock!size!post octavo} 
+\Lopt{postvopaper}\tidx{paper!size!post octavo,종이!크기!post octavo}\tidx{stock!size!post octavo,용지!크기!post octavo} 
    & \abybm{8}{5}{in} & \cmd{\stockpostvo} & \cmd{\pagepostvo} \\
-\Lopt{largecrownvopaper}\index{paper!size!large crown octavo}\index{stock!size!large crown octavo} 
+\Lopt{largecrownvopaper}\tidx{paper!size!large crown octavo,종이!크기!large crown octavo}\tidx{stock!size!large crown octavo,용지!크기!large crown octavo} 
    & \abybm{8}{5.25}{in} & \cmd{\stocklargecrownvo} & \cmd{\pagelargecrown
 vo} \\
-\Lopt{largepostvopaper}\index{paper!size!large post octavo}\index{stock!size!large post octavo} 
+\Lopt{largepostvopaper}\tidx{paper!size!large post octavo,종이!크기!large post octavo}\tidx{stock!size!large post octavo,용지!크기!large post octavo} 
    & \abybm{8.25}{5.25}{in} & \cmd{\stocklargepostvo} & \cmd{\pagelargepostvo} \\
-\Lopt{smalldemyvopaper}\index{paper!size!small demy octavo}\index{stock!size!small demy octavo} 
+\Lopt{smalldemyvopaper}\tidx{paper!size!small demy octavo,종이!크기!small demy octavo}\tidx{stock!size!small demy octavo,용지!크기!small demy octavo} 
    & \abybm{8.5}{5.675}{in} & \cmd{\stocksmalldemyvo} & \cmd{\pagesmalldemyvo} \\
-\Lopt{demyvopaper}\index{paper!size!demy octavo}\index{stock!size!demy octavo} 
+\Lopt{demyvopaper}\tidx{paper!size!demy octavo,종이!크기!demy octavo}\tidx{stock!size!demy octavo,용지!크기!demy octavo} 
    & \abybm{8.75}{5.675}{in} & \cmd{\stockdemyvo} & \cmd{\pagedemyvo} \\
-\Lopt{mediumvopaper}\index{paper!size!medium octavo}\index{stock!size!medium octavo} 
+\Lopt{mediumvopaper}\tidx{paper!size!medium octavo,종이!크기!medium octavo}\tidx{stock!size!medium octavo,용지!크기!medium octavo} 
    & \abybm{9}{5.75}{in} & \cmd{\stockmediumvo} & \cmd{\pagemediumvo} \\
-\Lopt{smallroyalvopaper}\index{paper!size!small royal octavo}\index{stock!size!small royal octavo} 
+\Lopt{smallroyalvopaper}\tidx{paper!size!small royal octavo,종이!크기!small royal octavo}\tidx{stock!size!small royal octavo,용지!크기!small royal octavo} 
    & \abybm{9.25}{6.175}{in} & \cmd{\stocksmallroyalvo} & \cmd{\pagesmallroyalvo} \\
-\Lopt{royalvopaper}\index{paper!size!royal octavo}\index{stock!size!royal octavo} 
+\Lopt{royalvopaper}\tidx{paper!size!royal octavo,종이!크기!royal octavo}\tidx{stock!size!royal octavo,용지!크기!royal octavo} 
    & \abybm{10}{6.25}{in} & \cmd{\stockroyalvo} & \cmd{\pageroyalvo} \\
-\Lopt{superroyalvopaper}\index{paper!size!super royal octavo}\index{stock!size!super royal octavo} 
+\Lopt{superroyalvopaper}\tidx{paper!size!super royal octavo,종이!크기!super royal octavo}\tidx{stock!size!super royal octavo,용지!크기!super royal octavo} 
    & \abybm{10.25}{6.75}{in} & \cmd{\stocksuperroyalvo} & \cmd{\pagesuperroyalvo} \\
-\Lopt{imperialvopaper}\index{paper!size!imperial octavo}\index{stock!size!imperial octavo} 
+\Lopt{imperialvopaper}\tidx{paper!size!imperial octavo,종이!크기!imperial octavo}\tidx{stock!size!imperial octavo,용지!크기!imperial octavo} 
    & \abybm{11}{7.5}{in} & \cmd{\stockimperialvo} & \cmd{\pageimperialvo} \\
 \bottomrule
 \end{tabular}
@@ -217,123 +243,170 @@ vo} \\
 \end{table}
 
 
-There are two options that don't really fit into the tables.
+%There are two options that don't really fit into the tables.
+표에 잘 어울리지 않는 다음 두 가지 옵션을 따로 적는다.
 
 \begin{itemize}
-\item[\Lopt{ebook}]\index{stock!size!ebook}  
-     for a stock size of \abybm{6}{9}{inches}, principally
-                    for `electronic books' intended to be displayed
-                    on a computer monitor
+%%\item[\Lopt{ebook}]\index{stock!size!ebook}  
+%     for a stock size of \abybm{6}{9}{inches}, principally
+%                    for `electronic books' intended to be displayed
+%                    on a computer monitor
+\item[\Lopt{ebook}]\tidx{stock!size!ebook,용지!크기!ebook}  
+     \abybm{6}{9}{inches}의 용지 크기로, 주로 컴퓨터 모니터용 `전자책'에 적합함.
 \glossary(ebookco)%
   {\Popt{ebook}}%
-  {Class option for elecronic book stock size.}
-\item[\Lopt{landscape}] to interchange the height and width of the stock.
+  {Class option for elecronic book stock size.}%
+%\item[\Lopt{landscape}] to interchange the height and width of the stock.%
+\item[\Lopt{landscape}] 가로와 세로의 길이를 맞바꾸어 (옆으로 긴 종이로) 조판하기 위함.
 \glossary(landscapeco)%
   {\Popt{landscape}}%
   {Class option to interchange height and width of stock paper size.}
 \end{itemize}
 
-    All the options, except for \Lopt{landscape}, are mutually exclusive.
-The default stock\indextwo{stock}{default} paper\indextwo{paper}{size} size is 
-\Lopt{letterpaper}\index{paper!size!letterpaper}\index{stock!size!letterpaper}.
+%    All the options, except for \Lopt{landscape}, are mutually exclusive.
+%The default stock\indextwo{stock}{default} paper\indextwo{paper}{size} size is 
+%\Lopt{letterpaper}\index{paper!size!letterpaper}\index{stock!size!letterpaper}.
+%The default stock\indextwo{stock}{default} paper\indextwo{paper}{size} size is 
+%\Lopt{letterpaper}\index{paper!size!letterpaper}\index{stock!size!letterpaper}.
+ \Lopt{landscape}를 제외한 모든 옵션은 상호배타적이므로 같이 쓰지 않는다.
+용지\indextwo{stock}{default}\indextwo{용지}{기본값}와 종이 크기\indextwo{paper}{size}\indextwo{종이}{크기}의 기본값(default)은 
+\Lopt{letterpaper}\tidx{paper!size!letterpaper,종이!크기!letterpaper}\tidx{stock!size!letterpaper,용지!크기!letterpaper}이다.
+ 
+%   If you want to use a stock size that is not listed there are methods for doing this,
+%which will be described later.
+   만약 리스트에 없는 용지 크기를 사용하고 싶다면 그에 맞는 방법들이 있겠지만,
+   나중에 설명하기로 한다.
+   
+%\section{Type size options}
+\section{활자 크기 옵션}
 
-   If you want to use a stock size that is not listed there are methods for doing this,
-which will be described later.
-
-\section{Type size options}
-
-    The type size option sets the default font size throughout the document. The class 
-offers a wider range of type sizes\index{type size} than usual. These are:\index{class options!type size}
+%    The type size option sets the default font size throughout the document. The class 
+%offers a wider range of type sizes\index{type size} than usual. These are:\index{class options!type size}
+    활자 크기 옵션은 문서내 글꼴(font) 크기의 기본값을 설정한다. 이 클래스는 다음과 같이 상당히 많은 활자 크기\tidx{type size,활자 크기}를 제공한다.\tidx{class options!type size,클래스 옵션!활자 크기}
 \begin{itemize}
-\item[\Lopt{9pt}] for 9pt as the normal type size
+%\item[\Lopt{9pt}] for 9pt as the normal type size
+\item[\Lopt{9pt}] 기본 글꼴 크기 9pt
 \glossary(9ptco)%
   {\Popt{9pt}}%
   {Class option for a 9pt body font.}
-\item[\Lopt{10pt}] for 10pt as the normal type size
+%\item[\Lopt{10pt}] for 10pt as the normal type size
+\item[\Lopt{10pt}] 기본 글꼴 크기 10pt
 \glossary(10ptco)%
   {\Popt{10pt}}%
   {Class option for a 10pt body font.}
-\item[\Lopt{11pt}] for 11pt as the normal type size
+%\item[\Lopt{11pt}] for 11pt as the normal type size
+\item[\Lopt{11pt}] 기본 글꼴 크기 11pt
 \glossary(11ptco)%
   {\Popt{11pt}}%
   {Class option for a 11pt body font.}
-\item[\Lopt{12pt}] for 12pt as the normal type size
+%\item[\Lopt{12pt}] for 12pt as the normal type size
+\item[\Lopt{12pt}] 기본 글꼴 크기 12pt
 \glossary(12ptco)%
   {\Popt{12pt}}%
   {Class option for a 12pt body font.}
-\item[\Lopt{14pt}] for 14pt as the normal type size\footnote{Note that
-    for \Lopt{14pt}, \cs{huge}, \cs{Huge} and \cs{HUGE} will be the
-    same as \cs{LARGE}, unless the \Lopt{extrafontsizes} option is
-    also is activated.}  \glossary(14ptco)%
+%\item[\Lopt{14pt}] for 14pt as the normal type size\footnote{Note that
+%    for \Lopt{14pt}, \cs{huge}, \cs{Huge} and \cs{HUGE} will be the
+%    same as \cs{LARGE}, unless the \Lopt{extrafontsizes} option is
+%    also is activated.}  \glossary(14ptco)%
+\item[\Lopt{14pt}] 기본 글꼴 크기 14pt\footnote{
+    \Lopt{14pt} 옵션의 경우, \Lopt{extrafontsizes} 옵션이 없으면,  
+    \cs{huge}, \cs{Huge}, \cs{HUGE}가 
+    \cs{LARGE}와 같은 크기로 나타난다.}  \glossary(14ptco)%
   {\Popt{14pt}}%
   {Class option for a 14pt body font.}
-\item[\Lopt{17pt}] for 17pt as the normal type size
+%\item[\Lopt{17pt}] for 17pt as the normal type size
+\item[\Lopt{17pt}] 기본 글꼴 크기 17pt
 \glossary(17ptco)%
   {\Popt{17pt}}%
   {Class option for a 17pt body font.}
-\item[\Lopt{20pt}] for 20pt as the normal type size
+%\item[\Lopt{20pt}] for 20pt as the normal type size
+\item[\Lopt{20pt}] 기본 글꼴 크기 20pt
 \glossary(20ptco)%
   {\Popt{20pt}}%
   {Class option for a 20pt body font.}
-\item[\Lopt{25pt}] for 25pt as the normal type size
+%\item[\Lopt{25pt}] for 25pt as the normal type size
+\item[\Lopt{25pt}] 기본 글꼴 크기 25pt
 \glossary(25ptco)%
   {\Popt{25pt}}%
   {Class option for a 25pt body font.}
-\item[\Lopt{30pt}] for 30pt as the normal type size
+%\item[\Lopt{30pt}] for 30pt as the normal type size
+\item[\Lopt{30pt}] 기본 글꼴 크기 30pt
 \glossary(30ptco)%
   {\Popt{30pt}}%
   {Class option for a 30pt body font.}
-\item[\Lopt{36pt}] for 36pt as the normal type size
+%\item[\Lopt{36pt}] for 36pt as the normal type size
+\item[\Lopt{36pt}] 기본 글꼴 크기 36pt
 \glossary(36ptco)%
   {\Popt{36pt}}%
   {Class option for a 36pt body font.}
-\item[\Lopt{48pt}] for 48pt as the normal type size
+%\item[\Lopt{48pt}] for 48pt as the normal type size
+\item[\Lopt{48pt}] 기본 글꼴 크기 48pt
 \glossary(48ptco)%
   {\Popt{48pt}}%
   {Class option for a 48pt body font.}
-\item[\Lopt{60pt}] for 60pt as the normal type size
+%\item[\Lopt{60pt}] for 60pt as the normal type size
+\item[\Lopt{60pt}] 기본 글꼴 크기 60pt
 \glossary(60ptco)%
   {\Popt{60pt}}%
   {Class option for a 60pt body font.}
-\item[\Lopt{*pt}] for an author-defined size as the normal type size
+%\item[\Lopt{*pt}] for an author-defined size as the normal type size
+\item[\Lopt{*pt}] 저자가 정하는 기본 글꼴 크기
 \glossary(*ptco)%
   {\Popt{*pt}}%
   {Class option for an author-defined size for the body font.}
-\item[\Lopt{extrafontsizes}] Using scalable fonts that can exceed
-  25pt.
+%\item[\Lopt{extrafontsizes}] Using scalable fonts that can exceed 25pt.
+\item[\Lopt{extrafontsizes}] 25pt보다 큰 scalable 글꼴을 사용할 수 있음
 
-  \emph{Note that this includes \cs{huge}, \cs{Huge} and \cs{HUGE}
-  under \Lopt{14pt}. For \Lopt{17pt} and up, an error is thrown if
-  used withput \Lopt{extrafontsizes}, no error is given for
-  \Lopt{14pt}, there sizes above \cs{LARGE} will just be unavailable
-  unless \Lopt{extrafontsizes} is used.}
+%  \emph{Note that this includes \cs{huge}, \cs{Huge} and \cs{HUGE}
+%  under \Lopt{14pt}. For \Lopt{17pt} and up, an error is thrown if
+%  used withput \Lopt{extrafontsizes}, no error is given for
+%  \Lopt{14pt}, there sizes above \cs{LARGE} will just be unavailable
+%  unless \Lopt{extrafontsizes} is used.}
+  \emph{이는, \Lopt{14pt} 옵션의 경우, \cs{huge}, \cs{Huge}와 \cs{HUGE}를 포함한다.
+  \Lopt{17pt}이상의 경우에는 \Lopt{extrafontsizes}를 함께 사용하지 않으면, 
+  에러가 발생한다.
+  \Lopt{14pt}에서는 에러를 내지 않지만, \Lopt{extrafontsizes} 옵션이 없으면, 
+  \cs{LARGE}보다 큰 크기를 나타낼 수 없다.}
 \glossary(extrafontsizes)%
   {\Popt{extrafontsizes}}%
   {Class option for using scalable fonts that can exceed 25pt.}
 \end{itemize}
 
-    These options, except for \Lopt{extrafontsizes}, are mutually exclusive.
-The default type size\indextwo{default}{type size} is \Lopt{10pt}.
+%    These options, except for \Lopt{extrafontsizes}, are mutually exclusive.
+%The default type size\indextwo{default}{type size} is \Lopt{10pt}.
+    \Lopt{extrafontsizes}를 제외하면, 이 옵션들은 서로 배타적이다.
+기본 활자 크기\indextwo{default}{type size}\indextwo{기본값}{활자 크기}는 \Lopt{10pt}이다.
 
-    Options greater than \Lopt{17pt} or \Lopt{20pt} are of little use unless
-you are using scalable fonts --- the regular Computer 
-Modern\facesubseeidx{Computer Modern} bitmap fonts only go up
-to 25pt. The option \Lopt{extrafontsizes} indicates that you will be using
-scalable fonts that can exceed 25pt. By default this option makes 
-Latin Modern in the \texttt{T1} encoding as the default font (normally
-Computer Modern in the \texttt{OT1} encoding is the default).
+%    Options greater than \Lopt{17pt} or \Lopt{20pt} are of little use unless
+%you are using scalable fonts --- the regular Computer 
+%Modern\facesubseeidx{Computer Modern} bitmap fonts only go up
+%to 25pt. The option \Lopt{extrafontsizes} indicates that you will be using
+%scalable fonts that can exceed 25pt. By default this option makes 
+%Latin Modern in the \texttt{T1} encoding as the default font (normally
+%Computer Modern in the \texttt{OT1} encoding is the default).
+    \Lopt{17pt} 혹은 \Lopt{20pt}보다 큰 옵션들은 scalable fonts를 사용하지 않는 이상 
+    그 사용은 제한적이다 --- the regular Computer 
+Modern\facesubseeidx{Computer Modern} bitmap fonts는 25pt까지만 지원된다.
+\Lopt{extrafontsizes} 옵션을 지정함으로써 25pt를 초과하는 scalable fonts를 사용할 것이라고 선언하는 것이다.
+이 옵션은 \texttt{T1} 인코딩 Latin Modern을 기본 글꼴로 설정한다. (일반적으로는 
+\texttt{OT1} 인코딩 Computer Modern이 기본 글꼴이다.)
 
-\subsection{Extended font sizes}
+%\subsection{Extended font sizes}
+\subsection{확장된 글꼴 크기}
 
-    By default, if you use the \Lopt{extrafontsizes} option the default
-font for the document is Latin Modern\facesubseeidx{Latin Modern} 
-in the \texttt{T1} font encoding.
-This is like putting 
-\begin{lcode}
+%    By default, if you use the \Lopt{extrafontsizes} option the default
+%font for the document is Latin Modern\facesubseeidx{Latin Modern} 
+%in the \texttt{T1} font encoding.
+%This is like putting 
+%\begin{lcode}
+%\usepackage{lmodern}\usepackage[T1]{fontenc}
+%\end{lcode}
+%in the documents's preamble (but with the \Lopt{extrafontsizes} option
+%you need not do this). 
+    기본값을 변경하지 않는 한, \Lopt{extrafontsizes} 옵션을 쓰면, 문서의 기본 글꼴은 \texttt{T1} 인코딩 Latin Modern\facesubseeidx{Latin Modern}이다.
+    이는 문서 전처리부(preamble)에 다음을 사용한 것과 같다(\Lopt{extrafontsizes} 옵션을 쓰면 불필요한 작업임). \begin{lcode}
 \usepackage{lmodern}\usepackage[T1]{fontenc}
 \end{lcode}
-in the documents's preamble (but with the \Lopt{extrafontsizes} option
-you need not do this). 
 
 \begin{syntax}
 \verb?\newcommand*{\memfontfamily}?\marg{fontfamily} \\
@@ -349,35 +422,43 @@ you need not do this).
 \glossary(memfontpack)%
   {\cs{memfontpack}}%
   {Font package for the \Popt{extrafontsizes} class option (default \texttt{lmodern})}
-Internally the class uses \cmd{\memfontfamily} and \cmd{\memfontenc} as 
-specifying
-the new font and encoding, and uses \cmd{\memfontpack} as the name of the
-package to be used to implement the font. The internal definitions are:
+%Internally the class uses \cmd{\memfontfamily} and \cmd{\memfontenc} as 
+%specifying
+%the new font and encoding, and uses \cmd{\memfontpack} as the name of the
+%package to be used to implement the font. The internal definitions are:
+내부적으로 이 클래스는 새로운 글꼴과 인코딩을 특정하기 위해 
+\cmd{\memfontfamily}와 \cmd{\memfontenc}를 사용하며, 
+\cmd{\memfontpack}을 글꼴 적용을 위한 패키지의 이름으로 사용한다. 
+내부적으로는 다음과 같이 정의된다.
 \begin{lcode}
 \providecommand*{\memfontfamily}{lmr}
 \providecommand*{\memfontenc}{T1}
 \providecommand*{\memfontpack}{lmodern}
 \end{lcode}
-which result in the \texttt{lmr} font 
-(Latin Modern)\facesubseeidx{Latin Modern}  in the \texttt{T1} 
-encoding as the default font, which is implemented by the \Lpack{lmodern}
-package. If you want a different default, say 
-New Century Schoolbook\facesubseeidx{New Century Schoolbook}
-(which comes in the \texttt{T1} encoding), then 
+%which result in the \texttt{lmr} font 
+%(Latin Modern)\facesubseeidx{Latin Modern}  in the \texttt{T1} 
+%encoding as the default font, which is implemented by the \Lpack{lmodern}
+%package. If you want a different default, say 
+%New Century Schoolbook\facesubseeidx{New Century Schoolbook}
+%(which comes in the \texttt{T1} encoding), then 
+이것은 결과적으로 \texttt{T1} 인코딩 \texttt{lmr}(Latin Modern)\facesubseeidx{Latin Modern} 글꼴을 기본 글꼴로 설정하며, 이는 \Lpack{lmodern} 패키지로 실행된다. 다른 기본 글꼴을 사용하고 싶은 경우, 예를 들어 \texttt{T1} 인코딩 New Century Schoolbook\facesubseeidx{New Century Schoolbook}을 사용하고 싶다면 다음과 같은 방법으로 해결할 수 있다.
 \begin{lcode}
 \newcommand*{\memfontfamily}{pnc}
 \newcommand*{\memfontpack}{newcent}
 \documentclass[...]{memoir}
 \end{lcode}
-will do the trick, where the \cs{newcommand*}s are put \emph{before} the 
-\cs{documentclass} declaration (they will then override the \cs{provide...}
-definitions within the class code).
+%will do the trick, where the \cs{newcommand*}s are put \emph{before} the 
+%\cs{documentclass} declaration (they will then override the \cs{provide...}
+%definitions within the class code).
+위 코드에서 \cs{newcommand*}들이 \cs{documentclass} \emph{이전}에 위치해 있는데, 이는 이 클래스 코드 내부의 \cs{provide...} 정의를 덮어씌울 수 있도록 하기 위함이다.
 
-    If you use the \Lopt{*pt} option then you have to supply a \file{clo}
-file containing all the size and space specifications for your chosen font 
-size, and also tell \Mname\ the name of the file. \emph{Before} the 
-\cmd{\documentclass} command define two macros, \cmd{\anyptfilebase} and
-\cmd{\anyptsize} like: 
+%    If you use the \Lopt{*pt} option then you have to supply a \file{clo}
+%file containing all the size and space specifications for your chosen font 
+%size, and also tell \Mname\ the name of the file. \emph{Before} the 
+%\cmd{\documentclass} command define two macros, \cmd{\anyptfilebase} and
+%\cmd{\anyptsize} like: 
+만일 \Lopt{*pt} 옵션을 사용하는 경우에는 선택한 글꼴의 크기와 스페이스(space)에 관련된 모든 값들을 포함하는 \file{clo} 파일을 연결해주어야 한다. 또한 \Mname 에 그 파일명을 알려주어야 한다. 이를 위해 \cmd{\documentclass} \emph{이전}에 다음과 같이 \cmd{\anyptfilebase}와 \cmd{\anyptsize} 두 매크로를 정의해야 한다.
+
 \begin{syntax}
   \verb|\newcommand*{\anyptfilebase}|\marg{chars}\\
   \verb|\newcommand*{\anyptsize}|\marg{num} 
@@ -391,189 +472,302 @@ size, and also tell \Mname\ the name of the file. \emph{Before} the
   {First part of the name of the \texttt{clo} file  for the 
    \Popt{*pt} class option (default \texttt{mem}).}
   
-When it comes time to get the font size and spacing information \Mname\
-will try and input a file called \verb?\anyptfilebase\anyptsize.clo? which
-you should have made available; the \cmd{\anyptsize} \meta{num} must be an
-integer.\footnote{If it is not an integer then \tx\ could get confused
-as to the name of the file --- it normally expects there to be only one
-period (.) in the name of a file.} Internally, the class specifies
+%When it comes time to get the font size and spacing information \Mname\
+%will try and input a file called \verb?\anyptfilebase\anyptsize.clo? which
+%you should have made available; the \cmd{\anyptsize} \meta{num} must be an
+%integer.\footnote{If it is not an integer then \tx\ could get confused
+%as to the name of the file --- it normally expects there to be only one
+%period (.) in the name of a file.} 
+%Internally, the class specifies
+\Mname\는 글꼴의 크기와 스페이싱(spacing)에 관한 정보가 필요할 때 
+사용자가 제공한 \verb?\anyptfilebase\anyptsize.clo?라는 파일에서 찾아 넣는다. 
+\cmd{\anyptsize} \meta{num}은 정수여야 한다.\footnote{정수가 아니라면 \tx 이 파일명을 헷갈릴 수 있는데 --- 이는 파일명에 단 하나의 온점 (.)을 기대하기 때문이다.}
+내부적으로 이 클래스는 다음과 같은 동작을 한다.
 \begin{lcode}
 \providecommand*{\anyptfilebase}{mem}
 \providecommand*{\anyptsize}{10}
 \end{lcode}
-which names the default as \file{mem10.clo}, which is for a 10pt font. 
-If, for example, you have an 18pt font you want to use, then
+%which names the default as \file{mem10.clo}, which is for a 10pt font. 
+%If, for example, you have an 18pt font you want to use, then
+이로써 10pt 글꼴에 해당하는 \file{mem10.clo}를 기본값으로 지정하는 것이다. 만약, 예를 들어, 사용자가 18pt 크기의 글꼴 파일을 가지고 있어서 이를 쓰고 싶다면 다음과 같은 방법을 사용할 수 있다.
 \begin{lcode}
 \newcommand*{\anyptfilebase}{myfont}
 \newcommand*{\anyptsize}{18}
 \documentclass[...*pt...]{memoir}
 \end{lcode}
-will cause \ltx\  to try and input the \texttt{myfont18.clo} file that
-you should have provided. Use one
-of the supplied \file{clo} files, such as \file{mem10.clo} or \file{mem60.clo}
-as an example of what must be specified in your \file{clo} file.
+%will cause \ltx\  to try and input the \texttt{myfont18.clo} file that
+%you should have provided. Use one
+%of the supplied \file{clo} files, such as \file{mem10.clo} or \file{mem60.clo}
+%as an example of what must be specified in your \file{clo} file.
+이렇게 하면 \ltx 은 사용자가 제공하는 \texttt{myfont18.clo} 파일을 찾아 필요 정보를 입력한다. 
+사용자의 \file{clo} 파일에 어떤 값들이 들어있어야 하는지 알아보고 싶다면, 제공되는 \file{mem10.clo}나 \file{mem60.clo} 등을 그 예로 참고하자.
 
-\section{Printing options}
+%\section{Printing options}
+\section{인쇄 옵션}
 
-    This group of options\index{class options!printing} includes:
+%    This group of options\index{class options!printing} includes:
+    인쇄 옵션은 다음과 같다.
 
 \begin{itemize}
-\item[\Lopt{twoside}] for when the document will be published with printing
-                        on both sides of the paper.
+%\item[\Lopt{twoside}] for when the document will be published with printing
+%                        on both sides of the paper.
+%\glossary(twosideco)%
+%  {\Popt{twoside}}%
+%  {Class option for text on both sides of the paper.}
+\item[\Lopt{twoside}] 종이 양면을 이용하여 인쇄할 문서를 작성한다.
 \glossary(twosideco)%
   {\Popt{twoside}}%
   {Class option for text on both sides of the paper.}
-\item[\Lopt{oneside}] for when the document will be published with only
-                        one side of each sheet being printed on.
+  
+%\item[\Lopt{oneside}] for when the document will be published with only
+%                        one side of each sheet being printed on.
+%\glossary(onesideco)%
+%  {\Popt{oneside}}%
+%  {Class option for text on only one side of the paper.}
+%
+%                        The \Lopt{twoside} and \Lopt{oneside} options
+%                        are mutually exclusive.
+\item[\Lopt{oneside}] 단면 인쇄용 문서를 작성한다.
 \glossary(onesideco)%
   {\Popt{oneside}}%
   {Class option for text on only one side of the paper.}
 
-                        The \Lopt{twoside} and \Lopt{oneside} options
-                        are mutually exclusive.
+                        \Lopt{twoside}와 \Lopt{oneside} 옵션은 서로 배타적이다.
 
-\item[\Lopt{onecolumn}] only one column\index{column!single} of text on a page.
+%\item[\Lopt{onecolumn}] only one column\index{column!single} of text on a page.
+%\glossary(onecolumnco)%
+%  {\Popt{onecolumn}}%
+%  {Class option for a single column.}
+\item[\Lopt{onecolumn}] 한 페이지에 텍스트를 1단으로 출력한다.
 \glossary(onecolumnco)%
   {\Popt{onecolumn}}%
   {Class option for a single column.}
-\item[\Lopt{twocolumn}] two equal width columns\index{column!double} of text on a page.
+
+%\item[\Lopt{twocolumn}] two equal width columns\index{column!double} of text on a page.
+%\glossary(twocolumnco)%
+%  {\Popt{twocolumn}}%
+%  {Class option for two columns.}
+%
+%                        The \Lopt{onecolumn} and \Lopt{twocolumn} options
+%                        are mutually exclusive.
+\item[\Lopt{twocolumn}] 한 페이지에 너비(width)가 같은 2단\tidx{column!double,컬럼!double}의 텍스트가 출력된다.
 \glossary(twocolumnco)%
   {\Popt{twocolumn}}%
   {Class option for two columns.}
 
-                        The \Lopt{onecolumn} and \Lopt{twocolumn} options
-                        are mutually exclusive.
+                        \Lopt{onecolumn}과 \Lopt{twocolumn} 옵션은 서로 배타적이다.
 
-\item[\Lopt{openright}] each chapter\index{chapter} will start on a recto page.
+%\item[\Lopt{openright}] each chapter\index{chapter} will start on a recto page.
+%\glossary(openrightco)%
+%  {\Popt{openright}}%
+%  {Class option for chapters to start on recto pages.}
+\item[\Lopt{openright}] 각 장(chapter)\tidx{chapter,장}이 펼침면의 오른쪽(홀수쪽)에서 시작된다.
 \glossary(openrightco)%
   {\Popt{openright}}%
   {Class option for chapters to start on recto pages.}
-\item[\Lopt{openleft}] each chapter\index{chapter} will start on a verso page.
+
+%\item[\Lopt{openleft}] each chapter\index{chapter} will start on a verso page.
+%\glossary(openleftco)%
+%  {\Popt{openleft}}%
+%  {Class option for chapters to start on verso pages.}
+\item[\Lopt{openleft}] 각 장\tidx{chapter,장}이 펼침면의 왼쪽(짝수쪽)에서 시작된다.
 \glossary(openleftco)%
   {\Popt{openleft}}%
   {Class option for chapters to start on verso pages.}
-\item[\Lopt{openany}] a chapter\index{chapter} may start on either a recto or verso page.
+
+%\item[\Lopt{openany}] a chapter\index{chapter} may start on either a recto or verso page.
+%\glossary(openanyco)%
+%  {\Popt{openany}}%
+%  {Class option for chapters to start on a recto or a verso page.}
+%
+%                        The \Lopt{openright}, \Lopt{openleft} and 
+%                        \Lopt{openany} options
+%                        are mutually exclusive.
+%
+\item[\Lopt{openany}] 각 장이 짝수^^b7홀수쪽 어디에서나 시작하도록 한다.
 \glossary(openanyco)%
   {\Popt{openany}}%
   {Class option for chapters to start on a recto or a verso page.}
 
-                        The \Lopt{openright}, \Lopt{openleft} and 
-                        \Lopt{openany} options
-                        are mutually exclusive.
+                        \Lopt{openright}, \Lopt{openleft}, 
+                        \Lopt{openany} 옵션은 서로 배타적이다.
 
-\item[\Lopt{final}] for camera-ready copy of your labours.
+%\item[\Lopt{final}] for camera-ready copy of your labours.
+%\glossary(finalco)%
+%  {\Popt{final}}%
+%  {Class option for final document.}
+\item[\Lopt{final}] 문서의 인쇄용 최종본을 만든다.
 \glossary(finalco)%
   {\Popt{final}}%
   {Class option for final document.}
-\item[\Lopt{draft}] this marks overfull lines with black bars and enables
-                      some change marking to be shown. There may be other 
-                      effects as well, particularly if some packages are used.
+%\item[\Lopt{draft}] this marks overfull lines with black bars and enables
+%                      some change marking to be shown. There may be other 
+%                      effects as well, particularly if some packages are used.
+%\glossary(draftco)%
+%  {\Popt{draft}}%
+%  {Class option for draft document.}
+\item[\Lopt{draft}] 행넘침(overfull)이 있을 때 검은 선을 그어주고, 몇 가지 변화점을 표시해준다.
+                    어떤 패키지를 사용하면 다른 효과들을 나타낼 수도 있다.
 \glossary(draftco)%
   {\Popt{draft}}%
   {Class option for draft document.}
-\item[\Lopt{ms}] this tries to make the document look as though it was 
-                   prepared on a typewriter. Some publishers prefer to receive
-                   poor looking submissions.
+
+%\item[\Lopt{ms}] this tries to make the document look as though it was 
+%                   prepared on a typewriter. Some publishers prefer to receive
+%                   poor looking submissions.
+%\glossary(msco)%
+%  {\Popt{ms}}%
+%  {Class option for `typewritten manuscript'.}
+%
+%                   The \Lopt{final}, \Lopt{draft} and \Lopt{ms} options
+%                   are mutually exclusive.
+%
+\item[\Lopt{ms}] 문서가 타자기로 친 것처럼 보이도록 한다.
+                 일부 출판편집자는 정제되지 않은 듯 보이는 원고 상태를 선호하기도 한다.
 \glossary(msco)%
   {\Popt{ms}}%
   {Class option for `typewritten manuscript'.}
 
-                   The \Lopt{final}, \Lopt{draft} and \Lopt{ms} options
-                   are mutually exclusive.
+                   \Lopt{final}, \Lopt{draft}, \Lopt{ms} 옵션은 서로 배타적이다.
 
-\item[\Lopt{showtrims}] this option prints marks at the corners of the 
-                   sheet so that you can see where the stock\index{stock} 
-                   must be trimmed to produce the final page size.
+%\item[\Lopt{showtrims}] this option prints marks at the corners of the 
+%                   sheet so that you can see where the stock\index{stock} 
+%                   must be trimmed to produce the final page size.
+%\glossary(showtrimsco)%
+%  {\Popt{showtrims}}%
+%  {Class option for printing trimming marks.}
+\item[\Lopt{showtrims}] 인쇄기를 거친 최종본에서 잘라내야할 용지\tidx{stock,용지}의 
+                    여백을 표시하는 트림 마크를 찍어 준다.
 \glossary(showtrimsco)%
   {\Popt{showtrims}}%
   {Class option for printing trimming marks.}
 
 \end{itemize}
 %
-    The defaults among the printing options\index{default!printing options} 
-are \Lopt{twoside}, \Lopt{onecolumn}, \Lopt{openright}, and \Lopt{final}.
+%    The defaults among the printing options\index{default!printing options} 
+%are \Lopt{twoside}, \Lopt{onecolumn}, \Lopt{openright}, and \Lopt{final}.
+인쇄 옵션\tidx{default!printing options,기본값!인쇄 옵션}의 기본값은 \Lopt{twoside}, \Lopt{onecolumn}, \Lopt{openright}, \Lopt{final}이다.
 
-\section{Other options}
+%\section{Other options}
+\section{기타 옵션}
 
-    The remaining options are:
+    그 밖에 남아 있는 옵션은 다음과 같다.
 \begin{itemize}
 
-\item[\Lopt{leqno}]\index{class options!math} 
-     equations will be numbered at the left (the default is
-     to number them at the right).
+%\item[\Lopt{leqno}]\index{class options!math} 
+%     equations will be numbered at the left (the default is
+%     to number them at the right).
+%\glossary(leqnoco)%
+%  {\Popt{leqno}}%
+%  {Class option for numbering equations at the left.}
+\item[\Lopt{leqno}]\tidx{class options!math,클래스 옵션!math} 
+     수식(equation) 번호가 왼쪽에 붙는다(기본값은 오른쪽).
 \glossary(leqnoco)%
   {\Popt{leqno}}%
   {Class option for numbering equations at the left.}
 
-\item[\Lopt{fleqn}]\index{class options!math} 
-     displayed math environments will be indented an amount
-     \cmd{\mathindent} from the left margin\index{margin} (the default is to
-     center the environments).
+%\item[\Lopt{fleqn}]\index{class options!math} 
+%     displayed math environments will be indented an amount
+%     \cmd{\mathindent} from the left margin\index{margin} (the default is to
+%     center the environments).
+%\glossary(fleqnco)%
+%  {\Popt{fleqn}}%
+%  {Class option for fixed indentation of displayed math.}
+\item[\Lopt{fleqn}]\tidx{class options!math,클래스 옵션!math} 
+     별행수식(displaystyle math)이 왼쪽 마진에서 
+     \cmd{\mathindent} 만큼 들여쓰기 된다(기본값은 중앙정렬).
 \glossary(fleqnco)%
   {\Popt{fleqn}}%
   {Class option for fixed indentation of displayed math.}
 
-\item[\Lopt{openbib}]\index{class options!bibliography} 
-     each part of a bibliography\index{bibliography} entry will start on a
-                        new line, with second and succeding lines indented
-                        by \cmd{\bibindent} (the default is for an entry
-                        to run continuously with no indentations).
+%\item[\Lopt{openbib}]\index{class options!bibliography} 
+%     each part of a bibliography\index{bibliography} entry will start on a
+%                        new line, with second and succeding lines indented
+%                        by \cmd{\bibindent} (the default is for an entry
+%                        to run continuously with no indentations).
+%\glossary(openbibco)%
+%  {\Popt{openbib}}%
+%  {Class option for indenting continuation lines in a bibliography.}
+\item[\Lopt{openbib}]\tidx{class options!bibliography,클래스 옵션!bibliography} 
+                        참고문헌(bibliography) 항목이 새로운 줄에서 시작하며, 
+                        두 번째 줄부터 \cmd{\bibindent}만큼 
+                        들여쓰기 된다(기본값은 들여쓰기 없이 계속 이어지는 것).
 \glossary(openbibco)%
   {\Popt{openbib}}%
   {Class option for indenting continuation lines in a bibliography.}
 
-\item[\Lopt{article}]\index{class options!article} 
-  typesetting \emph{simulates} the \Lclass{article} class,
-  but the \cmd{\chapter} command is not disabled, basically
-  \cmd{\chapter} will behave as if it was \cmd{\section}.
-  Chapters\index{chapter} do not start a new page and chapter
-  headings\index{heading!chapter} are typeset 
-  like a section heading\index{heading!sections}. The numbering of 
-  figures\index{figure}, etc., is continuous
-  and not per chapter. However, a \cmd{\part} command still puts
-  its heading\index{heading!part} on a page by itself.
+%\item[\Lopt{article}]\index{class options!article} 
+%  typesetting \emph{simulates} the \Lclass{article} class,
+%  but the \cmd{\chapter} command is not disabled, basically
+%  \cmd{\chapter} will behave as if it was \cmd{\section}.
+%  Chapters\index{chapter} do not start a new page and chapter
+%  headings\index{heading!chapter} are typeset 
+%  like a section heading\index{heading!sections}. The numbering of 
+%  figures\index{figure}, etc., is continuous
+%  and not per chapter. However, a \cmd{\part} command still puts
+%  its heading\index{heading!part} on a page by itself.
+%\glossary(articleco)%
+%  {\Popt{article}}%
+%  {Class option for simulating the \Pclass{article} class.}
+\item[\Lopt{article}]\tidx{class options!article,클래스 옵션!article} 
+    article 클래스를 훙내내지만 \cmd{\chapter} 명령을 쓸 수 있다. 이 경우, 기본적으로, \cmd{\chapter}는 \cmd{\section}처럼 동작한다. 장(chapter)\tidx{chapter,장}이 새 페이지에서 시작되지 않으며 chapter headings\tidx{heading!chapter,heading!장}는 section headings\tidx{heading!sections,heading!절}처럼 식자된다. 그림 따위의 번호는 장이 바뀌어도 재설정되지 않고 연속적으로 매겨진다. 그러나 \cmd{\part} 명령은 여전히 그 자체로 한 페이지에 heading\tidx{heading!part,heading!편}을 표시한다.
 \glossary(articleco)%
   {\Popt{article}}%
   {Class option for simulating the \Pclass{article} class.}
 
-\item[\Lopt{oldfontcommands}]\index{class options!fonts} 
-  makes the old, deprecated LaTeX version~2.09
-  font commands available. Warning messages will be produced whenever
-  an old font command is encountered.
+%\item[\Lopt{oldfontcommands}]\index{class options!fonts} 
+%  makes the old, deprecated LaTeX version~2.09
+%  font commands available. Warning messages will be produced whenever
+%  an old font command is encountered.
+%\glossary(oldfontcommandsco)%
+%  {\Popt{oldfontcommands}}%
+%  {Class option for permitting obsolete, deprecated font commands.}
+\item[\Lopt{oldfontcommands}]\tidx{class options!fonts,클래스 옵션!fonts} 
+오래되어 더 이상 쓰지 않는 LaTeX version~2.09 폰트 명령을 사용할 수 있게 한다. old font 명령을 사용할 때마다 경고 메지시를 받게 된다.
 \glossary(oldfontcommandsco)%
   {\Popt{oldfontcommands}}%
   {Class option for permitting obsolete, deprecated font commands.}
 
-
-\item[\Lopt{fullptlayout}]\index{class options!layout truncation} 
-  disable point trunction of certain layout lengths, for example
-  \cmd{\textwidth}. The default is to round these of to a whole number
-  of points, this option disables this feature.
+%\item[\Lopt{fullptlayout}]\index{class options!layout truncation} 
+%  disable point trunction of certain layout lengths, for example
+%  \cmd{\textwidth}. The default is to round these of to a whole number
+%  of points, this option disables this feature.
+%  \glossary(fullptlayout)%
+%  {\Popt{fullptlayout}}%
+%  {Class option to disable point truncation of certain layout lengths.}
+\item[\Lopt{fullptlayout}]\tidx{class options!layout truncation,클래스 옵션!layout truncation} 
+어떤 layout 값(예로, \cmd{\textwidth})에서 소수점자리 버림을 허용하지 않는다. 기본값으로는 소수점 반올림을 하는데, 이 옵션은 이러한 기능을 무력화한다.
   \glossary(fullptlayout)%
   {\Popt{fullptlayout}}%
   {Class option to disable point truncation of certain layout lengths.}
 \end{itemize}
 %
-None of these options are defaulted.
+%None of these options are defaulted.
+위 옵션은 모두 기본값이 아니다.
 
-\section{Remarks}
+%\section{Remarks}
+\section{첨언}
 
-   Calling the class with no options is equivalent to:
+%   Calling the class with no options is equivalent to:
+   어떤 옵션도 없이 이 클래스를 부르는 것은 다음과 동일하다.
 \begin{lcode}
 \documentclass[letterpaper,10pt,twoside,onecolumn,openright,final]{memoir}
 \end{lcode}
-   The source file for this manual starts
+%   The source file for this manual starts
+이 매뉴얼의 소스파일은 다음과 같이 시작한다.
 \begin{lcode}
 \documentclass[letterpaper,10pt,extrafontsizes]{memoir}
 \end{lcode}
-which is overkill as both \Lopt{letterpaper} and \Lopt{10pt} are among
-the default options.
+%which is overkill as both \Lopt{letterpaper} and \Lopt{10pt} are among
+%the default options.
+이는 다소 과한 것인데,  \Lopt{letterpaper}와 \Lopt{10pt}는 이미 기본값이기 때문이다.
 
-    Actual typesetting only occurs within the \Ie{document} environment. The
-region of the file between the \cmd{\documentclass} command and the start
-of the \Ie{document} environment is called the 
-\emph{preamble}\index{preamble}. This is where you ask for external packages
-and define your own macros if you feel so inclined.
+%    Actual typesetting only occurs within the \Ie{document} environment. The
+%region of the file between the \cmd{\documentclass} command and the start
+%of the \Ie{document} environment is called the 
+%\emph{preamble}\index{preamble}. This is where you ask for external packages
+%and define your own macros if you feel so inclined.
+문서는 \Ie{document} 환경내의 내용만 조판된다. \cmd{\documentclass} 명령에서 \Ie{document} 환경 이전까지의 영역을 \emph{전처리부}(\emph{preamble})\tidx{preamble,전처리부}라 한다. 필요하다면 이 곳에서 외부 패키지를 불러들이거나 자신의 매크로를 정의한다.
 
 \begin{syntax}
 \cmd{\flushbottom} \cmd{\raggedbottom} \\
@@ -584,35 +778,44 @@ and define your own macros if you feel so inclined.
 \glossary(raggedbottom)%
   {\cs{raggedbottom}}%
   {Declaration allowing the last line on a page to be at a variable height.}
-When the \Lopt{twoside} or \Lopt{twocolumn} option is selected then
-typesetting is done with \cmd{\flushbottom}, otherwise it is done
-with \cmd{\raggedbottom}.
+%When the \Lopt{twoside} or \Lopt{twocolumn} option is selected then
+%typesetting is done with \cmd{\flushbottom}, otherwise it is done
+%with \cmd{\raggedbottom}.
+\Lopt{twoside}나 \Lopt{twocolumn} 옵션이 주어지면 \cmd{\flushbottom}, 그 외의 경우에는 \cmd{\raggedbottom}으로 조판된다.
 
-    When \cmd{\raggedbottom} is in effect LaTeX makes little attempt to
-keep a constant height for the typeblock\index{typeblock}; pages may run short.
+%    When \cmd{\raggedbottom} is in effect LaTeX makes little attempt to
+%keep a constant height for the typeblock\index{typeblock}; pages may run short.
+\cmd{\raggedbottom}이 선언되면 LaTeX이 조판 영역(type block)\tidx{typeblock,조판 영역}의 높이를 일정하게 유지하려는 시도를 하지 않기 때문에 페이지가 조금 부족하게 채워질 수도 있다.
 
-    When \cmd{\flushbottom} is in effect LaTeX ensures that the typeblock\index{typeblock}
-on each page is a constant height, except when a page break is deliberately
-introduced when the page might run short. In order to maintain a constant
-height it may stretch or shrink some vertical spaces 
-(e.g., between paragraphs\index{paragraph}, around headings\index{heading} or 
- around floats\index{float} or other inserts like displayed maths).
-This may have a deleterious effect on the color\index{page color} 
-of some pages. 
-% Serendipitously this has happened on \pref{chap:lpage} where
-% there is additional space between the paragraphs\index{paragraph} (caused by the next sectional
-% division having to be put at the top of the next page). You may wish to
-% compare that page with the following one to see the difference in the 
-% colors. 
+%    When \cmd{\flushbottom} is in effect LaTeX ensures that the typeblock\index{typeblock}
+%on each page is a constant height, except when a page break is deliberately
+%introduced when the page might run short. In order to maintain a constant
+%height it may stretch or shrink some vertical spaces 
+%(e.g., between paragraphs\index{paragraph}, around headings\index{heading} or 
+% around floats\index{float} or other inserts like displayed maths).
+%This may have a deleterious effect on the color\index{page color} 
+%of some pages. 
+\cmd{\flushbottom}이 선언되면, 사용자가 페이지 나눔을 일부러 사용하지 않는 한, LaTeX은 매 페이지마다 조판 영역\tidx{typeblock, 조판 영역}의 높이를 일정하게 유지하려고 한다. LaTeX이 페이지 높이를 일정하게 유지하기 위해 사용하는 방법은 수직 간격(예를 들면, 문단\tidx{paragraph,문단}과 문단의 사이의 간격이나 headings\tidx{heading,heading}, 떠다니는 개체(float)\tidx{float,떠다니는 개체}, 수식과 같이 삽입된 내용의 전후 공간 등)을 늘리거나 줄이는 것이다.
+이는 일부의 페이지 컬러\tidx{page color,페이지 컬러}에 악영향을 줄 수도 있다.
 
-%    I could have made the page run short by inserting \cmd{\raggedbottom}
-% at an appropriate place, followed later by a \cmd{\flushbottom}.
+%% === 원저자의 commenting out ======
+%% Serendipitously this has happened on \pref{chap:lpage} where
+%% there is additional space between the paragraphs\index{paragraph} (caused by the next sectional
+%% division having to be put at the top of the next page). You may wish to
+%% compare that page with the following one to see the difference in the 
+%% colors. 
+%
+%%    I could have made the page run short by inserting \cmd{\raggedbottom}
+%% at an appropriate place, followed later by a \cmd{\flushbottom}.
+%% ==================================
 
-    If you get too many strung out pages with \cmd{\flushbottom} you may
-want to put \cmd{\raggedbottom} in the preamble\index{preamble}.
+%    If you get too many strung out pages with \cmd{\flushbottom} you may
+%want to put \cmd{\raggedbottom} in the preamble\index{preamble}.
+만약 너무 많은 페이지가 \cmd{\flushbottom} 때문에 늘어난 상태라면 전처리부에\cmd{\raggedbottom}을 사용하는 것이 좋다.
 
-    If you use the \Lopt{ebook} option you may well also want to use the
-\Lopt{12pt} and \Lopt{oneside} options.
+%    If you use the \Lopt{ebook} option you may well also want to use the
+%\Lopt{12pt} and \Lopt{oneside} options.
+\Lopt{ebook} 옵션을 쓸 때는 \Lopt{12pt}와 \Lopt{oneside} 옵션을 함께 사용하는 편이 좋다.
 
 %#% extend
 
