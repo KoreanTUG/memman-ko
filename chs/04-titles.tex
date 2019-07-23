@@ -1,76 +1,118 @@
-\chapter{Titles}
+% !TEX root = ../memman-ko.tex
+% \chapter{Titles}
+\chapter{표제}
 
-   The standard classes provide little in the way of help in setting
-the title page(s) for your work, as the \cmd{\maketitle} command
-is principally aimed at generating a title for an article in a technical
-journal; it provides little for titles for works like theses, reports or
-books. For these I recommend that you design your own title page 
-layout\footnote{If you are producing a thesis you are probably told 
-just how it must look.}
-using the regular \ltx\ commands to lay it out, and ignore \cmd{\maketitle}.
+%    The standard classes provide little in the way of help in setting
+% the title page(s) for your work, as the \cmd{\maketitle} command
+% is principally aimed at generating a title for an article in a technical
+% journal; it provides little for titles for works like theses, reports or
+% books. For these I recommend that you design your own title page
+% layout\footnote{If you are producing a thesis you are probably told
+% just how it must look.}
+% using the regular \ltx\ commands to lay it out, and ignore \cmd{\maketitle}.
+표준 클래스들은 표지를 설정하는데 큰 도움이 되지 못하는데, \cmd{\maketitle}
+명령은 테크니컬 논문집에서 논문의 제목을 생성하는 것이 주목적이기 때문이다.
+이는 학위 논문, 보고서나 서적의 표지를 만들기에 불충분하다.
+필자는 이를 위해 \cmd{\maketitle}을 무시하고, 직접 \ltx\ 표준 명령어를
+사용해 표지 레이아웃을\footnote{만약 여러분이 학위 논문을 작성 중이라면, 그것이
+어떻게 생겨야 하는지 아마도 정해져 있을 것이다.}
+디자인할 것을 권장한다.
 
-    Quoting from Ruari McLean~\cite[p. 148]{MCLEAN80} in reference to the 
-title page he says:
+    % Quoting from Ruari McLean~\cite[p. 148]{MCLEAN80} in reference to the
+% title page he says:
+Ruari McLean~\cite[p. 148]{MCLEAN80}을 인용하자면, 그는 표지에 대해서 다음과
+같이 말한다:
 \begin{quotation}
-    The title-page states, in words, the actual title (and sub-title, if 
-there is one) of the book and the name of the author and publisher, and
-sometimes also the number of illustrations, but it should do more than that.
-From the designer's point of view, it is the most important page in the
-book: it sets the style. It is the page which opens communication with the
-reader\ldots
+%     The title-page states, in words, the actual title (and sub-title, if
+% there is one) of the book and the name of the author and publisher, and
+% sometimes also the number of illustrations, but it should do more than that.
+% From the designer's point of view, it is the most important page in the
+% book: it sets the style. It is the page which opens communication with the
+% reader\ldots
+  표지는 책의 실제 제목과 (있을 경우 부제목을 포함해) 저자의 이름, 출판사,
+  그리고 간혹 삽화의 개수를 포함하지만, 나아가 그것보다 많은 일을 해야 한다.
+  디자이너의 관점에서 표지는 책에서 가장 중요한 부분으로, 책의 양식을 정한다.
+  표지는 독자와의 소통을 시작한다\ldots
 
-    If illustrations play a large part in the book, the title-page opening 
-should, or may, express this visually. If any form of decoration is used 
-inside the book, e.g., for chapter openings, one would expect this to be
-repeated or echoed on the title-page.
+%     If illustrations play a large part in the book, the title-page opening
+% should, or may, express this visually. If any form of decoration is used
+% inside the book, e.g., for chapter openings, one would expect this to be
+% repeated or echoed on the title-page.
+  만약 책에서 삽화가 큰 비중을 차지한다면, 표지는 이를 시각적으로 보일 수
+  있거나 그래야 한다.
+  책에서, 예컨대 장의 시작에서라던지, 어떠한 형태로든 장식이 사용된다면 독자는
+  이것이 표지에서도 반복될 것을 기대할 것이다.
 
-    Whatever the style of the book, the title-page should give a foretaste
-of it. If the book consists of plain text, the title-page should at least 
-be in harmony with it. The title itself should not exceed the width of the
-type area, and will normally be narrower\ldots
+%     Whatever the style of the book, the title-page should give a foretaste
+% of it. If the book consists of plain text, the title-page should at least
+% be in harmony with it. The title itself should not exceed the width of the
+% type area, and will normally be narrower\ldots
+  책의 형식이 어떻든지간에, 표지는 그것의 맛보기를 보여줘야 한다.
+  만약 책이 줄글로 구성되어 있다면, 표지는 적어도 그것과 조화를 이룰 수 있어야
+  한다.
+  표지 자체는 글 영역의 너비보다 넓어서는 안되며, 일반적으로는 더 좁을
+  것이다\ldots
+
 \end{quotation}
 
-    A pastiche of McLean's title page is shown in \fref{figure:titleTH}.
+    % A pastiche of McLean's title page is shown in \fref{figure:titleTH}.
+McLean의 표지를 모방한 것이 \fref{figure:titleTH}에 나와 있다.
 
 \begin{figure}
 \centering
 \begin{showtitle}
 \titleTH
 \end{showtitle}
-\caption{Layout of a title page for a book on typography}\label{figure:titleTH}
+% \caption{Layout of a title page for a book on typography}\label{figure:titleTH}
+\caption{타이포그래피에 관한 책의 표지 레이아웃}\label{figure:titleTH}
 \end{figure}
 
 
 \begin{comment}
-Figures~\ref{fig:titleTH} and~\ref{fig:titleDB}, for example, 
-show title pages created using normal \ltx, without bothering 
-with \cmd{\maketitle}.
+% Figures~\ref{fig:titleTH} and~\ref{fig:titleDB}, for example,
+% show title pages created using normal \ltx, without bothering
+% with \cmd{\maketitle}.
+  그림~\ref{fig:titleTH}\와~\ref{fig:titleDB}는 \cmd{\maketitle} 명령을 굳이
+  쓰지 않고 일반적인 \ltx 명령을 사용해 표지를 만드는 예를 보여준다.
 \end{comment}
 
-   The typeset format of the \cmd{\maketitle} command is virtually fixed
-within the \ltx\ standard classes. This class
-provides a set of formatting commands that can be used to modify
-the appearance of the title\index{title} information; that is, the contents of
-the \cmd{\title}, \cmd{\author} and \cmd{\date} commands. 
-It also keeps the values
-of these commands so that they may be printed again later in the
-document.
-   The class also inhibits the normal automatic cancellation of titling
-commands after \cmd{\maketitle}. This means that you can have multiple
-instances of the same, or perhaps different, titles in one document;
-for example on a half title page\index{half-title page} and the
-full title page\index{title page}.
-Hooks are provided so that additional titling elements can be defined
-and printed by \cmd{\maketitle}.
-  The \cmd{\thanks} command is enhanced to provide various configurations
-for both the marker symbol and the layout of the thanks\index{thanks} notes.
+%    The typeset format of the \cmd{\maketitle} command is virtually fixed
+% within the \ltx\ standard classes. This class
+% provides a set of formatting commands that can be used to modify
+% the appearance of the title\index{title} information; that is, the contents of
+% the \cmd{\title}, \cmd{\author} and \cmd{\date} commands.
+% It also keeps the values
+% of these commands so that they may be printed again later in the
+% document.
+\cmd{\maketitle} 명령의 조판 형식은 \ltx\ 표준 클래스에서 사실상 고정된
+것으로 보아야 한다.
+이 클래스는 제목 정보, 즉 \cmd{\title}, \cmd{\author}, \cmd{\date}의 내용이
+표시되는 형태를 수정할 수 있는 일련의 형식화 명령들을 제공한다.
+또, 이는 위 명령들의 값을 나중에 문서에서 다시 사용할 수 있도록 유지한다.
+
+%    The class also inhibits the normal automatic cancellation of titling
+% commands after \cmd{\maketitle}. This means that you can have multiple
+% instances of the same, or perhaps different, titles in one document;
+% for example on a half title page\index{half-title page} and the
+% full title page\index{title page}.
+% Hooks are provided so that additional titling elements can be defined
+% and printed by \cmd{\maketitle}.
+%   The \cmd{\thanks} command is enhanced to provide various configurations
+% for both the marker symbol and the layout of the thanks\index{thanks} notes.
+나아가 이 클래스는 \cmd{\maketitle} 명령이 사용된 후에 사용된 명령 값이
+자동으로 지워지는 것을 방지한다.
+그러므로 하나의 문서 안에서 같거나 다른 표지가, 예를 들면 반표지와 전표지에,
+여러 번 나오게 할 수도 있다.
+\cmd{\thanks} 명령은 기능이 확장되어 감사의 말 주석의 표지 부호와 레이아웃을
+다양하게 설정할 수 있게 되었다.
 
 \begin{figure}
 \centering
 \begin{showtitle}
 \titleDS
 \end{showtitle}
-\caption{Example of a mandated title page style for a doctoral thesis}\label{figure:titleDS}
+% \caption{Example of a mandated title page style for a doctoral thesis}\label{figure:titleDS}
+\caption{박사 학위 논문의 지정 표지 양식의 예시}\label{figure:titleDS}
 \end{figure}
 
 \begin{figure}%\setlength{\unitlength}{1pt}
@@ -78,7 +120,8 @@ for both the marker symbol and the layout of the thanks\index{thanks} notes.
 %\begin{showtitle}
 {\titleRB}
 %\end{showtitle}
-\caption{Example of a Victorian title page}\label{figure:titleRB}
+% \caption{Example of a Victorian title page}\label{figure:titleRB}
+\caption{빅토리아 시대의 표지 예시}\label{figure:titleRB}
 \end{figure}
 
 \begin{figure}
@@ -86,7 +129,8 @@ for both the marker symbol and the layout of the thanks\index{thanks} notes.
 \begin{showtitle}
 \titleDB
 \end{showtitle}
-\caption{Layout of a title page for a book on book design}\label{figure:titleDB}
+% \caption{Layout of a title page for a book on book design}\label{figure:titleDB}
+\caption{책 디자인에 관한 책의 표지 레이아웃}\label{figure:titleDB}
 \end{figure}
 
 \begin{figure}
@@ -94,53 +138,85 @@ for both the marker symbol and the layout of the thanks\index{thanks} notes.
 \begin{showtitle}
 \titleGM
 \end{showtitle}
-\caption{Layout of a title page for a book about books}\label{figure:titleGM}
+% \caption{Layout of a title page for a book about books}\label{figure:titleGM}
+\caption{책들에 관한 책의 표지 레이아웃}\label{figure:titleGM}
 \end{figure}
 
-    Generally speaking, if you want anything other than minor variations
-on the \cmd{\maketitle} layout then it is better to ignore \cmd{\maketitle}
-and take the whole layout into your own hands so you can place everthing 
-just where you want it on the page.
+%     Generally speaking, if you want anything other than minor variations
+% on the \cmd{\maketitle} layout then it is better to ignore \cmd{\maketitle}
+% and take the whole layout into your own hands so you can place everthing
+% just where you want it on the page.
+일반적으로 \cmd{\maketitle} 레이아웃에서 약간의 변화를 넘어선다면
+\cmd{\maketitle}을 무시하고 레이아웃 전체를 여러분이 손수 만들어 여러분이
+종의의 원하는 곳에 모든 것을 위치시키는 편이 낫다.
 
-\section{Styling the titling}
+% \section{Styling the titling}
+\section{표지 양식화}
 
 
 \index{title!styling|(}
 
-   The facilities provided for typesetting titles are limited, essentially
-catering for the kind of titles of articles published in technical journals.
-They can also be used as a quick and dirty method for typesetting titles
-on reports, but for serious work, such as a title page for a book or thesis,
-each title page\index{title page} should be handcrafted. 
-For instance, a student of mine, Donald Sanderson\index{Sanderson, Donald}
-used \ltx\ to typeset his doctoral thesis, and \fref{figure:titleDS} shows 
-the title page style mandated by Rensselear Polytechnic Institute as of 1994.
-Many other examples of title pages, together with the code to create them,
-are in~\cite{TITLEPAGES}.
+%    The facilities provided for typesetting titles are limited, essentially
+% catering for the kind of titles of articles published in technical journals.
+% They can also be used as a quick and dirty method for typesetting titles
+% on reports, but for serious work, such as a title page for a book or thesis,
+% each title page\index{title page} should be handcrafted.
+% For instance, a student of mine, Donald Sanderson\index{Sanderson, Donald}
+% used \ltx\ to typeset his doctoral thesis, and \fref{figure:titleDS} shows
+% the title page style mandated by Rensselear Polytechnic Institute as of 1994.
+% Many other examples of title pages, together with the code to create them,
+% are in~\cite{TITLEPAGES}.
+표지를 조판하기 위해 제공되는 도구들은 국한되어 있는데, 이들은 본질적으로
+테크니컬 논문집에 출판되는 논문의 제목 형식을 제공해주는 것이 전부이다.
+이들은 보고서의 제목을 조판할 때에도 빠르고 지저분한 방법을 제공해줄 수 있지만,
+책이나 학위 논문과 같은 중요한 작업의 표지\tidx{title page,표지}에 대해서는
+수작업이 필요하다.
+예컨대 나의 학생인 Donal Sanderson은 그의 박사 학위 논문을 조판하기 위해
+\ltx\ 을 사용했고, \fref{figure:titleDS}에 Rensselear Polytechnic
+Institute에서 1994년에 지정된 표지 양식이 나와 있다.
+이외의 다양한 표지의 예시와, 이들을 만드는데 사용된 코드가 \cite{TITLEPAGES}에
+있다.
 
-    Another handcrafted title page\index{title page} from~\cite{TITLEPAGES} is 
-shown in \fref{figure:titleRB}. This one is based on an old booklet I found 
-that was 
-published towards the end of the 19th century and exhibits the love of 
-Victorian printers in displaying a variety of types; the rules are
-an integral part of the title page. For the purposes of this manual I 
-have used New Century\index{New Century Schoolbook} Schoolbook, which 
-is part of the regular
-\ltx\ distribution, rather than my original choice of 
-Century Old Style\index{Century Old Style}
-which is one of the commercial FontSite\index{FontSite} fonts licensed from 
-the 
-SoftMaker/ATF library, supported for \ltx\ through 
-Christopher\index{League, Christopher}
-League's estimable work~\cite{TEXFONTSITE}.
+%     Another handcrafted title page\index{title page} from~\cite{TITLEPAGES} is
+% shown in \fref{figure:titleRB}. This one is based on an old booklet I found
+% that was
+% published towards the end of the 19th century and exhibits the love of
+% Victorian printers in displaying a variety of types; the rules are
+% an integral part of the title page. For the purposes of this manual I
+% have used New Century\index{New Century Schoolbook} Schoolbook, which
+% is part of the regular
+% \ltx\ distribution, rather than my original choice of
+% Century Old Style\index{Century Old Style}
+% which is one of the commercial FontSite\index{FontSite} fonts licensed from
+% the
+% SoftMaker/ATF library, supported for \ltx\ through
+% Christopher\index{League, Christopher}
+% League's estimable work~\cite{TEXFONTSITE}.
+\cite{TITLEPAGES}에 나오는 또 다른 수작업된 표지\tidx{title page,표지}가
+\fref{figure:titleRB}에 나와 있다.
+이것은 필자가 19세기 말 즈음에 출판된 옛 소책자를 기반으로 한 것이며, 다양한
+활자를 표시할 수 있는 빅토리아 시대의 프린터에 대한 애정을 확인할 수 있다.
+여기서 괘선이 표지의 핵심적인 부분이라고 할 수 있다.
+본 매뉴얼을 위해 필자는 \ltx\ 표준 배포판에 포함된 New Century\index{New
+Century Schoolbook} Schoolbook
+글꼴을 사용했는데, 본래는 SoftMaker/ATF 라이브러리에서 라이선스를 받은, 그리고 
+Christoper League\index{League, Christopher}의 공로\cite{TEXFONTSITE}로 \ltx\ 을
+지원하는 FontSite\index{FontSite} 글꼴 중 하나인 Century Old
+Style\index{Century Old Style}을 선택했었다.
 
-    The title page in \fref{figure:titleDB} follows the style of 
-of \textit{The Design of Books}~\cite{ADRIANWILSON93}
-and a page similar to Nicholas Basbanes \textit{A Gentle Madness: Bibliophiles, 
-Bibliomanes, and the Eternal Passion for Books} is illustrated in 
-\fref{figure:titleGM}. These are all from~\cite{TITLEPAGES} and handcrafted.
+%     The title page in \fref{figure:titleDB} follows the style of
+% of \textit{The Design of Books}~\cite{ADRIANWILSON93}
+% and a page similar to Nicholas Basbanes \textit{A Gentle Madness: Bibliophiles,
+% Bibliomanes, and the Eternal Passion for Books} is illustrated in
+% \fref{figure:titleGM}. These are all from~\cite{TITLEPAGES} and handcrafted.
+\fref{figure:titleDB}의 표지는 \textit{The Design of
+Books}~\cite{ADRIANWILSON93}의 양식을 따르며, 페이지는 Nicholas Basbanes의
+\textit{A Gentle Madness: Bibliophiles, Bibliomanes, and the Eternal Passion
+for Books}와 유사한 것이 \fref{figure:titleGM}에 나와 있다.
+이들 모두는 \cite{TITLEPAGES}에서 가져온 것이며 수작업된 것들이다.
 
-In contrast the following code produces the standard \cmd{\maketitle} layout.
+% In contrast the following code produces the standard \cmd{\maketitle} layout.
+반면에 다음 코드는 \cmd{\maketitle}의 표준 레이아웃을 생성한다.
 
 \begin{egsource}{eg:maketitle}
 \title{MEANDERINGS}
@@ -153,7 +229,8 @@ In contrast the following code produces the standard \cmd{\maketitle} layout.
 \maketitle
 \end{egsource}
 
-\begin{egresult}[Example \cs{maketitle} title]{eg:maketitle}
+% \begin{egresult}[Example \cs{maketitle} title]{eg:maketitle}
+\begin{egresult}[예시 \cs{maketitle} 표제]{eg:maketitle}
 %\begin{figure}
 %\centering
 %\caption{Example \cs{maketitle} title} \label{fig:maketitle}
@@ -188,13 +265,16 @@ Dun Roamin Institute, NY \\
 %\end{figure}
 \end{egresult}
 
-   This part of the class is a reimplementation of the \Lpack{titling}
-package~\cite{TITLING}.
+%    This part of the class is a reimplementation of the \Lpack{titling}
+% package~\cite{TITLING}.
+본 클래스의 이 부분은 \textsf{titling} 패키지\cite{TITLING}를 재구현한 것이다.
 
-The class provides a configurable \cmd{\maketitle} command.
-The \cmd{\maketitle} command as defined by the class 
-is essentially
-\begin{lcode}
+% The class provides a configurable \cmd{\maketitle} command.
+% The \cmd{\maketitle} command as defined by the class
+% is essentially
+이 클래스는 설정 가능한 \cmd{\maketitle} 명령을 제공한다.
+\cmd{\maketitle} 명령은 이 클래스에서 본질적으로
+\begin{verbatim}
 \newcommand{\maketitle}{%
    \vspace*{\droptitle}
    \maketitlehooka
@@ -206,10 +286,13 @@ is essentially
    \maketitlehookd
    \thispagestyle{title}
 }
-\end{lcode}
-where the \pstyle{title} pagestyle is initially the same as the
-\pstyle{plain} pagestyle.
-The various macros used within \cmd{\maketitle} are described below.
+\end{verbatim}
+% where the \pstyle{title} pagestyle is initially the same as the
+% \pstyle{plain} pagestyle.
+% The various macros used within \cmd{\maketitle} are described below.
+와 같이 정의되는데, 이때 \pstyle{title} 페이지 양식은 처음에는 \pstyle{plain}
+페이지 양식과 동일하다.
+\cmd{\maketitle} 내에서 사용되는 각종 매크로는 아래에 설명되어 있다.
 
 
 \begin{syntax}
@@ -235,18 +318,26 @@ The various macros used within \cmd{\maketitle} are described below.
 \glossary(postate)%
   {\cs{postdate}\marg{text}}%
   {Command processed after the \cs{date} in \cs{maketitle}.} 
-These six commands each have a single argument, \meta{text},
-which controls the typesetting of the 
-standard elements of the document's \cmd{\maketitle}
-command. The \cmd{\title} is effectively processed between the 
-\cmd{\pretitle} and \cmd{\posttitle} commands; that is, like:
+% These six commands each have a single argument, \meta{text},
+% which controls the typesetting of the
+% standard elements of the document's \cmd{\maketitle}
+% command. The \cmd{\title} is effectively processed between the
+% \cmd{\pretitle} and \cmd{\posttitle} commands; that is, like:
+위 여섯 개의 명령들은 각자 하나의 인자 \meta{text}를 가지며, 이는 문서에서
+\cmd{\maketitle} 명령의 표준 요소의 조판을 통제한다.
+\cmd{\title}은 본질적으로 \cmd{\pretitle}과 \cmd{\posttitle} 사이에서
+처리되는데, 다음과 같이
 \begin{lcode}
 {\pretitle \title \posttitle}
 \end{lcode}
-and similarly for the \cmd{\author} and \cmd{\date} commands. The 
-commands are initialised to mimic the normal result of \cmd{\maketitle}
-typesetting in the \Lclass{report} class.
-That is, the default definitions of the commands are:
+% and similarly for the \cmd{\author} and \cmd{\date} commands. The
+% commands are initialised to mimic the normal result of \cmd{\maketitle}
+% typesetting in the \Lclass{report} class.
+% That is, the default definitions of the commands are:
+되며 \cmd{\author}과 \cmd{\date} 명령에 대해서도 유사하다.
+이 명령들은 \Lclass{report} 클래스의 일반적인 \cmd{\maketitle}의 조판 결과를
+모방하도록 초기화되어 있다.
+즉, 명령들의 기본 정의는 다음과 같다.
 \begin{lcode}
 \pretitle{\begin{center}\LARGE}
 \posttitle{\par\end{center}\vskip 0.5em}
@@ -258,9 +349,12 @@ That is, the default definitions of the commands are:
 \postdate{\par\end{center}}
 \end{lcode}
 
-They can be changed to obtain different effects. For example to get
-a right justified sans-serif title and a left justifed small caps
-date:
+% They can be changed to obtain different effects. For example to get
+% a right justified sans-serif title and a left justifed small caps
+% date:
+이들은 다른 효과를 내기 위해 바꿀 수 있다.
+예를 들어 우측 정렬된 sans-serif 제목과 좌측 정렬된 small caps 날짜를 얻으려면
+다음과 같이 하라.
 \begin{lcode}
 \pretitle{\begin{flushright}\LARGE\sffamily}
 \posttitle{\par\end{flushright}\vskip 0.5em}
@@ -274,11 +368,15 @@ date:
 \glossary(droptitle)%
   {\cs{droptitle}}%
   {Length controlling the position of \cs{maketitle} on the page (default 0pt).}
- The \cmd{\maketitle} command puts the title at a particular height on the 
-page. 
- You can change the vertical position of the title via the length
-\lnc{\droptitle}. Giving this a positive value will lower the title and a
-negative value will raise it. The default definition is: 
+%  The \cmd{\maketitle} command puts the title at a particular height on the
+% page.
+%  You can change the vertical position of the title via the length
+% \lnc{\droptitle}. Giving this a positive value will lower the title and a
+% negative value will raise it. The default definition is:
+\cmd{\maketitle} 명령은 제목을 페이지의 특정 높이에 놓는다.
+여러분은 제목의 세로 위치를 \lnc{\droptitle} 길이를 통해 변경할 수 있다.
+여기에 양수를 대입하면 제목을 낮출 것이며, 음수를 대입하면 높일 것이다.
+기본 정의는 다음과 같다.
 \begin{lcode}
 \setlength{\droptitle}{0pt}
 \end{lcode}
@@ -299,13 +397,19 @@ negative value will raise it. The default definition is:
 \glossary(maketitlehookd)%
   {\cs{maketitlehookd}}%
   {Hook into \cs{maketitle} applied after the \cs{date}.}
- These four hook commands are provided so that additional elements may
-be added to \cmd{\maketitle}. These are initially defined to do nothing
-but can be renewed. For example, some publications
-want a statement about where an article is published immediately
-before the actual titling text. The following defines a command
-\cmd{\published} that can be used to hold the publishing information
-which will then be automatically printed by \cmd{\maketitle}.
+%  These four hook commands are provided so that additional elements may
+% be added to \cmd{\maketitle}. These are initially defined to do nothing
+% but can be renewed. For example, some publications
+% want a statement about where an article is published immediately
+% before the actual titling text. The following defines a command
+% \cmd{\published} that can be used to hold the publishing information
+% which will then be automatically printed by \cmd{\maketitle}.
+이 네 후크 명령은 \cmd{\maketitle}에 추가적인 요소를 넣을 수 있도록 제공된다.
+이들은 기본적으로 아무것도 하지 않도록 정의되어 있지만, 재정의할 수 있다.
+예를 들어, 일부 출판물에서는 논문이 출판된 곳에 대한 문장을 실제 제목 문구
+직전에 삽입하는 것을 요구한다.
+다음은 \cmd{\published} 명령을 정의하여 출판 정보를 담을 수 있도록 하며,
+\cmd{\maketitle}에 의해 자동적으로 출력된다.
 \begin{lcode}
 \newcommand{\published}[1]{%
    \gdef\puB{#1}}
@@ -313,18 +417,23 @@ which will then be automatically printed by \cmd{\maketitle}.
 \renewcommand{\maketitlehooka}{%
    \par\noindent \puB}
 \end{lcode}
-You can then say:
+% You can then say:
+이후
 \begin{lcode}
 \published{Originally published in 
           \textit{The Journal of ...}\thanks{Reprinted with permission}}
 ...
 \maketitle
 \end{lcode}
-to print both the published and the normal titling information. Note
-that nothing extra had to be done in order to use the \cmd{\thanks} command
-in the argument to the new \cmd{\published} command.
+% to print both the published and the normal titling information. Note
+% that nothing extra had to be done in order to use the \cmd{\thanks} command
+% in the argument to the new \cmd{\published} command.
+와 같이 하여 출판 정보와 일반적인 제목 정보를 모두 출력할 수 있다.
+새로운 \cmd{\published} 명령과 함께 \cmd{\thanks} 명령어를 사용하기 위해서
+추가적인 조치가 필요 없다는 것에 주의하라.
 
-\index{title page|(}
+\tidx{title page|(,표제|(}
+% \index{title page|(}
 
 \begin{syntax}
 \senv{titlingpage} text \eenv{titlingpage} \\
@@ -342,43 +451,72 @@ in the argument to the new \cmd{\published} command.
   {Can be used to set what kind of page clearing is issued at the end
     of a titling page. The default for the two args are
     \cs{cleardoublepage} and \cs{clearpage}.}
-When one of the standard classes is used with the \Lopt{titlepage}
-option, \cmd{\maketitle} puts the title elements on an unnumbered page
-and then starts a new page numbered page 1. 
-The standard classes also provide
-a \Ie{titlepage} environment which starts a new unnumbered page and at the
-end starts a new page numbered 1. You are entirely responsible
-for specifying exactly what and where is to go on this title page.
-If \cmd{\maketitle} is used  within the \Ie{titlepage} environment it
-will start yet another page.
+% When one of the standard classes is used with the \Lopt{titlepage}
+% option, \cmd{\maketitle} puts the title elements on an unnumbered page
+% and then starts a new page numbered page 1.
+% The standard classes also provide
+% a \Ie{titlepage} environment which starts a new unnumbered page and at the
+% end starts a new page numbered 1. You are entirely responsible
+% for specifying exactly what and where is to go on this title page.
+% If \cmd{\maketitle} is used  within the \Ie{titlepage} environment it
+% will start yet another page.
+표준 클래스들과 \Lopt{titlepage} 옵션이 함께 사용되면, \cmd{\maketitle}은
+제목 요소를 숫자가 붙지 않은 페이지에 넣고 새로운 페이지를 페이지 번호 1로
+시작한다.
+표준 클래스는 \Ie{titlepage} 환경도 제공하여, 번호가 붙지 않은 새로운 장을
+시작하고 이후 다시 페이지 번호 1부터 새로운 페이지를 시작한다.
+이 표지에 어떤 내용을 넣고 어디에 놓을지는 전적으로 여러분의 책임에 달려 있다.
+만약 \cmd{\maketitle}이 \Ie{titlepage} 환경 안에서 사용된다면 이는 또 다른
+페이지를 시작할 것이다.
 
-   This class provides neither a \Lopt{titlepage} option nor
-a \Ie{titlepage} environment; instead it provides the \Ie{titlingpage}
-environment which falls between the \Lopt{titlepage}
-option and the \Ie{titlepage} environment. Within the \Ie{titlingpage}
-environment you can use the \cmd{\maketitle} command, and any others 
-you wish. The \pstyle{titlingpage} pagestyle is used, and 
-at the end it starts another ordinary page numbered one
-(\senv{titlingpage*} does note reset the page number). 
-The \pstyle{titlingpage} pagestyle is initially defined to be the same
-as the \pstyle{empty} pagestyle.
+%    This class provides neither a \Lopt{titlepage} option nor
+% a \Ie{titlepage} environment; instead it provides the \Ie{titlingpage}
+% environment which falls between the \Lopt{titlepage}
+% option and the \Ie{titlepage} environment. Within the \Ie{titlingpage}
+% environment you can use the \cmd{\maketitle} command, and any others
+% you wish. The \pstyle{titlingpage} pagestyle is used, and
+% at the end it starts another ordinary page numbered one
+% (\senv{titlingpage*} does note reset the page number).
+% The \pstyle{titlingpage} pagestyle is initially defined to be the same
+% as the \pstyle{empty} pagestyle.
+이 클래스는 \Ie{titlingpage} 옵션이나 \Lopt{titlepage} 환경 둘 중 어느 것도
+제공하지 않는다.
+대신 이는 \Lopt{titlepage} 옵션과 \Ie{titlepage} 명령 중간쯤 되는
+\Ie{titlingpage} 환경을 제공한다.
+여러분은 \Ie{titlingpage} 환경에서 \cmd{\maketitle}을 포함한 명령들을 사용할
+수 있다.
+\pstyle{titlingpage} 페이지 양식이 사용되며, 끝에는 번호 1이 붙은 일반적인
+페이지를 시작한다 (\senv{titlingpage*}는 페이지 번호를 재설정하지 않는다).
+\pstyle{titlingpage} 페이지 양식은 \pstyle{empty} 페이지 양식과 같게 초기
+설정되어 있다.
 
-At the end of a \Ie{titlingpage} clearing code is issued, which can
-send you to the next page or the next right handed page. Using
-\cmd{\titlingpageend}\marg{twoside code}\marg{oneside code}, you can
-specify what this clearing code should be. The default is
-\cs{cleardoublepage} and \cs{clearpage} respectively.\footnote{Thus
-  this refactorization will not change existing documents, LM, 2018/03/06.} However a
-better choice might be to just let it follow \cs{clearforchapter}:
+% At the end of a \Ie{titlingpage} clearing code is issued, which can
+% send you to the next page or the next right handed page. Using
+% \cmd{\titlingpageend}\marg{twoside code}\marg{oneside code}, you can
+% specify what this clearing code should be. The default is
+% \cs{cleardoublepage} and \cs{clearpage} respectively.\footnote{Thus
+%   this refactorization will not change existing documents, LM, 2018/03/06.} However a
+% better choice might be to just let it follow \cs{clearforchapter}:
+\Ie{titlingpage}의 끝에는 지우기 코드가 실행되는데, 이를 통해 다음 페이지 혹은
+다음 우츨 페이지로 이동할 수 있다.
+\cmd{\titlingpageend}\marg{twoside code}\marg{oneside code}를 사용해서
+지우기 코드를 지정할 수 있다.
+기본값은 각각 \cs{cleardoublepage}와 \cs{clearpage}이다.\footnote{따라서 이
+수정은 기존의 문서를 바꾸지 않을 것이다, LM, 2018/03/06.}
+그러나 그냥 \cs{clearforchapter}을 따르도록 하는 것이 더 나은 선택이 될 수
+있다.
 \begin{lcode}
   \titlingpageend{\clearforchapter}{\clearforchapter}
 \end{lcode}
--- using this value, \Ie{titlingpage} will work as expected with \Lopt{openany}.
+% -- using this value, \Ie{titlingpage} will work as expected with \Lopt{openany}.
+이 값을 사용하면, \Ie{titlingpage}는 \Lopt{openany}와 함께 예상대로 작동할
 
 
-   For example, to put both the title and an abstract\index{abstract} 
-on a title page,
-with a \pstyle{plain} pagestyle:
+%    For example, to put both the title and an abstract\index{abstract}
+% on a title page,
+% with a \pstyle{plain} pagestyle:
+예를 들어, \pstyle{plain} 페이지 양식으로 제목과 요약\tidx{abstract,요약}을 같은
+표지에 두고 싶다면 다음과 같이 한다.
 \begin{lcode}
 \begin{document}
 \begin{titlingpage}
@@ -389,9 +527,12 @@ with a \pstyle{plain} pagestyle:
 \end{titlingpage}
 \end{lcode}
 
-However, it is not required to use \senv{titlingpage} to create a
-title page, you can use regular \ltx\ typesetting without any special
-environment.  That is like:
+% However, it is not required to use \senv{titlingpage} to create a
+% title page, you can use regular \ltx\ typesetting without any special
+% environment.  That is like:
+그러나 \senv{titlingpage}를 사용해서 표지를 만드는 것이 필수는 아니므로,
+여러분은 특수한 환경 없이 일반적인 \ltx\ 조판을 사용할 수 있다.
+그 방법은 다음과 같을 것이다.
 \begin{lcode}
 \pagestyle{empty}
 %%% Title, author, publisher, etc.,  here
@@ -399,18 +540,30 @@ environment.  That is like:
 ...
 \end{lcode}
 
-   By default, titling information is centered with respect to the
-width of the typeblock\index{typeblock}.
-   Occasionally someone asks on the \texttt{comp.text.tex} newsgroup how
-to center the titling information on a title page 
-with respect to the width of the physical 
-page. If the typeblock\index{typeblock} is centered with respect to the physical page,
-then the default centering suffices. If the typeblock\index{typeblock} is not physically
-centered, then the titling information either has to be shifted 
-horizontally or \cmd{\maketitle} has to be made to think that the typeblock\index{typeblock}
-has been shifted horizontally. The simplest solution is to use the
-\cmd{\calccentering} and \Ie{adjustwidth*} command and environment. For
-example:
+%    By default, titling information is centered with respect to the
+% width of the typeblock\index{typeblock}.
+%    Occasionally someone asks on the \texttt{comp.text.tex} newsgroup how
+% to center the titling information on a title page
+% with respect to the width of the physical
+% page. If the typeblock\index{typeblock} is centered with respect to the physical page,
+% then the default centering suffices. If the typeblock\index{typeblock} is not physically
+% centered, then the titling information either has to be shifted
+% horizontally or \cmd{\maketitle} has to be made to think that the typeblock\index{typeblock}
+% has been shifted horizontally. The simplest solution is to use the
+% \cmd{\calccentering} and \Ie{adjustwidth*} command and environment. For
+% example:
+기본적으로, 제목 정보는 조판 영역\tidx{typeblock,조판 영역} 너비를 기준으로
+가운데 정렬된다.
+간혹 누군가 \texttt{comp.text.tex} 뉴스 그룹에 표지의 제목 정보를 실물 페이지
+기준으로 가운데 정렬하는 방법을 묻고는 한다.
+만약 조판 영역\tidx{typeblock,조판 영역}이 실제 페이지 기준으로 가운데에 있다면
+기본 가운데 정렬로 충분할 것이다.
+만약 조판 영역\tidx{typeblock,조판 영역}이 실제로 가운데가 아니라면, 제목 정보를
+가로 방향으로 이동시키던가, \cmd{\maketitle}에게 조판
+영역\tidx{typeblock, 조판 영역}이 가로 방향으로 이동되었다고 믿게할 수 있다.
+가장 간단한 해결책은 \cmd{\calccentering} 명령과 \Ie{adjustwidth*} 환경을
+사용하는 것이다.
+예를 들면 다음과 같다.
 \begin{lcode}
 \begin{titlingpage}
   \calccentering{\unitlength}
@@ -420,7 +573,8 @@ example:
 \end{titlingpage}
 \end{lcode}
 
-\index{title page|)}
+% \index{title page|)}
+\tidx{title page|),표지|)}
 
 \begin{syntax}
 \cmd{\title}\marg{text} \cmd{\thetitle} \\
@@ -446,14 +600,19 @@ example:
   {\cs{thedate}}%
   {Copy of \meta{text} from \cs{date}.}
 
-   In the usual document classes, the contents (\meta{text}) of
-the \cmd{\title}, \cmd{\author} and \cmd{\date}
-macros used for \cmd{\maketitle} are unavailable once \cmd{\maketitle} 
-has been
-issued. The class provides the \cmd{\thetitle},
-\cmd{\theauthor} and \cmd{\thedate} commands that can be used for printing
-these elements of the title later in the document, 
-if desired. 
+%    In the usual document classes, the contents (\meta{text}) of
+% the \cmd{\title}, \cmd{\author} and \cmd{\date}
+% macros used for \cmd{\maketitle} are unavailable once \cmd{\maketitle}
+% has been
+% issued. The class provides the \cmd{\thetitle},
+% \cmd{\theauthor} and \cmd{\thedate} commands that can be used for printing
+% these elements of the title later in the document,
+% if desired.
+일반적인 문서 클래스에서 \cmd{\maketitle}을 위해 사용되는 \cmd{\title},
+\cmd{\author}과 \cmd{date} 매크로의 내용들(\meta{text})은 \cmd{\maketitle} 사용
+이후 접근할 수 없다.
+본 클래스는 \cmd{\thetitle}, \cmd{\theauthor}과 \cmd{\thedate} 명령을 제공하여
+원한다면 이후 문서에서 제목 요소를 출력하는데 사용할 수 있도록 한다.
 
 \begin{syntax}
 \cmd{\and} \cmd{\andnext} \\
@@ -464,21 +623,33 @@ if desired.
 \glossary(andnext)%
   {\cs{andnext}}%
   {Use within the argument to \cs{author} to insert a newline..}
-   The macro \cmd{\and} is used within the argument to the
-\cmd{\author} command to add some extra space between the author's names.
-The class \cmd{\andnext} macro inserts a newline instead of a space.
-Within the \cmd{\theauthor} macro both \cmd{\and} and \cmd{\andnext}
-are replaced by a comma.
+%    The macro \cmd{\and} is used within the argument to the
+% \cmd{\author} command to add some extra space between the author's names.
+% The class \cmd{\andnext} macro inserts a newline instead of a space.
+% Within the \cmd{\theauthor} macro both \cmd{\and} and \cmd{\andnext}
+% are replaced by a comma.
+매크로 \cmd{\and}는 \cmd{\author} 명령어의 인자 안에 쓰이며, 저자들의 이름
+사이에 추가 공백을 넣어준다.
+이 클래스의 \cmd{\andnext} 매크로는 공백 대신에 새로운 줄을 넣어준다.
+\cmd{\theauthor} 매크로 안에서 \cmd{\and}와 \cmd{\andnext}는 둘 다 쉼표로
+치환된다.
 
-   The class does not follow the standard classes' habit
-of automatically killing the titling
-commands after \cmd{\maketitle} has been issued. You can have multiple
-\cmd{\title}, \cmd{\author}, \cmd{\date} and \cmd{\maketitle} 
-commands in your
-document if you wish. For example, some reports are issued with
-a title page, followed by an executive summary, and then they
-have another, possibly modified, title at the start of
-the main body of the report. This can be accomplished like this:
+%    The class does not follow the standard classes' habit
+% of automatically killing the titling
+% commands after \cmd{\maketitle} has been issued. You can have multiple
+% \cmd{\title}, \cmd{\author}, \cmd{\date} and \cmd{\maketitle}
+% commands in your
+% document if you wish. For example, some reports are issued with
+% a title page, followed by an executive summary, and then they
+% have another, possibly modified, title at the start of
+% the main body of the report. This can be accomplished like this:
+본 클래스는 표준 클래스처럼 \cmd{\maketitle} 사용 이후에 표지 명령을 자동으로
+끄는 관행을 따르지 않는다.
+여러분은 원한다면 문서에 여러 개의 \cmd{\title}, \cmd{\author}, \cmd{date},
+그리고 \cmd{\maketitle} 명령들을 넣을 수 있다.
+예를 들어, 일부 보고서는 표지로 시작해서 뒤이어 요약문이 따르고, 다르게 표현될
+수도 있는 또다른 제목을 본문 앞에 가진다.
+이는 다음과 같이 구현할 수 있다.
 \begin{lcode}
 \title{Cover title}
 ...
@@ -505,33 +676,52 @@ the main body of the report. This can be accomplished like this:
 \glossary(emptythanks)%
   {\cs{emptythanks}}%
   {Discards any text from previous uses of \cs{thanks}.}
-    The \cmd{\killtitle} macro makes all aspects of titling, including
-\cmd{\thetitle} etc.,
-unavailable from the point that it is issued (using this command will save
-some macro space if the \cmd{\thetitle}, etc., commands are not required).
-Using this command is the class's manual version
-of the automatic killing performed by the standard classes.
-The \cmd{\keepthetitle} command performs a similar function, except that
-it keeps the \cmd{\thetitle}, \cmd{\theauthor} and \cmd{\thedate} commands,
- while killing everything else.
+%     The \cmd{\killtitle} macro makes all aspects of titling, including
+% \cmd{\thetitle} etc.,
+% unavailable from the point that it is issued (using this command will save
+% some macro space if the \cmd{\thetitle}, etc., commands are not required).
+% Using this command is the class's manual version
+% of the automatic killing performed by the standard classes.
+% The \cmd{\keepthetitle} command performs a similar function, except that
+% it keeps the \cmd{\thetitle}, \cmd{\theauthor} and \cmd{\thedate} commands,
+%  while killing everything else.
+\cmd{\killtitle} 매크로 사용 후에 \cmd{\thetitle} 등을 포함한 모든 표지 관련
+명령을 사용하지 못하도록  한다 (이 명령을 사용해 \cmd{\thetitle} 등과 같은
+명령이 필요하지 않을 경우 매크로 공간을 확보할 수 있다).
+이 명령은 본 클래스에서 표준 클래스의 자동 종료 수행의 수동 버전이다.
+\cmd{\keepthetitle} 명령은 비슷한 기능을 하지만, 다른 모든 기능은 끄면서
+\cmd{\thetitle}, \cmd{\theauthor}과 \cmd{\thedate} 명령을 유지한다는 차이가
+있다.
 
-The \cmd{\emptythanks} command discards any text from prior use of 
-\cmd{\thanks}.
-This command is useful when \cmd{\maketitle} is used multiple times ---
-the \cmd{\thanks} commands in each use just stack up the texts for output
-at each use, so each subsequent use of \cmd{\maketitle} will output all 
-previous \cmd{\thanks} texts together with any new ones. To avoid this,
-put \cmd{\emptythanks} before each \cmd{\maketitle} after the first.
+% The \cmd{\emptythanks} command discards any text from prior use of
+% \cmd{\thanks}.
+% This command is useful when \cmd{\maketitle} is used multiple times ---
+% the \cmd{\thanks} commands in each use just stack up the texts for output
+% at each use, so each subsequent use of \cmd{\maketitle} will output all
+% previous \cmd{\thanks} texts together with any new ones. To avoid this,
+% put \cmd{\emptythanks} before each \cmd{\maketitle} after the first.
+\cmd{\emptythanks} 명령은 기존 \cmd{\thanks}의 모든 문구를 지운다.
+이 명령은 \cmd{\maketitle}이 여러번 사용될 경우 유용하다.
+\cmd{\thanks} 명령은 매 사용마다 문구를 쌓아올리므로, \cmd{\maketitle}을 매번
+사용할 때 기존의 모든 \cmd{\thanks} 문구가 새 문구와 함께 출력될 것이다.
+이를 방지하기 위해서는 \cmd{\maketitle}을 사용하기 전에 매번
+\cmd{\emptythanks}를 넣으면 된다.
 
-\index{title!styling|)}
+% \index{title!styling|)}
+\tidx{title!styling|),표제!양식화}
 
 
-\section{Styling the thanks} \label{sec:thanks}
+% \section{Styling the thanks} \label{sec:thanks}
+\section{감사의 말 양식화하기} \label{sec:thanks}
 
-\index{thanks}
-\index{thanks!styling|(}
 
-    The class provides a configurable \cmd{\thanks} command.
+% \index{thanks}
+% \index{thanks!styling|(}
+\tidx{thanks,감사의 말}
+\tidx{thanks!styling|(,감사의 말!양식화|(}
+
+    % The class provides a configurable \cmd{\thanks} command.
+본 클래스는 설정 가능한 \cmd{\thanks} 명령을 제공한다.
 
 \begin{syntax}
 \cmd{\thanksmarkseries}\marg{format} \\
@@ -543,22 +733,32 @@ put \cmd{\emptythanks} before each \cmd{\maketitle} after the first.
 \glossary(symbolthanksmark)%
   {\cs{symbolthanksmark}}
   {Set the thanks marks to be printed using the footnote series of symbols.}
- Any \cmd{\thanks} are marked with symbols in the 
-titling and footnotes\index{footnote}.
-The command \cmd{\thanksmarkseries} 
-can be used to change the marking style. The \meta{format} argument
-is the name of one of the formats for printing a counter. The name 
-is the same as that of a counter format but without the backslash.
-To have the \cmd{\thanks} marks as lowercase letters instead of symbols 
-do:
+%  Any \cmd{\thanks} are marked with symbols in the
+% titling and footnotes\index{footnote}.
+% The command \cmd{\thanksmarkseries}
+% can be used to change the marking style. The \meta{format} argument
+% is the name of one of the formats for printing a counter. The name
+% is the same as that of a counter format but without the backslash.
+% To have the \cmd{\thanks} marks as lowercase letters instead of symbols
+% do:
+모든 \cmd{\thanks}는 표지나 각주\tidx{footnote,각주}에 기호로 표시된다.
+명령 \cmd{\thanksmarkseries}는 이러한 표지 양식을 바꾸는데 사용될 수 있다.
+\meta{format} 인자는 카운터를 출력하는 형식들 중 하나의 이름이다.
+이름은 카운터 형식과 같지만 백슬래시를 포함하지 않는다.
+\cmd{\thanks}가 기호 대신에 소문자로 표시되기 위해서는 다음과 같이 하라.
 \begin{lcode}
 \thanksmarkseries{alph}
 \end{lcode}
-Just for convenience the \cmd{\symbolthanksmark} command sets the series
-to be footnote\index{footnote} symbols.
-Using this class the potential names for \meta{format} are:
-\texttt{arabic}, \texttt{roman}, \texttt{Roman}, \texttt{alph}, 
-\texttt{Alph}, and \texttt{fnsymbol}. 
+% Just for convenience the \cmd{\symbolthanksmark} command sets the series
+% to be footnote\index{footnote} symbols.
+% Using this class the potential names for \meta{format} are:
+% \texttt{arabic}, \texttt{roman}, \texttt{Roman}, \texttt{alph},
+% \texttt{Alph}, and \texttt{fnsymbol}.
+편의를 위해서 \cmd{\symbolthanksmark}는 목록을 각주\tidx{footnote,각주} 기호로
+지정한다.
+이 클래스를 사용하면 \meta{format}에는 \texttt{arabic}, \texttt{roman},
+\texttt{Roman}, \texttt{alph}, \texttt{Alph} 그리고 \texttt{fnsymbol}이
+이름으로 올 수 있다.
 
 \begin{syntax}
 \cmd{\continuousmarks} \\
