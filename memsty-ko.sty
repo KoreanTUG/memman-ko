@@ -87,7 +87,8 @@
 %%%% Short and long ToC
 
 \newcommand*{\setupshorttoc}{%
-  \renewcommand*{\contentsname}{Short contents}
+%  \renewcommand*{\contentsname}{Short contents}
+  \renewcommand*{\contentsname}{목차 (略)}
   \let\oldchangetocdepth\changetocdepth
   \let\oldprecistoctext\precistoctext
   \renewcommand{\precistoctext}[1]{}
@@ -137,7 +138,8 @@
 
 
 \newcommand*{\setupmaintoc}{%
-  \renewcommand{\contentsname}{Contents}
+%  \renewcommand{\contentsname}{Contents}
+  \renewcommand{\contentsname}{목차}
   \let\changetocdepth\oldchangetocdepth
   \let\precistoctext\oldprecistoctext
   \let\cftchapterfillnum\oldcftchapterfillnum
@@ -776,7 +778,8 @@ chapterstyle. It is one of several styles that come as part of the
 
 \newcommand*{\captegresult}{Typeset example}
 \newfloat[chapter]{tegresult}{loe}{\captegresult}
-\newcommand*{\listegresultsname}{List of typeset examples}
+%\newcommand*{\listegresultsname}{List of typeset examples}
+\newcommand*{\listegresultsname}{조판 例 목록}
 \newlistof{listofegresults}{loe}{\listegresultsname}
 \newlistentry[chapter]{tegresult}{loe}{0}
 
@@ -1167,5 +1170,54 @@ it to use the new width for the  margin par}
 
 
 \typeout{End memsty.sty}
+
+%============
+
+\RequirePackage{xparse}
+\ExplSyntaxOn
+
+\NewDocumentCommand \tidx { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\index{##1}
+	}
+}
+
+\ProvideDocumentCommand \hindexhead { m }
+{
+	\int_case:nnF { #1 }
+	{
+		{ 0 } 	{ 가 }
+		{ 1 }	{ 나 }
+		{ 2 }	{ 다 }
+		{ 3 }	{ 라 }
+		{ 4 }	{ 마 }
+		{ 5 }	{ 바 }
+		{ 6 } 	{ 사 }
+		{ 7 }	{ 기호 }
+		{ 8 } 	{ 아 }
+		{ 10 }	{ 자 }
+		{ 11 }	{ 차 }
+		{ 12 }	{ 카 }
+		{ 13 }	{ 타 }
+		{ 14 }	{ 파 }
+		{ 15 }	{ 하 }
+	}
+	{
+		기타
+	}
+}
+
+\ExplSyntaxOff
+
+\renewcommand\indexname{색인}
+\renewcommand\bibname{문헌목록}
+\renewcommand\contentsname{목차}
+\renewcommand\listfigurename{圖 목차}
+\renewcommand\listtablename{表 목차}
+
+
 \endinput
 
