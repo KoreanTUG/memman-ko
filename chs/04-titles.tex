@@ -766,12 +766,16 @@ Dun Roamin Institute, NY \\
 \glossary(continuousmarks)%
   {\cs{continuousmarks}}%
   {Specifies that the thanks/footnote marker is not zeroed after titling.}
-The \cmd{\thanks} command uses the \Icn{footnote} counter, 
-and normally the counter
-is zeroed after the titling so that the footnote marks\index{footnote!mark} start from 1.
-If the counter should not be zeroed, then just specify 
-\cmd{\continuousmarks}.
-This might be required if numerals are used as the thanks markers.
+% The \cmd{\thanks} command uses the \Icn{footnote} counter,
+% and normally the counter
+% is zeroed after the titling so that the footnote marks\index{footnote!mark} start from 1.
+% If the counter should not be zeroed, then just specify
+% \cmd{\continuousmarks}.
+% This might be required if numerals are used as the thanks markers.
+\cmd{\thanks} 명령어는 \Icn{footnote} 카운터를 사용하며, 표제 이후에는 각주
+표지\tidx{footnote!mark,각주!표지}를 1부터 시작하기 위해 영으로 초기화된다.
+만약에 카운터를 영으로 만들고 싶지 않다면 \cmd{\continuousmarks}를 명시하라.
+이는 감사의 말 표지가 수로 표기된다면 필요할 수 있다.
 
 \begin{syntax}
 \cmd{\thanksheadextra}\marg{pre}\marg{post} \\
@@ -780,10 +784,14 @@ This might be required if numerals are used as the thanks markers.
   {\cs{thanksheadextra}\marg{pre}\marg{post}}%
   {Inserts \meta{pre} and \meta{post} before and after thanks markers
    in the titling code.}
-The \cmd{\thanksheadextra} command will insert
-\meta{pre} and \meta{post} before and after the thanks markers in the
-titling block. By default \meta{pre} and \meta{post} are empty.
-For example, to put parentheses round the titling markers do:
+% The \cmd{\thanksheadextra} command will insert
+% \meta{pre} and \meta{post} before and after the thanks markers in the
+% titling block. By default \meta{pre} and \meta{post} are empty.
+% For example, to put parentheses round the titling markers do:
+\cmd{\thanksheadextra} 명령어는 \meta{pre}와 \meta{post}를 각각 표제 영역에
+있는 감사의 말 전후에 삽입할 것이다.
+기본적으로 \meta{pre}와 \meta{post}는 비어있다.
+예를 들어, 표제 표지를 감싸는 괄호를 넣기 위해서는 다음과 같이 한다.
 \begin{lcode}
 \thanksheadextra{(}{)}
 \end{lcode}
@@ -795,13 +803,19 @@ For example, to put parentheses round the titling markers do:
 \glossary(thanksmark)%
   {\cs{thanksmark}\marg{n}}%
   {Prints a thanks mark identical to the n'th (previously) printed mark.}
-It is sometimes desireable to have the same thanks text be applied to,
-say, four out of six authors, these being the first 3 and the last one.
-The command \cmd{\thanksmark}\marg{n} is similar to 
-\cmd{\footnotemark}\oarg{n} in that it prints a thanks mark identical
-to that of the \meta{n}'th  \cmd{\thanks} command. No changes are made
-to any thanks in the footnotes\index{footnote}. For instance, in the following
-the authors Alpha and Omega will have the same mark:
+% It is sometimes desireable to have the same thanks text be applied to,
+% say, four out of six authors, these being the first 3 and the last one.
+% The command \cmd{\thanksmark}\marg{n} is similar to
+% \cmd{\footnotemark}\oarg{n} in that it prints a thanks mark identical
+% to that of the \meta{n}'th  \cmd{\thanks} command. No changes are made
+% to any thanks in the footnotes\index{footnote}. For instance, in the following
+% the authors Alpha and Omega will have the same mark:
+간혹 여러 저자에게 동일한 감사의 말 문구를 적용해야할 경우가 있는데, 예를 들어
+여섯 명 중 첫 세 명과 마지막의 네 저자에게 적용해야한다고 하자.
+\cmd{\thanksmark}\marg{n} 명령어는 \cmd{\thanks} 명령어의 \meta{n}번째 표지와
+같은 표지를 출력한다는 점에서 \cmd{\footnotemark}\oarg{n}와 유사하다.
+각주\tidx{footnote,각주}의 감사의 말에는 어떠한 변경도 생기지 않는다.
+예를 들어, 다음의 Alpha와 Omega 저자는 동일한 표지를 가질 것이다.
 \begin{lcode}
 \title{The work\thanks{Draft}}
 \author{Alpha\thanks{ABC},
@@ -833,15 +847,21 @@ the authors Alpha and Omega will have the same mark:
 \glossary(thanksmarkstyle)%
   {\cs{thanksmarkstyle}\marg{defn}}%
   {Sets the style for the thanks marks at the foot.}
-By default the thanks mark at the foot is typeset as a superscript. In
-the class this is specifed via
+% By default the thanks mark at the foot is typeset as a superscript. In
+% the class this is specifed via
+기본적으로 각주의 표지는 윗첨자로 조판된다.
+본 클래스에서 이는
 \begin{lcode}
 \thanksmarkstyle{\textsuperscript{#1}}
 \end{lcode}
-where \verb?#1? will be replaced by the thanks mark symbol. You can change
-the mark styling
-if you wish. For example, to put parentheses round the
-mark and typeset it at normal size on the baseline:
+와 같이 지정할 수 있으며, 이때 \verb|#1|는 감사의 말 표지 기호로 치환된다.
+여러분이 원한다면 표지 양식을 바꿀 수 있다.
+예를 들어, 표지를 괄호로 감싸고 베이스라인에 normal 크기로 조판하고 싶다면
+다음과 같이 한다.
+% where \verb?#1? will be replaced by the thanks mark symbol. You can change
+% the mark styling
+% if you wish. For example, to put parentheses round the
+% mark and typeset it at normal size on the baseline:
 \begin{lcode}
 \thanksmarkstyle{(#1)}
 \end{lcode}
@@ -853,13 +873,18 @@ mark and typeset it at normal size on the baseline:
 \glossary(thanksmarkwidth)%
   {\cs{thanksmarkwidth}}%
   {Width of box for the thanks marks at the foot.}
- The thanks mark in the footnote\index{footnote} is typeset right justified in a box
-of width \lnc{\thanksmarkwidth}. The first line of the thanks text starts
-after this box. The initialisation is 
+%  The thanks mark in the footnote\index{footnote} is typeset right justified in a box
+% of width \lnc{\thanksmarkwidth}. The first line of the thanks text starts
+% after this box. The initialisation is
+각주\tidx{footnote,각주}의 감사의 말 표지는 너비 \lnc{\thanksmarkwidth}의
+박스에 오른쪽 정렬되어 조판된다.
+감사의 말 문구의 첫 줄은 이 박스 뒤에 시작된다.
+초기값은
 \begin{lcode}
 \setlength{\thanksmarkwidth}{1.8em}
 \end{lcode}
-giving the default position.
+% giving the default position.
+으로 기본 위치가 설정되어 있다.
 
 \begin{syntax}
 \lnc{\thanksmarksep} \\
@@ -867,20 +892,26 @@ giving the default position.
 \glossary(thanksmarksep)%
   {\cs{thanksmarksep}}%
   {Indentation of second and subsequent thanks text lines at the foot.}
-The value of the length
- \lnc{\thanksmarksep} controls the indentation the
-second and subsequent lines of the thanks text, with respect to
-the end of the mark box. As examples: 
+% The value of the length
+%  \lnc{\thanksmarksep} controls the indentation the
+% second and subsequent lines of the thanks text, with respect to
+% the end of the mark box. As examples:
+길이값 \lnc{\thanksmarksep}는 감사의 말의 두 번째 및 그 이후 줄의 들여쓰기를
+표지 박스 끝에 맞추어 조절한다.
+예를 들어서
 \begin{lcode}
 \setlength{\thanksmarksep}{0em}
 \end{lcode}
- will align the left hand ends of of a multiline thanks text, while: 
+ % will align the left hand ends of of a multiline thanks text, while:
+는 여러 줄에 걸친 감사의 말을 왼쪽 끝에 따라 정렬할 것이며
 \begin{lcode}
 \setlength{\thanksmarksep}{-\thanksmarkwidth}
 \end{lcode}
-will left justify any second and subsequent lines of the thanks text. 
-This last
-setting is the initialised value, giving the default appearance.
+% will left justify any second and subsequent lines of the thanks text.
+% This last
+% setting is the initialised value, giving the default appearance.
+는 두 번째와 그 이후 줄을 왼쪽 정렬 할 것이다.
+이 마지막 설정이 초기값으로, 기본 설정이다.
 
 \begin{syntax}
 \cmd{\thanksfootmark} \\
@@ -888,18 +919,23 @@ setting is the initialised value, giving the default appearance.
 \glossary(thanksfootmark)%
   {\cs{thanksfootmark}}%
   {Typesets a thanks mark at the foot.}
-    A thanks mark in the footnote\index{footnote} region is typeset by \cmd{\thanksfootmark}.
-The code for this is roughly:
+%     A thanks mark in the footnote\index{footnote} region is typeset by \cmd{\thanksfootmark}.
+% The code for this is roughly:
+  각주\tidx{footnote,각주} 위치의 감사의 말 표지는 \cmd{\thanksfootmark}로
+  식자된다.
+  이에 대한 코드는 대략 다음과 같다.
 \LMnote{2012/07/02}{Text changed to reflect the actual code}
 \begin{lcode}
 \newcommand{\thanksfootmark}{%
   \hbox to\thanksmarkwidth{\hfil\normalfont%
      \thanksscript{\thefootnote}}}
 \end{lcode}
-You should not need to change the definition
-of \cmd{\thanksfootmark} 
-but you may want to change the default definitions of one or more
-of the macros it uses.
+% You should not need to change the definition
+% of \cmd{\thanksfootmark}
+% but you may want to change the default definitions of one or more
+% of the macros it uses.
+여러분이 \cmd{\thanksfootmark}의 정의를 바꿀 필요는 없지만, 여기에 사용되는
+몇몇 매크로들의 기본 정의를 바꿀 수도 있다.
 
 \begin{syntax}
 \cmd{\thanksscript}\marg{text} \\
@@ -907,12 +943,15 @@ of the macros it uses.
 \glossary(thanksfootmark)%
   {\cs{thanksfootmark}}%
   {Handle the inner part of the thanks mark at the foot.}
-This is initially defined as: 
+% This is initially defined as:
+이는 기본적으로
 \begin{lcode}
 \newcommand{\thanksscript}[1]{\textsuperscript{#1}}
 \end{lcode}
-so that \cmd{\thanksscript} typesets its argument as a superscript, which
-is the default for thanks notes.
+% so that \cmd{\thanksscript} typesets its argument as a superscript, which
+% is the default for thanks notes.
+와 같이 정의되어 있어서, 감사의 말의 기본 설정으로 \cmd{\thanksscript}가 인자를
+윗첨자로 식자하도록 한다.
 
 
 
@@ -995,29 +1034,44 @@ as necessary.
 \glossary(makethanksmarkhook)
   {\cs{makethanksmarkhook}}
   {Code hook into \cs{makethanksmark}.}
-The macro \cmd{\makethanksmark} typesets both the thanks marker (via
-\cmd{\thanksfootmark}) and the thanks text. You probably will not need
-to change its default definition. Just in case, though, 
-\cmd{\makethanksmark}
-calls the macro \cmd{\makethanksmarkhook} before it does any typesetting.
-The default definition of this is: 
+% The macro \cmd{\makethanksmark} typesets both the thanks marker (via
+% \cmd{\thanksfootmark}) and the thanks text. You probably will not need
+% to change its default definition. Just in case, though,
+% \cmd{\makethanksmark}
+% calls the macro \cmd{\makethanksmarkhook} before it does any typesetting.
+% The default definition of this is:
+매크로 \cmd{\makethanksmark}는 (\cmd{\thanksfootmark}를 통해서) 감사의 말
+표지와 감사의 말 문구를 둘 다 식자한다.
+여러분은 아마도 이의 기본 정의를 바꿀 필요는 없을 것이다.
+그래도 혹시 모르니, \cmd{\makethanksmark}는 식자하기 전에 먼저
+\cmd{\makethanksmarkhook}를 부른다.
+이의 기본 정의는
 \begin{lcode}
 \newcommand{\makethanksmarkhook}{}
 \end{lcode}
-which does nothing.
+% which does nothing.
+으로 아무것도 하지 않는다.
 
-   You can redefine \cmd{\makethanksmarkhook} to do something useful. For
-example, if you wanted a slightly bigger baseline skip you could do:
+%    You can redefine \cmd{\makethanksmarkhook} to do something useful. For
+% example, if you wanted a slightly bigger baseline skip you could do:
+여러분은 \cmd{\makethanksmarkhook}가 유용한 일을 하도록 재정의할 수 있다.
+예를 들어, 조금 더 큰 베이스라인 간격이 필요하다면
 \begin{lcode}
 \renewcommand{\makethanksmarkhook}{\fontsize{8}{11}\selectfont}
 \end{lcode}
-where the numbers \texttt{8} and \texttt{11} specify the point size of the font 
-and the baseline skip
-respectively. In this example 8pt is the normal \cmd{\footnotesize} in
-a 10pt document, and 11pt is the baselineskip for \cmd{\footnotesize}
-text in an 11pt document (the normal baseline skip for \cmd{\footnotesize}
-in a 10pt document is 9.5pt);
-adjust these numbers to suit.
+% where the numbers \texttt{8} and \texttt{11} specify the point size of the font
+% and the baseline skip
+% respectively. In this example 8pt is the normal \cmd{\footnotesize} in
+% a 10pt document, and 11pt is the baselineskip for \cmd{\footnotesize}
+% text in an 11pt document (the normal baseline skip for \cmd{\footnotesize}
+% in a 10pt document is 9.5pt);
+% adjust these numbers to suit.
+와 같이 할 수 있고, 이때 \texttt{8}과 \texttt{11}는 각각 폰트의 포인트 크기와
+베이스라인 간격을 나타낸다.
+이 예시에서 8pt는 10pt 문서의 보통 \cmd{footnotesize}이며, 11pt는 11pt 문서에서
+베이스라인 간격이다 (10pt 문서에서 \cmd{\footnotesize}의 보통 베이스라인 간격은
+9.5pt이다).
+이들 값을 원하는대로 조절하라.
 
 \begin{syntax}
 \cmd{\thanksrule} \\
@@ -1034,28 +1088,43 @@ adjust these numbers to suit.
 \glossary(cancelthanksrule)%
   {\cs{cancelthanksrule}}%
   {Specifies that the \cs{footnoterule} is to be used from now on.}
-By default, there is no rule above \cmd{\thanks}
-text that appears in a \Ie{titlingpage} environment.
-If you want a rule in that environment, put \cmd{\usethanksrule} 
-before the \cmd{\maketitle} command, which will then print a rule according
-to the current definition of \cmd{\thanksrule}.
-\cmd{\thanksrule} is initialised to be a copy of \cmd{\footnoterule} as it 
-is defined at the
-end of the preamble\index{preamble}. The definition of \cmd{\thanksrule} can be changed
-after \verb?\begin{document}?. If the definition of \cmd{\thanksrule} is modified
-and a \cmd{\usethanksrule} command has been issued, then the redefined
-rule may also be used for footnotes\index{footnote}. Issuing the command 
-\cmd{\cancelthanksrule} will cause the normal \cmd{\footnoterule} definition
-to be used from thereon; another \cmd{\usethanksrule}
-command can be issued later
-if you want to swap back again.
+% By default, there is no rule above \cmd{\thanks}
+% text that appears in a \Ie{titlingpage} environment.
+% If you want a rule in that environment, put \cmd{\usethanksrule}
+% before the \cmd{\maketitle} command, which will then print a rule according
+% to the current definition of \cmd{\thanksrule}.
+% \cmd{\thanksrule} is initialised to be a copy of \cmd{\footnoterule} as it
+% is defined at the
+% end of the preamble\index{preamble}. The definition of \cmd{\thanksrule} can be changed
+% after \verb?\begin{document}?. If the definition of \cmd{\thanksrule} is modified
+% and a \cmd{\usethanksrule} command has been issued, then the redefined
+% rule may also be used for footnotes\index{footnote}. Issuing the command
+% \cmd{\cancelthanksrule} will cause the normal \cmd{\footnoterule} definition
+% to be used from thereon; another \cmd{\usethanksrule}
+% command can be issued later
+% if you want to swap back again.
+기본적으로 \Ie{titlingpage} 환경에서 \cmd{\thanks} 문구 위에는 선이 없다.
+만약 해당 환경에서 선을 그리고 싶다면 \cmd{\usethanksrule}을 \cmd{\maketitle}
+명령 전에 넣어 \cmd{\thanksrule}의 현재 정의에 맞게 선을 출력하도록 할 수 있다.
+\cmd{\thanksrule}은 preamble\index{preamble} 끝에 정의된 \cmd{\footnoterule}의
+사본으로 초기 설정되어 있다.
+\cmd{\thanksrule}의 정의는 \verb|\begin{document}| 이후에 변경할 수 있다.
+만약 \cmd{\thanksrule}의 정의가 변경된 후 \cmd{\usethanksrule}이 사용되었다면,
+각주\index{footnote,각주}에 대해서도 동일한 선이 사용될 수 있다.
+\cmd{\cancelthanksrule}을 사용하면 이후로 보통 \cmd{\footnoterule} 정의가
+사용될 것이다.
+나중에 다시 바꾸고 싶다면 \cmd{\usethanksrule}을 이후에 다시 쓰면 된다.
 
-The parameters for the vertical positioning of footnotes\index{footnote} 
-and thanks notes, and the default \cmd{\footnoterule} are the same
-(see \fref{fig:fn} on \pref{fig:fn}).
-You will have to change one or more of these if the vertical spacings of 
-footnotes\index{footnote}
-and thanks notes are meant to be different.
+% The parameters for the vertical positioning of footnotes\index{footnote}
+% and thanks notes, and the default \cmd{\footnoterule} are the same
+% (see \fref{fig:fn} on \pref{fig:fn}).
+% You will have to change one or more of these if the vertical spacings of
+% footnotes\index{footnote}
+% and thanks notes are meant to be different.
+각주\tidx{footnote,각주}와 감사의 말 주석의 세로 위치에 대한 매개변수와 기본
+\cmd{\footnoterule}은 같다(\pref{fig:fn}의 \fref{fig:fn}을 보라.).
+각주\tidx{footnote,각주}와 감사의 말 주석의 세로 간격이 달라야 한다면 이들 중
+일부를 바꿔야 한다.
 
 \index{thanks!styling|)}
 
