@@ -1,22 +1,30 @@
-
+% !TEX root = memman-ko.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Pagination and headers} \label{chap:pagination}
+% \chapter{Pagination and headers} \label{chap:pagination}
+\chapter{페이지 매김과 머릿글} \label{chap:pagination}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\section{Introduction}
 
-    The focus of this chapter is on marking the pages 
-with signposts so that the reader can more readily navigate through
-the document.
+%     The focus of this chapter is on marking the pages
+% with signposts so that the reader can more readily navigate through
+% the document.
+본 단원은 페이지에 이정표를 표시함으로써 독자가 문서를 더 수월하게 찾을 수
+있도록 하는데 집중한다.
 
-\section{Pagination and folios}
+% \section{Pagination and folios}
+\section{페이지 매김과 폴리오}
 
-    Every page in a \ltx\ document is included in the 
-pagination\index{pagination}. That is,
-there is a number associated with every page and this is the value of
-the \Icn{page} counter. This value\index{pagination!changing} 
-can be changed at any time via either \cmd{\setcounter} or 
-\cmd{\addtocounter}.
+%     Every page in a \ltx\ document is included in the
+% pagination\index{pagination}. That is,
+% there is a number associated with every page and this is the value of
+% the \Icn{page} counter. This value\index{pagination!changing}
+% can be changed at any time via either \cmd{\setcounter} or
+% \cmd{\addtocounter}.
+\ltx\ 문서의 모든 페이지는 페이지 매김\tidx{pagination,페이지 매김}된다.
+즉, 각 페이지에는 번호가 할당되며 이것이 \Icn{page} 카운터의 값이다.
+이 값\tidx{pagination!changing,페이지 매김!변경}은 \cmd{\setcounter}나
+\cmd{\addtocounter}을 통해 언제든지 바꿀 수 있다.
 
 \begin{syntax}
 \cmd{\pagenumbering}\marg{rep} \\
@@ -30,26 +38,42 @@ can be changed at any time via either \cmd{\setcounter} or
 \glossary(pagenumbering*)%
   {\cs{pagenumbering*}\marg{rep}}%
   {Like \cs{pagenumbering} except that the page number is not reset.}
-The macros \cmd{\pagenumbering} and \cmd{\pagenumbering*} cause 
-the folios\index{folio}\index{folio!changing representation} 
-to be printed using the 
-counter representation\index{counter representation}
-\meta{rep} for the page number, where \meta{rep} can be one of: 
-\pixcrep{Alph}, \pixcrep{alph}, \pixcrep{arabic}, \pixcrep{Roman} or 
-\pixcrep{roman} for uppercase and lowercase letters, arabic numerals, and
-uppercase and lowercase Roman numerals, 
-respectively.\index{alphabetic numbering}\index{roman numerals} As there
-are only 26~letters, \pixcrep{Alph} or \pixcrep{alph} can only be
-used for a limited number of pages. Effectively, the macros redefine
-\cmd{\thepage} to be \verb?\rep{page}?. 
+% The macros \cmd{\pagenumbering} and \cmd{\pagenumbering*} cause
+% the folios\index{folio}\index{folio!changing representation}
+% to be printed using the
+% counter representation\index{counter representation}
+% \meta{rep} for the page number, where \meta{rep} can be one of:
+% \pixcrep{Alph}, \pixcrep{alph}, \pixcrep{arabic}, \pixcrep{Roman} or
+% \pixcrep{roman} for uppercase and lowercase letters, arabic numerals, and
+% uppercase and lowercase Roman numerals,
+% respectively.\index{alphabetic numbering}\index{roman numerals} As there
+% are only 26~letters, \pixcrep{Alph} or \pixcrep{alph} can only be
+% used for a limited number of pages. Effectively, the macros redefine
+% \cmd{\thepage} to be \verb?\rep{page}?.
+매크로 \cmd{\pagenumbering}과 \cmd{\pagenumbering*}은
+폴리오(면 번호)\tidx{folio!changing representation,폴리오!표시 변경}가 카운터
+표시\tidx{counter representation,카운터 표시} \meta{rep}를 통해 페이지 번호를
+출력하도록 할 수 있는데, \meta{rep}는 \pixcrep{Alph}, \pixcrep{alph},
+\pixcrep{arabic}, \pixcrep{Roman}, 혹은 \pixcrep{roman}을 사용해 각각 알파벳
+대문자와 소문자, 아라비아 숫자, 대문자와 소문자 로마 숫자 중 하나가 될 수
+있다.\tidx{alphabetic numbering,알파벳 번호}\tidx{roman numerals,로마 숫자}
+알파벳에는 26개의 문자만 있기 때문에 \pixcrep{Alph} 혹은 \pixcrep{alph}는
+한정된 수의 페이지에만 사용될 수 있다.
+사실상 이 매크로들은 \cmd{\thepage}가 \verb|\rep{page}|가 되도록 재정의한다.
 
-    Additionally, the \cmd{\pagenumbering}\index{pagination!changing}
-command resets the \Icn{page} counter to one; the starred version does not 
-change the counter.
-    It is usual to reset the page number back to one each time the style
-is changed, but sometimes it may be desirable to have a continuous sequence
-of numbers irrespective of their displayed form, which is where
-the starred version comes in handy.
+%     Additionally, the \cmd{\pagenumbering}\index{pagination!changing}
+% command resets the \Icn{page} counter to one; the starred version does not
+% change the counter.
+%     It is usual to reset the page number back to one each time the style
+% is changed, but sometimes it may be desirable to have a continuous sequence
+% of numbers irrespective of their displayed form, which is where
+% the starred version comes in handy.
+추가적으로, \cmd{\pagenumbering}\tidx{pagination!changing,페이지 매김!변경}
+명령은 \Icn{page} 카운터를 1로 초기화하며, 별표 붙은 것은 카운터를 변경하지
+않는다.
+양식이 바뀔 때마다 페이지 번호를 다시 1로 초기화하는 것이 일반적이지만, 간혹
+보여지는 형식과는 상관없이 일련의 숫자를 가지도록 해야할 때에는 별표 붙은 버전이
+유용하다.
 
 \begin{syntax}
 \cmd{\savepagenumber} \\
@@ -61,14 +85,21 @@ the starred version comes in handy.
 \glossary(restorepagenumber)%
   {\cs{restorepagenumber}}%
   {Sets the page number to that saved by the most recent \cs{savepagenumber}.}
-The macro \cmd{\savepagenumber} saves the current page number, and the
-macro \cmd{\restorepagenumber} sets the page number to the saved value.
-This pair of commands may be used to apparently 
-interrupt\index{pagination!interrupt} the pagination.
-For example, perhaps some full page illustrations\index{illustration} 
-will be electronically tipped in\index{tip in} to the document and 
-pagination is not required for these.
-This could be done along the lines of:
+% The macro \cmd{\savepagenumber} saves the current page number, and the
+% macro \cmd{\restorepagenumber} sets the page number to the saved value.
+% This pair of commands may be used to apparently
+% interrupt\index{pagination!interrupt} the pagination.
+% For example, perhaps some full page illustrations\index{illustration}
+% will be electronically tipped in\index{tip in} to the document and
+% pagination is not required for these.
+% This could be done along the lines of:
+매크로 \cmd{\savepagenumber}는 현재 페이지 번호를 저장하며, 매크로
+\cmd{\restorepagenumber}는 페이지 번호를 저장된 것으로 설정한다.
+이 한 쌍의 명령은 페이지 매김을 외관상
+중단\tidx{pagination!interrupt,페이지 매김!중단}할 때 사용될 수 있다.
+예를 들어, 전면 삽화\tidx{illustration,삽화}가 전자 문서에 끼워 넣어질 수
+있는데 이 때는 페이지 매김이 불필요하다.
+이는 다음과 같이 할 수 있다.
 \begin{lcode}
 \clearpage          % get onto next page
 \savepagenumber     % save the page number
@@ -79,36 +110,54 @@ This could be done along the lines of:
 \restorepagenumber
 ...
 \end{lcode}
-If you try this sort of thing, you may have to adjust the restored page 
-number by one.
+% If you try this sort of thing, you may have to adjust the restored page
+% number by one.
+여러분이 이런 비슷한 작업을 한다면, 복원된 페이지 번호를 1 정도 조절해야 할
+수도 있다.
 \begin{lcode}
 \restorepagenumber
 % perhaps \addtocounter{page}{1} or \addtocounter{page}{-1}
 \end{lcode}
-Depending on the timing of the \cs{...pagenumber} commands and \tx's 
-decisions on page breaking, this may or may not be necessary.
+% Depending on the timing of the \cs{...pagenumber} commands and \tx's
+% decisions on page breaking, this may or may not be necessary.
+\cs{...pagenumber} 명령의 실행 시점과 페이지 나눔에 대한 \tx의 결정에 따라 이런
+조정이 필요할 수도, 그렇지 않을 수도 있다.
 
 
 
-\section{Page styles} \label{sec:pagestyles}
+% \section{Page styles} \label{sec:pagestyles}
+\section{페이지 양식} \label{sec:pagestyles}
 
-\index{pagestyle!specifying|(}
+% \index{pagestyle!specifying|(}
+\tidx{페이지 양식!지정|(}
 
-    The class provides a selection of pagestyles that you can use and if 
-they don't suit, then there are means to define your own.
+%     The class provides a selection of pagestyles that you can use and if
+% they don't suit, then there are means to define your own.
+본 클래스는 여러분이 쓸 수 있는 페이지 양식 모음을 제공하며, 여러분 마음에 들지
+않는다면 직접 정의할 수도 있다.
 
-    These facilities were inspired by the \Lpack{fancyhdr} 
-package~\cite{FANCYHDR}, although the command set is different.
+    % These facilities were inspired by the \Lpack{fancyhdr}
+% package~\cite{FANCYHDR}, although the command set is different.
+이 기능들은 \Lpack{fancyhdr} 패키지~\cite{FANCYHDR}에 영향을 받았으나,
+명령어들은 다르다.
 
-    The standard classes provide for a footer\index{footer} and 
-header\index{header} for odd and even 
-pages. Thus there are four elements to be specified for a pagestyle.
-This class partitions the headers\index{header} and footers\index{footer} 
-into left, center and right
-portions, so that overall there is a total of 12 elements that have 
-to be specified
-for a pagestyle. You may find, though, that one of the built in pagestyles
-meets your needs so you don't have to worry about all these specifications.
+%     The standard classes provide for a footer\index{footer} and
+% header\index{header} for odd and even
+% pages. Thus there are four elements to be specified for a pagestyle.
+% This class partitions the headers\index{header} and footers\index{footer}
+% into left, center and right
+% portions, so that overall there is a total of 12 elements that have
+% to be specified
+% for a pagestyle. You may find, though, that one of the built in pagestyles
+% meets your needs so you don't have to worry about all these specifications.
+표준 클래스들은 홀수와 짝수 페이지에 대한 바닥글\tidx{footer,바닥글}과
+머릿글\tidx{header,머릿글}을 제공한다.
+따라서 페이지 양식에 대한 네 요소를 지정할 수 있다.
+이 클래스는 머릿글\tidx{header,머릿글}과 바닥글\tidx{footer,바닥글}을 왼쪽,
+가운데, 그리고 오른쪽 부분으로 나누어 페이지 양식을 위해 총 12개의 요소를
+지정해야 한다.
+그러나 내장된 페이지 양식이 충분할 경우에는 이 모든 설정에 대해서 걱정하지
+않아도 된다.
 
 \begin{syntax}
 \cmd{\pagestyle}\marg{style} \\
@@ -120,73 +169,134 @@ meets your needs so you don't have to worry about all these specifications.
 \glossary(thispagestyle)%
   {\cs{thispagestyle}\marg{style}}%
   {Sets the pagestyle to \meta{style} for the current page only.}
-   \cmd{\pagestyle} sets the current pagestyle to \meta{style}, where
-\meta{style} is a word containing only letters. On a particular
-page \cmd{\thispagestyle} can be used to override the current pagestyle for
-the one page.
+%    \cmd{\pagestyle} sets the current pagestyle to \meta{style}, where
+% \meta{style} is a word containing only letters. On a particular
+% page \cmd{\thispagestyle} can be used to override the current pagestyle for
+% the one page.
+\cmd{\pagestyle}은 현재 페이지 양식을 \meta{style}로 정하는데, \meta{style}은
+문자로만 구성된 단어이다.
+특정 페이지에서는 \cmd{\thispagestyle}을 사용해 현재 페이지 양식을 해당 쪽만
+덮어쓸 수 있다.
 
-    Some of the class' commands automatically call \cmd{\thispagestyle}.
-For example:
+%     Some of the class' commands automatically call \cmd{\thispagestyle}.
+% For example:
+클래스의 일부 명령들은 자동으로 \cmd{\thispagestyle}을 부른다.
+예를 들어,
+% \begin{itemize}
+% \item the \Ie{titlingpage} environment calls
+%       \begin{lcode}
+% \thispagestyle{titlingpagestyle}
+%       \end{lcode}
+% \item if \cmd{\cleardoublepage} will result in an empty verso page it calls
+%       \begin{lcode}
+% \thispagestyle{cleared}
+%       \end{lcode}
+%       for the empty page.
+% \end{itemize}
 \begin{itemize}
-\item the \Ie{titlingpage} environment calls 
+\item \Ie{titlingpage} 환경은
       \begin{lcode}
 \thispagestyle{titlingpagestyle}
       \end{lcode} 
-\item if \cmd{\cleardoublepage} will result in an empty verso page it calls
+      을 부른다.
+\item 만약 \cmd{\cleardoublepage} 이 빈 왼쪽 면을 만든다면
       \begin{lcode}
 \thispagestyle{cleared}
       \end{lcode}
-      for the empty page.
+      를 해당 빈 페이지에서 부른다.
 \end{itemize}
-For reference, the full list is given in \tref{tab:callthispagestyle}.
+% For reference, the full list is given in \tref{tab:callthispagestyle}.
+참고로, 전체 목록은 \tref{tab:callthispagestyle}에 주어져 있다.
 
 \PWnote{2009/07/26}{Added the simple pagestyle}
-    The page styles provided by the class\index{pagestyle!class} are:
+    % The page styles provided by the class\index{pagestyle!class} are:
+본 클래스\tidx{pagestyle!class,페이지 양식!클래스}에 의해 제공되는 페이지
+양식은 다음과 같다.
 \begin{plainlist}
-\item[\pstyle{empty}] The headers\index{header} and footers\index{footer} are empty.
-\item[\pstyle{plain}] The header\index{header} is empty and the folio\index{folio} (page number)
-     is centered at the bottom of the page.
-\item[\pstyle{headings}] The footer\index{footer} is empty. The header\index{header} contains 
-     the folio\index{folio} at the outer side of the page; on verso
-     pages the chapter name, number and title, in slanted uppercase is
-     set at the spine margin and on recto pages the section number
-     and uppercase title is set by the spine margin.
-\item[\pstyle{myheadings}] Like the \pstyle{headings} style the footer
-     is empty. You have to specify what is to go in the headers\index{header}.
-\item[\pstyle{simple}] The footer\index{footer} is empty and the 
-     header\index{header} contains the folio\index{folio} (page number)
-     at the outer side of the page. It is like the \pstyle{headings}
-     style but without any title texts.
-\item[\pstyle{ruled}] The footer\index{footer} contains the 
-     folio\index{folio} at the outside. The header\index{header}
-     on verso pages contains the chapter number and title in small caps
-     at the outside; on recto pges the section title is typeset at the
-     outside using the normal font. A line is drawn
-     underneath the header\index{header}.
-\item[\pstyle{Ruled}] This is like the \pstyle{ruled} style except that 
-     the headers\index{header} and footers\index{footer} extend into 
-     the \foredge\ margin\index{margin!foredge?\foredge}.
-\item[\pstyle{companion}] This is a copy of the pagestyle in the 
-     \textit{Companion} series (e.g., see~\cite{COMPANION}). It is
-     similar to the \pstyle{Ruled} style in that the header has a rule which
-     extends to the outer edge of the marginal notes. The folios are set 
-     in bold at the outer ends of the header. The chapter title is set in
-     a bold font flushright in the verso headers, and the section number 
-     and title, again in bold, flushleft in the recto headers\index{header}. 
-     There are no footers\index{footer}.
-\item[\pstyle{book}] This is the same as the \pstyle{plain} pagestyle.
-\item[\pstyle{chapter}]  This is the same as the \pstyle{plain} pagestyle.
-\item[\pstyle{cleared}]  This is the same as the \pstyle{empty} pagestyle.
-\item[\pstyle{part}] This is the same as the \pstyle{plain} pagestyle.
-\item[\pstyle{title}]   This is the same as the \pstyle{plain} pagestyle.
-\item[\pstyle{titlingpage}] This is the same as the \pstyle{empty} pagestyle.
+% \item[\pstyle{empty}] The headers\index{header} and footers\index{footer} are empty.
+% \item[\pstyle{plain}] The header\index{header} is empty and the folio\index{folio} (page number)
+%      is centered at the bottom of the page.
+% \item[\pstyle{headings}] The footer\index{footer} is empty. The header\index{header} contains
+%      the folio\index{folio} at the outer side of the page; on verso
+%      pages the chapter name, number and title, in slanted uppercase is
+%      set at the spine margin and on recto pages the section number
+%      and uppercase title is set by the spine margin.
+% \item[\pstyle{myheadings}] Like the \pstyle{headings} style the footer
+%      is empty. You have to specify what is to go in the headers\index{header}.
+% \item[\pstyle{simple}] The footer\index{footer} is empty and the
+%      header\index{header} contains the folio\index{folio} (page number)
+%      at the outer side of the page. It is like the \pstyle{headings}
+%      style but without any title texts.
+% \item[\pstyle{ruled}] The footer\index{footer} contains the
+%      folio\index{folio} at the outside. The header\index{header}
+%      on verso pages contains the chapter number and title in small caps
+%      at the outside; on recto pges the section title is typeset at the
+%      outside using the normal font. A line is drawn
+     % underneath the header\index{header}.
+% \item[\pstyle{Ruled}] This is like the \pstyle{ruled} style except that
+%      the headers\index{header} and footers\index{footer} extend into
+%      the \foredge\ margin\index{margin!foredge?\foredge}.
+% \item[\pstyle{companion}] This is a copy of the pagestyle in the
+%      \textit{Companion} series (e.g., see~\cite{COMPANION}). It is
+%      similar to the \pstyle{Ruled} style in that the header has a rule which
+%      extends to the outer edge of the marginal notes. The folios are set
+%      in bold at the outer ends of the header. The chapter title is set in
+%      a bold font flushright in the verso headers, and the section number
+%      and title, again in bold, flushleft in the recto headers\index{header}.
+%      There are no footers\index{footer}.
+% \item[\pstyle{book}] This is the same as the \pstyle{plain} pagestyle.
+% \item[\pstyle{chapter}]  This is the same as the \pstyle{plain} pagestyle.
+% \item[\pstyle{cleared}]  This is the same as the \pstyle{empty} pagestyle.
+% \item[\pstyle{part}] This is the same as the \pstyle{plain} pagestyle.
+% \item[\pstyle{title}]   This is the same as the \pstyle{plain} pagestyle.
+% \item[\pstyle{titlingpage}] This is the same as the \pstyle{empty} pagestyle.
+% \end{plainlist}
+\begin{plainlist}
+\item[\pstyle{empty}] 머릿글\tidx{header,머릿글}과 바닥글\tidx{footer,바닥글}이
+  비어 있다.
+\item[\pstyle{plain}] 머릿글\tidx{header,머릿글}이 비어 있고
+     폴리오\tidx{folio,폴리오} (페이지 번호)는 페이지 하단 중앙에 놓인다.
+\item[\pstyle{headings}] 바닥글\tidx{footer,바닥글}이 비어 있다.
+     머릿글\tidx{header,머릿글}은 폴리오\tidx{folio,폴리오}를 페이지 바깥쪽에
+     둔다. 왼쪽 페이지에는 장 이름, 번호와 제목이 기울어진 대문자로 책 등
+     여백에 놓이고, 오른쪽 페이지에는 절 이름과 대문자 제목이 책 등 여백에
+     놓인다.
+\item[\pstyle{myheadings}] \pstyle{heading} 양식처럼 바닥글이 비어 있다.
+     여러분이 머릿글\tidx{header,머릿글}에 들어갈 내용을 지정해야 한다.
+\item[\pstyle{simple}] 바닥글\tidx{footer,바닥글}이 비어 있고
+     머릿글\tidx{header,머릿글}은 폴리오\tidx{folio,폴리오} (페이지 번호)를
+     페이지 바깥쪽에 놓는다.
+     이는 \pstyle{headings} 양식과 비슷하지만 제목 문구가 없다.
+\item[\pstyle{ruled}] 바닥글\tidx{footer,바닥글}이
+     폴리오\tidx{folio,폴리오}를 바깥쪽에 놓는다.
+     왼쪽 페이지의 머릿글\tidx{header,머릿글}과 제목은 바깥쪽에 small caps로,
+     오른족 페이지에서는 절 제목이 normal 폰트로 바깥쪽에 식자된다.
+     머릿글\tidx{header,머릿글} 밑에 선이 그려진다.
+\item[\pstyle{Ruled}] 이는 머릿글\tidx{header,머릿글}과
+     바닥글\tidx{footer,바닥글}이 재단
+     여백\tidx{margin!foredge?\foredge,여백!재단 여백}으로 확장된다는 것을
+     제외하고는 \pstyle{ruled} 양식과 같다.
+ \item[\pstyle{companion}] 이는 \textit{Companion} 시리즈의 페이지 양식
+     사본이다 (예시로는 \cite{COMPANION}을 보라).
+     이는 머릿글이 여백 주석의 바깥쪽 모서리까지 이어지는 선을 가지고 있다는
+     점에서 \pstyle{Ruled}와 비슷하다.
+     폴리오는 왼쪽 페이지 머릿글에 볼트체 오른쪽 정렬되어 있으며, 절 이름과
+     제목이 오른쪽 머릿글\tidx{header,머릿글}에 다시 볼드체로 왼쪽 정렬되어
+     있다.
+     바닥글\tidx{footer,바닥글}은 없다.
+\item[\pstyle{book}] 이는 \pstyle{plain} 페이지 양식과 같다.
+\item[\pstyle{chapter}]  이는 \pstyle{plain} 페이지 양식과 같다.
+\item[\pstyle{cleared}]  이는 \pstyle{empty} 페이지 양식과 같다.
+\item[\pstyle{part}] 이는 \pstyle{plain} 페이지 양식과 같다.
+\item[\pstyle{title}] 이는 \pstyle{plain} 페이지 양식과 같다.
+\item[\pstyle{titlingpage}] 이는 \pstyle{empty} 페이지 양식과 같다.
 \end{plainlist}
 
 \begin{table}
 \centering
-\caption{The use of \protect\cs{thispagestyle}} \label{tab:callthispagestyle}
+\caption{\protect\cs{thispagestyle}의 사용}\label{tab:callthispagestyle}
 \begin{tabular}{l !{\qquad} l} \toprule
-Called from & Style \\ \midrule
+사용된 곳 & 양식 \\ \midrule
 \cmd{\book}    & \pstyle{book} \\
 \cmd{\chapter} & \pstyle{chapter} \\
 \cmd{\cleardoublepage} & \pstyle{cleared} \\
@@ -214,22 +324,32 @@ Called from & Style \\ \midrule
 \glossary(nouppercaseheads)%
   {\cs{nouppercaseheads}}%
   {Do not uppercase the titles in the headings.}
-    Following the declaration \cmd{\nouppercaseheads} the titles in the
-\pstyle{headings} pagestyle will not be automatically uppercased. The default
-is \cmd{\uppercaseheads} which specifies that the titles are to be
-automatically uppercased.
+%     Following the declaration \cmd{\nouppercaseheads} the titles in the
+% \pstyle{headings} pagestyle will not be automatically uppercased. The default
+% is \cmd{\uppercaseheads} which specifies that the titles are to be
+% automatically uppercased.
+\pstyle{headings}에서 \cmd{\nouppercaseheads} 정의에 뒤따르는 제목은 자동으로
+대문자로 바뀌지 않을 것다.
+기본은 \cmd{\uppercaseheads}로, 제목은 자동으로 대문자 처리되도록 지정하는
+것이다.
 
-\textbf{Change 2012:} The upper casing macro used by \cmd{\uppercaseheads} has
-been changed into \cmd{\MakeTextUppercase} such that the upper casing
-does not touch math, references or citations.
+% \textbf{Change 2012:} The upper casing macro used by \cmd{\uppercaseheads} has
+% been changed into \cmd{\MakeTextUppercase} such that the upper casing
+% does not touch math, references or citations.
+\textbf{2012 수정:} \cmd{uppercaseheads}에 사용되는 대문자화 매크로는
+\cmd{MakeTextUppercase}로 변경되어 수식, 참조나 인용을 건드리지 않게 되었다.
 
-
-    For the \pstyle{myheadings} pagestyle above, you have to define your own
-titles to go into the header\index{header}. Each sectioning command, 
-say \cs{sec}, 
-calls a macro called \cs{secmark}. A pagestyle usually defines this command
-so that it picks up the title, and perhaps the number, of the \cs{sec}. The
-pagestyle can then use the information for its own purposes. 
+%     For the \pstyle{myheadings} pagestyle above, you have to define your own
+% titles to go into the header\index{header}. Each sectioning command,
+% say \cs{sec},
+% calls a macro called \cs{secmark}. A pagestyle usually defines this command
+% so that it picks up the title, and perhaps the number, of the \cs{sec}. The
+% pagestyle can then use the information for its own purposes.
+위의 \pstyle{myheadings}을 위해서, 여러분은 머릿글\tidx{haeder,머릿글}에 들어갈
+제목을 직접 정의해야 한다.
+\cs{sec}과 같은 장절 명령은 각각 \cs{secmark}라는 매크로를 부른다.
+페이지 양식은 보통 이 명령어를 정의해 \cs{sec}의 제목이나 번호를 추출한다.
+페이지 양식은 이후 이 정보를 용도에 맞게 사용할 수 있다.
 
 \begin{syntax}
 \cmd{\markboth}\marg{left}\marg{right} \\
@@ -242,10 +362,12 @@ pagestyle can then use the information for its own purposes.
 \glossary(markright)%
   {\cs{markright}\marg{right}}%
   {Sets value of one marker to \meta{right} (see \cs{rightmark}).}
-    \cmd{\markboth} sets the values of two \emph{markers}\index{markers}
-to \meta{left} and \meta{right} respectively, at the point in the text 
-where it is called. Similarly, \cmd{\markright} sets the value of a
-marker to \meta{right}.
+%     \cmd{\markboth} sets the values of two \emph{markers}\index{markers}
+% to \meta{left} and \meta{right} respectively, at the point in the text
+% where it is called. Similarly, \cmd{\markright} sets the value of a
+% marker to \meta{right}.
+\cmd{\markboth}는 이 명령이 불리운 자리에서 두 \emph{표지}\tidx{markers,표지}의
+값을 \meta{left}와 \meta{right}에 설정한다.
 
 \begin{syntax}
 \cmd{\leftmark} \cmd{\rightmark} \\
@@ -258,28 +380,43 @@ marker to \meta{right}.
   {Contains the value of the \meta{right} argument of the first \cs{markboth}
    or \cs{markright} on the page; if there is none then the value of the most
    recent \meta{right} argument.}
-The macro \cmd{\leftmark} contains the value of the \meta{left} argument
-of the \emph{last} \cmd{\markboth} on the page. The macro \cmd{\rightmark}
-contains the value of the \meta{right} argument of the \emph{first}
-\cmd{\markboth} or \cmd{\markright} on the page, or if there is not one it
-contains the value of the most recent \meta{right} argument.
+% The macro \cmd{\leftmark} contains the value of the \meta{left} argument
+% of the \emph{last} \cmd{\markboth} on the page. The macro \cmd{\rightmark}
+% contains the value of the \meta{right} argument of the \emph{first}
+% \cmd{\markboth} or \cmd{\markright} on the page, or if there is not one it
+% contains the value of the most recent \meta{right} argument.
+매크로 \cmd{\leftmark}는 쪽에서 \emph{마지막} \cmd{\markboth} 명령의
+\meta{left} 인자의 값을 담는다.
+매크로 \cmd{\rightmark}는 페이지의 \emph{처음} \cmd{\markboth}나
+\cmd{\markright}의 \meta{right} 인자의 값을 담거나, 해당 명령이 없다면 가장
+최근 것의 \meta{right} 인자의 값을 담는다.
 
-    A pagestyle can define the \cs{secmark} commands in terms of 
-\cmd{\markboth} or \cmd{\markright}, and then use \cmd{\leftmark} and/or
-\cmd{\rightmark} in the headers\index{header} or footers\index{footer}. 
-I'll show examples of how this
-works later, and this is often how the \pstyle{myheadings} style gets 
-implemented.
+%     A pagestyle can define the \cs{secmark} commands in terms of
+% \cmd{\markboth} or \cmd{\markright}, and then use \cmd{\leftmark} and/or
+% \cmd{\rightmark} in the headers\index{header} or footers\index{footer}.
+% I'll show examples of how this
+% works later, and this is often how the \pstyle{myheadings} style gets
+% implemented.
+페이지 양식은 \cmd{\markboth}와 \cmd{\markright}으로 \cmd{secmark} 명령어를
+정의할 수 있고, \cmd{\leftmark}와(혹은) \cmd{\rightmark}를
+머릿글\tidx{header,머릿글}이나 바닥글\tidx{footer,바닥글}에서 쓴다.
+이것이 어떻게 되는 것인지 나중에 예시를 보일 것이며, 이는 \pstyle{myheadings}
+양식이 보통 구현되는 방식이다.
 
-    All the division commands include a macro that you can define to set
-marks related to that heading. Other commands also include macros that
-you can redefine for setting marks.
+%     All the division commands include a macro that you can define to set
+% marks related to that heading. Other commands also include macros that
+% you can redefine for setting marks.
+모든 장절 구획 명령은 해당 머릿글과 관련해 여러분이 정의할 수 있는 매크로를
+포함하고 있다.
+다른 명령어들도 여러분이 재정의할 수 있는 표지 설정을 포함한다.
 
 \begin{table}
 \centering
-\caption{Mark macros for page headers} \label{tab:markmacros}
+% \caption{Mark macros for page headers} \label{tab:markmacros}
+\caption{페이지 머릿글에 대한 표지 매크로} \label{tab:markmacros}
 \begin{tabular}{ll} \toprule
-Main macro & default mark definition \\ \midrule
+% Main macro & default mark definition \\ \midrule
+주 매크로 & 기본 표지 정의 \\ \midrule
 \cs{book(*)}            & \verb?\newcommand*{\bookpagemark}[1]{}? \\
 \cs{part(*)}            & \verb?\newcommand*{\partmark}[1]{}? \\
 \cs{chapter(*)}         & \verb?\newcommand*{\chaptermark}[1]{}? \\
@@ -300,45 +437,66 @@ Main macro & default mark definition \\ \midrule
 \end{tabular}
 \end{table}
 
-The \cs{...mark} commands are listed in \tref{tab:markmacros}. When they are 
-called by the relevant main macro, those that take an argument are called with
-the `title' as the argument's value. For example, the \cmd{\chapter} macro
-calls \cmd{\chaptermark} with the value of the title specified as being 
-for the header.
+% The \cs{...mark} commands are listed in \tref{tab:markmacros}. When they are
+% called by the relevant main macro, those that take an argument are called with
+% the `title' as the argument's value. For example, the \cmd{\chapter} macro
+% calls \cmd{\chaptermark} with the value of the title specified as being
+% for the header.
+\cs{...mark} 명령어들이 \tref{tab:markmacros}에 나열되어 있다. 이들이 관련된 주
+매크로에 의해 불리우면, `title'을 인자의 값으로 취한다.
+예를 들어, \cmd{\chapter} 매크로는 \cmd{\chaptermark}이 머릿글이 되도록 제목의
+값을 지정하여 부른다.
 
-Please remember that the macros listed in \tref{tab:markmacros} are
-`provider' macros, i.e. they provide information for \cmd{\leftmark}
-and \cmd{\rightmark} for you to use later on. To gain access to the
-section title, you do \emph{not} use \cmd{\sectionmark} in the header
-or footer. It is a macro that provides information, but you need to
-use \cmd{\leftmark} or \cmd{\rightmark} to access depending on how you
-have defined \cmd{\sectionmark}.
+% Please remember that the macros listed in \tref{tab:markmacros} are
+% `provider' macros, i.e. they provide information for \cmd{\leftmark}
+% and \cmd{\rightmark} for you to use later on. To gain access to the
+% section title, you do \emph{not} use \cmd{\sectionmark} in the header
+% or footer. It is a macro that provides information, but you need to
+% use \cmd{\leftmark} or \cmd{\rightmark} to access depending on how you
+% have defined \cmd{\sectionmark}.
+부디 \tref{tab:markmacros}에 나열된 매크로들이 `제공자' 매크임을 잊지 말아달라.
+즉, 이들은 여러분이 \cmd{\leftmark}와 \cmd{\rightmark}의 정보를 나중에 쓸 수
+있도록 제공해 준다.
+절 제목에 접근하기 위해서 \cmd{\sectionmark}를 머릿글이나 바닥글에 사용하면
+\emph{안 된다}.
+매크로가 정보를 제공해주지만, 여러분은 \cmd{\sectionmark}를 어떻게 정의했는지에
+따라서 \cmd{\leftmark} 혹은 \cmd{\rightmark}를 사용해 접근해야 한다.
 
 
-\section{Making headers and footers}
+% \section{Making headers and footers}
+\section{머릿글과 바닥글 만들기}
 
     As mentioned, the class provides for left, center, and right slots in
 even and odd headers\index{header} and footers\index{footer}. 
 This section describes how you can make 
 your own pagestyle using these 12 slots. The 6 slots for a page 
 are diagrammed in \fref{lay:header}.
+언급하였듯이, 이 클래스는 짝수와 홀수 머릿글\tidx{header,머릿글}과
+바닥글\tidx{footer,바닥글}의 왼쪽, 가운데, 그리고 오른쪽 영역을 제공한다.
+본 절은 여러분이 이 12개의 영역을 사용해 직접 페이지 양식을 만드는 방법을
+설명한다.
+페이지의 6개 영역은 \fref{lay:header}에 도표로 나타나 있다.
 
 \begin{figure}
 \setlayoutscale{1}
 \centering
 \headerfooterdiagram
-\caption{Header and footer slots} \label{lay:header}
+% \caption{Header and footer slots} \label{lay:header}
+\caption{머릿글과 바닥글 영역}\label{lay:header}
 \end{figure}
 
-    The class itself uses the commands from this section. For example,
-the \pstyle{plain} pagestyle is defined as
+%     The class itself uses the commands from this section. For example,
+% the \pstyle{plain} pagestyle is defined as
+이 클래스 자체도 이 절의 명령들을 사용한다.
+예를 들어, \pstyle{plain} 페이지 양식은 다음과 같이 정의되어 있다.
 \begin{lcode}
 \makepagestyle{plain}
   \makeevenfoot{plain}{}{\thepage}{}
   \makeoddfoot{plain}{}{\thepage}{}
 \end{lcode}
-which centers the page number at the bottom of the page. 
-    
+% which centers the page number at the bottom of the page.
+이는 페이지 번호를 페이지 하단에 중앙 정렬한다.
+
 
 \begin{syntax}
 \cmd{\makepagestyle}\marg{style} \\
@@ -357,26 +515,38 @@ which centers the page number at the bottom of the page.
   {Creates a new pagestyle called \meta{copy} using the \meta{original}
    pagestyle specification.}
 
-The command \cmd{\makepagestyle} specifies a pagestyle \meta{style} which
-is initially equivalent to the \pstyle{empty} pagestyle. On the other hand,
-\cmd{\aliaspagestyle} defines the \meta{alias} pagestyle to be the same as
-the \meta{original} pagestyle. As an example of the latter, the class includes
-the code
+% The command \cmd{\makepagestyle} specifies a pagestyle \meta{style} which
+% is initially equivalent to the \pstyle{empty} pagestyle. On the other hand,
+% \cmd{\aliaspagestyle} defines the \meta{alias} pagestyle to be the same as
+% the \meta{original} pagestyle. As an example of the latter, the class includes
+% the code
+\cmd{\makepagestyle} 명령은 \meta{style} 페이지 양식을 지정하는데, 이는 초기에
+\pstyle{empty} 페이지 양식과 동일하다.
+반면, \cmd{\aliaspagestyle}은 \meta{alias} 페이지 양식을 \meta{original} 페이지
+양식과 같도록 정의한다.
+후자의 예시로 본 클래스가 다음 코드를 포함한다.
 \begin{lcode}
 \aliaspagestyle{part}{plain}
 \aliaspagestyle{chapter}{plain}
 \aliaspagestyle{cleared}{empty}
 \end{lcode}
-The \cmd{\copypagestyle} command creates a new pagestyle called \meta{copy}
-using the \meta{original} pagestyle specification.
+% The \cmd{\copypagestyle} command creates a new pagestyle called \meta{copy}
+% using the \meta{original} pagestyle specification.
+\cmd{\copypagestyle} 명령은 \meta{original} 페이지 양식 설정으로 \meta{copy}라는
+새로운 페이지 양식을 생성한다.
 
-    If an alias and a copy pagestyle are created based on the same 
-\meta{original} and later the \meta{original} is modified, 
-the alias and copy behave differently.
-The appearance of the alias pagestyle will continue to match the
-modified \meta{original} but the copy pagestyle is unaffected by any change
-to the \meta{original}. You cannot modify an alias pagestyle but you can
-modify a copy pagestyle.
+%     If an alias and a copy pagestyle are created based on the same
+% \meta{original} and later the \meta{original} is modified,
+% the alias and copy behave differently.
+% The appearance of the alias pagestyle will continue to match the
+% modified \meta{original} but the copy pagestyle is unaffected by any change
+% to the \meta{original}. You cannot modify an alias pagestyle but you can
+% modify a copy pagestyle.
+만약 참조(alias)와 사본(copy) 페이지 양식이 \meta{original}을 토대로 생성된 후,
+\meta{original}이 수정되었다면, 참조와 사본은 다르게 행동한다.
+참조 페이지 양식은 수정된 \meta{original}과 여전히 일치하지만 사본 페이지
+양식은 \meta{original}의 어떠한 변경에도 영향을 받지 않는다.
+여러분은 참조 페이지 양식을 수정할 수 없지만 사본 페이지 양식은 수정할 수 있다.
 
 \begin{syntax}
 \cmd{\makeevenhead}\marg{style}\marg{left}\marg{center}\marg{right} \\
@@ -409,6 +579,8 @@ portions of the \meta{style} header\index{header} for odd numbered
 (recto) pages, and the footers\index{footer} for verso and recto pages. 
 These commands for \meta{style}
 should be used after the corresponding \cmd{\makepagestyle} for \meta{style}.
+매크로 \cmd{\makeevenhead}는 짝수 페이지에 대해 \meta{left}, \met{center},
+그리고 \met{right}
 
 \begin{syntax}
 \cmd{\makerunningwidth}\marg{style}\oarg{footwidth}\marg{headwidth} \\
