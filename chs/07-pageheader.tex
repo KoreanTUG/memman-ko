@@ -570,17 +570,24 @@
   {\cs{makeoddfoot}\marg{style}\marg{left}\marg{center}\marg{right}}%
   {Defines the \meta{left}, \meta{center} and \meta{right} parts of the
    odd (recto) page footer of the \meta{style} pagetstyle.}
-The macro \cmd{\makeevenhead} defines the \meta{left}, \meta{center}, and
-\meta{right} portions of the \meta{style} pagestyle header\index{header} 
-for even numbered (verso) pages. 
-Similarly \cmd{\makeoddhead}, \cmd{\makeevenfoot}, and
-\cmd{\makeoddfoot} define the \meta{left}, \meta{center} and \meta{right}
-portions of the \meta{style} header\index{header} for odd numbered 
-(recto) pages, and the footers\index{footer} for verso and recto pages. 
-These commands for \meta{style}
-should be used after the corresponding \cmd{\makepagestyle} for \meta{style}.
+% The macro \cmd{\makeevenhead} defines the \meta{left}, \meta{center}, and
+% \meta{right} portions of the \meta{style} pagestyle header\index{header}
+% for even numbered (verso) pages.
+% Similarly \cmd{\makeoddhead}, \cmd{\makeevenfoot}, and
+% \cmd{\makeoddfoot} define the \meta{left}, \meta{center} and \meta{right}
+% portions of the \meta{style} header\index{header} for odd numbered
+% (recto) pages, and the footers\index{footer} for verso and recto pages.
+% These commands for \meta{style}
+% should be used after the corresponding \cmd{\makepagestyle} for \meta{style}.
 매크로 \cmd{\makeevenhead}는 짝수 페이지에 대해 \meta{left}, \meta{center},
-그리고 \meta{right}
+그리고 \meta{right} 영역의 \meta{style} 페이지 양식
+머릿글\tidx{header,머릿글}을 정의한다.
+비슷하게 \cmd{\makeoddhead}, \cmd{\makeevenfoot}, 그리고 \cmd{\makeoddfoot}은
+홀수 페이지의 \meta{left}, \meta{center}, \meta{right} 영역 \meta{style}
+머릿글\tidx{header,머릿글}을 정의하고, 홀수와 짝수 페이지의
+바닥글\tidx{footer,바닥글}을 정의한다.
+이 \meta{style} 명령들은 대응되는 \meta{style}의 \cmd{\makepagestyle} 이후에
+사용되어야 한다.
 
 \begin{syntax}
 \cmd{\makerunningwidth}\marg{style}\oarg{footwidth}\marg{headwidth} \\
@@ -594,18 +601,30 @@ should be used after the corresponding \cmd{\makepagestyle} for \meta{style}.
 \glossary(headwidth)%
   {\cs{headwith}}%
   {A (scratch) length normally used in the definition of headers and footers.}
-The macro \cmd{\makerunningwidth} sets the widths of the \meta{style}
-pagestyle headers\index{header} and footers\index{footer}. The header
-width is set to \meta{headwidth}. If the optional \meta{footwidth} is
-present, then the footer width is set to that, otherwise to \meta{headwidth}.
-The header width is stored as the length \cs{\meta{style}headrunwidth}
-and the footer width as \cs{\meta{style}footrunwidth}.
+% The macro \cmd{\makerunningwidth} sets the widths of the \meta{style}
+% pagestyle headers\index{header} and footers\index{footer}. The header
+% width is set to \meta{headwidth}. If the optional \meta{footwidth} is
+% present, then the footer width is set to that, otherwise to \meta{headwidth}.
+% The header width is stored as the length \cs{\meta{style}headrunwidth}
+% and the footer width as \cs{\meta{style}footrunwidth}.
+매크로 \cmd{\makerunningwidth}는 \meta{style} 페이지 양식의
+머릿글\tidx{header,머릿글}과 바닥글\tidx{footer,바닥글}의 너비를 지정한다.
+머릿글의 너비는 \meta{headwidth}로 설정된다.
+만약 \meta{footwidth}가 선택적으로 존재한다면, 바닥글 너비는 이 값으로 설정될
+것이며 그렇지 않을 경우에는 \meta{headwidth}로 설정된다.
+머릿글 너비는 길이 \cs{\meta{style}{headrunwidth}}로, 바닥글 너비는
+\cs{\meta{style}footrunwidth}에 저장된다.
 
-The \cmd{\makepagestyle} initialises the widths to be the textwidth, 
-so the macro need only be used if some
-other width is desired. The length \lnc{\headwidth} is provided as a
-(scratch) length that may be used for headers\index{header} or 
-footers\index{footer}, or any other purpose.
+% The \cmd{\makepagestyle} initialises the widths to be the textwidth,
+% so the macro need only be used if some
+% other width is desired. The length \lnc{\headwidth} is provided as a
+% (scratch) length that may be used for headers\index{header} or
+% footers\index{footer}, or any other purpose.
+\cmd{\makepagestyle}은 너비를 본문 너비로 설정하므로, 이 매크로는 다른 너비
+값이 필요할 때만 사용된다.
+길이 \lnc{\headwidth}는 머릿글\tidx{header,머릿글}이나
+바닥글\tidx{footer,바닥글}, 혹은 다른 목적으로 사용될 수 있도록 (임시) 길이로
+제공된다.
 
 \begin{syntax}
 \cmd{\makeheadrule}\marg{style}\marg{width}\marg{thickness} \\
@@ -625,20 +644,32 @@ footers\index{footer}, or any other purpose.
 {\cs{makeheadfootruleprefix}\marg{style}\marg{for headrule}\marg{for
     footrule}}%
 {Can be used to add alternative colors to the head/foot rule}%
-A header\index{header} may have a rule drawn between it and the top of 
-the typeblock\index{typeblock}, and similarly a rule may be drawn 
-between the bottom of the typeblock\index{typeblock} and the 
-footer\index{footer}. 
-The \cmd{\makeheadrule} macro specifies the \meta{width}
-and \meta{thickness} of the rule below the \meta{style} pagestyle 
-header\index{header}, and the \cmd{\makefootrule} does the same for 
-the rule above the footer\index{footer}; the
-additional \meta{skip} argument is a distance that specifies the vertical
-positioning of the foot rule (see \cmd{\footruleskip}).
-The \cmd{\makepagestyle} macro initialises the \meta{width} to the 
-\lnc{\textwidth} and the \meta{thickness} to 0pt, so by default no rules
-are visible. The macro \cmd{\makeheadfootruleprefix} is intended for
-adding alternative colors to the head/foot rules, e.g.
+% A header\index{header} may have a rule drawn between it and the top of
+% the typeblock\index{typeblock}, and similarly a rule may be drawn
+% between the bottom of the typeblock\index{typeblock} and the
+% footer\index{footer}.
+% The \cmd{\makeheadrule} macro specifies the \meta{width}
+% and \meta{thickness} of the rule below the \meta{style} pagestyle
+% header\index{header}, and the \cmd{\makefootrule} does the same for
+% the rule above the footer\index{footer}; the
+% additional \meta{skip} argument is a distance that specifies the vertical
+% positioning of the foot rule (see \cmd{\footruleskip}).
+% The \cmd{\makepagestyle} macro initialises the \meta{width} to the
+% \lnc{\textwidth} and the \meta{thickness} to 0pt, so by default no rules
+% are visible. The macro \cmd{\makeheadfootruleprefix} is intended for
+% adding alternative colors to the head/foot rules, e.g.
+머릿글\tidx{header,머릿글}은 조판 영역\tidx{typeblock,조판 영역}의 위와 자신
+사이에 선이 그려질 수 있으며, 비슷하게 조판 영역\tidx{typeblock,조판 영역}
+아래와 바닥글\tidx{footer,바닥글} 위에 선이 그려질 수 있다.
+\cmd{\makeheadrule} 매크로는 \meta{style} 페이지 양식
+머릿글\tidx{header,머릿글} 아래 선의  \meta{width}와 \meta{thickness}를
+지정한다.
+추가적 인자 \meta{skip}은 바닥 선의 세로 위치를 지정하는 길이이다
+(\cmd{\footruleskip}을 보라).
+\cmd{\makepagestyle} 매크로는 \meta{width}를 \lnc{\textwidth}로 초기화하고
+\meta{thickness}를 0pt로 초기화해서, 기본적으로는 선이 보이지 않는다.
+매크로 \cmd{\makeheadfootruleprefix}는 머리/바닥 선의 대체 색상을 추가할 수
+있도록 하는데, 예를 들어 다음과 같다.
 \begin{lcode}
   \makeheadfootruleprefix{mystyle}{\color{red}}{\color{blue}}
 \end{lcode}
@@ -650,11 +681,15 @@ adding alternative colors to the head/foot rules, e.g.
 \glossary(normalrulethickness)%
   {\cs{normalrulethickness}}%
   {The normal thickness of a visible rule (default 0.4pt).}
-\lnc{\normalrulethickness} is the normal\index{rule!thickness} 
-thickness of a visible rule, by 
-default 0.4pt. It can be changed using \cmd{\setlength}, although I suggest 
-that you do not unless perhaps when using at least the \Lopt{14pt} class 
-option. 
+% \lnc{\normalrulethickness} is the normal\index{rule!thickness}
+% thickness of a visible rule, by
+% default 0.4pt. It can be changed using \cmd{\setlength}, although I suggest
+% that you do not unless perhaps when using at least the \Lopt{14pt} class
+% option.
+\lnc{\normalrulethickness}는 보이는 선의 기본\tidx{rule!thickness,선!두께}
+두께로, 0.4pt이다.
+이는 \cmd{\setlength}를 통해 바꿀 수 있지만, 필자는 여러분이 적어도 \Lopt{14pt}
+클래스 옵션을 사용하지 않는 이상 그렇게 하지 않기를 권장한다.
 
 \begin{syntax}
 \cmd{\footruleheight} \\
@@ -667,13 +702,19 @@ option.
   {\cs{footruleskip}}%
   {Macro specifying a distance sufficient to ensure that a rule above a footer
    will lie in the space between the footer and the typeblock.}
-The macro \cmd{\footruleheight} is the height of a normal
-rule above a footer\index{footer} (default zero). 
-\cmd{\footruleskip} is a distance 
-sufficient to ensure that a foot rule will be placed between the bottom
-of the typeblock\index{typeblock} and the footer\index{footer}. 
-Despite appearing to be lengths, if you really need to change the values 
-use \cmd{\renewcommand}, not \cmd{\setlength}.
+% The macro \cmd{\footruleheight} is the height of a normal
+% rule above a footer\index{footer} (default zero).
+% \cmd{\footruleskip} is a distance
+% sufficient to ensure that a foot rule will be placed between the bottom
+% of the typeblock\index{typeblock} and the footer\index{footer}.
+% Despite appearing to be lengths, if you really need to change the values
+% use \cmd{\renewcommand}, not \cmd{\setlength}.
+매크로 \cmd{\footruleheight}은 바닥글\tidx{footer,바닥글} 위의 기본 선의
+높이이다 (기본으로 0).
+\cmd{\footruleskip}은 바닥 선이 조판 영역\tidx{typeblock,조판 영역}의 하단과
+바닥글\tidx{footer,바닥글} 사이에 놓일 것을 보장하는 충분한 길이이다.
+길이로 보이기는 하지만, 만약 이 값을 바꾸고 싶다면 \cmd{\setlength}이 아닌
+\cmd{\renewcommand}를 사용하라.
 
 \begin{syntax}
 \cmd{\makeheadposition}\marg{style}\\
@@ -683,14 +724,22 @@ use \cmd{\renewcommand}, not \cmd{\setlength}.
   {\cs{makeheadposition}\marg{style}\marg{eheadpos}\marg{oheadpos}\marg{efootpos}\marg{ofootpos}}%
   {Specifies the horizontal positioning of the even and odd headers and
    footers respectively for the \meta{style} pagestyle.}
-The \cmd{\makeheadposition} macro specifies the horizontal positioning
-of the even and odd headers\index{header} and footers\index{footer}, 
-respectively, for the \meta{style} pagestyle. 
-Each of the \meta{...pos} arguments may be \texttt{flushleft}, \texttt{center},
-or \texttt{flushright}, with the obvious meanings. An empty, or unrecognised, 
-argument is equivalent to \texttt{center}. This macro is really only of use 
-if the header/footer\index{header}\index{footer} width is not the 
-same as the \lnc{\textwidth}.
+% The \cmd{\makeheadposition} macro specifies the horizontal positioning
+% of the even and odd headers\index{header} and footers\index{footer},
+% respectively, for the \meta{style} pagestyle.
+% Each of the \meta{...pos} arguments may be \texttt{flushleft}, \texttt{center},
+% or \texttt{flushright}, with the obvious meanings. An empty, or unrecognised,
+% argument is equivalent to \texttt{center}. This macro is really only of use
+% if the header/footer\index{header}\index{footer} width is not the
+% same as the \lnc{\textwidth}.
+\cmd{makeheadposition} 매크로는 짝수와 홀수 머릿글\tidx{header,머릿글}과
+바닥글\tidx{footer,바닥글}의 가로 위치를 \meta{style} 페이지 양식에 맞게
+지정한다.
+\meta{...pos} 인자 각각은 그 뜻이 분명한 \texttt{flushleft}, \texttt{center},
+혹은 \texttt{flushright}이 될 수 있다.
+비어있거나 알 수 없는 값은 \texttt{center}과 동일하다.
+이 매크로는 머릿글/바닥글\tidx{header,머릿글}\tidx{footer,바닥글}의 너비가
+\lnc{textwidth}와 같지 않을 때에만 사용된다.
 
 \begin{syntax}
 \cmd{\makepsmarks}\marg{style}\marg{code} \\
@@ -699,35 +748,54 @@ same as the \lnc{\textwidth}.
   {\cs{makepsmarks}\marg{style}\marg{code}}%
   {Hook into the \meta{style} pagestyle, usually used for the \meta{code}
    setting any marks.}
-The last thing that the \cmd{\pagestyle}\marg{style} does is call the
-\meta{code} argument of the \cmd{\makepsmarks} macro for \meta{style}.
-This is normally used for specifying non-default code 
-(i.e., code not specifiable via any of the previous macros) for the 
-particular pagestyle. The code normally defines the marks, if any, 
-that will be used in
-the headers\index{header} and footers\index{footer}.
+% The last thing that the \cmd{\pagestyle}\marg{style} does is call the
+% \meta{code} argument of the \cmd{\makepsmarks} macro for \meta{style}.
+% This is normally used for specifying non-default code
+% (i.e., code not specifiable via any of the previous macros) for the
+% particular pagestyle. The code normally defines the marks, if any,
+% that will be used in
+% the headers\index{header} and footers\index{footer}.
+\cmd{\pagestyle}\marg{style}이 하는 마지막 일은 \meta{style}에 대한
+\cmd{\makepsmarks} 매크로의 \meta{code} 인자를 부르는 것이다.
+이는 특정 페이지 양식에 대한 비표준
+코드(이전의 매크로들로는 지정할 수 없는 코드)를 지정할 때 보통 사용된다.
+이 코드는 보통 머릿글\tidx{header,머릿글}과 바닥글\tidx{footer,바닥글}에서
+사용될 표지를 정의한다.
 
 \LMnote{2010/06/25}{Added a mentioning of \cs{makeheadfootstrut}}
 \begin{syntax}
   \cmd{\makeheadfootstrut}\marg{style}\marg{head strut}\marg{foot strut}
 \end{syntax}
-The headers and footers are each made up of three separate
-entities. At the front and end of these a special \meta{style} related
-strut is inserted. By default \cmd{\makepagestyle} will initialize
-them to \cmd{\strut} (except the \pstyle{empty} style where the struts
-are empty). One can use the macro above to change these struts to
-something different.
+% The headers and footers are each made up of three separate
+% entities. At the front and end of these a special \meta{style} related
+% strut is inserted. By default \cmd{\makepagestyle} will initialize
+% them to \cmd{\strut} (except the \pstyle{empty} style where the struts
+% are empty). One can use the macro above to change these struts to
+% something different.
+머릿글과 바닥글은 세 개의 다른 것들로 구성되어 있다.
+처음과 끝에는 \meta{style}과 관련된 특별한 strut가 삽입되어 있다.
+기본적으로 (strut가 비어 있는 \pstyle{empty} 양식을 제외하고)
+\cmd{\makepagestyle}은 이들을 \cmd{\strut}에 초기화할 것이다.
+이 strut들을 다른 것으로 바꿀 때는 위의 매크로를 사용할 수 있다.
 
 
-\subsection{Example pagestyles}
 
-    Perhaps when preparing drafts you want to note on each page
-that it is a draft\index{draft document} document. Assuming that 
-you are using the 
-\pstyle{headings} page style and that the default \pstyle{plain}
-page style is used on chapter openings, then you could define
-the following in the preamble (\piif{ifdraftdoc} is provided by
-the class and is set \ptrue\ when the \Lopt{draft} option is used).
+% \subsection{Example pagestyles}
+\subsection{예시 페이지 양식}
+
+%     Perhaps when preparing drafts you want to note on each page
+% that it is a draft\index{draft document} document. Assuming that
+% you are using the
+% \pstyle{headings} page style and that the default \pstyle{plain}
+% page style is used on chapter openings, then you could define
+% the following in the preamble (\piif{ifdraftdoc} is provided by
+% the class and is set \ptrue\ when the \Lopt{draft} option is used).
+여러분이 초고를 준비할 때 각 페이지에 이것이
+초고\tidx{draft document,초고 문서} 문서라는 주석을 남기고 싶을 수도 있다.
+여러분이 \pstyle{headings} 페이지 양식과 장 시작에 기본 \pstyle{plain} 페이지
+양식을 사용하고 있다고 가정한다면, 다음을 preamble에 정의할 수
+있다(\piif{ifdraftdoc}는 클래스에 의해 제공되고, \Lopt{draft} 옵션이 사용된다면
+\ptrue로 설정된다).
 \label{ex:draft.pagestyle}
 \begin{lcode}
 \ifdraftdoc
@@ -737,14 +805,21 @@ the class and is set \ptrue\ when the \Lopt{draft} option is used).
   \makeoddfoot{headings}{\textit{Draft: \today}}{}{}
 \fi
 \end{lcode}
-Now when the \Lopt{draft} option is used the word `Draft:' and the current
-date will be typeset in italics at the bottom of each page by the spine
-margin. If any \pstyle{empty} pages should be marked as well, specify
-similar footers for that style as well.
+% Now when the \Lopt{draft} option is used the word `Draft:' and the current
+% date will be typeset in italics at the bottom of each page by the spine
+% margin. If any \pstyle{empty} pages should be marked as well, specify
+% similar footers for that style as well.
+이제 \Lopt{draft} 옵션이 쓰이면 단어 `Draft:'와 함께 현재 날짜가 이탤릭체로 매
+페이지 하단의 책 등 여백 쪽에 식자될 것이다.
+만약 \pstyle{empty} 페이지도 표시되어야 한다면, 해당 양식에도 비슷한 바닥글을
+지정하라.
 
-    Here is part of the standard definition of the \pstyle{headings}
-pagestyle for the \Lclass{book} class which uses many internal \ltx\ commands;
-but note that \Mname\ does not use this.
+%     Here is part of the standard definition of the \pstyle{headings}
+% pagestyle for the \Lclass{book} class which uses many internal \ltx\ commands;
+% but note that \Mname\ does not use this.
+여기에 여러 \ltx\ 내부 명령을 사용하는 \Lclass{book} 클래스 \pstyle{headings}
+페이지 양식의 표준 정의의 일부가 나와 있다.
+그러나 \Mname은 이를 사용하지 않는다는 것에 유의하라.
 \begin{lcode}
 \def\ps@headings{%
   \let\@oddfoot\@empty\let\@evenfoot\@empty
@@ -765,17 +840,26 @@ but note that \Mname\ does not use this.
       \fi
       ##1}}}}
 \end{lcode}
-You don't need to understand this but in outline the first three lines specify
-the contents of the footers and headers, and the remainder of the code sets 
-the marks that will be used in the headers. The \cmd{\leftmark} is specified to be
-the word `chapter', 
-followed by the number if it is in the \cmd{\mainmatter} and the \texttt{secnumdepth}
-is such that chapters are numbered, followed by the chapter's title; all this 
-is made to be in upper case (via the \cmd{\MakeUppercase} macro). Similarly
-the other mark, \cmd{\rightmark}, is the section number, if there is one, and
-the section's title, again all in upper case.
+% You don't need to understand this but in outline the first three lines specify
+% the contents of the footers and headers, and the remainder of the code sets
+% the marks that will be used in the headers. The \cmd{\leftmark} is specified to be
+% the word `chapter',
+% followed by the number if it is in the \cmd{\mainmatter} and the \texttt{secnumdepth}
+% is such that chapters are numbered, followed by the chapter's title; all this
+% is made to be in upper case (via the \cmd{\MakeUppercase} macro). Similarly
+% the other mark, \cmd{\rightmark}, is the section number, if there is one, and
+% the section's title, again all in upper case.
+이를 이해할 필요는 없지만, 개략적으로 첫 세 줄은 바닥글과 머릿글의 내용을
+지정하고, 나머지 코드는 머릿글에 사용될 표지를 지정한다.
+\cmd{\leftmark}는 `chapter'라는 단어 뒤에, \cmd{\mainmatter}에 있으며
+\texttt{secnumdepth}가 해당 장에 번호가 붙도록 설정되어 있다면 번호가 붙고,
+뒤에 장의 제목이 붙도록 지정된다.
+이 모두는 (\cmd{\MakeUppercase} 매크로에 의해) 대문자가 된다.
+비슷하게 다른 표지인 \cmd{\rightmark}도 있다면 절 번호와 절의 제목이 모두
+대문자로 된다.
 
-    A transliteration of this code into \Mname's original coding style is:
+    % A transliteration of this code into \Mname's original coding style is:
+이 코드를 \Mname의 코딩 양식으로 의역한다면 다음과 같다.
 \begin{lcode}
 \makepagestyle{headings}
 \makeevenhead{headings}{\thepage}{}{\slshape\leftmark}
@@ -802,9 +886,12 @@ the section's title, again all in upper case.
   \def\indexmark{\markboth{\MakeUppercase{\indexname}}{}}
   \def\glossarymark{\markboth{\MakeUppercase{\glossaryname}}{}}}
 \end{lcode}
-As you can see, defining the marks for a pagestyle is not necessarily the
-simplest thing in the world. However, courtesy of Lars\index{Madsen, Lars} Madsen,
-help is at hand.
+% As you can see, defining the marks for a pagestyle is not necessarily the
+% simplest thing in the world. However, courtesy of Lars\index{Madsen, Lars} Madsen,
+% help is at hand.
+여러분이 볼 수 있듯, 페이지 양식의 표지를 정의하는 것이 그렇게 간단하지만은
+않은 일이다.
+그러나 Lars\index{Madsen, Lars} Madsen의 도움으로 일이 간단해졌다.
 
 \begin{syntax}
 \cmd{\createplainmark}\marg{type}\marg{marks}\marg{text} \\
@@ -835,70 +922,102 @@ help is at hand.
   {Defines \cs{memUChead} as \cs{relax} (i.e., do nothing).}
 
 
-The macro \cmd{\createplainmark} defines the \verb?\<type>mark?, where 
-\meta{type} is an unnumbered division-like head, such as \texttt{toc},
-\texttt{lof}, \texttt{index}, using \meta{text} as the mark value, and 
-\meta{marks} is \texttt{left}, \texttt{both} or \texttt{right}. For example:
+% The macro \cmd{\createplainmark} defines the \verb?\<type>mark?, where
+% \meta{type} is an unnumbered division-like head, such as \texttt{toc},
+% \texttt{lof}, \texttt{index}, using \meta{text} as the mark value, and
+% \meta{marks} is \texttt{left}, \texttt{both} or \texttt{right}. For example:
+매크로 \cmd{\createplainmark}는 \verb|\<type>mark|를 정의하는데, \meta{type}은
+번호 붙지 않은 \texttt{toc}, \texttt{lof}, \texttt{index}와 같은 영역의
+머릿글로 \meta{text}를 표지 값으로 사용하고, \meta{marks}는 \texttt{left},
+\texttt{both}, 혹은 \texttt{right}이다.
+예를 들어
 \begin{lcode}
 \createplainmark{toc}{left}{\contentsname}
 \createplainmark{lot}{right}{\listtablename}
 \createplainmark{bib}{both}{\bibname}
 \end{lcode}
-is equivalent to
+% is equivalent to
+은 다음과 같다.
 \begin{lcode}
 \def\tocmark{\markboth{\memUChead{\contentsname}}{}}
 \def\lotmark{\markright{\memUChead{\listtablename}}}
 \def\lofmark{\markboth{\memUChead{\bibname}}{\memUChead{\bibname}}}
 \end{lcode}
 
-    Following the declaration \cmd{\uppercaseheads} the \cmd{\memUChead} 
-command is equivalent to \cmd{\MakeUppercase} but after the 
-\cmd{\nouppercaseheads} it is equivalent to \cmd{\relax} (which does nothing).
-The \cmd{\createplainmark} macro wraps \cmd{\memUChead} around the \meta{text}
-argument within the generated \cs{mark(both/right)} macro. By using the
-\cs{(no)uppercaseheads} declarations you can control the uppercasing, or
-otherwise, of the mark texts. The default is \cmd{\uppercaseheads}.
+%     Following the declaration \cmd{\uppercaseheads} the \cmd{\memUChead}
+% command is equivalent to \cmd{\MakeUppercase} but after the
+% \cmd{\nouppercaseheads} it is equivalent to \cmd{\relax} (which does nothing).
+% The \cmd{\createplainmark} macro wraps \cmd{\memUChead} around the \meta{text}
+% argument within the generated \cs{mark(both/right)} macro. By using the
+% \cs{(no)uppercaseheads} declarations you can control the uppercasing, or
+% otherwise, of the mark texts. The default is \cmd{\uppercaseheads}.
+\cmd{\uppercaseheads}의 정의에 뒤따르는 \cmd{\memUChead} 명령은
+\cmd{\MakeUppercase}와 동일하지만 \cmd{\nouppercaseheads}에 뒤따를 때는
+(아무것도 하지 않는) \cmd{\relax}와 동일하다.
+\cmd{\createplainmark} 매크로는 \cmd{\memUChead}를 생성된 \cs{mark(both/right)}
+매크로의 \meta{text} 인자 양 옆에 감싼다.
+\cs{(no)uppercaseheads} 선언을 사용해 여러분은 대문자나 표지 문구를 조정할 수
+있다.
+기본은 \cmd{\uppercaseheads}이다.
 
 \LMnote{2010/02/08}{added the following paragraph}
-Note that if you want to use a predefined page style, but would like
-to not use automatic uppercasing, then issue \cs{nouppercaseheads} and
-reload the page style, for example with the default page style in \theclass\
+% Note that if you want to use a predefined page style, but would like
+% to not use automatic uppercasing, then issue \cs{nouppercaseheads} and
+% reload the page style, for example with the default page style in \theclass\
+만약 여러분이 사전 정의된 페이지 양식을 쓰고 싶은데 자동 대문자를 사용하고 싶지
+않다면, \cs{nouppercaseheads}를 쓴 후 페이지 양식을 다시 불러야 한다.
+예를 들어, \theclass의 기본 페이지 양식을 쓴다면 다음과 같이 하라.
 \begin{lcode}
   \nouppercaseheads
   \pagestyle{headings}
 \end{lcode}
 
 
-    The macro \cmd{\createmark}\marg{sec}\marg{marks}\marg{show}\marg{prefix}\marg{postfix}
-defines the \verb?\<sec>mark? macro where \meta{sec} is a sectional division
-such as \texttt{part}, \texttt{chapter}, \texttt{section}, etc., 
-and \meta{show} (\texttt{shownumber} 
-or \texttt{nonumber}) controls whether the division number will be
-displayed within \cs{mainmatter}. The \meta{marks} argument is \texttt{left}, 
-\texttt{both} or \texttt{right}, and \meta{prefix} and \meta{postfix}
-are affixed before and after the division number. For example:
+%     The macro \cmd{\createmark}\marg{sec}\marg{marks}\marg{show}\marg{prefix}\marg{postfix}
+% defines the \verb?\<sec>mark? macro where \meta{sec} is a sectional division
+% such as \texttt{part}, \texttt{chapter}, \texttt{section}, etc.,
+% and \meta{show} (\texttt{shownumber}
+% or \texttt{nonumber}) controls whether the division number will be
+% displayed within \cs{mainmatter}. The \meta{marks} argument is \texttt{left},
+% \texttt{both} or \texttt{right}, and \meta{prefix} and \meta{postfix}
+% are affixed before and after the division number. For example:
+매크로
+\cmd{\createmark}\marg{sec}\marg{marks}\marg{show}\marg{prefix}\marg{postfix}는
+\meta{sec}이 \texttt{part}, \texttt{chapter}, \texttt{section}등과 같은 절
+구획에 해당하고, \meta{show}(\texttt{shownumber} 혹은 \texttt{nonumber})가
+\cs{mainmatter}에 구획 번호가 표시될지 결정할 때, \verb|\<sec>mark|를 정의한다.
+\meta{marks} 인자는 \texttt{left}, \texttt{both} 혹은 \texttt{right}이고,
+\meta{prefix}와 \meta{postfix}는 구획 번호 앞과 뒤에 첨부된다.
+예를 들어
 \begin{lcode}
 \createmark{section}{left}{nonumber}{}{}
 \createmark{section}{both}{nonumber}{}{}
 \createmark{section}{right}{nonumber}{}{}
 \end{lcode}
-is equivalent to, respectively
+% is equivalent to, respectively
+는 각각 다음과 같다.
 \begin{lcode}
 \def\sectionmark#1{\markboth{#1}{}}
 \def\sectionmark#1{\markboth{#1}{#1}}
 \def\sectionmark#1{\markight{#1}}
 \end{lcode}
 
-The difference between \cmd{\createmark} and \cmd{\createplainmark} is
-that the former create a macro that takes an argument, whereas
-\cmd{\createplainmark} does not.
+% The difference between \cmd{\createmark} and \cmd{\createplainmark} is
+% that the former create a macro that takes an argument, whereas
+% \cmd{\createplainmark} does not.
+\cmd{\createmark}와 \cmd{\createplainmark}의 차이는, 전자는 인자를 취하는
+매크로를 만들고 \cmd{\createplainmark}는 그렇지 않다는 것이다.
 
 
-    Using these macros \Mname's current definition of 
-\verb?\makepsmarks{headings}? is much simpler (it also leads to a 
-slightly different result as the \texttt{toc} etc., marks set both
-the \cmd{\leftmark} and \cmd{\rightmark} instead of just the 
-\cmd{\leftmark}):
+%     Using these macros \Mname's current definition of
+% \verb?\makepsmarks{headings}? is much simpler (it also leads to a
+% slightly different result as the \texttt{toc} etc., marks set both
+% the \cmd{\leftmark} and \cmd{\rightmark} instead of just the
+% \cmd{\leftmark}):
+이 명령들을 사용해서 \Mname의 \verb|\makepsmarks{headings}|의 현재 정의는 훨씬
+간결하다 (이는 또한 \texttt{toc} 등이 \cmd{\leftmark}만이 아니라
+\cmd{\leftmark}와 \cmd{\rightmark} 둘 다 표시하기 때문에 약간 다른 결과를
+만든다).
 \begin{lcode}
 \makepsmarks{headings}{%
   \createmark{chapter}{left}{shownumber}{\@chapapp\ }{. \ }
@@ -913,36 +1032,52 @@ the \cmd{\leftmark} and \cmd{\rightmark} instead of just the
 
 
 \LMnote{2010/02/08}{fixed typo}
-When \Mname{} runs the marks part of page style, it does not zero out
-old marks, i.e.\ if an old \cmd{\sectionmark} exist, it still exist
-even if we do not change it.  This is both a good and a bad thing. To help
-users redefine these marks to doing nothing we provide
+% When \Mname{} runs the marks part of page style, it does not zero out
+% old marks, i.e.\ if an old \cmd{\sectionmark} exist, it still exist
+% even if we do not change it.  This is both a good and a bad thing. To help
+% users redefine these marks to doing nothing we provide
+\Mname이 페이지 양식의 표지 부분을 행할 때, 이는 오래된 표지를 없애지 않는다.
+즉, 만약 예전 \cmd{\sectionmark}가 존재한다면 우리가 바꾸지 않더라도 이는
+여전히 존재한다.
+이는 좋을 수도, 나쁠 수도 있는 일이다.
+사용자가 이 표지들이 아무것도 하지 않게 재정의할 수 있도록 우리는 다음을
+제공한다.
 \begin{syntax}
 \cmd{\clearplainmark}\marg{type}\\
 \cmd{\clearmark}\marg{type}\\  
 \end{syntax}
-The used types are the same as for \cmd{\createplainmark} and \cmd{\createmark}.
+% The used types are the same as for \cmd{\createplainmark} and \cmd{\createmark}.
+사용되는 인자 종류는 \cmd{\createplainmark} 및 \cmd{\createmark}와 같다.
 
 
 
 \PWnote{2009/07/30}{Added sections on Document title and Part title in headers}
-\subsubsection{Header with the document title}
+% \subsubsection{Header with the document title}
+\subsubsection{문서 제목이 있는 머릿글}
 
-    As mentioned before, some publishers like the title of the book 
-to be in the header. A simple header is probably all that is needed 
-as it is unlikely to be a technical publication. Here is a
-use for \pstyle{myheadings}.
+%     As mentioned before, some publishers like the title of the book
+% to be in the header. A simple header is probably all that is needed
+% as it is unlikely to be a technical publication. Here is a
+% use for \pstyle{myheadings}.
+앞서 언급하였듯, 일부 출판사는 책의 제목이 머릿글에 제목이 들어가기를 선호한다.
+아마도 이는 기술적인 출판물이 아닐 것이기에 간단한 머릿글이면 충분할 것이다.
+여기에 \pstyle{myheading}의 사용례가 있다.
 \begin{lcode}
 \makevenhead{myheadings}{\thepage}{}{DOCUMENT TITLE}
 \makeoddhead{myheadings}{Chapter~\thechapter}{}{\thepage}
 \end{lcode}
 
-\subsubsection{Part and chapter in the header}
+% \subsubsection{Part and chapter in the header}
+\subsubsection{머릿글의 부(部)와 장(章)}
 
-    Some documents have both part and chapter divisions and in such
-cases it may be useful for the reader to have the current part and chapter
-titles in the header. The \pstyle{headings} pagestyle can be easily modified
-to accomplish this by simply resetting the marks for part and chapter:
+%     Some documents have both part and chapter divisions and in such
+% cases it may be useful for the reader to have the current part and chapter
+% titles in the header. The \pstyle{headings} pagestyle can be easily modified
+% to accomplish this by simply resetting the marks for part and chapter:
+일부 문서는 부와 장 구획을 둘 다 가지고 있고, 이런 경우에는 머릿글에 현재 부와
+장 제목이 있으면 독자들에게 유용할 수 있다.
+\pstyle{headings} 페이지 양식은 부와 장 표지를 재설정함으로써 이를 쉽게 구현할
+수 있다.
 \begin{lcode}
 \makepsmarks{headings}{%
   \createmark{part}{left}{shownumber}{\partname\ }{. \ }
@@ -956,63 +1091,92 @@ to accomplish this by simply resetting the marks for part and chapter:
 \end{lcode}
   
 
-\subsubsection{The Companion pagestyle}
+% \subsubsection{The Companion pagestyle}
+\subsubsection{Companion 페이지 양식}
 
-    This example demonstrates most of the page styling commands.
-In the \textit{\ltx\ Companion} series of 
-books~\cite{COMPANION,GCOMPANION,WCOMPANION} the header\index{header} is wider 
-than the typeblock\index{typeblock}, sticking out into the outer 
-margin\index{margin!outer}, and has a rule underneath it. 
-The page number is in 
-bold and at the outer end of the header\index{header}.
-Chapter titles are in verso headers\index{header} and section titles 
-in recto headers\index{header}, both in bold font and at the inner 
-margin\index{margin!inner}. The footers\index{footer} are empty.
+%     This example demonstrates most of the page styling commands.
+% In the \textit{\ltx\ Companion} series of
+% books~\cite{COMPANION,GCOMPANION,WCOMPANION} the header\index{header} is wider
+% than the typeblock\index{typeblock}, sticking out into the outer
+% margin\index{margin!outer}, and has a rule underneath it.
+% The page number is in
+% bold and at the outer end of the header\index{header}.
+% Chapter titles are in verso headers\index{header} and section titles
+% in recto headers\index{header}, both in bold font and at the inner
+% margin\index{margin!inner}. The footers\index{footer} are empty.
+이 예시는 대부분의 페이지 양식 명령을 보여준다.
+\textit{\ltx\ Companion} 시리즈~\cite{COMPANION,GCOMPANION,WCOMPANION}에는
+머릿글\tidx{header,머릿글}이 조판 영역\tidx{typeblock,조판 영역}보다 넓어 바깥
+여백\tidx{margin!outer,여백!바깥}으로 삐져 나와 있고, 아래에 선이 있다.
+페이지 번호는 볼드체로 머릿글 바깥쪽에 있다.
+장 제목은 왼쪽 머릿글\tidx{header,머릿글}에 있고 절 제목은 오른쪽
+머릿글\tidx{header,머릿글}에 둘 다 볼드체로 안쪽
+여백\tidx{margin!inner,여백!안쪽}에 있다.
+바닥글\tidx{footer,바닥글}은 비어 있다.
 
-    The first thing to do in implementing this style is to calculate 
-the width of the headers\index{header}, which extend to cover any 
-marginal\index{marginalia} notes.
+%     The first thing to do in implementing this style is to calculate
+% the width of the headers\index{header}, which extend to cover any
+% marginal\index{marginalia} notes.
+이 양식을 구현하기 위해서 해야할 첫 번째 일은 여백 주석\tidx{marginalia,방주}을
+덮는 머릿글의 너비를 계산하는 것이다.
 \begin{lcode}
 \setlength{\headwidth}{\textwidth}
   \addtolength{\headwidth}{\marginparsep}
   \addtolength{\headwidth}{\marginparwidth}
 \end{lcode}
-Now we can set up an empty \pstyle{companion} pagestyle and start to change
-it by specifying the new header\index{header} and footer\index{footer} width:
+% Now we can set up an empty \pstyle{companion} pagestyle and start to change
+% it by specifying the new header\index{header} and footer\index{footer} width:
+이제 우리는 빈 \pstyle{companion} 페이지 양식을 만들고 새로운
+머릿글\tidx{header,머릿글}과 바닥글\tidx{footer,바닥글} 너비를 지정하는 것으로
+시작하면 된다.
 \begin{lcode}
 \makepagestyle{companion}
 \makerunningwidth{companion}{\headwidth}
 \end{lcode}
-and specify the width and thickness for the header\index{header} rule, 
-otherwise it will be invisible.
+% and specify the width and thickness for the header\index{header} rule,
+% otherwise it will be invisible.
+그리고 머릿글\tidx{header,머릿글} 선의 너비와 두께를 설정해야 보일 것이다.
 \begin{lcode}
 \makeheadrule{companion}{\headwidth}{\normalrulethickness}
 \end{lcode}
 
-    In order to get the header\index{header} to stick out into the \foredge\ 
-margin\index{margin!foredge?\foredge}, verso headers\index{header} 
-have to be flushright 
-(raggedleft) and recto headers\index{header} to be flushleft (raggedright). 
-As the footers\index{footer} are empty, their position is immaterial.
+%     In order to get the header\index{header} to stick out into the \foredge\
+% margin\index{margin!foredge?\foredge}, verso headers\index{header}
+% have to be flushright
+% (raggedleft) and recto headers\index{header} to be flushleft (raggedright).
+% As the footers\index{footer} are empty, their position is immaterial.
+머릿글이 재단 여백\tidx{margin!foredge,여백!재단}으로 삐져 나오려면 왼쪽
+머릿글\tidx{header,머릿글}은 우측 정렬되어야 하고, 오른쪽
+머릿글\tidx{header,머릿글}은 좌측 정렬되어야 한다.
+바닥글\tidx{footer,바닥글}은 비어 있으므로, 이 영역은 중요하지 않다.
 \begin{lcode}
 \makeheadposition{companion}{flushright}{flushleft}{}{}
 \end{lcode}
 
-    The current chapter and section titles are obtained from the 
-\cmd{\leftmark} and \cmd{\rightmark} macros which are defined via the
-\cmd{\chaptermark} and \cmd{\sectionmark} macros. Remember that
-\cmd{\leftmark} is the last \meta{left} marker and \cmd{\rightmark}
-is the first \meta{right} marker\index{markers} on the page.
+%     The current chapter and section titles are obtained from the
+% \cmd{\leftmark} and \cmd{\rightmark} macros which are defined via the
+% \cmd{\chaptermark} and \cmd{\sectionmark} macros. Remember that
+% \cmd{\leftmark} is the last \meta{left} marker and \cmd{\rightmark}
+% is the first \meta{right} marker\index{markers} on the page.
+현재 장과 절 제목은 \cmd{\leftmark}와 \cmd{\rightmark} 매크로에서부터 얻는데,
+이들은 \cmd{\chaptermark}와 \cmd{\sectionmark} 매크로로 정의된다.
+\cmd{\leftmark}는 페이지의 마지막 \meta{left} 표지이고 \cmd{\rightmark}는 첫
+\meta{right} 표지\tidx{markers,표지}임을 기억하자.
 
-Chapter numbers are not
-put into the header\index{header} but the section number, 
-if there is one, is put into
-the header\index{header}. We have to make sure that
-the correct definitions are used for these as well as for the 
-\toc\footnote{The \toc\ and friends are described in detail 
-in \protect\Cref{chap:toc}.} 
-and other similar elements, and this is where the 
-\cmd{\makepsmarks} macro comes into play. 
+% Chapter numbers are not
+% put into the header\index{header} but the section number,
+% if there is one, is put into
+% the header\index{header}. We have to make sure that
+% the correct definitions are used for these as well as for the
+% \toc\footnote{The \toc\ and friends are described in detail
+% in \protect\Cref{chap:toc}.}
+% and other similar elements, and this is where the
+% \cmd{\makepsmarks} macro comes into play.
+장 번호는 머릿글\tidx{header,머릿글}에 넣지 않지만 절 번호는 있다면
+머릿글\tidx{header,머릿글}에 들어간다.
+우리는 이들과 다른 비슷한 요소\toc\footnote{\toc와 관련 내용은
+\protect\Cref{chap:toc}에 자세히 설명되어 있다.}에 올바른 정의가 사용되었는지
+주의를 기울여야 하고, 이때 \cmd{\makepsmarks} 매크로를 사용하게 된다.
 \begin{lcode}
 \makepsmarks{companion}{%
   \nouppercaseheads
@@ -1026,9 +1190,12 @@ and other similar elements, and this is where the
   \createplainmark{glossary}{both}{\glossaryname}
 \end{lcode}
 
-    The preliminaries have all been completed, and it just remains to specify
-what goes into each header\index{header} and footer\index{footer} slot 
-(but the footers\index{footer} are empty).
+%     The preliminaries have all been completed, and it just remains to specify
+% what goes into each header\index{header} and footer\index{footer} slot
+% (but the footers\index{footer} are empty).
+준비 작업은 모두 완료되었고, 이제 각 머릿글\tidx{header,머릿글}과
+바닥글\tidx{footer,바닥글} 영역에 어떤 내용이 들어갈지만 지정하면 된다 (그러나
+바닥글\tidx{footer,바닥글}은 비어 있다).
 \begin{lcode}
 \makeevenhead{companion}%
   {\normalfont\bfseries\thepage}{}{%
@@ -1038,9 +1205,12 @@ what goes into each header\index{header} and footer\index{footer} slot
    \normalfont\bfseries\thepage}
 \end{lcode}
 
-    Now issuing the command \verb?\pagestyle{companion}? will produce pages 
-typeset with \pstyle{companion} pagestyle headers\index{header}. This pagestyle
-is part of the class.
+%     Now issuing the command \verb?\pagestyle{companion}? will produce pages
+% typeset with \pstyle{companion} pagestyle headers\index{header}. This pagestyle
+% is part of the class.
+이제 \verb|\pagestyle{companion}| 명령을 주면 \pstyle{companion} 페이지 양식
+머릿글\tidx{header,머릿글}을 가진 페이지가 조판될 것이다.
+이 페이지 양식은 본 클래스에 포함되어 있다.
 
 \begin{syntax}
 \cmd{\addtopsmarks}\marg{pagestyle}\marg{prepend}\marg{append} \\
@@ -1049,29 +1219,45 @@ is part of the class.
   {\cs{addtopsmarks}\marg{pagestyle}\marg{prepend}\marg{append}}%
   {Inserts \meta{prepend} and \meta{append} before and after the current
    definition of \cs{makepsmarks} for \meta{pagestyle}.}
-\cmd{\addtopsmarks}\marg{pagestyle}\marg{prepend}\marg{append} is the last
-of this group of helper macros. It inserts \meta{prepend} and \meta{append} 
-before and after the current definition of \cs{makepsmarks} 
-for \meta{pagestyle}. For instance, if you wanted \cs{subsection} titles to appear
-in the page headers of the \pstyle{companion} pagestyle then this would be a way
-of doing it:
+% \cmd{\addtopsmarks}\marg{pagestyle}\marg{prepend}\marg{append} is the last
+% of this group of helper macros. It inserts \meta{prepend} and \meta{append}
+% before and after the current definition of \cs{makepsmarks}
+% for \meta{pagestyle}. For instance, if you wanted \cs{subsection} titles to appear
+% in the page headers of the \pstyle{companion} pagestyle then this would be a way
+% of doing it:
+\cmd{\addtopsmarks}\marg{pagestyle}\marg{prepend}\marg{append}는 이 보조 매크로
+모음의 마지막 매크로이다.
+이는 \meta{prepend}와 \meta{append}를 \meta{pagestyle}에 대한
+\cs{makepsmarks}의 현 정의 전과 후에 삽입한다.
+예를 들어, 만약 여러분이 \pstyle{companion} 페이지 양식의 페이지 머릿글에
+\cs{subsection} 제목이 나타나기를 원한다면 다음과 같이 할 수 있다.
 \begin{lcode}
 \addtopsmarks{companion}{}{%
   \createmark{subsection}{right}{shownumber}{}{. \space}}
 \end{lcode}
 
 
-\subsubsection{The ruled pagestyle}
+% \subsubsection{The ruled pagestyle}
+\subsubsection{ruled 페이지 양식}
 
-    For practical reasons I prefer a page style with headings
-where the chapter title is at least in the center 
-of the page, and for technical works is at the \foredge. I also prefer the
-page number to be near the outside edge. When picking up a book and skimming
-through it, either to get an idea of what is in it or to find something more
-specific, I hold it in one hand at the spine and use the other for flicking
-the pages. The book is half closed while doing this and it's much easier
-to spot things at the \foredge\ than those nearer the spine. 
-The \pstyle{ruled} page style is like this. The general plan is defined as:
+%     For practical reasons I prefer a page style with headings
+% where the chapter title is at least in the center
+% of the page, and for technical works is at the \foredge. I also prefer the
+% page number to be near the outside edge. When picking up a book and skimming
+% through it, either to get an idea of what is in it or to find something more
+% specific, I hold it in one hand at the spine and use the other for flicking
+% the pages. The book is half closed while doing this and it's much easier
+% to spot things at the \foredge\ than those nearer the spine.
+% The \pstyle{ruled} page style is like this. The general plan is defined as:
+필자는 실용적인 이유로 장 제목이 머릿글에 적어도 페이지 중앙에, 기술적인 저술에
+대해서는 재단 여백 쪽에 있는 페이지 양식을 선호한다.
+필자는 또한 페이지 번호가 바깥쪽 모서리에 위치하는 것을 선호한다.
+책을 집어 들어 훑어볼 때, 안에 어떤 내용이 있는지 알아보거나 좀 더 구체적인
+내용을 찾을 때, 필자는 한 손으로 책 등을 잡고 다른 손으로 페이지를 넘긴다.
+이때 책이 반쯤 접혀 있기 때문에 책등 가까이 있는 것보다는 재단 여백 쪽에 위치한
+것들이 더 눈에 잘 띈다.
+ruled 페이지 양식은 이와 같다.
+일반적인 내용은 다음과 같다.
 \begin{lcode}
 \makepagestyle{ruled}
 \makeevenfoot {ruled}{\thepage}{}{} % page numbers at the outside
@@ -1371,7 +1557,7 @@ locations. The declaration \cmd{\showtextblockoff} prevents
 
 In case you want to change the color of the \pstyle{showlocs}, simply do
 \begin{lcode}
-  \renewcommnand\framepichook{\color{red}}
+  \renewcommand\framepichook{\color{red}}
 \end{lcode}
 
 
