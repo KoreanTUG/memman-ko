@@ -1,19 +1,27 @@
-\chapter{Paragraphs and lists}
+% !TEX root = memman-ko.tex
+% \chapter{Paragraphs and lists}
+\chapter{문단과 목록}
 
 %%%%%%%%%%%%%%%%%%%%%
 %\tightlists
 %%%%%%%%%%%%%%%%%%%%%
 
-    Within a sectional division the text is typically broken up into
-paragraphs. Sometimes there may be text that is set off from the normal
-paragraphing, like quotations\index{quotation} or lists.
+%     Within a sectional division the text is typically broken up into
+% paragraphs. Sometimes there may be text that is set off from the normal
+% paragraphing, like quotations\index{quotation} or lists.
+절 구분 내에서 보통 내용은 문단들로 나뉘어진다.
+이따금 인용문\tidx{quotation,인용문}이나 목록과 같이 일반적인 문단과는 다르게
+나열되는 내용이 있을 수 있다.
 
-\section{Paragraphs}
+% \section{Paragraphs}
+\section{문단}
 
-\index{paragraph|(} %|
+% \index{paragraph|(} %|
+\tidx{paragraph|(,문단|(} %|
 
-    There are basically two parameters that control the appearance of normal
-paragraphs.
+%     There are basically two parameters that control the appearance of normal
+% paragraphs.
+기본적으로, 보통 문단의 형태를 조절하는 매개변수가 두 개 있다.
 
 \begin{syntax}
 \lnc{\parindent} \lnc{\parskip} \\
@@ -22,34 +30,54 @@ paragraphs.
   {\cs{parskip}}%
   {(Extra) vertical space between paragraphs (default 0pt).}
  
-    The length \lnc{\parindent} is the indentation of the first line of a
-paragraph\index{paragraph!indentation} and the length \lnc{\parskip} is the vertical spacing between
-paragraphs, as illustrated in \fref{fig:para}. The value of \lnc{\parskip}
-is usually 0pt, and \lnc{\parindent} is usually defined in terms of ems so
-that the actual indentation depends on the font being used. If \lnc{\parindent}
-is set to a negative length, then the first line of the paragraphs will be 
-`outdented'\index{paragraph!outdentation} into the lefthand 
-margin\index{margin!left}.
+%     The length \lnc{\parindent} is the indentation of the first line of a
+% paragraph\index{paragraph!indentation} and the length \lnc{\parskip} is the vertical spacing between
+% paragraphs, as illustrated in \fref{fig:para}. The value of \lnc{\parskip}
+% is usually 0pt, and \lnc{\parindent} is usually defined in terms of ems so
+% that the actual indentation depends on the font being used. If \lnc{\parindent}
+% is set to a negative length, then the first line of the paragraphs will be
+% `outdented'\index{paragraph!outdentation} into the lefthand
+% margin\index{margin!left}.
+길이 \lnc{\parindent}는 문단\tidx{paragraph!indentation,문단!들여쓰기} 첫 줄의
+들여쓰기이며, 길이 \lnc{\parskip}은 문단 사이의 세로 간격로, \fref{fig:para}에
+나타나 있다.
+\lnc{\parskip}의 값은 보통 0pt이고, \lnc{\parindent}는 보통 em 단위로
+정의되어서 사용되는 글꼴에 따라 들여쓰기가 달라지도록 한다.
+만약 \lnc{\parindent}이 음의 길이로 설정이 되며, 문단의 첫 줄은 왼쪽
+여백으로\tidx{margin!left,여백!왼쪽}
+`내어쓰기'\tidx{paragraph!outdentation,문단!내어쓰기}가 될 것이다.
 
 \begin{figure}
 \centering
 \drawparameterstrue
 \drawparagraph
-\caption{Paragraphing parameters}\label{fig:para}
+% \caption{Paragraphing parameters}\label{fig:para}
+\caption{문단의 매개변수}\label{fig:para}
 \end{figure}
 
-\subsection{Block paragraph}
+% \subsection{Block paragraph}
+\subsection{블록 문단}
 
-    A block paragraph\index{paragraph!block} is obtained by setting 
-\lnc{\parindent} to 0em; 
-\lnc{\parskip} should be set to some positive value so that there is some
-space between paragraphs to enable them to be identified. Most typographers
-heartily dislike block paragraphs, not only on aesthetical grounds but also
-on practical\index{paragraph!block!reasons against} considerations. 
-Consider what happens if the last line of a block 
-paragraph is full and also is the last line on the page. The following
-block paragraph will start at the top of the next page but there will be
-no identifiable space to indicate an inter-paragraph break.
+%     A block paragraph\index{paragraph!block} is obtained by setting
+% \lnc{\parindent} to 0em;
+% \lnc{\parskip} should be set to some positive value so that there is some
+% space between paragraphs to enable them to be identified. Most typographers
+% heartily dislike block paragraphs, not only on aesthetical grounds but also
+% on practical\index{paragraph!block!reasons against} considerations.
+% Consider what happens if the last line of a block
+% paragraph is full and also is the last line on the page. The following
+% block paragraph will start at the top of the next page but there will be
+% no identifiable space to indicate an inter-paragraph break.
+블록 문단\tidx{paragraph!block,문단!블록}은 \lnc{\parindent}를 0em으로 설정하여
+얻을 수 있다.
+\lnc{\parskip}은 어떤 양의 값으로 설정하여 문단들이 구분될 수 있도록 해야 한다.
+대부분의 인쇄기술자는 블럭 문단을 진심으로 싫어하는데, 이는 단지 심미적인
+측면이 아니라 실용적인
+이유에서도\tidx{paragraph!block!reasons against,문단!블록!반대 이유} 그러하다.
+블럭 문단의 마지막 줄이 꽉 차 있으면서도 그 페이지의 마지막 줄인 상황을
+생각해보자.
+이어지는 블럭 문단은 다음 페이지의 맨 위에서 시작하지만, 이를 구분할 수 있는
+문단 사이의 간격은 없다.
 
     It is important to know that \ltx\ 
 typesets\index{paragraph!typeset as a unit} 
@@ -63,6 +91,9 @@ the declaration (e.g., \cmd{\centering})  in effect at the end of
 the paragraph. If a pagebreak occurs in the middle of a paragraph \tx\
 will not reset the part of the paragraph that goes onto the following
 page, even if the textwidths on the two pages are different.
+\ltx은 문단 단위로 조판\tidx{paragraph!typeset as a unit,문단!단위로 조판}한다는
+사실을 알아두는 것이 중요하다.
+예를 들어, \lnc{\baselineskip}은 
 
 \subsection{Hanging paragraphs}
 
