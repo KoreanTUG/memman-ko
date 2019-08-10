@@ -8,6 +8,7 @@ tlmgr install arara-rules-ko
 를 실행한다.
 이후
 ```
-arara memman-ko.tex
+arara -v memman-ko.tex
 ```
 를 실행하여 조판하면 된다.
+
