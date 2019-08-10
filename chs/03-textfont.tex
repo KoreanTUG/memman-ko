@@ -1,31 +1,47 @@
-\chapter{텍스트와 글꼴}
 %\chapter{Text and fonts}
+\chapter{텍스트와 글꼴}
 
-    Presumably you will be creating a document that contains at least some
-text. In this chapter I talk a little about the kinds of fonts that you might
-use and how text appears on a page.
 
+%     Presumably you will be creating a document that contains at least some
+% text. In this chapter I talk a little about the kinds of fonts that you might
+% use and how text appears on a page.
+
+새로운 문서를 작성할때, 아마 조금이더라도 텍스트를 포함할 것이다. 
+이 챕터에서는 사용할 수 있는 글꼴의 종류와 페이지에 텍스트가 나타나는 방식에 대해 설명하겠다.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Fonts} \label{sec:fonts}
+%\section{Fonts} \label{sec:fonts}
+\section{글꼴} \label{sec:fonts}
 
-    \alltx{} comes with a standard set of fonts, designed by Donald Knuth,
-and known as the Computer Modern\index{font!Computer Modern} font family. 
-The Knuthian
-fonts\index{font!metafont?\metafont} were created via the \metafont{} 
-program~\cite{METAFONT,CM}\index{metafont?\metafont}
-and are in the form of bitmaps\index{bitmap}
-(i.e., each character is represented as a bunch of tiny dots). Fonts of
-this kind are called \emph{bitmap fonts}\indextwo{bitmap}{font}.
- There is also a wide range of \metafont{} fonts available, created by 
-many others, in addition to the standard set.  More modern
-digital fonts, such as \pscript\indexsupsubmain{font}{PostScript} or 
-TrueType\indexsupsubmain{font}{TrueType} fonts are represented in terms
-of the curves outlining the character, and it is the job of the printing
-machine to fill in the outlines (with a bunch of tiny dots). Fonts of
-this type are called \emph{outline fonts}\indextwo{outline}{font}.
+%  \alltx{} comes with a standard set of fonts, designed by Donald Knuth,
+% and known as the Computer Modern\index{font!Computer Modern} font family. 
+\alltx{}에는 Donald Knuth가 디자인한 Computer Modern\index{font!Computer Modern}  글꼴 제품군으로 알려진 표준 글꼴 집합이 있다.
+
+% The Knuthian
+% fonts\index{font!metafont?\metafont} were created via the \metafont{} 
+% program~\cite{METAFONT,CM}\index{metafont?\metafont}
+% and are in the form of bitmaps\index{bitmap}
+% (i.e., each character is represented as a bunch of tiny dots). Fonts of
+% this kind are called \emph{bitmap fonts}\indextwo{bitmap}{font}.
+
+Knuthian 글꼴\index{font!metafont?\metafont}은 \metafont{} 프로그램 ~\cite{METAFONT,CM}\index{metafont?\metafont}을 통해 만들어졌으며 bitmaps\index{bitmap} 형식으로 되어 있다. (즉, 각 문자는 작은 점들로 표시된다). 
+이런 종류의 글꼴을 \emph{bitmap fonts}\indextwo{bitmap}{font}.이라고 한다. 
+
+
+
+% There is also a wide range of \metafont{} fonts available, created by 
+% many others, in addition to the standard set.  More modern
+% digital fonts, such as \pscript\indexsupsubmain{font}{PostScript} or 
+% TrueType\indexsupsubmain{font}{TrueType} fonts are represented in terms
+% of the curves outlining the character, and it is the job of the printing
+% machine to fill in the outlines (with a bunch of tiny dots). Fonts of
+% this type are called \emph{outline fonts}\indextwo{outline}{font}.
+
+표준 세트에는, 다른 많은 이들에 의해 추가되어진 광범위한 \metafont{} 도 있다.
+보다 현대적인 디지털 글꼴, 예를 들어 \pscript\indexsupsubmain{font}{PostScript} 혹은 TrueType\indexsupsubmain{font}{TrueType} 글꼴은 문자를 개략적으로 나타내는 곡선으로 표현되며, 인쇄 기계가 외곽선을 채우는 역할을 한다 (작은 점들로 묶음).
+이 유형의 글꼴을 윤곽선 글꼴( \emph{outline fonts}\indextwo{outline}{font} )이라고 한다
 
 \metafont\ fonts
 are designed for a particular display resolution and cannot reasonably 
