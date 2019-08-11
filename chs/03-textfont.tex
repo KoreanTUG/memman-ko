@@ -7,7 +7,8 @@
 % use and how text appears on a page.
 
 새로운 문서를 작성할때, 아마 조금이더라도 텍스트를 포함할 것이다. 
-이 챕터에서는 사용할 수 있는 글꼴의 종류와 페이지에 텍스트가 나타나는 방식에 대해 설명하겠다.
+이 챕터에서는 사용할 수 있는 글꼴의 종류와 페이지에 텍스트가 나타나는 방식에
+대해 설명하겠다.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -17,7 +18,9 @@
 
 %  \alltx{} comes with a standard set of fonts, designed by Donald Knuth,
 % and known as the Computer Modern\index{font!Computer Modern} font family. 
-\alltx{}에는 Donald Knuth가 디자인한 Computer Modern\index{font!Computer Modern}  글꼴 제품군으로 알려진 표준 글꼴 집합이 있다.
+\alltx{}에는 도널드 커누스(Donald Knuth)가 디자인한
+Computer Modern\tidx{font!Computer Modern,글꼴!Computer Modern}
+글꼴 제품군으로 알려진 표준 글꼴 집합이 있다.
 
 % The Knuthian
 % fonts\index{font!metafont?\metafont} were created via the \metafont{} 
@@ -25,11 +28,13 @@
 % and are in the form of bitmaps\index{bitmap}
 % (i.e., each character is represented as a bunch of tiny dots). Fonts of
 % this kind are called \emph{bitmap fonts}\indextwo{bitmap}{font}.
-
-Knuthian 글꼴\index{font!metafont?\metafont}은 \metafont{} 프로그램 ~\cite{METAFONT,CM}\index{metafont?\metafont}을 통해 만들어졌으며 bitmaps\index{bitmap} 형식으로 되어 있다. (즉, 각 문자는 작은 점들로 표시된다). 
-이런 종류의 글꼴을 \emph{bitmap fonts}\indextwo{bitmap}{font}.이라고 한다. 
-
-
+커누시안(Knuthian) 글꼴\tidx{font!metafont?\metafont,글꼴!메타폰트?\metafont}은
+\metafont{}
+프로그램~\cite{METAFONT,CM}\tidx{metafont?\metafont,메타폰트?\metafont}을
+통해 만들어졌으며 비트맵\tidx{bitmaps,비트맵} 형식으로 되어 있다 (즉, 각
+문자는 작은 점들로 표시된다).
+이런 종류의 글꼴을
+\emph{비트맵 글꼴}\indextwo{bitmap}{font}\indextwo{비트맵}{글꼴}이라고 한다.
 
 % There is also a wide range of \metafont{} fonts available, created by 
 % many others, in addition to the standard set.  More modern
@@ -38,10 +43,15 @@ Knuthian 글꼴\index{font!metafont?\metafont}은 \metafont{} 프로그램 ~\cit
 % of the curves outlining the character, and it is the job of the printing
 % machine to fill in the outlines (with a bunch of tiny dots). Fonts of
 % this type are called \emph{outline fonts}\indextwo{outline}{font}.
-
-표준 세트에는, 다른 많은 이들에 의해 추가되어진 광범위한 \metafont{} 도 있다.
-보다 현대적인 디지털 글꼴, 예를 들어 \pscript\indexsupsubmain{font}{PostScript} 혹은 TrueType\indexsupsubmain{font}{TrueType} 글꼴은 문자를 개략적으로 나타내는 곡선으로 표현되며, 인쇄 기계가 외곽선을 채우는 역할을 한다 (작은 점들로 묶음).
-이 유형의 글꼴을 윤곽선 글꼴( \emph{outline fonts}\indextwo{outline}{font} )이라고 한다
+표준 모음에는, 다른 많은 이들에 의해 추가된 광범위한 메타폰트(\metafont)
+글꼴들도 있다.
+보다 현대적인 디지털 글꼴, 예를 들어
+포스트스크립트\indexsupsubmain{font}{PostScript}\indexsupsubmain{글꼴}{포스트스크립트}
+혹은 트루타입\indexsupsubmain{font}{TrueType}\indexsupsubmain{글꼴}{트루타입}
+글꼴은 문자의 윤곽을 나타내는 곡선으로 표현되며, 인쇄 기계가 외곽선을
+(수많은 작은 점들로) 채우는 역할을 한다.
+이 유형의 글꼴을 윤곽선 글꼴(\emph{outline fonts}\indextwo{outline}{font})이라고
+한다
 
 \metafont\ fonts
 are designed for a particular display resolution and cannot reasonably 
