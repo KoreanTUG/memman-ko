@@ -1,4 +1,4 @@
-\chapter{Document divisions}
+\chapter{문서의 장절구분}
 
 For this chapter the \cstyle{pedersen} chapterstyle has been used in
 order to demonstrate how it appears.
@@ -31,13 +31,13 @@ commands that correspond to these, namely \cmd{\frontmatter},
 \glossary(frontmatter*)%
   {\cs{frontmatter*}}%
   {Same as \cs{frontmatter} except that folios are unaltered.}
-The \cmd{\frontmatter} declaration sets the folios\index{folio} to be 
-printed in lowercase roman numerals, starts the page numbering from~i, 
+The \cmd{\frontmatter} declaration sets the folios\index{folio} to be
+printed in lowercase roman numerals, starts the page numbering from~i,
 and prohibits any numbering
-of sectional divisions. Caption\index{caption}, equations, etc., will be 
+of sectional divisions. Caption\index{caption}, equations, etc., will be
 numbered continuously.  The starred version of the command,
 \cmd{\frontmatter*}, is similar to the unstarred version except that it
-makes no changes to the page numbering or the print style for the 
+makes no changes to the page numbering or the print style for the
 folios\index{folio}. Even though \cmd{\chapter} and other divisions will not
 be numbered their titles will be added to the ToC.
 
@@ -55,13 +55,13 @@ in disarray (in books pagination starts on the first page).
 \glossary(mainmatter*)%
   {\cs{mainmatter*}}%
   {Same as \cs{mainmatter} except that folios are unaltered.}
-The \cmd{\mainmatter} declaration, which is the default at the start of a 
-document, sets the folios\index{folio} to be printed in arabic numerals, starts 
-the page numbering from~1, and sections and above will be numbered. 
-Float\index{float} captions\index{caption}, equations, etc., will be numbered 
+The \cmd{\mainmatter} declaration, which is the default at the start of a
+document, sets the folios\index{folio} to be printed in arabic numerals, starts
+the page numbering from~1, and sections and above will be numbered.
+Float\index{float} captions\index{caption}, equations, etc., will be numbered
 per chapter\index{chapter}. The starred version of the command,
 \cmd{\mainmatter*}, is similar to the unstarred version except that it
-makes no changes to the page numbering or the print style for the 
+makes no changes to the page numbering or the print style for the
 folios\index{folio}.
 
 \LMnote{2010/01/23}{Added the following paragraph, just stating what
@@ -79,8 +79,8 @@ starts at the next coming recto page. (Even when running under the
 \glossary(backmatter)%
   {\cs{backmatter}}%
   {Prohibits sectional numbering and floats, etc., will be numbered continuously.}
-The \cmd{\backmatter} declaration makes no change to the pagination or 
-folios\index{folio} but does prohibit sectional division numbering, and 
+The \cmd{\backmatter} declaration makes no change to the pagination or
+folios\index{folio} but does prohibit sectional division numbering, and
 captions\index{caption}, etc., will be numbered continuously.
 
 \fancybreak{}
@@ -90,12 +90,12 @@ captions\index{caption}, etc., will be numbered continuously.
 If you have other types of floats that might be used in the front-
 main- or backmatter, then you can change some internals to add these
 to be numbered in the same manner as we do with figures and
-tables. They are defined as 
+tables. They are defined as
 \begin{lcode}
 \newcommand\@memfront@floats{%
   \counterwithout{figure}{chapter}
   \counterwithout{table}{chapter}}
-\newcommand\@memmain@floats{% 
+\newcommand\@memmain@floats{%
    \counterwithin{figure}{chapter}
    \counterwithin{table}{chapter}}
 \newcommand\@memback@floats{%
@@ -124,26 +124,26 @@ in the preamble.
 \section{Sectional divisions}
 
     The \theclass{} class lets you divide a document up into eight levels
-of named divisions. They range from book\index{book}, part\index{part} 
-through chapter\index{chapter} and down to 
+of named divisions. They range from book\index{book}, part\index{part}
+through chapter\index{chapter} and down to
 sub-paragraph. A particular sectional division is specified by one of
-the commands \cmd{\book}, \cmd{\part}, \cmd{\chapter}, \cmd{\section}, 
+the commands \cmd{\book}, \cmd{\part}, \cmd{\chapter}, \cmd{\section},
 \cmd{\subsection},
 which is probably as deep as you want to go. If you really need finer
 divisions, they are
  \cmd{\subsubsection}, \cmd{\paragraph} and lastly \cmd{\subparagraph}.
 The sectional commands, except for \cmd{\book} and \cmd{\part},
-have the same form, so rather than describing 
+have the same form, so rather than describing
 each one in turn I will use \cmd{\section} as model for all but the
 two exceptions.
 
 \begin{syntax}
 \cmd{\section}\oarg{toc-title}\oarg{head-title}\marg{title}\\
 \cmd{\section*}\marg{title}\\
-\end{syntax} 
+\end{syntax}
 \glossary(section)%
   {\cs{section}\oarg{toc-title}\oarg{head-title}\marg{title}}%
-  {Typesets a section subhead \meta{title}, adding \meta{title} to the ToC and 
+  {Typesets a section subhead \meta{title}, adding \meta{title} to the ToC and
    possibly the running headers. If given \meta{toc-title}
    is used instead of \meta{title} for the ToC and running header. If given
    \meta{head-title} is used for a running header.}
@@ -152,12 +152,12 @@ two exceptions.
   {Typesets an unnumbered section subhead \meta{title}. There are no ToC or
    running header entries.}
 
-There are two forms of the command; 
-the starred version is simpler, so I'll describe its 
+There are two forms of the command;
+the starred version is simpler, so I'll describe its
 effects first --- it just typesets \meta{title} in the document in the format
 for that particular sectional division. Like the starred version, the plain
 version also typesets \meta{title} in the document, but it may be numbered.
-Diferent forms of the division title are available for the 
+Diferent forms of the division title are available for the
 Table of Contents (\toc) and a running header\index{header}, as follows:
 \begin{itemize}
 \item No optional argument: \meta{title} is used for the division title,
@@ -172,10 +172,10 @@ Table of Contents (\toc) and a running header\index{header}, as follows:
 A \cmd{\section} command restarts the numbering of any \cmd{\subsection}s
 from one.
 For most of the divisions the \meta{title} is put on the page where the command
-was issued. The \cmd{\book}, \cmd{\part} and \cmd{\chapter} commands behave 
+was issued. The \cmd{\book}, \cmd{\part} and \cmd{\chapter} commands behave
 a little differently.
 
-    The \cmd{\book} and \cmd{\part} commands are simpler and both behave 
+    The \cmd{\book} and \cmd{\part} commands are simpler and both behave
 in the same way.
 \begin{syntax}
 \cmd{\book}\marg{title} \\
@@ -189,13 +189,13 @@ in the same way.
   {\cs{part}\marg{title}}%
   {Typesets a numbered part \meta{title} on a page by itself, adding
    \meta{title} to the ToC.}
-The \cmd{\book}\marg{title} command puts the book name (default 
+The \cmd{\book}\marg{title} command puts the book name (default
 \texttt{\bookname}), number and \meta{title} on a page by itself. The
-numbering of books\index{book!number} has no effect on the numbering of 
+numbering of books\index{book!number} has no effect on the numbering of
 \cmd{\part}s\index{part!number} or \cmd{\chapter}s\index{chapter!number}.
-Similarly the \cmd{\part}\marg{title} command puts the part name 
-(default \texttt{Part}), number and \meta{title} on a page by itself. 
-The numbering of parts\index{part!number} has no effect on the numbering of 
+Similarly the \cmd{\part}\marg{title} command puts the part name
+(default \texttt{Part}), number and \meta{title} on a page by itself.
+The numbering of parts\index{part!number} has no effect on the numbering of
 \cmd{\chapter}s\index{chapter!number}.
 
     Later I'll give a list of LaTeX's default names, like \texttt{Part}.
@@ -206,7 +206,7 @@ The numbering of parts\index{part!number} has no effect on the numbering of
 \end{syntax}
 \glossary(chapter)%
   {\cs{chapter}\oarg{toc-title}\oarg{head-title}\marg{title}}
-  {Starts a new page and puts the chapter number and \meta{title} 
+  {Starts a new page and puts the chapter number and \meta{title}
    at the top of the page, adding \meta{title} to the ToC and possibly
    the running headers. If given \meta{toc-title}
    is used instead of \meta{title} for the ToC and running header. If given
@@ -215,13 +215,13 @@ The numbering of parts\index{part!number} has no effect on the numbering of
    such as \cs{section} of floats.}
 \glossary(chapter*)%
   {\cs{chapter*}\oarg{head-title}\marg{title}}
-  {Starts a new page and puts an unnumbered chapter \meta{title} 
-   at the top of the page. If given \meta{head-title} is used for a 
+  {Starts a new page and puts an unnumbered chapter \meta{title}
+   at the top of the page. If given \meta{head-title} is used for a
    running header.}
 
 The \cmd{\chapter} command starts a new page and puts
 the chapter name (default \texttt{Chapter}), number and \meta{title}
-at the top of the page. It restarts the numbering of any \cmd{\section}s 
+at the top of the page. It restarts the numbering of any \cmd{\section}s
 from one. If no optional arguments are specified, \meta{title}
 is used as the \toc{} entry and for any page headings. If one optional
 argument is specified this is \meta{toc-title} and is used for the
@@ -229,7 +229,7 @@ argument is specified this is \meta{toc-title} and is used for the
 are specified the \meta{head-title} is used for page headings.
 
 The \cmd{\chapter*} command starts a new page and puts
-\meta{title} at the top of the page. It makes no \toc{} entry, 
+\meta{title} at the top of the page. It makes no \toc{} entry,
 changes no numbers and by default changes no page headings.
 If the optional \meta{head-title} argument is given, this is used
 for page headings. Use of the optional argument has the side-effect
@@ -239,25 +239,25 @@ for an explanation of these).
     When the \Lopt{article} option is in effect, however, things are slightly
 different. New chapters do not necessarily start on a new page.
 The \cmd{\mainmatter} command
-just turns on sectional numbering and starts arabic page numbering; the 
+just turns on sectional numbering and starts arabic page numbering; the
 \cmd{\backmatter} command just turns off sectional numbering.
     The \cmd{\tableofcontents} command and friends, as well as any
-other commands created via \cmd{\newlistof}, 
+other commands created via \cmd{\newlistof},
 \emph{always}\footnote{This is a consequence of the internal
 timing of macro calls.}
-call \verb?thispagestyle{chapter}?. If you are using the 
+call \verb?thispagestyle{chapter}?. If you are using the
 \Lopt{article} option you
 will probably want to ensure that the \pstyle{chapter} pagestyle is the
 same as you normally use for the document.
 
     Unlike the standard classes the \meta{title} is typeset ragged right.
-This means that if you need to force a linebreak in the \meta{title} you 
+This means that if you need to force a linebreak in the \meta{title} you
 have to use \cmd{\newline} instead of the more usual \cmd{\\}. For instance
 \begin{lcode}
 \section{A broken\newline title}
 \end{lcode}
 
-    In the standard classes a \cmd{\section} or other 
+    In the standard classes a \cmd{\section} or other
 subhead\index{subhead!near bottom of page}\index{subhead!moved}
 that is too close to the bottom of a page is moved to the top of the
 following page. If this happens and \cmd{\flushbottom} is in effect, the
@@ -282,7 +282,7 @@ the bottom of the typeblock.
 \glossary(bottomsectionpenalty)%
   {\cs{bottomsectionpenalty}}%
   {Penalty on a \cs{raggedbottomsection} short page.}
-The \cmd{\raggedbottomsection} declaration will typeset any pages that 
+The \cmd{\raggedbottomsection} declaration will typeset any pages that
 are short because of a moved subhead as though \cmd{\raggedbottom}
 was in effect for the short page; other pages are not affected. The
 length \lnc{\bottomsectionskip} controls the amount of stretch on the short
@@ -299,7 +299,7 @@ cancels any previous \cmd{\raggedbottomsection} declaration.
 
 \subsection{Appendices} \label{sec:appendices}
 
-Appendices\index{appendix} normally come after the main text and are 
+Appendices\index{appendix} normally come after the main text and are
 often considered to be part
 of the \cmd{\mainmatter} as they are normally numbered (the \cmd{\backmatter}
 declaration turns off all sectional numbering).
@@ -310,18 +310,18 @@ declaration turns off all sectional numbering).
 \end{syntax}
 \glossary(appendix)%
   {\cs{appendix}}%
-  {Sets chapter numbering to alphabetic and sets the chapter name to 
+  {Sets chapter numbering to alphabetic and sets the chapter name to
    \cs{appendixname}.}
 \glossary(appendixname)%
   {\cs{appendixname}}%
   {Name given to chapters in appendices (default Appendix).}
 The \cmd{\appendix} declaration changes the numbering of
-chapters\index{chapter!number} to an alphabetic form and also changes 
+chapters\index{chapter!number} to an alphabetic form and also changes
 the names of chapters from \cmd{\chaptername} (default \texttt{Chapter})
-to the value of \cmd{\appendixname} (default \texttt{Appendix})\index{appendix}. 
-Thus, the first and any subsequent \cmd{\chapter}s after 
+to the value of \cmd{\appendixname} (default \texttt{Appendix})\index{appendix}.
+Thus, the first and any subsequent \cmd{\chapter}s after
 the \cmd{\appendix} command
-will be `Appendix A \ldots', `Appendix B \ldots', and so on. 
+will be `Appendix A \ldots', `Appendix B \ldots', and so on.
 That is as far as the standard classes go but this class provides more ways
 of dealing with appendices\index{appendix}.
 
@@ -339,11 +339,11 @@ of dealing with appendices\index{appendix}.
 \glossary(appendixpagename)
   {\cs{appendixpagename}}%
   {Title used for an \cs{appendixpage} (default \texttt{Appendices}.}
-The \cmd{\appendixpage} command generates a part-like page (but no name 
-or number) with the title given by the value of \cmd{\appendixpagename} 
-(default \texttt{Appendices})\index{appendix}. It also makes an entry in 
-the \toc{} using 
-\cmd{\addappheadtotoc} (see below). The starred version generates the 
+The \cmd{\appendixpage} command generates a part-like page (but no name
+or number) with the title given by the value of \cmd{\appendixpagename}
+(default \texttt{Appendices})\index{appendix}. It also makes an entry in
+the \toc{} using
+\cmd{\addappheadtotoc} (see below). The starred version generates the
 appendix\index{appendix} page but makes no \toc{} entry.
 
 \begin{syntax}
@@ -366,10 +366,10 @@ given by the value of \cmd{\appendixtocname} (default \texttt{Appendices})\index
   {\senv{appendices}}%
   {An environment form of \cs{appendix}; chapters are restored to their condition
    (including numbering) after the environment ends.}
-The \Ie{appendices} environment acts like the \cmd{\appendix}\index{appendix} 
-command in that it resets the numbering and naming of chapters\index{chapter}. 
-However, at the end of the environment, chapters are restored to their original 
-condition and any chapter numbers continue in sequence as though the 
+The \Ie{appendices} environment acts like the \cmd{\appendix}\index{appendix}
+command in that it resets the numbering and naming of chapters\index{chapter}.
+However, at the end of the environment, chapters are restored to their original
+condition and any chapter numbers continue in sequence as though the
 \Ie{appendices} environment had never been there.
 
 \LMnote{2010/11/18}{Wrong names for \cs{namedsubappendices} and
@@ -389,13 +389,13 @@ condition and any chapter numbers continue in sequence as though the
   {\cs{unnamedsubappendices}}%
   {Do not precede the sub-appendix number with any name (the default).}
 The \Ie{subappendices}\index{appendix!subappendix} environment can be used to put appendices\index{appendix} at the end
-of a chapter\index{chapter}. Within the environment \cmd{\section} starts a 
+of a chapter\index{chapter}. Within the environment \cmd{\section} starts a
 new sub-appendix\index{appendix}. You may put \cmd{\addappheadtotoc} at the start
 of the environment if you want a heading entry in the \toc.
 If you put the declaration \cmd{\namedsubappendices}
 \emph{before} the \Ie{subappendices} environment, the sub-appendix number
-in the body of the document will be preceded by the value of 
-\cmd{\appendixname}. The \cmd{\unnamedsubappendices} declaration, which is the 
+in the body of the document will be preceded by the value of
+\cmd{\appendixname}. The \cmd{\unnamedsubappendices} declaration, which is the
 default, may be used to switch off this behaviour.
 
 \LMnote{2010/11/19}{Added this caveat, following a question on ctt}
@@ -407,7 +407,7 @@ environemt. Something like this (where a user wanted to use old style
 numerials for sectioning numbers)
 \begin{verbatim}
 \begin{subappendices}
-\setsecnumformat{\sectionname\ 
+\setsecnumformat{\sectionname\
   \oldstylenums{\csname the#1\endcsname\quad}}
 \end{verbatim}
 The macro \cmd{sectionname} is a special macro that only lives inside
@@ -416,21 +416,29 @@ the \Ie{subappendices} environment and is only available when
 
 
 
-\section{Numbering} \label{sec:secnumbers}
+% \section{Numbering} \label{sec:secnumbers}
+\section{번호 매김} \label{sec:secnumbers}
 
-    Each type of sectional division\index{division!sectional} has an 
-associated \emph{level}\index{sectional division!level number} as shown 
-in \tref{tab:seclevels}.
-Divisions are numbered if the value of the \Icn{secnumdepth} counter
-is equal to or greater than their level. For example, with
+%     Each type of sectional division\index{division!sectional} has an
+% associated \emph{level}\index{sectional division!level number} as shown
+% in \tref{tab:seclevels}.
+% Divisions are numbered if the value of the \Icn{secnumdepth} counter
+% is equal to or greater than their level. For example, with
+% \begin{lcode}
+% \setcounter{secnumdepth}{2}
+% \end{lcode}
+% then subsections up to book\index{book!number} will be numbered.
+각 장절명령\index{division!sectional}은 \tref{tab:seclevels}에 나와있는 것과 같이
+연관된 \emph{수준}\index{sectional division!level number}을 갖는다.
+만약 \Icn{secnumdepth} 카운터의 값이 장절명령의 수준보다 크거나 같다면 장절명령에
+번호가 붙는다. 예를 들어, 아래 명령은 subsection에서 part까지에 번호를 붙인다.
 \begin{lcode}
 \setcounter{secnumdepth}{2}
 \end{lcode}
-then subsections up to book\index{book!number} will be numbered.
 
 \begin{table}
 \centering
-\caption{Division levels} \label{tab:seclevels}
+\caption{장절명령의 수준} \label{tab:seclevels}
 \begin{tabular}{lr} \toprule
 Division       & Level \\ \midrule
 \cmd{\book}           & -2 \\
@@ -454,55 +462,79 @@ Division       & Level \\ \midrule
 \glossary(maxscnumdepth)%
   {\cs{maxsecnumdepth}\marg{secname}}%
   {Sets division numbering level in the \cs{mainmatter} to \meta{secname}.}
-Instead of having to remember the levels if you want to change what
-gets numbered you can use the \cmd{\setsecnumdepth} command. It
-sets \Icn{secnumdepth} so that divisions \meta{secname} and above
-will be numbered. The argument \meta{secname} is the name of a sectional
-division without the backslash. For example, to have subsections
-and above numbered:
+% Instead of having to remember the levels if you want to change what
+% gets numbered you can use the \cmd{\setsecnumdepth} command. It
+% sets \Icn{secnumdepth} so that divisions \meta{secname} and above
+% will be numbered. The argument \meta{secname} is the name of a sectional
+% division without the backslash. For example, to have subsections
+% and above numbered:
+% \begin{lcode}
+% \setsecnumdepth{subsection}
+% \end{lcode}
+% You can also use \texttt{all} or \texttt{none} for \meta{secname} which
+% will either turn on numbering for all levels, or turn off numbering
+% altogether.
+어떤 장절명령에 번호를 붙일 것인지를 정하기 위해 각 수준을 외우는 것 대신
+\cmd{\setsecnumdepth} 명령을 사용할 수 있다. 이 명령은 \meta{secname} 이상의
+장절명령에 번호가 붙도록 \Icn{secnumbdepth}를 정해준다. 인자 \meta{secname}은
+장절명령의 이름으로 역슬래시가 붙지 않는다. 예를 들어, subsection 이상에 번호가
+붙게 하는 명령은 아래와 같다.
 \begin{lcode}
 \setsecnumdepth{subsection}
 \end{lcode}
-You can also use \texttt{all} or \texttt{none} for \meta{secname} which
-will either turn on numbering for all levels, or turn off numbering
-altogether.
+또는 \meta{secname}에 \texttt{all}이나 \texttt{none}을 주어 모든 장절명령에
+번호를 붙이거나 붙이지 않을 수 있다.
 
-When used in the preamble\index{preamble} \cmd{\setsecnumdepth} also
-calls \cmd{\maxsecnumdepth}, which is the numbering level used once
-\cmd{\mainmatter} is called. You can use \cmd{\setsecnumdepth} anywhere
-in the \cmd{\mainmatter} to (temporarily) change the numbering level.
+% When used in the preamble\index{preamble} \cmd{\setsecnumdepth} also
+% calls \cmd{\maxsecnumdepth}, which is the numbering level used once
+% \cmd{\mainmatter} is called. You can use \cmd{\setsecnumdepth} anywhere
+% in the \cmd{\mainmatter} to (temporarily) change the numbering level.
+프리앰블\index{preamble}에서 이를 사용하면 \cmd{\setsecnumdepth}는
+\cmd{\mainmatter}가 불렸을 때 한 번만 사용되는 번호매김 수준인
+\cmd{\maxsecnumdepth}를 호출한다. 번호매김 수준을 (임시로) 바꾸기 위해
+\cmd{\setsecnumdepth}를 \cmd{\mainmatter} 내의 어디서든 사용할 수 있다.
 
-    By default, the class sets:
+%     By default, the class sets:
+% \begin{lcode}
+% \setsecnumdepth{section}
+% \maxsecnumdepth{section}
+% \end{lcode}
+% The \cmd{\frontmatter} commands sets the numbering level to \texttt{none}.
+% The commands \cmd{\mainmatter} and \cmd{\mainmatter*} set the
+% numbering level to the value specified by \cmd{\maxsecnumdepth}.
+클래스의 기본값은 다음과 같다.
 \begin{lcode}
 \setsecnumdepth{section}
 \maxsecnumdepth{section}
 \end{lcode}
-The \cmd{\frontmatter} commands sets the numbering level to \texttt{none}.
-The commands \cmd{\mainmatter} and \cmd{\mainmatter*} set the
-numbering level to the value specified by \cmd{\maxsecnumdepth}.
+\cmd{\frontmatter} 명령은 번호매김 수준을 \texttt{none}으로 설정한다.
+\cmd{\mainmatter}와 \cmd{mainmatter*}는 번호매김 수준을 \cmd{\maxsecnumdepth}에서
+명시한 값으로 설정한다.
 
-    The number setting commands come from the \Lpack{tocvsec2}
-package~\cite{TOCVSEC2}.
+%     The number setting commands come from the \Lpack{tocvsec2}
+% package~\cite{TOCVSEC2}.
+번호매김 명령들은 \Lpack{tocvsec2} 패키지~\cite{TOCVSEC2}에서 가져왔다.
 
-\section{Book and part headings}
+% \section{Book and part headings}
+\section{Book과 part 헤딩}
 
 \index{heading!book|(}
 \index{heading!part|(}
 
-    Book and part headings \emph{always} start on a new page with the 
-\pstyle{book} and \pstyle{part} pagestyles, respectively. The typical
-book and part heading consists of the name (e.g., `Book' or `Part') 
-followed by a number represented as an uppercase Roman numeral. There is 
-a vertical space after which the title is printed. Finally a new page is
-started.
+%     Book and part headings \emph{always} start on a new page with the
+% \pstyle{book} and \pstyle{part} pagestyles, respectively. The typical
+% book and part heading consists of the name (e.g., `Book' or `Part')
+% followed by a number represented as an uppercase Roman numeral. There is
+% a vertical space after which the title is printed. Finally a new page is
+% started.
 
 \PWnote{2009/07/30}{Updated description, etc., for Part and Book pages}
-    Several aspects of the typesetting of the \cmd{\book} and \cmd{\part} 
+    Several aspects of the typesetting of the \cmd{\book} and \cmd{\part}
 title are configurable. Ignoring details, such as the optional argument,
 the code for printing \cmd{\part} headings looks like this:
 \begin{lcode}
 \newcommand{\part}[1]{%    % THIS IS A VERY SIMPLIFIED VERSION
-  \cleardoublepage         % start a new recto page                    
+  \cleardoublepage         % start a new recto page
   \thispagestyle{part}     % set the page style
   \beforepartskip          % space before Name and Number
   \printpartname\partnamenum\printpartnum
@@ -548,12 +580,12 @@ and  part titles. Their default definitions are:
 \newcommand*{\afterpartskip}{\vfil\newpage}
 \end{lcode}
 Together, these vertically center any typesetting on the page, and then start
-a new page. To move the \cs{part} title upwards on the page, for example, 
+a new page. To move the \cs{part} title upwards on the page, for example,
 you could do:
 \begin{lcode}
 \renewcommand*{\beforepartskip}{\null\vskip 0pt plus 0.3fil}
 \renewcommand*{\afterpartskip}{\vskip 0pt plus 0.7fil \newpage}
-\end{lcode} 
+\end{lcode}
 
 \begin{syntax}
 \cmd{\midbookskip} \\
@@ -612,25 +644,25 @@ and they can be changed.
 \glossary(partnumfont)%
   {\cs{partnumfont}}%
   {Font used by \cs{printpartnum} for the part number.}
-The macro \cmd{\printbookname} typesets the book name (the value of 
-\cmd{\bookname}) using the font specified by \cmd{\booknamefont}. 
-The default is the \cmd{\bfseries} font in the \cmd{\huge} size. 
+The macro \cmd{\printbookname} typesets the book name (the value of
+\cmd{\bookname}) using the font specified by \cmd{\booknamefont}.
+The default is the \cmd{\bfseries} font in the \cmd{\huge} size.
 Likewise the book number is typeset by \cmd{\printbooknum}
 using the font specified by \cmd{\booknumfont}, which has the same default as
-\cmd{\booknamefont}. The macro \cmd{\booknamenum}, which is defined to be 
-a space, is called between printing the book name and the number. All 
-these can be changed to obtain different effects. 
+\cmd{\booknamefont}. The macro \cmd{\booknamenum}, which is defined to be
+a space, is called between printing the book name and the number. All
+these can be changed to obtain different effects.
 
-    Similarly, the macro \cmd{\printpartname} typesets the part name 
-(the value of \cmd{\partname}) using the font specified by 
+    Similarly, the macro \cmd{\printpartname} typesets the part name
+(the value of \cmd{\partname}) using the font specified by
 \cmd{\partnamefont}. The default is the \cmd{\bfseries} font in
-the \cmd{\huge} size. Likewise the part number is typeset by 
-\cmd{\printpartnum} using the font specified by \cmd{\partnumfont}, 
-which has the same default as \cmd{\partnamefont}. The macro 
+the \cmd{\huge} size. Likewise the part number is typeset by
+\cmd{\printpartnum} using the font specified by \cmd{\partnumfont},
+which has the same default as \cmd{\partnamefont}. The macro
 \cmd{\partnamenum}, which is defined to be a space, is called between printing
-the part name and the number. 
+the part name and the number.
 
-    For example, to set a \cmd{\part} in a large sans font with the part 
+    For example, to set a \cmd{\part} in a large sans font with the part
 name flush left:
 \begin{lcode}
 \renewcommand{\partnamefont}{\normalfont\huge\sffamily\raggedright}
@@ -665,19 +697,19 @@ or to only print the part number in the default font:
 \glossary(parttitlefont)%
   {\cs{parttitlefont}}%
   {Font used by \cs{printparttitle} for the title.}
-A book's title is typeset by \cmd{\printbooktitle} using the font specified 
-by \cmd{\booktitlefont}. 
+A book's title is typeset by \cmd{\printbooktitle} using the font specified
+by \cmd{\booktitlefont}.
 By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size. This can
 be changed to have, say, the title set raggedleft in a small caps font by
 \begin{lcode}
 \renewcommand{\booktitlefont}{\normalfont\Huge\scshape\raggedleft}
 \end{lcode}
 
-    Similarly a part's title is typeset by \cmd{\printparttitle} using 
-the font specified by \cmd{\parttitlefont}. 
-By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size. 
+    Similarly a part's title is typeset by \cmd{\printparttitle} using
+the font specified by \cmd{\parttitlefont}.
+By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size.
 
-    The \cmd{\parttitlefont} font is also used by 
+    The \cmd{\parttitlefont} font is also used by
 \cmd{\appendixpage}, or its starred version, when
 typesetting an appendix\index{appendix} page.
 
@@ -692,12 +724,12 @@ typesetting an appendix\index{appendix} page.
   {\cs{partmark}\marg{title}}%
   {For setting any marks with the title from a \cs{part} for a running header.}
 The \cmd{\book} code includes \cmd{\bookpagemark}\marg{title} for capturing
-the \meta{title} of the book division if it is going to be used, 
+the \meta{title} of the book division if it is going to be used,
 for example, in page headers. Its definition is simply:
 \begin{lcode}
 \newcommand*{\bookpagemark}[1]{}
 \end{lcode}
-There is the corresponding \cmd{\partmark} for the title of \cmd{\part} 
+There is the corresponding \cmd{\partmark} for the title of \cmd{\part}
 divisions.
 
 \begin{syntax}
@@ -747,10 +779,10 @@ Text on the following (normally blank page)
 ...
 \end{lcode}
     Alternatively you can redefine \cmd{\partpageend}.
- 
+
    If you use the declaration \cmd{\nopartblankpage} (or \cmd{\nobookblankpage})
 then you are responsible for setting everything correctly to end off the
-\cmd{\part} (or \cmd{\book}) page. This is the default definition of 
+\cmd{\part} (or \cmd{\book}) page. This is the default definition of
 \cmd{\partpageend} (that for \cmd{\bookpageend} is similar):
 \begin{lcode}
 \newcommand{\partpageend}{%
@@ -789,7 +821,7 @@ titling. Something like this may do the trick
 \makeatletter
   \newcommand*{\beforepartskip}{\null\vskip4cm}
   \newcommand*{\afterpartskip}{\par\vskip1cm%
-    \@afterindentfalse\@afterheading} 
+    \@afterindentfalse\@afterheading}
 \makeatother
 \end{lcode}
 
@@ -815,11 +847,11 @@ page. Very similar to \cs{appendixpage}.}
 {Redefines an existing new lead page macro.}
 The \cmd{\newleadpage}\footnote{The suggestions for this came from
 Danie Els\index{Els, Danie} and Lars Madsen\index{Madsen, Lars}.}
-command defines a macro \verb?\cmdname? that when called 
-will typeset an Appendixpage-like page (see \Sref{sec:appendices}) with a 
+command defines a macro \verb?\cmdname? that when called
+will typeset an Appendixpage-like page (see \Sref{sec:appendices}) with a
 title \meta{title} using the \meta{page-style} as the pagestyle for
 the page. The default is the \pstyle{empty} pagestyle. The macro
-\cmd{\renewleadpage} redefines an existing leadpage command. 
+\cmd{\renewleadpage} redefines an existing leadpage command.
 \cmd{\cmdname} will add an entry to the TOC, the similarly defined
 \cmd{\cmdname*} will not.
 
@@ -850,8 +882,8 @@ If you wished them to be entered like a \cmd{\part} header then simply:
 \end{lcode}
 
 
-    The layout of the page matches that for unnumbered \cmd{\part} pages, and 
-internally the resulting commands use \cmd{\partmark} in case you 
+    The layout of the page matches that for unnumbered \cmd{\part} pages, and
+internally the resulting commands use \cmd{\partmark} in case you
 wish to capture the \meta{title} to use in running headers.
 
 
@@ -860,7 +892,7 @@ wish to capture the \meta{title} to use in running headers.
 \label{sec:chapter-headings}
 \index{heading!chapter|(} %| emacs
 
-    The chapter headings are configurable in much the same way as book or part 
+    The chapter headings are configurable in much the same way as book or part
 headings, but in addition there are some built in chapter styles that you may
 wish to try, or define your own.
 
@@ -894,8 +926,8 @@ used the starting page may differ, as follows.
 These three declarations have the same effect as the options of the same name.
 They can be used anywhere in the document to change the chapter opening page.
 
-Ignoring many details, like the optional arguments, the code for 
-printing a \cmd{\chapter} heading is similar to that for \cmd{\book} 
+Ignoring many details, like the optional arguments, the code for
+printing a \cmd{\chapter} heading is similar to that for \cmd{\book}
 and \cmd{\part} (the \cs{chapterhead} command below is \emph{not}
 part of the class).
 \begin{lcode}
@@ -916,7 +948,7 @@ The general layout is shown in \fref{lay:chap}.
 \centering
 \chapterdiagram
 \caption{Class layout parameters for chapter titles. Working with
-  \cs{beforechapskip} need a little thought, see the text.} 
+  \cs{beforechapskip} need a little thought, see the text.}
 \label{lay:chap}
 \end{figure}
 
@@ -926,18 +958,18 @@ The general layout is shown in \fref{lay:chap}.
 \glossary(clearforchapter)%
   {\cs{clearforchapter}}%
   {Selects a chapter's opening page.}
-The actual macro that sets the opening page for a chapter is 
+The actual macro that sets the opening page for a chapter is
 \cmd{\clearforchapter}. The class options \texttt{openright},
 \texttt{openleft} and \texttt{openany} (or their macro equivalents
 \cmd{\openright}, \cmd{\openleft} and
 \cmd{\openany}) define \cmd{\clearforchapter} to be respectively
-(see \S\ref{sec:moving}) 
+(see \S\ref{sec:moving})
 \cmd{\cleartorecto}, \cmd{\cleartoverso} and \cmd{\clearpage}. You can
 obviously change \cmd{\clearforchapter} to do more than just start a
 new page.
 
 \begin{syntax}
-\cmd{\memendofchapterhook} 
+\cmd{\memendofchapterhook}
 \end{syntax}
 \glossary(memendofchapterhook)%
   {\cs{memendofchapterhook}}%
@@ -955,7 +987,7 @@ say, \cmd{\clearpage}:
 
 
     Some books have the chapter headings on a verso page, with perhaps
-an illustration\index{illustration} or epigraph\index{epigraph}, and 
+an illustration\index{illustration} or epigraph\index{epigraph}, and
 then the text starts on the opposite
 recto page. The effect can be achieved like:
 \begin{lcode}
@@ -970,7 +1002,7 @@ Start of the text        % chapter body
 
 
 \begin{syntax}
-\cmd{\chapterheadstart} \lnc{\beforechapskip} \\ 
+\cmd{\chapterheadstart} \lnc{\beforechapskip} \\
 \cmd{\afterchapternum} \lnc{\midchapskip} \\
 \cmd{\afterchaptertitle} \lnc{\afterchapskip} \\
 \end{syntax}
@@ -1027,8 +1059,8 @@ as mentioned in \fref{lay:chap} they need some explanation:
     \setlength\beforechapskip{-\baselineskip}
   \end{lcode}
   or redefine \cmd{\chapterheadstart} to do nothing.
-\item[midchapskip] 
-\item[afterchapskip] 
+\item[midchapskip]
+\item[afterchapskip]
   for both, one has to add \cmd{\baselineskip} to
   get the distance baseline to baseline.
 \end{description}
@@ -1051,7 +1083,7 @@ as mentioned in \fref{lay:chap} they need some explanation:
   {Font used by \cs{printchaptername}.}
 \glossary(chapternamenum)%
   {\cs{chapternamenum}}%
-  {Inserted between printing the chapter name and number. 
+  {Inserted between printing the chapter name and number.
    It is usually a space.}
 \glossary(printchapternum)%
   {\cs{printchapternum}}%
@@ -1059,14 +1091,14 @@ as mentioned in \fref{lay:chap} they need some explanation:
 \glossary(chapnumfont)%
   {\cs{chapnumfont}}%
   {Font used by \cs{printchapternum}.}
-The macro \cmd{\printchaptername} typesets the chapter name 
-(default \texttt{Chapter} or \texttt{Appendix}) using the font 
+The macro \cmd{\printchaptername} typesets the chapter name
+(default \texttt{Chapter} or \texttt{Appendix}) using the font
 specified by \cmd{\chapnamefont}. The default is the \cmd{\bfseries} font in
-the \cmd{\huge} size. Likewise the chapter number is typeset by 
-\cmd{\printchapternum} using the font specified by \cmd{\chapnumfont}, 
-which has the same default as \cmd{\chapnamefont}. The macro 
-\cmd{\chapternamenum}, which is defined to be a space, is called between 
-printing the chapter name and the number. 
+the \cmd{\huge} size. Likewise the chapter number is typeset by
+\cmd{\printchapternum} using the font specified by \cmd{\chapnumfont},
+which has the same default as \cmd{\chapnamefont}. The macro
+\cmd{\chapternamenum}, which is defined to be a space, is called between
+printing the chapter name and the number.
 
 \begin{syntax}
 \cmd{\printchaptertitle}\marg{title} \cmd{\chaptitlefont} \\
@@ -1077,9 +1109,9 @@ printing the chapter name and the number.
 \glossary(chaptitlefont)%
   {\cs{chaptitlefont}}%
   {Font used by \cs{printchaptertitle}.}
-The title is typeset by \cmd{\printchaptertitle} using the font specified 
-by \cmd{\chaptitlefont}. 
-By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size. 
+The title is typeset by \cmd{\printchaptertitle} using the font specified
+by \cmd{\chaptitlefont}.
+By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size.
 
 \begin{syntax}
 \cmd{\printchapternonum} \\
@@ -1136,11 +1168,11 @@ to do this. The default definition is:
   \addtocontents{lot}{\protect\addvspace{10pt}}%
 }
 \end{lcode}
-If you would prefer no inserted spaces then 
+If you would prefer no inserted spaces then
 \begin{lcode}
 \renewcommand{\insertchapterspace}{}
 \end{lcode}
-will do the job. 
+will do the job.
 Different spacing can be inserted by
 changing the value of the length arguments to \cmd{\addvspace}.
 
@@ -1162,10 +1194,10 @@ for chapter headings.
 \glossary(chapterstyle)%
   {\cs{chapterstyle}\marg{style}}%
   {Sets chapter heading layout to \meta{style}.}
-The macro \cmd{\chapterstyle} is rather like the \cmd{\pagestyle} command in 
+The macro \cmd{\chapterstyle} is rather like the \cmd{\pagestyle} command in
 that it sets the style of any subsequent chapter headings to be \meta{style}.
 
-    The class provides some predefined chapter styles, including the 
+    The class provides some predefined chapter styles, including the
 \cstyle{default} style which is the familiar LaTeX \Lclass{book} class chapter
 headings style. To use the chapterstyle \cstyle{fred} just issue the command
 \begin{lcode}
@@ -1177,29 +1209,29 @@ The simpler predefined styles include:
 \LMnote{2011/05/25}{I've moved the chapter style images to the
   showcase appendix to save some space in the main part of the manual}
 \begin{itemize}
-\item[\cstyle{default}] 
+\item[\cstyle{default}]
 \glossary(defaultcs)%
   {\Pcstyle{default}}%
   {The default \Ppack{book} class chapterstyle.}
 The normal \ltx\ \Lclass{book} class chapter styling; shown in \fref{dcdefault}.
 %\begin{demochap}[-3\onelineskip]{default}\end{demochap}
 
-\item[\cstyle{section}] 
+\item[\cstyle{section}]
 \glossary(sectioncs)%
   {\Pcstyle{section}}%
   {Simple chapterstyle looking like a section head.}
-The heading is typeset like a section; that is, 
+The heading is typeset like a section; that is,
 there is just the number and the title on one line. This is illustrated
-in \fref{dcsection}. 
+in \fref{dcsection}.
 %%    See \Cref{chap:topsandtails} on \pref{chap:topsandtails} for an example.
 %\begin{demochap}[2\onelineskip]{section}\end{demochap}
 
-\item[\cstyle{hangnum}] 
+\item[\cstyle{hangnum}]
 \glossary(hangnumcs)%
   {\Pcstyle{hangnum}}%
   {Simple chapterstyle looking like a section head but with the number in the margin.}
 Like the \pstyle{section} style except that the chapter
-number is put in the margin\index{margin!left}, as shown in \fref{dchangnum}. 
+number is put in the margin\index{margin!left}, as shown in \fref{dchangnum}.
 %%    See \Cref{chap:captions} on \pref{chap:captions} for an example.
 %\begin{demochap}[2\onelineskip]{hangnum}\end{demochap}
 
@@ -1215,11 +1247,11 @@ number is put in the margin\index{margin!left}, as shown in \fref{dchangnum}.
 \item[\cstyle{article}]
 \glossary(articlecs)%
   {\Pcstyle{article}}%
-  {Chapter style similar to a section head in the \Pclass{article} class but 
+  {Chapter style similar to a section head in the \Pclass{article} class but
    with different
    sized fonts.}
  The heading is typeset like a \cmd{\section}
-heading in the \Lclass{article} class. This is similar to the 
+heading in the \Lclass{article} class. This is similar to the
 \cstyle{section} style but different fonts and spacings are used,
 as shown in \fref{dcarticle}.
 %\begin{demochap}[-1\onelineskip]{article}\end{demochap}
@@ -1227,7 +1259,7 @@ as shown in \fref{dcarticle}.
 \item[\cstyle{reparticle}]
 \glossary(reparticlecs)%
   {\Pcstyle{reparticle}}%
-  {With the \Popt{article} class option it replicates a section head in 
+  {With the \Popt{article} class option it replicates a section head in
    the \Pclass{article} class.}
    When the \Lopt{article} class option is used
     the default chapter and section styles are close, but not
@@ -1245,8 +1277,8 @@ as shown in \fref{dcarticle}.
 plough through the rest of this section, except to look at the illustrations
 of the remaining predefined chapterstyles shown a little later.
 
-The various macros shown in the \cs{chapterhead} code above are initially 
-set up as (the code is known as the \cstyle{default} style): 
+The various macros shown in the \cs{chapterhead} code above are initially
+set up as (the code is known as the \cstyle{default} style):
 \begin{lcode}
 \newcommand{\chapterheadstart}{\vspace*{\beforechapskip}}
 \newcommand{\printchaptername}{\chapnamefont \@chapapp}
@@ -1266,23 +1298,23 @@ set up as (the code is known as the \cstyle{default} style):
 (The mysterious \cmd{\@chapapp} is the internal macro that \ltx\ uses
 to store normally the chapter name.\footnote{Remember, if you use
 a macro that has an \texttt{@} in its name it must be in a place
-where \texttt{@} is treated as a letter.} It will normally have 
+where \texttt{@} is treated as a letter.} It will normally have
 different values,
-set automatically, when typesetting a chapter in the main body 
+set automatically, when typesetting a chapter in the main body
 (e.g., \texttt{Chapter}) or in the appendices\index{appendix} where
 it would usually be set to \texttt{Appendix}, but you can specify
 these names yourself.)
 
 
 
-    A new style is specified by changing the definitions of this last set of 
+    A new style is specified by changing the definitions of this last set of
 macros and/or the various font and skip specifications.
 
 \begin{syntax}
 \cmd{\makechapterstyle}\marg{style}\marg{text} \\
 \end{syntax}
 Chapter styles are defined via the \cmd{\makechapterstyle} command, where
-\meta{style} is the style being defined and \meta{text} is the LaTeX code 
+\meta{style} is the style being defined and \meta{text} is the LaTeX code
 defining the style. Please note that the \meta{text} \emph{always}
 start by resetting macros and lengths to the values shown above. That
 is what you actually get is is the same as
@@ -1290,24 +1322,24 @@ is what you actually get is is the same as
 \cmd{\makechapterstyle}\marg{style}\{\\
   \cmd{\chapterstyle}\{default\}\\
   \meta{text}\\
-\} 
+\}
 \end{syntax}
 
 
 
     To start things off,  the \cstyle{default} chapter
-style, which mimics the chapter heads in the standard \Lclass{book} and 
+style, which mimics the chapter heads in the standard \Lclass{book} and
 \Lclass{report} classes, as it appears in \file{memoir.cls}:
 \begin{lcode}
 \makechapterstyle{default}{}
 \chapterstyle{default}
 \end{lcode}
 -- since the \cstyle{default} style \emph{is} the initial value of
-\cmd{\makechapterstyle}. The actual code is seen above. 
+\cmd{\makechapterstyle}. The actual code is seen above.
 
 
 
-    As an example of setting up a simple chapterstyle, here is the code for 
+    As an example of setting up a simple chapterstyle, here is the code for
 defining the \cstyle{section} chapterstyle. In this case it is principally
 a question of eliminating most of the printing and zeroing some spacing.
 \begin{lcode}
@@ -1326,7 +1358,7 @@ is vacuous, so the chapter title will be typeset immediately after the number.
 
     In the standard classes the title of an unnumbered chapter is typeset
 at the same position on the page as the word `Chapter' for numbered chapters.
-The macro \cmd{\printchapternonum} is called just before an unnumbered 
+The macro \cmd{\printchapternonum} is called just before an unnumbered
 chapter title text is typeset. By default this does nothing but you can use
 \cmd{\renewcommand} to change this. For example, if you wished the title
 text for both numbered and unnumbered chapters to be at the same height on
@@ -1381,7 +1413,7 @@ but you could use it for any other purposes.
 \end{lcode}
 \PWnote{2009/09/07}{Fixed adjuswidth typo.}
 As shown in \fref{dccompanion} the chapter name is in small caps and set
-flushright. The title is also set flushright aligned with the outermost 
+flushright. The title is also set flushright aligned with the outermost
 part of the marginal notes. This is achieved by use of the \Ie{adjustwidth}
 environment\footnote{See \S\ref{sec:adjustwidth}.} to make \ltx\ think
 that the typeblock is locally wider than it actually is.
@@ -1389,17 +1421,17 @@ that the typeblock is locally wider than it actually is.
 \subsection{Further chapterstyles}
 
 
-    The class provides more chapterstyles, which are listed here. 
+    The class provides more chapterstyles, which are listed here.
 Some are mine and others are from postings to \ctt\ by \Pclass{memoir}
-users. I have modified some of the posted ones to cater for things like 
-appendices, multiline titles, and unnumbered chapters which were not 
+users. I have modified some of the posted ones to cater for things like
+appendices, multiline titles, and unnumbered chapters which were not
 considered in the originals. The code
 for some of them is given later to help you see how they are done.
-Separately, Lars Madsen\index{Madsen, Lars} has collected a wide variety of 
+Separately, Lars Madsen\index{Madsen, Lars} has collected a wide variety of
 styles~\cite{CHAPSTYLES} and shows how they were created.
 
     If you want to try several chapterstyles in one document, request the
-\cstyle{default} style before each of the others to ensure that a previous 
+\cstyle{default} style before each of the others to ensure that a previous
 style's changes are not passed on to a following one.
 
 \LMnote{2011/05/25}{I've moved the chapter style images to the
@@ -1416,15 +1448,15 @@ style's changes are not passed on to a following one.
 
 \begin{itemize}
 
-\item[\cstyle{bianchi}] 
+\item[\cstyle{bianchi}]
 \glossary(bianchics)%
   {\Pcstyle{bianchi}}%
   {A two line, centered chapterstyle with rules above and below.}
-  This style was created by 
+  This style was created by
   Stefano\index{Bianchi, Stefano} Bianchi\footnote{\ctt,
-  \textit{New chapter style: chapter vs chapter*}, 2003/12/09} and is a two 
-  line centered arrangement with rules above and below the large bold 
-  sanserif title line. 
+  \textit{New chapter style: chapter vs chapter*}, 2003/12/09} and is a two
+  line centered arrangement with rules above and below the large bold
+  sanserif title line.
   The chapter number line is in a smaller italic font. An example
 is in \fref{dcbianchi}.
 
@@ -1445,46 +1477,46 @@ is in \fref{dcbianchi}.
 \glossary(brothertoncs)%
   {\Pcstyle{brotherton}}%
   {A chapterstyle like the default but with the number spelled out.}%
- A very simple style designed by 
-William\index{Adams, William} Adams\footnote{\ctt, 
-\textit{An example of a novel?}, 2006/12/09} for the science fiction novel 
-\textit{Star Dragon} by Mike Brotherton. The novel is freely downloadable 
-from Brotherton's web site. The style is the same as the \cstyle{default} 
+ A very simple style designed by
+William\index{Adams, William} Adams\footnote{\ctt,
+\textit{An example of a novel?}, 2006/12/09} for the science fiction novel
+\textit{Star Dragon} by Mike Brotherton. The novel is freely downloadable
+from Brotherton's web site. The style is the same as the \cstyle{default}
 except that the number is spelt out in words. It is demonstrated in
-\fref{dcbrotherton}. In the novel the chapters are actually 
+\fref{dcbrotherton}. In the novel the chapters are actually
 untitled i.e., via \verb?\chapter{}?.
 
 %\begin{demochap}[2\onelineskip]{brotherton}\end{demochap}
 %\begin{demochap}[-2\onelineskip]{brotherton}\end{demochap}
 
 
-\item[\cstyle{chappell}] 
+\item[\cstyle{chappell}]
 \glossary(chappellcs)%
   {\Pcstyle{chappell}}%
   { A centered chapterstyle with a rule between
    the number line (in a roman font) and the title line in italics.}
 The name and number are centered above a rule and the
-title in italics is below, again centered. It is illustrated in 
+title in italics is below, again centered. It is illustrated in
 \fref{dcchappell}.
 
 %\begin{demochap}{chappell}\end{demochap}
 
-\item[\cstyle{crosshead}] 
+\item[\cstyle{crosshead}]
 \glossary(crossheadcs)%
   {\Pcstyle{crosshead}}%
   { A centered chapterstyle in a bold font.}
 The number and title are centered and set with a large bold font.
-It is illustrated in 
+It is illustrated in
 \fref{dccrosshead}.
 
 %\begin{demochap}[-2\onelineskip]{crosshead}\end{demochap}
 
 
-\item[\cstyle{culver}] 
+\item[\cstyle{culver}]
 \glossary(culvercs)%
   {\Pcstyle{culver}}%
   {One line, centered, bold chapterstyle using Roman numerals.}
-A chapter style I created for 
+A chapter style I created for
   Christopher\index{Culver, Christopher}
   Culver\footnote{\ctt, \textit{"Biblical" formatting, how?}, 2004/03/29}
   based on the format of `ancient' texts.
@@ -1506,7 +1538,7 @@ as shown in \fref{dcculver}.
 
 %\begin{demochap}[-\onelineskip]{culver}\end{demochap}
 
-    He also wanted sections to just start with the number and the text to 
+    He also wanted sections to just start with the number and the text to
 immediately follow on the same line. That can be accomplished like this:
 \begin{lcode}
 \renewcommand*{\thesection}{\arabic{section}}
@@ -1520,7 +1552,7 @@ immediately follow on the same line. That can be accomplished like this:
 \item[\cstyle{dash}]
 \glossary(dashcs)%
   {\Pcstyle{dash}}%
-  {Two line, centered, regular font, chapterstyle. The number has a dash on 
+  {Two line, centered, regular font, chapterstyle. The number has a dash on
    either side.}
  A simple two line centered chapterstyle. There is a short
 dash on either side of the number and a slightly larger
@@ -1539,12 +1571,12 @@ This style is shown in \fref{dcdash}.
 \item[\cstyle{demo2}]
 \glossary(demo2cs)%
   {\Pcstyle{demo2}}%
-  {A two line chapterstyle with a large sanserif title; the number is above, 
-   centered and written (e.g., Six instead of 6) in a bold font. 
+  {A two line chapterstyle with a large sanserif title; the number is above,
+   centered and written (e.g., Six instead of 6) in a bold font.
    There are rules above and below the title.}
-   A two line chapterstyle with a large sanserif title; the number is above, 
-   centered and written (e.g., Six instead of 6) in a bold font. 
-   There are rules above and below the title. An example is shown in 
+   A two line chapterstyle with a large sanserif title; the number is above,
+   centered and written (e.g., Six instead of 6) in a bold font.
+   There are rules above and below the title. An example is shown in
   \fref{dcdemo2}.
 
 
@@ -1554,48 +1586,48 @@ This style is shown in \fref{dcdash}.
 \item[\cstyle{demo3}]
 \glossary(demo3cs)%
   {\Pcstyle{demo3}}%
-  {A two line chapterstyle with a large sanserif title; the number is above, 
-   centered and written (e.g., Six instead of 6) in an italic font. 
+  {A two line chapterstyle with a large sanserif title; the number is above,
+   centered and written (e.g., Six instead of 6) in an italic font.
    There are rules above and below
    the title line. It is a modified version of the \Pcstyle{demo2} style.}
    The chapterstyle used in this document. It is a
   modified version of the \cstyle{demo2} chapterstyle, using an italic
   rather than bold font for the number.
 
-\item[\cstyle{dowding}] 
+\item[\cstyle{dowding}]
 \glossary(dowdingcs)%
   {\Pcstyle{dowding}}%
   { A centered two line chapterstyle in an italic font and the number
    is spelled out.}
-A centered style where the name and number are set in a bold font, with the 
+A centered style where the name and number are set in a bold font, with the
 number spelled out. The title is below in a large italic font. The style
 is based on the design used in Dowding's \textit{Finer Points}~\cite{DOWDING96}.
-It is illustrated in 
+It is illustrated in
 \fref{dcdowding}.
 
 %\begin{demochap}[-2\onelineskip]{dowding}\end{demochap}
 
 
-\item[\cstyle{ell}] 
+\item[\cstyle{ell}]
 \glossary(ellcs)%
   {\Pcstyle{ell}}%
   {A raggedleft large sanserif chapterstyle with the number in the margin. An
    `L' shaped rule separates the number and title lines.}
-  A raggedleft sanserif chapterstyle. 
+  A raggedleft sanserif chapterstyle.
   The number line is separated
   from the title by rules like an `L' on its side and the number is placed
-  in the margin, as shown in \fref{dcell}. 
-I will probably use this in my next book. 
+  in the margin, as shown in \fref{dcell}.
+I will probably use this in my next book.
 
 %\begin{demochap}[6\onelineskip]{ell}\end{demochap}
 %\begin{demochap}{ell}\end{demochap}
 
-\item[\cstyle{ger}] 
+\item[\cstyle{ger}]
 \glossary(gercs)%
   {\Pcstyle{ger}}%
   {A raggedright, large, bold, two line chapterstyle with rules
    above and below.}
-This style was created by 
+This style was created by
 Gerardo\index{Garcia, Gerardo} Garcia\footnote{\ctt,
   \textit{Fancy Headings, Chapter Headings}, 2002/04/12} and is a two line,
   raggedright, large bold style with rules above and below. It is
@@ -1604,19 +1636,19 @@ Gerardo\index{Garcia, Gerardo} Garcia\footnote{\ctt,
 %\begin{demochap}{ger}\end{demochap}
 %\begin{demochap}[-4\onelineskip]{ger}\end{demochap}
 
-\item[\cstyle{komalike}] 
+\item[\cstyle{komalike}]
 \glossary(komalikecs)%
   {\Pcstyle{komalike}}%
   { A section-like chapterstyle in a sans serif font.}
 A section-like style set with a sans serif type. It is like that in the
-\Lclass{scrbook} class (part of the KOMA bundle). 
-It is illustrated in 
+\Lclass{scrbook} class (part of the KOMA bundle).
+It is illustrated in
 \fref{dckomalike}.
 
 %\begin{demochap}[-2\onelineskip]{komalike}\end{demochap}
 
 
-\item[\cstyle{lyhne}] 
+\item[\cstyle{lyhne}]
 \glossary(lyhnecs)%
   {\Pcstyle{lyhne}}%
   {A raggedleft bold sanserif chapter title set between two rules, with the
@@ -1625,57 +1657,57 @@ It is illustrated in
   Lyhne\footnote{\ctt, \textit{Glossary}, 2006/02/09} and shown in \fref{dclyhne}
   where the raggedleft
   sanserif title is between two rules, with the name and number above.
-  I modified the original to cater for unnumbered chapters. 
+  I modified the original to cater for unnumbered chapters.
 
   \PScaveat{lyhne}
 
 %\begin{demochap}[-\onelineskip]{lyhne}\end{demochap}
 %\begin{demochap}[-2\onelineskip]{lyhne}\end{demochap}
 
-\item[\cstyle{madsen}] 
+\item[\cstyle{madsen}]
 \glossary(madsencs)%
   {\Pcstyle{madsen}}%
   {A raggedleft large bold sanserif chapterstyle with the number in the
    margin and a rule between the number and title lines.
    It requires the \Ppack{graphicx} package.}
-  This was created by 
+  This was created by
   Lars\index{Madsen, Lars} Madsen\footnote{\ctt,
   \textit{New chapter style: chapter vs chapter*}, 2003/12/09}
   and is shown in \fref{dcmadsen}.
   It is a large sanserif raggedleft style with the number in the margin
-  and a rule between the number and title lines. 
+  and a rule between the number and title lines.
 
   \PScaveat{madsen}
 
 %\begin{demochap}[2\onelineskip]{madsen}\end{demochap}
 %\begin{demochap}[-2\onelineskip]{madsen}\end{demochap}
 
-\item[\cstyle{ntglike}] 
+\item[\cstyle{ntglike}]
 \glossary(ntglikecs)%
   {\Pcstyle{ntglike}}%
   { A smaller version of the standard chapterstyle.}
-A smaller version of the standard chapterstyle; it is like that in the NTG 
+A smaller version of the standard chapterstyle; it is like that in the NTG
 classes (\Lclass{boek} class) developed by the Dutch \tx\ User Group.
-It is illustrated in 
+It is illustrated in
 \fref{dcntglike}.
 
 %\begin{demochap}[-3\onelineskip]{ntglike}\end{demochap}
 
 
 
-\item[\cstyle{pedersen}] 
+\item[\cstyle{pedersen}]
 \glossary(pedersencs)%
   {\Pcstyle{pedersen}}%
   {A single line chapterstyle in large italics with the number set in the
-  righthand margin. The title and/or number may be colored. The 
-  \Ppack{graphicx} package is required and the \Ppack{color} 
+  righthand margin. The title and/or number may be colored. The
+  \Ppack{graphicx} package is required and the \Ppack{color}
   (or \Ppack{xcolor}) package if you want to color.}
   This was created by
   Troels\index{Pedersen, Troels} Pedersen\footnote{\ctt,
   \textit{Chapter style}, 2006/01/31} and requires the \Lpack{graphicx}
   package, and, to get the full effect, the \Lpack{color} package as well.
   The title is raggedright in large italics while the number is much larger
-  and placed in the righthand margin (I changed the means of placing the 
+  and placed in the righthand margin (I changed the means of placing the
   number). The head of this chapter is set with the \cstyle{pedersen} style,
   because it cannot be adequately demonstrated in an illustration.
 
@@ -1683,41 +1715,41 @@ It is illustrated in
 
 %%%%\begin{demochap}{pedersen}\end{demochap}
 
-\item[\cstyle{southall}] 
+\item[\cstyle{southall}]
 \glossary(southallcs)%
   {\Pcstyle{southall}}%
   { A raggedright chapterstyle with the number and title on the same line
    and a rule below.}
   This style was created by Thomas\index{Dye, Thomas} Dye. It
-  is a simple numbered heading with the title set as a block 
+  is a simple numbered heading with the title set as a block
   paragraph, and with a horizontal rule underneath. It is illustrated
   in \fref{dcsouthall}.
 
 %\begin{demochap}[-\onelineskip]{southall}\end{demochap}
 
-\item[\cstyle{tandh}] 
+\item[\cstyle{tandh}]
 \glossary(tandhcs)%
   {\Pcstyle{tandh}}%
   {A simple section-like chapterstyle in a bold font.}
 A simple section-like style in a bold font. It is based on the design used in
-the Thames \& Hudson \textit{Manual of Typography}~\cite{MCLEAN80} and 
-is illustrated in 
+the Thames \& Hudson \textit{Manual of Typography}~\cite{MCLEAN80} and
+is illustrated in
 \fref{dctandh}.
 
 %\begin{demochap}[-1\onelineskip]{tandh}\end{demochap}
 
 
-\item[\cstyle{thatcher}] 
+\item[\cstyle{thatcher}]
 \glossary(thatchercs)%
   {\Pcstyle{thatcher}}%
-  {A centered small caps chapterstyle with the number line separated from 
+  {A centered small caps chapterstyle with the number line separated from
    the title by a short rule.}
-A style created by 
+A style created by
   Scott\index{Thatcher, Scott} Thatcher\footnote{\ctt,
-  \textit{memoir: chapter headings capitalize math symbols}, 2006/01/18} 
+  \textit{memoir: chapter headings capitalize math symbols}, 2006/01/18}
   which has the chapter name and number centered with the
   title below, also centered, and all set in small caps. There is a short rule
-  between the number line and the title, as shown in \fref{dcthatcher}. 
+  between the number line and the title, as shown in \fref{dcthatcher}.
   I have modified the original to
   cater for multiline titles, unnumbered chapters, and appendices.
 
@@ -1728,11 +1760,11 @@ A style created by
 \item[\cstyle{veelo}]
 \glossary(veelocs)%
   {\Pcstyle{veelo}}%
-  {A raggedleft large bold chapterstyle with a large black square 
+  {A raggedleft large bold chapterstyle with a large black square
    in the margin by the number line. It requires the \Ppack{graphicx} package.}
-   This style created by Bastiaan\index{Veelo, Bastiaan} Veelo 
+   This style created by Bastiaan\index{Veelo, Bastiaan} Veelo
   is shown in \fref{dcveelo} and is raggedleft, large, bold and with a
-  black square in the margin by the number line. 
+  black square in the margin by the number line.
 
   \PScaveat{veelo}
 
@@ -1747,23 +1779,23 @@ A style created by
 \glossary(vervillecs)%
   {\Pcstyle{verville}}%
   {A single line, large, centered, chapterstyle with rules above and below.}
- A chapterstyle I created for 
+ A chapterstyle I created for
   Guy\index{Verville, Guy} Verville\footnote{\ctt,
-  \textit{Headers and special formatting of sections}, 2005/01/18}. 
-  It is a single line, large centered style with rules above 
-  and below, as in \fref{dcverville}. Unlike my posted version, 
+  \textit{Headers and special formatting of sections}, 2005/01/18}.
+  It is a single line, large centered style with rules above
+  and below, as in \fref{dcverville}. Unlike my posted version,
   this one properly caters for unnumbered chapters.
 
 %\begin{demochap}{verville}\end{demochap}
 
-\item[\cstyle{wilsondob}] 
+\item[\cstyle{wilsondob}]
 \glossary(wilsondobcs)%
   {\Pcstyle{wilsondob}}%
   {A one line flushright chapterstyle in a large italic font.}
-A one line flushright (raggedleft) section-like style in a large italic font. 
+A one line flushright (raggedleft) section-like style in a large italic font.
 It is based on the design used in
-Adrian Wilson's \textit{The Design of Books}~\cite{ADRIANWILSON93} and 
-is illustrated in 
+Adrian Wilson's \textit{The Design of Books}~\cite{ADRIANWILSON93} and
+is illustrated in
 \fref{dcwilsondob}.
 
 %\begin{demochap}[-1\onelineskip]{wilsondob}\end{demochap}
@@ -1791,9 +1823,9 @@ macros without putting them into a style.
 \index{chapter!precis|(}
 
 
-   Some old style novels, and even some modern text 
+   Some old style novels, and even some modern text
  books,\footnote{For example, Robert Sedgewick, \textit{Algorithms},
- Addison-Wesley, 1983.} include a short synopsis of the contents of 
+ Addison-Wesley, 1983.} include a short synopsis of the contents of
  the chapter either immediately
  after the chapter heading\index{heading!chapter} or in the \toc, or in both places.
 
@@ -1803,7 +1835,7 @@ macros without putting them into a style.
 \glossary(chapterprecis)%
   {\cs{chapterprecis}\marg{text}}%
   {Prints \meta{text} and also adds it to the ToC.}
-     The command \cmd{\chapterprecis} prints its argument 
+     The command \cmd{\chapterprecis} prints its argument
  both at the
  point in the document where it is called, and also adds it to the \file{.toc}
  file. For example:
@@ -1846,17 +1878,17 @@ then a different space is required depending on whether or not the
   {\cs{chapterprecistoc}\marg{text}}%
   {Adds \meta{text} for a chapter precis to the ToC.}
  The \cmd{\chapterprecis} command calls these two commands to print the
- \meta{text} in the document (the \cmd{\chapterprecishere} command) 
- and to put it into the \toc{} (the \cmd{\chapterprecistoc} command). 
+ \meta{text} in the document (the \cmd{\chapterprecishere} command)
+ and to put it into the \toc{} (the \cmd{\chapterprecistoc} command).
  These can be used individually if required.
 
 \begin{syntax}
 \cmd{\precisfont} \\
 \cmd{\prechapterprecis} \cmd{\postchapterprecis} \\
 \end{syntax}
-The \cmd{\chapterprecishere} macro is intended for use immediately after 
+The \cmd{\chapterprecishere} macro is intended for use immediately after
 a \cmd{\chapter}. The \meta{text} argument is typeset in
-the \cmd{\precisfont} font in a \Ie{quote} environment. The macro's 
+the \cmd{\precisfont} font in a \Ie{quote} environment. The macro's
 definition is:
 \begin{lcode}
 \newcommand{\chapterprecishere}[1]{%
@@ -1889,7 +1921,7 @@ the ToC.
 \glossary(precistocformat)%
   {\cs{precistocformat}}%
   {Format for typesetting \cs{precistoctext}.}
-The \cmd{\chapterprecistoc} macro puts \cmd{\precistoctext}\marg{text} into 
+The \cmd{\chapterprecistoc} macro puts \cmd{\precistoctext}\marg{text} into
 the \pixfile{toc} file. The default definition similar to (but not
 exactly\footnote{Internally we use a different name for \cs{leftskip}
   and \cs{rightskip} to make it easier to do right to left documents
@@ -1901,7 +1933,7 @@ with the class and the \texttt{bidi} package.})
     \rightskip \@tocrmarg\relax
     \precistocformat\precistocfont #1\par}}
 \end{lcode}
-Effectively, in the \toc{} \cmd{\precistoctext} typesets its argument like 
+Effectively, in the \toc{} \cmd{\precistoctext} typesets its argument like
 a chapter title using the \cmd{\precistocfont} (default
 \cmd{\itshape}), and \cmd{\precistocformat} (default \cmd{\noindent}).
 
@@ -1918,11 +1950,11 @@ configurable, but there is nothing corresponding to chapter styles.
     There are essentially three things that may be adjusted for these heads:
 (a) the vertical distance between the baseline of the text above the heading to
 the baseline of the title text, (b) the indentation of the heading from the
-left hand margin\index{margin!left}, and (c) the style (font) used for the 
-heading title. 
-Additionally, a heading may be run-in to the text or as a display before 
+left hand margin\index{margin!left}, and (c) the style (font) used for the
+heading title.
+Additionally, a heading may be run-in to the text or as a display before
 the following text;
-in the latter case the vertical distance between the heading and the 
+in the latter case the vertical distance between the heading and the
 following text may also be adjusted. Figure~\ref{fig:displaysechead} shows the
 parameters controlling a displayed sectional heading and \fref{fig:runsechead}
 shows the parameters for a run-in heading. The default values of the
@@ -1976,8 +2008,8 @@ font            & \cs{bfseries} & \cs{bfseries} \\
 
 
     In the following I will use \texttt{S} to stand for one of \texttt{sec},
-\texttt{subsec}, \texttt{subsubsec}, \texttt{para} or \texttt{subpara}, 
-which are in turn shorthand for \texttt{section} through to 
+\texttt{subsec}, \texttt{subsubsec}, \texttt{para} or \texttt{subpara},
+which are in turn shorthand for \texttt{section} through to
 \texttt{subparagraph}, as summarised in \tref{tab:Sshort}.
 
 \begin{table}
@@ -1986,7 +2018,7 @@ which are in turn shorthand for \texttt{section} through to
 \ttfamily
 \begin{tabular}{llllll}\toprule
 S & sec & subsec & subsubsec & para & subpara \\
-  & section & subsection & subsubsection & paragraph & subparagraph \\ 
+  & section & subsection & subsubsection & paragraph & subparagraph \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -2013,15 +2045,15 @@ S & sec & subsec & subsubsec & para & subpara \\
   {\cs{setbeforesubparaskip}\marg{skip}}%
   {Sets the \cs{beforeskip} for a \cs{subparagraph} head.}
 The absolute value of the \meta{skip} length argument is the space to leave
-above the heading. If the actual value is negative then the first line 
+above the heading. If the actual value is negative then the first line
 after the heading will not be indented. The default \meta{skip} depends on the
-particular level of heading, but for a \cmd{\section} 
-(i.e., when \verb?S = sec?) it is 
+particular level of heading, but for a \cmd{\section}
+(i.e., when \verb?S = sec?) it is
 \begin{lcode}
 -3.5ex plus -1ex minus -.2ex
 \end{lcode}
 where the plus and minus values are the
-allowable stretch and shrink; note that all the values are negative so that 
+allowable stretch and shrink; note that all the values are negative so that
 there is no indentation of the following text. If you wanted indentation then
 you could do
 \begin{lcode}
@@ -2034,24 +2066,24 @@ you could do
 \end{syntax}
 \glossary(setSindent)
   {\cs{setSindent}\marg{length}}%
-  {Sets the \cs{indent} for an S head.} 
+  {Sets the \cs{indent} for an S head.}
 \glossary(setsecindent)
   {\cs{setsecindent}\marg{length}}%
-  {Sets the \cs{indent} for a \cs{section} head.} 
+  {Sets the \cs{indent} for a \cs{section} head.}
 \glossary(setsubsecindent)
   {\cs{setsubsecindent}\marg{length}}%
-  {Sets the \cs{indent} for a \cs{subsection} head.} 
+  {Sets the \cs{indent} for a \cs{subsection} head.}
 \glossary(setsubsubsecindent)
   {\cs{setsubsubsecindent}\marg{length}}%
-  {Sets the \cs{indent} for a \cs{subsubsection} head.} 
+  {Sets the \cs{indent} for a \cs{subsubsection} head.}
 \glossary(setparaindent)
   {\cs{setparaindent}\marg{length}}%
-  {Sets the \cs{indent} for a \cs{paragraph} head.} 
+  {Sets the \cs{indent} for a \cs{paragraph} head.}
 \glossary(setsubparaindent)
   {\cs{setsubparaindent}\marg{length}}%
-  {Sets the \cs{indent} for a \cs{subparagraph} head.} 
+  {Sets the \cs{indent} for a \cs{subparagraph} head.}
 The value of the \meta{length} length argument is the indentation of
-the heading (number and title) from the lefthand margin\index{margin!left}. 
+the heading (number and title) from the lefthand margin\index{margin!left}.
 This is normally 0pt.
 
 \begin{syntax}
@@ -2075,14 +2107,14 @@ This is normally 0pt.
 \glossary(setsubparaheadstyle)%
   {\cs{setsubparaheadstyle}\marg{font}}%
   {Sets the style (font) for a subparagraph head.}
-This macro specifies the style (font) for the sectional number and title. 
+This macro specifies the style (font) for the sectional number and title.
 As before, the default value of the \meta{font} argument depends on the
 level of the heading. For a \cmd{\subsection} (i.e., \verb?S=subsec?) it is
 \verb?\large\bfseries\raggedright?, to typeset in the \cmd{\bfseries} font
 in the \cmd{\large} size; the title will also be set ragged right (i.e.,
 there will be no hyphenation in a multiline title).
 
-    Note that the very last element in the \meta{font} argument may be a 
+    Note that the very last element in the \meta{font} argument may be a
 macro that takes one argument (the number and title of the heading). So,
 if for some reason you wanted \cmd{\subsubsection} titles to be all uppercase,
 centered, and in the normal font, you can do
@@ -2120,14 +2152,14 @@ horizontal line under section titles via:
 \glossary(setaftersubparaskip)%
   {\cs{setaftersubparaskip}\marg{skip}}%
   {Sets the \cs{afterskip} for a subparagraph head.}
-If the value of the \meta{skip} length argument is positive it is the space 
+If the value of the \meta{skip} length argument is positive it is the space
 to leave between the display heading and the following text. If it is negative,
 then the heading will be run-in and the value is the horizontal space
 between the end of the heading and the following text.
 The default \meta{skip} depends on the
-particular level of heading, but for a \cmd{\section} (i.e., when 
-\verb?S = sec?) it is \verb?2.3ex plus .2ex?, 
-and for a \cmd{\subparagraph} (i.e., \verb?S = subpara?), which is a run-in 
+particular level of heading, but for a \cmd{\section} (i.e., when
+\verb?S = sec?) it is \verb?2.3ex plus .2ex?,
+and for a \cmd{\subparagraph} (i.e., \verb?S = subpara?), which is a run-in
 heading, it is \verb?-1em?.
 
 \fancybreak{$*$}
@@ -2152,7 +2184,7 @@ effectively:
   \hangindent \wd\@tempboxa\noindent\box\@tempboxa}
 \end{lcode}
 The argument is put into a box and its width is measured, then a hanging
-paragraph\index{paragraph!hanging} is started with the argument as the 
+paragraph\index{paragraph!hanging} is started with the argument as the
 first thing and second and later lines indented by the argument's width.
 
 The \cmd{\sethangfrom} macro redefines \cmd{\@hangfrom} to be \meta{code}.
@@ -2175,22 +2207,22 @@ is to be located.
 \glossary(setsecnumformat)%
   {\cs{setsecnumformat}\marg{code}}%
   {Redefines \cs{@seccntformat} to \meta{code}.}
-Internally all the titling macros use a kernel macro called 
-\cmd{\@seccntformat} 
+Internally all the titling macros use a kernel macro called
+\cmd{\@seccntformat}
 which defines the formatting of sectional numbers in a title. Its
 default definition (in file \file{ltsect.dtx}) is effectively:
 \begin{lcode}
 \newcommand{\@seccntformat}[1]{\csname the#1\endcsname\quad}
 \end{lcode}
-which formats the sectional numbers as \verb?\thesec...? with a space 
+which formats the sectional numbers as \verb?\thesec...? with a space
 afterwards.
-The command \cmd{\setsecnumformat} redefines \cmd{\@seccntformat} 
+The command \cmd{\setsecnumformat} redefines \cmd{\@seccntformat}
 to be \meta{code}.
 For example, to put a colon and space after the number
 \begin{lcode}
 \setsecnumformat{\csname the#1\endcsname:\quad}
 \end{lcode}
-Note that you have to use \verb?#1? where you want the argument 
+Note that you have to use \verb?#1? where you want the argument
 (sectional number) of \cmd{\@seccntformat} to go.
 
 Note that \cmd{\setsecnumformat} applies to all \cmd{\section},
@@ -2213,7 +2245,7 @@ Note that \cmd{\setsecnumformat} applies to all \cmd{\section},
   {Declaration reversing the effect of \cs{hangsecnum}.}
 The macro \cmd{\hangsecnum} is a declaration that makes sectional numbers hang
 in the margin\index{margin!left}. The macro \cmd{\defaultsecnum} is a declaration that reverses the
-effect of \cmd{\hangsecnum}, that is, sectional numbers will be typeset in 
+effect of \cmd{\hangsecnum}, that is, sectional numbers will be typeset in
 their familiar places.
 
 
@@ -2258,7 +2290,7 @@ their familiar places.
   {\cs{setsubparahook}\marg{text}}%
   {Redefines \cs{subparahook} to be \meta{text}.}
 The macro \cmd{\Shook} is called immediately before the typesetting of the
-title; its default definition does nothing. The macro \cmd{\setShook} 
+title; its default definition does nothing. The macro \cmd{\setShook}
 redefines \cmd{\Shook} to be \meta{text}. You can use this hook, for example,
 to insert a \cmd{\sethangfrom} or \cmd{\setsecnumformat} command into the
 definition of a particular section division command. In that case,
@@ -2381,11 +2413,11 @@ used in this manual). The code is:
 \paragraph{Hang the whole heading in the margin}%
 \end{lcode}
 The macro \cmd{\marginbox} puts its argument, raggedleft, into a zero height
-\cmd{\parbox} of width 6em, aligned at the top. 
-The \cmd{\marginhead} macro puts its argument into a 
-\cmd{\marginbox} and puts the \cmd{\marginbox} 0.5em to the left. 
-The \cmd{\paragraph} head style is then set to use \cmd{\marginhead} to 
-typeset the heading. The format for the number is reset via 
+\cmd{\parbox} of width 6em, aligned at the top.
+The \cmd{\marginhead} macro puts its argument into a
+\cmd{\marginbox} and puts the \cmd{\marginbox} 0.5em to the left.
+The \cmd{\paragraph} head style is then set to use \cmd{\marginhead} to
+typeset the heading. The format for the number is reset via
 \cmd{\setparahook} and \cmd{\setsecnumformat}.
 
 
@@ -2396,10 +2428,10 @@ typeset the heading. The format for the number is reset via
 A different approach is to create new macros, each named by the type
 of sectional macro it formats, and then make the number format call
 these macros.
-In this example we will provide separate formatting for \cmd{\section} and \cmd{\subsection}. 
+In this example we will provide separate formatting for \cmd{\section} and \cmd{\subsection}.
 \begin{lcode}
   \setsecnumformat{\csname #1secnumformat\endcsname}
-  \newcommand\sectionsecnumformat{\thesection:\quad} 
+  \newcommand\sectionsecnumformat{\thesection:\quad}
   \newcommand\subsectionsecnumformat{\fbox{\enspace\thesubsection\enspace}\enspace}
 \end{lcode}
 Since the macro is only called in the proper context, we can use
@@ -2417,14 +2449,14 @@ Since the macro is only called in the proper context, we can use
 
     Often, in novels, there is a need to break up the text to indicate that
 there is a major break in the story, but not enough to warrant starting a new
-chapter. I have called these 
-\emph{anonymous divisions}\index{anonymous division}\index{division!anonymous} 
-as there is neither number nor title associated with them. 
-    
+chapter. I have called these
+\emph{anonymous divisions}\index{anonymous division}\index{division!anonymous}
+as there is neither number nor title associated with them.
+
 \begin{syntax}
 \cmd{\plainbreak}\marg{num} \cmd{\plainbreak*}\marg{num}  \\
 \cmd{\fancybreak}\marg{text} \cmd{\fancybreak*}\marg{text}   \\
-\end{syntax} 
+\end{syntax}
 \glossary(plainbreak)%
   {\cs{plainbreak}\marg{num}}%
   {An anonymous division of \meta{num} blank lines and the following
@@ -2442,9 +2474,9 @@ as there is neither number nor title associated with them.
 
     The \cmd{\plainbreak} is an anonymous division. It puts \meta{num}
 blank lines into the typescript and the first line of the following
-paragraph is not indented\index{paragraph!indentation}. Another anonymous 
-division is \cmd{\fancybreak} which puts \meta{text} centered into the 
-typescript and the initial line of the following paragraph is not 
+paragraph is not indented\index{paragraph!indentation}. Another anonymous
+division is \cmd{\fancybreak} which puts \meta{text} centered into the
+typescript and the initial line of the following paragraph is not
 indented\index{paragraph!indentation}. For
 example:
 \begin{lcode}
@@ -2468,11 +2500,11 @@ following paragraph\index{paragraph!indentation}.
 \glossary(plainfancybreak*)%
   {\cs{plainfancybreak*}\marg{space}\marg{num}\marg{text}}%
   {Like \cs{plainfancybreak} except that the following paragraph is indented.}
-If a plain break comes at the top or bottom of a page then it is very 
+If a plain break comes at the top or bottom of a page then it is very
 difficult for a reader to discern that there is a break at all.
 If there is text on the page and enough space left to put some text
 after a break the \cmd{\plainfancybreak} command will use a \cmd{\plainbreak}
-with \meta{num} lines, 
+with \meta{num} lines,
 otherwise (the break would come at the top or bottom of the page) it
 will use a \cmd{\fancybreak} with \meta{text}. The \meta{space} argument is a
 length specifying the space needed for the \meta{num} blank lines and some
@@ -2483,16 +2515,16 @@ the command uses the starred versions of the \cmd{\plainbreak} and
 
     Unfortunately there is an interaction between the requested, plain,
 and fancy break spaces.
-    Let $P$ be the space (in lines) required for the plain break, 
+    Let $P$ be the space (in lines) required for the plain break,
 $F$ the space (in lines)
-required for the fancy break, and $S$ the \meta{space} argument (in lines). 
-From some experiments it appears that the condition for the plain break 
-to avoid the top and bottom of the page is that $S - P > 1$. 
-Also, the condition for the fancy break to avoid being put in the middle 
+required for the fancy break, and $S$ the \meta{space} argument (in lines).
+From some experiments it appears that the condition for the plain break
+to avoid the top and bottom of the page is that $S - P > 1$.
+Also, the condition for the fancy break to avoid being put in the middle
 of a page (i.e., not at the top or bottom) is that  $S - F < 3$.
 For example, if the plain and fancy breaks take the same vertical space
-then $S = P +2$ is the only value that matches the conditions. In general, 
-if $F = P + n$ then the condition is $1 < S-P < 3+n$, which means that 
+then $S = P +2$ is the only value that matches the conditions. In general,
+if $F = P + n$ then the condition is $1 < S-P < 3+n$, which means that
 for the \cmd{\plainfancybreak} command the
 fancy break must always take at least as much space as the plain break.
 
@@ -2510,11 +2542,11 @@ inserts a fancy break instead.
 \end{syntax}
 \glossary(pfbreak)
   {\cs{pfbreak}}%
-  {An alternative for \cs{plainfancybreak} using \cs{pfbreakskip} 
+  {An alternative for \cs{plainfancybreak} using \cs{pfbreakskip}
    and \cs{pfbreakdisplay}.}
 \glossary(pfbreak*)
   {\cs{pfbreak*}}%
-  {An alternative for \cs{plainfancybreak*} using \cs{pfbreakskip} 
+  {An alternative for \cs{plainfancybreak*} using \cs{pfbreakskip}
    and \cs{pfbreakdisplay}.}
 \glossary(pfbreakskip)%
   {\cs{pfbreakskip}}%
@@ -2522,7 +2554,7 @@ inserts a fancy break instead.
 \glossary(pfbreakdisplay)%
   {\cs{pfbreakdisplay}\marg{text}}%
   {\meta{text} for a \cs{pfbreak}'s \cs{fancybreak}.}
-  
+
 The \cmd{\pfbreak} macro is an alternate for \cmd{\plainfancybreak} that may
 be more convenient to use. The gap for the plain break is given by the
 length \lnc{\pfbreakskip} which is initialised to produce two blank lines.
@@ -2559,7 +2591,7 @@ it indented use the \cmd{\pfbreak*} starred version.
 \renewcommand{\pfbreakdisplay}{\ding{167}\quad\ding{167}\quad\ding{167}}
 \fancybreak{\pfbreakdisplay}
 
- The fancy break using 
+ The fancy break using
 fleurons\index{fleuron} just before this paragraph was produced by:
 \begin{lcode}
 \renewcommand{\pfbreakdisplay}{%
@@ -2576,12 +2608,12 @@ where the \cmd{\ding} command is from the \Lpack{pifont} package.
 
 \fancybreak{\chain{\diamondpattern}{0.25\textwidth}}
 
-    The fancy break made with fleurons was simple to specify. There are 
+    The fancy break made with fleurons was simple to specify. There are
 many other symbols that you can
 use in \ltx\ and these can be combined in potentially attractive ways to
 produce a fancy break like the one just above.
 
-    The following idea was originally suggested by Christina 
+    The following idea was originally suggested by Christina
 Thiele~\cite{ORNAMENTAL}, and can
 be used to string together mathematical symbols. It works following the same
 principles as the dot leaders in the Table of Contents.
@@ -2594,13 +2626,13 @@ principles as the dot leaders in the Table of Contents.
 The definition of \cs{motif} is basically taken from \tx, and is part of the
 code for making things like dot leaders. \cmd{\hbox}\marg{stuff} puts
 \meta{stuff} into a horizontal box, and \cmd{\cleaders}\meta{box} fills
-a specified amount of space using whatever number of copies of the 
+a specified amount of space using whatever number of copies of the
 \meta{box} as is needed; if there is
 too much space to be filled by a whole number of boxes, the spare space
 is spread around equally. \cmd{\hfil} is stretchy space. The \cs{motif} macro
 essentially says, fill up a space with with copies of \meta{shape}.
 
-    We also need another macro, \cs{chain}\marg{shape}\marg{length}, 
+    We also need another macro, \cs{chain}\marg{shape}\marg{length},
 where \marg{shape}
 is a shape to be repeated as many times as it takes to fill up a distance
 \meta{length}.
@@ -2608,11 +2640,11 @@ is a shape to be repeated as many times as it takes to fill up a distance
 \newcommand{\chain}[2]{\leavevmode\hbox to #2{\motif{#1}}}
 \end{lcode}
 The \cmd{\leavevmode} makes sure that we are typesetting horizontally, and
-\cmd{\hbox} \verb?to? \verb?<length>{stuff}? puts \meta{stuff} into a horizontal 
+\cmd{\hbox} \verb?to? \verb?<length>{stuff}? puts \meta{stuff} into a horizontal
 box with the
 fixed length of \meta{length}. Roughly, what \cs{chain} and \cs{motif}
 do together is typeset enough copies of \meta{shape} to make up
-a distance \meta{length}. 
+a distance \meta{length}.
 
     That is what we have been aiming for. All that
 remains is to decide on what shape we might want to use. Here is one
@@ -2627,8 +2659,8 @@ is surrounded by the shorthand \verb?$...$?. \tx\ usually leaves a little
 space around maths but the \cmd{\m@th} command stops that. \cmd{\mkern}
 adjusts space in math mode, and in this case we are eliminating
 the spaces\footnote{It is usually a matter for experiment to find
-the right values for the kerning.\label{fn:kerning}} 
-that would normally be on either 
+the right values for the kerning.\label{fn:kerning}}
+that would normally be on either
 side of the diamond symbol.
 The whole effect gives us a diamond symbol with zero space around it.
 
@@ -2655,26 +2687,26 @@ some space between them.
 of the document.
 
     When the optional argument \meta{toc-title} is used in a sectioning
-command it is moving and any fragile\index{fragile command} 
+command it is moving and any fragile\index{fragile command}
 commands must be \cmd{\protect}ed\index{protect},
 while the \meta{title} argument is fixed. The \meta{toc-title} also
 serves double duty:
 \begin{enumerate}
 \item It is used as the text of the title in the \toc;
-\item It is used as the text in page headers\index{header}. 
+\item It is used as the text in page headers\index{header}.
 \end{enumerate}
 
     If the optional argument is not present, then the \meta{title} is
 moving and serves the triple duty of providing the text for the body and \toc{}
 titles and for page headers\index{header}.
 
-    Some folk feel an urge to add a footnote\index{footnote} to a sectioning 
+    Some folk feel an urge to add a footnote\index{footnote} to a sectioning
 title, which
 should be resisted. If their flesh is weak, then the optional argument must
 be used and the \cmd{\footnote} attached to the required argument only.
 If the optional argument is not used then the footnote mark\index{footnote!mark} and text is
 likely to be scattered all over the place, on the section page, in the \toc,
-on any page that includes \meta{title} in its headers\index{header}. This is 
+on any page that includes \meta{title} in its headers\index{header}. This is
 unacceptable to any reader. So, a footnoted\index{footnote} title should look like
 this:
 \begin{lcode}
@@ -2690,7 +2722,7 @@ this:
    All \ltx\ classes for typesetting books and reports provide a particular
 style for sectional headings. The \Mname\ class is unusual in that it provides
 several sets of heading styles. Each set has different spacing around the
-division heads, and different fonts in different sizes. 
+division heads, and different fonts in different sizes.
     As a reference, \tref{tab:secfonts} lists the default fonts used
 for the sectional headings. These fonts are all bold but in different
 sizes depending on the division level.
@@ -2723,7 +2755,7 @@ sizes depending on the division level.
 \end{syntax}
 \glossary(makeheadstyles)%
   {\cs{makeheadstyles}\marg{name}\marg{code}}%
-  {Create a new set of sectional division headstyles called \meta{name} 
+  {Create a new set of sectional division headstyles called \meta{name}
    defined by \meta{code}.}
 \glossary(headstyles)%
   {\cs{headstyles}\marg{name}}%
@@ -2731,8 +2763,8 @@ sizes depending on the division level.
 The default sectional division head styles provided by \Mname\ form the
 \hstyle{default} headstyles and give the same appearance as the standard
 \Lclass{book} and \Lclass{report} classes. The set is created via the
-\cmd{\makeheadstyles} macro and called for via the \cmd{headstyles} 
-declaration. 
+\cmd{\makeheadstyles} macro and called for via the \cmd{headstyles}
+declaration.
 \begin{lcode}
 \makeheadstyles{default}{%
   \renewcommand*{\booknamefont}{\normalfont\huge\bfseries}
@@ -2744,7 +2776,7 @@ declaration.
 
     A somewhat different set of headstyles is used for this manual. When using
 \cmd{\makeheadstyles} you only need to specify things that differ from
-the \hstyle{default}. Within the class the \hstyle{memman} set of headstyles 
+the \hstyle{default}. Within the class the \hstyle{memman} set of headstyles
 is defined as:
 \begin{lcode}
 \newcommand*{\addperiod}[1]{#1.}
@@ -2762,28 +2794,28 @@ is defined as:
 % chapter
   \chapterstyle{demo3}
 % section
-  \setbeforesecskip{-1.333\onelineskip 
+  \setbeforesecskip{-1.333\onelineskip
                     \@plus -0.5\onelineskip \@minus -.5\onelineskip}%
   \setaftersecskip{0.667\onelineskip \@plus 0.1\onelineskip}%
   \setsecheadstyle{\normalfont\scshape\raggedright}%
 % subsection
-  \setbeforesubsecskip{-0.667\onelineskip 
+  \setbeforesubsecskip{-0.667\onelineskip
                        \@plus -0.25\onelineskip \@minus -0.25\onelineskip}%
   \setaftersubsecskip{0.333\onelineskip \@plus 0.1\onelineskip}%
   \setsubsecheadstyle{\normalfont\bfseries\raggedright}%
 % subsubsection
-  \setbeforesubsubsecskip{-0.667\onelineskip 
+  \setbeforesubsubsecskip{-0.667\onelineskip
                           \@plus -0.25\onelineskip \@minus -0.25\onelineskip}%
   \setaftersubsubsecskip{0.333\onelineskip \@plus 0.1\onelineskip}%
   \setsubsubsecheadstyle{\normalfont\normalsize\itshape\raggedright}%
 % paragraph
-  \setbeforeparaskip{1.0\onelineskip 
+  \setbeforeparaskip{1.0\onelineskip
                      \@plus 0.5\onelineskip \@minus 0.2\onelineskip}%
   \setafterparaskip{-1em}%
   \setparaheadstyle{\normalfont\normalsize\itshape\addperiod}%
 % subparagraph
   \setsubparaindent{\parindent}%
-  \setbeforesubparaskip{1.0\onelineskip 
+  \setbeforesubparaskip{1.0\onelineskip
                         \@plus 0.5\onelineskip \@minus 0.2\onelineskip}%
   \setaftersubparaskip{-1em}%
   \setsubparaheadstyle{\normalfont\normalsize\itshape\addperiod}}
@@ -2791,7 +2823,7 @@ is defined as:
     You can see the effect throughout this document. This chapter is
 slightly different in that I have used the \cstyle{pedersen} chapterstyle
 instead of the \cstyle{demo3} chapterstyle that I have normally used.
-    
+
 \begin{table}
 \centering
 \caption{Fonts used by different headstyles}\label{tab:headfonts}
@@ -2823,19 +2855,19 @@ normal size by the time subsubsection heads are reached, or before.
      and the lower level division titles are set as crossheads.
 \item[\hstyle{default}] The default set corresponding the \ltx\
      \Lclass{book} class.
-\item[\hstyle{dowding}] A set based on Dowding's 
-     \btitle{Finer Points}~\cite{DOWDING96}. It uses the \cstyle{dowding} 
+\item[\hstyle{dowding}] A set based on Dowding's
+     \btitle{Finer Points}~\cite{DOWDING96}. It uses the \cstyle{dowding}
      chapterstyle (\fref{dcdowding}).
 \item[\hstyle{komalike}] A set based on the kind of headings used in
      the KOMA \Lclass{scrbook} class, where there are all in a bold sans serif font.
      It uses the \cstyle{komalike} chapterstyle (\fref{dckomalike}).
-\item[\hstyle{memman}] The set used in this document, including the 
+\item[\hstyle{memman}] The set used in this document, including the
      \cstyle{demo3} chapterstyle.
 \item[\hstyle{ntglike}] A set based on the kind of headings used in
      the NTG (Dutch TUG) \Lclass{boek} class. It uses the \cstyle{ntglike}
-     chapterstyle (\fref{dcntglike}) and the headings are quiter than the 
+     chapterstyle (\fref{dcntglike}) and the headings are quiter than the
      default.
-\item[\hstyle{tandh}] A set based the heads used in Thames \& Hudson 
+\item[\hstyle{tandh}] A set based the heads used in Thames \& Hudson
      \btitle{Manual of Typography}~\cite{MCLEAN80}. It uses the \cstyle{tandh}
      chapterstyle (\fref{dctandh})
 \item[\hstyle{wilsondob}] A set based on those used in Adrian Wilson's
