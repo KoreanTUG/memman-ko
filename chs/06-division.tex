@@ -508,7 +508,7 @@ Division       & Level \\ \midrule
 \maxsecnumdepth{section}
 \end{lcode}
 \cmd{\frontmatter} 명령은 번호매김 수준을 \texttt{none}으로 설정한다.
-\cmd{\mainmatter}와 \cmd{mainmatter*}는 번호매김 수준을 \cmd{\maxsecnumdepth}에서
+\cmd{\mainmatter}와 \cmd{\mainmatter*}는 번호매김 수준을 \cmd{\maxsecnumdepth}에서
 명시한 값으로 설정한다.
 
 %     The number setting commands come from the \Lpack{tocvsec2}
@@ -527,11 +527,17 @@ Division       & Level \\ \midrule
 % followed by a number represented as an uppercase Roman numeral. There is
 % a vertical space after which the title is printed. Finally a new page is
 % started.
+Book과 part 헤딩은 \emph{항상} \pstyle{book}과 \pstyle{part} 페이지스타일이
+적용된 새 페이지에서 시작한다. 보통 book과 part 헤딩은 이름(`Book' 또는 `Part')
+뒤에 대문자 로마 숫자로 된 번호가 붙는 형식이다. 그 다음 제목이 식자된 뒤에 수직
+여백이 오고, 최종적으로 새 페이지가 시작한다.
 
 \PWnote{2009/07/30}{Updated description, etc., for Part and Book pages}
-    Several aspects of the typesetting of the \cmd{\book} and \cmd{\part}
-title are configurable. Ignoring details, such as the optional argument,
-the code for printing \cmd{\part} headings looks like this:
+%     Several aspects of the typesetting of the \cmd{\book} and \cmd{\part}
+% title are configurable. Ignoring details, such as the optional argument,
+% the code for printing \cmd{\part} headings looks like this:
+\cmd{\book}과 \cmd{\part} 타이틀의 조판 형식은 설정 가능하다. 옵션 인자 등의
+세세한 부분을 제외하면 \cmd{\part} 헤딩을 출력하는 코드는 다음과 같다.
 \begin{lcode}
 \newcommand{\part}[1]{%    % THIS IS A VERY SIMPLIFIED VERSION
   \cleardoublepage         % start a new recto page
@@ -546,14 +552,17 @@ the code for printing \cmd{\part} headings looks like this:
   % ifblankpage then blank next page and restore twocolumn if necessary
   }
 \end{lcode}
-The code for \cmd{\book} headings is similar.
+% The code for \cmd{\book} headings is similar.
+\cmd{\book} 헤딩을 출력하는 코드도 비슷하다.
 
-    The general layout for \cmd{\book}, \cmd{\part} and \cmd{\chapter} headings
-is similar and you may wish to refer to \fref{lay:chap} which, although
-it shows the vertical layout for a \cmd{chapter} head, is also applicable
-to \cmd{\book} and \cmd{\part} heads with appropriate changes in the
-names of the commands.
-
+%     The general layout for \cmd{\book}, \cmd{\part} and \cmd{\chapter} headings
+% is similar and you may wish to refer to \fref{lay:chap} which, although
+% it shows the vertical layout for a \cmd{chapter} head, is also applicable
+% to \cmd{\book} and \cmd{\part} heads with appropriate changes in the
+% names of the commands.
+\cmd{\book}, \cmd{\part}, \cmd{\chapter} 헤딩의 일반적인 레이아웃은 비슷하다.
+\cmd{chapter} 헤드에 대해선 수직 레이아웃을 보여주지만 명령 이름을 적절히 바꿔
+\cmd{\book}과 \cmd{\part}에 적용할 수 있는 \fref{lay:chap}을 참조하는 것도 좋다.
 
 \begin{syntax}
 \cmd{\beforebookskip} \cmd{\afterbookskip} \\
@@ -571,17 +580,21 @@ names of the commands.
 \glossary(afterpartskip)%
   {\cs{afterbookskip}}%
   {Spacing below a \cs{part} title.}
-These commands effectively control the spacing before and after the book
-and  part titles. Their default definitions are:
+% These commands effectively control the spacing before and after the book
+% and  part titles. Their default definitions are:
+이 명령들은 book과 part 제목 앞뒤에 오는 간격을 효과적으로 제어한다. 이들의 기본
+정의는 아래와 같다.
 \begin{lcode}
 \newcommand*{\beforebookskip}{\null\vfil}
 \newcommand*{\afterbookskip}{\vfil\newpage}
 \newcommand*{\beforepartskip}{\null\vfil}
 \newcommand*{\afterpartskip}{\vfil\newpage}
 \end{lcode}
-Together, these vertically center any typesetting on the page, and then start
-a new page. To move the \cs{part} title upwards on the page, for example,
-you could do:
+% Together, these vertically center any typesetting on the page, and then start
+% a new page. To move the \cs{part} title upwards on the page, for example,
+% you could do:
+이들은 페이지의 모든 것들을 수직 가운데 정렬하고 새 페이지를 시작한다. \cs{part}
+제목을 페이지 위에 오게 하려면 예를 들어 아래와 같은 방법이 가능하다.
 \begin{lcode}
 \renewcommand*{\beforepartskip}{\null\vskip 0pt plus 0.3fil}
 \renewcommand*{\afterpartskip}{\vskip 0pt plus 0.7fil \newpage}
@@ -597,13 +610,19 @@ you could do:
 \glossary(midpartskip)%
   {\cs{midpartskip}}%
   {Spacing between a \cs{part}'s number line and the title.}
-The macros \cmd{\midbookskip} and \cmd{\midpartskip} are the spacings
-between the number lines and the titles. The default definitions are:
+% The macros \cmd{\midbookskip} and \cmd{\midpartskip} are the spacings
+% between the number lines and the titles. The default definitions are:
+% \begin{lcode}
+% \newcommand{\midbookskip}{\par\vspace 2\onelineskip}
+% \newcommand{\midpartskip}{\par\vspace 2\onelineskip}
+% \end{lcode}
+% and they can be changed.
+매크로 \cmd{\midbookskip}과 \cmd{\midpartskip}은 번호 줄과 제목 사이 간격이다.
+기본 정의는 아래와 같으며 변경할 수 있다.
 \begin{lcode}
 \newcommand{\midbookskip}{\par\vspace 2\onelineskip}
 \newcommand{\midpartskip}{\par\vspace 2\onelineskip}
 \end{lcode}
-and they can be changed.
 
 \begin{syntax}
 \cmd{\printbookname} \cmd{\booknamefont} \\
@@ -644,31 +663,46 @@ and they can be changed.
 \glossary(partnumfont)%
   {\cs{partnumfont}}%
   {Font used by \cs{printpartnum} for the part number.}
-The macro \cmd{\printbookname} typesets the book name (the value of
-\cmd{\bookname}) using the font specified by \cmd{\booknamefont}.
-The default is the \cmd{\bfseries} font in the \cmd{\huge} size.
-Likewise the book number is typeset by \cmd{\printbooknum}
-using the font specified by \cmd{\booknumfont}, which has the same default as
-\cmd{\booknamefont}. The macro \cmd{\booknamenum}, which is defined to be
-a space, is called between printing the book name and the number. All
-these can be changed to obtain different effects.
+% The macro \cmd{\printbookname} typesets the book name (the value of
+% \cmd{\bookname}) using the font specified by \cmd{\booknamefont}.
+% The default is the \cmd{\bfseries} font in the \cmd{\huge} size.
+% Likewise the book number is typeset by \cmd{\printbooknum}
+% using the font specified by \cmd{\booknumfont}, which has the same default as
+% \cmd{\booknamefont}. The macro \cmd{\booknamenum}, which is defined to be
+% a space, is called between printing the book name and the number. All
+% these can be changed to obtain different effects.
+매크로 \cmd{\printbookname}은 book 이름(\cmd{\bookname}의 값)을
+\cmd{\booknamefont}에 명시된 글꼴로 식자한다. 기본값은 \cmd{\huge} 크기의
+\cmd{\bfseries} 글꼴이다. 비슷하게 book 번호는 \cmd{\printbooknum}가
+\cmd{\booknumfont} 글꼴로 식자하고, 기본값은 \cmd{\booknamefont}와 같다. 매크로
+\cmd{\booknamenum}은 띄어쓰기 하나로 정의되어 있는데, book 이름과 번호 사이에
+출력할 값이다. 위 모든 매크로는 다른 효과를 얻기 위해 수정할 수 있다.
 
-    Similarly, the macro \cmd{\printpartname} typesets the part name
-(the value of \cmd{\partname}) using the font specified by
-\cmd{\partnamefont}. The default is the \cmd{\bfseries} font in
-the \cmd{\huge} size. Likewise the part number is typeset by
-\cmd{\printpartnum} using the font specified by \cmd{\partnumfont},
-which has the same default as \cmd{\partnamefont}. The macro
-\cmd{\partnamenum}, which is defined to be a space, is called between printing
-the part name and the number.
+%     Similarly, the macro \cmd{\printpartname} typesets the part name
+% (the value of \cmd{\partname}) using the font specified by
+% \cmd{\partnamefont}. The default is the \cmd{\bfseries} font in
+% the \cmd{\huge} size. Likewise the part number is typeset by
+% \cmd{\printpartnum} using the font specified by \cmd{\partnumfont},
+% which has the same default as \cmd{\partnamefont}. The macro
+% \cmd{\partnamenum}, which is defined to be a space, is called between printing
+% the part name and the number.
+유사하게, 매크로 \cmd{\printpartname}은 part 이름(\cmd{\partname}의 값)을
+\cmd{\partnamefont}에 명시된 글꼴로 식자한다. 기본값은 \cmd{\huge} 크기의
+\cmd{\bfseries} 글꼴이다. 비슷하게 part 번호는 \cmd{\printpartnum}가
+\cmd{\partnumfont} 글꼴로 식자하고, 기본값은 \cmd{\partnamefont}와 같다. 매크로
+\cmd{\partnamenum}은 띄어쓰기 하나로 정의되어 있는데, book 이름과 번호 사이에
+출력할 값이다.
 
-    For example, to set a \cmd{\part} in a large sans font with the part
-name flush left:
+%     For example, to set a \cmd{\part} in a large sans font with the part
+% name flush left:
+예를 들어, \cmd{\part}를 large sans 글꼴로 설정하고 part 이름을 왼쪽 정렬하는
+코드는 아래와 같다.
 \begin{lcode}
 \renewcommand{\partnamefont}{\normalfont\huge\sffamily\raggedright}
 \renewcommand{\partnumfont}{\normalfont\huge\sffamily}
 \end{lcode}
-or to only print the part number in the default font:
+% or to only print the part number in the default font:
+또는 part 번호만 기본 글꼴로 출력할 수도 있다.
 \begin{lcode}
 \renewcommand{\printpartname}{}
 \renewcommand{\partnamenum}{}
@@ -697,21 +731,30 @@ or to only print the part number in the default font:
 \glossary(parttitlefont)%
   {\cs{parttitlefont}}%
   {Font used by \cs{printparttitle} for the title.}
-A book's title is typeset by \cmd{\printbooktitle} using the font specified
-by \cmd{\booktitlefont}.
-By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size. This can
-be changed to have, say, the title set raggedleft in a small caps font by
+% A book's title is typeset by \cmd{\printbooktitle} using the font specified
+% by \cmd{\booktitlefont}.
+% By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size. This can
+% be changed to have, say, the title set raggedleft in a small caps font by
+Book의 제목은 \cmd{\printbooktitle}로 식자할 수 있으며, 사용되는 글꼴은
+\cmd{\booktitlefont}이다.
+기본값은 \cmd{\Huge} 크기의 \cmd{\bfseries} 글꼴이다. 아래와 같은 방법을 통해
+예시로 제목을 raggedleft, small caps 글꼴로 설정할 수 있다.
 \begin{lcode}
 \renewcommand{\booktitlefont}{\normalfont\Huge\scshape\raggedleft}
 \end{lcode}
 
-    Similarly a part's title is typeset by \cmd{\printparttitle} using
-the font specified by \cmd{\parttitlefont}.
-By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size.
+%     Similarly a part's title is typeset by \cmd{\printparttitle} using
+% the font specified by \cmd{\parttitlefont}.
+% By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size.
+유사하게 part 제목은 \cmd{\printparttitle}로 식자할 수 있으며, 사용되는 글꼴은
+\cmd{\parttitlefont}이다.
+기본값은 \cmd{\Huge} 크기의 \cmd{\bfseries} 글꼴이다.
 
-    The \cmd{\parttitlefont} font is also used by
-\cmd{\appendixpage}, or its starred version, when
-typesetting an appendix\index{appendix} page.
+%     The \cmd{\parttitlefont} font is also used by
+% \cmd{\appendixpage}, or its starred version, when
+% typesetting an appendix\index{appendix} page.
+\cmd{\parttitlefont} 글꼴은 부록\index{appendix} 페이지를 식자할 때
+\cmd{\appendixpage}와 \cmd{\appendixpage*}도 사용한다.
 
 \begin{syntax}
 \cmd{\bookpagemark}\marg{title} \\
@@ -723,9 +766,10 @@ typesetting an appendix\index{appendix} page.
 \glossary(partmark)%
   {\cs{partmark}\marg{title}}%
   {For setting any marks with the title from a \cs{part} for a running header.}
-The \cmd{\book} code includes \cmd{\bookpagemark}\marg{title} for capturing
-the \meta{title} of the book division if it is going to be used,
-for example, in page headers. Its definition is simply:
+% The \cmd{\book} code includes \cmd{\bookpagemark}\marg{title} for capturing
+% the \meta{title} of the book division if it is going to be used,
+% for example, in page headers. Its definition is simply:
+\cmd{\book} 코드는
 \begin{lcode}
 \newcommand*{\bookpagemark}[1]{}
 \end{lcode}
@@ -778,7 +822,8 @@ Text on the following (normally blank page)
 \clearpage
 ...
 \end{lcode}
-    Alternatively you can redefine \cmd{\partpageend}.
+    % Alternatively you can redefine \cmd{\partpageend}.
+다르게는 \cmd{\partpageend}를 재정의 할 수도 있다.
 
    If you use the declaration \cmd{\nopartblankpage} (or \cmd{\nobookblankpage})
 then you are responsible for setting everything correctly to end off the
