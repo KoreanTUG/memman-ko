@@ -53,42 +53,67 @@ Computer Modern\tidx{font!Computer Modern,글꼴!Computer Modern}
 이 유형의 글꼴을 윤곽선 글꼴(\emph{outline fonts}\indextwo{outline}{font})이라고
 한다
 
-\metafont\ fonts
-are designed for a particular display resolution and cannot reasonably 
-be scaled to match an arbitrary display device, whereas outline fonts can be 
-scaled before they are physically displayed.
+% \metafont\ fonts
+% are designed for a particular display resolution and cannot reasonably 
+% be scaled to match an arbitrary display device, whereas outline fonts can be 
+% scaled before they are physically displayed.
 
-\PWnote{2009/04/27}{Extended the font use/installation references}
-    There is an excessive number of \pscript\indexsupsubmain{font}{PostScript}
-and TrueType\indexsupsubmain{font}{TrueType}
-fonts available 
-and these can all, with some amount of effort, be used with \ltx. How to do
-that is outside the scope of this work; Alan Hoenig has written an excellent
-book on the subject~\cite{HOENIG98} and there is the invaluable 
-\btitle{The \ltx\ Companion} \cite[Chapter 7 Fonts and Encodings]{COMPANION}. 
-The original \btitle{The \ltx\ Graphics Companion} had chapters on PostScript
-fonts and tools but these were dropped in the second edition to keep it below
-an overwhelming size. This material has been updated and is available
-free from \url{http://xml.cern.ch/lgc2}; you can also get a 
-`work in progress'\pagenote[`work in progress']{\pixxetx\ enables you to 
+윤곽선 글꼴(\emph{outline fonts}\indextwo{outline}{font})은 표시되기 전에 크기를 조정할 수 있는 것과 달리,
+\metafont\ 글꼴은 특정 디스플레이 화질 용도로 설계되어서, 임의의 디스플레이 장치와 일치하도록 합리적으로 조정하는 것이 불가능하다.
+
+% \PWnote{2009/04/27}{Extended the font use/installation references}
+%    There is an excessive number of \pscript\indexsupsubmain{font}{PostScript}
+% and TrueType\indexsupsubmain{font}{TrueType}
+% fonts available 
+% and these can all, with some amount of effort, be used with \ltx. How to do
+% that is outside the scope of this work; Alan Hoenig has written an excellent
+% book on the subject~\cite{HOENIG98} and there is the invaluable 
+% \btitle{The \ltx\ Companion} \cite[Chapter 7 Fonts and Encodings]{COMPANION}. 
+
+
+\PWnote{2009/04/27}{폰트 사용 확대/설치 레퍼런스}
+사용 가능한 \pscript\indexsupsubmain{font}{PostScript, 포스트스크립트} 및 트루타입\indexsupsubmain{font}{TrueType, 트루타입} 글꼴의 수가 굉장히 많고, 이들 모두 약간의 노력을 하면 \ltx에서 사용할 수 있다.
+이를 수행하는 방법은 이 문서에서 다루지는 않고, 이에 대해 관심이 있다면, Alan Hoenig이 저술한 훌륭한 책~\cite{HOENIG98}을 보자.
+그리고 여기에는 귀중한 \btitle{The \ltx\ Companion} \cite[Chapter 7 Fonts and Encodings(글꼴과 인코딩)]{COMPANION} 이 있다.
+
+
+% The original \btitle{The \ltx\ Graphics Companion} had chapters on PostScript
+% fonts and tools but these were dropped in the second edition to keep it below
+% an overwhelming size. This material has been updated and is available
+% free from \url{http://xml.cern.ch/lgc2}; you can also get a 
+% `work in progress'\pagenote[`work in progress']{\pixxetx\ enables you to 
+% use Opentype fonts with \ltx, and supports both left-to-right and 
+% right-to-left typesetting. It has become very popular with those involved
+% in linguistics and non-Latin scripts.}
+% about \pixxetx, Unicode\index{Unicode}, and 
+% Opentype\indexsupsubmain{font}{Opentype}
+% fonts from the same source. 
+% There is less detailed, but also free, 
+% information available via \pixctan, for example Philipp Lehman's 
+% \textit{Font Installation Guide}~\cite{FONTINST}; even if you are not 
+% interested in
+% installing \pscript\ fonts this is well worth looking at just as an
+% example of the kind of elegant document that can be achieved with \ltx.
+% If you choose one of the popular
+% \pscript\indexsupsubmain{font}{PostScript} fonts, such as those built 
+% into \ixpscript\ printers, you may 
+% well find that the work has been done for you and it's just a question
+% of using the appropriate 
+% package.%
+
+\btitle{The \ltx\ Graphics Companion}의 초판에는 PostScript 글꼴과 도구에 대한 챕터가 있었지만, 두 번째 판에서는 초판에서의 방대한 분량이 삭제되고 굉장히 조금만 실려있다.
+이 자료는 업데이트 되었으며, \url{http://xml.cern.ch/lgc2}에서 무료로 이용할 수 있다. 또한, \pixxetx, Unicode\index{Unicode, 유니코드}, 그리고
+Opentype\indexsupsubmain{font}{Opentype}에 대한 
+`진행중인 작업'\pagenote[`work in progress']{\pixxetx\ enables you to 
 use Opentype fonts with \ltx, and supports both left-to-right and 
 right-to-left typesetting. It has become very popular with those involved
-in linguistics and non-Latin scripts.}
-about \pixxetx, Unicode\index{Unicode}, and 
-Opentype\indexsupsubmain{font}{Opentype}
-fonts from the same source. 
-There is less detailed, but also free, 
-information available via \pixctan, for example Philipp Lehman's 
-\textit{Font Installation Guide}~\cite{FONTINST}; even if you are not 
-interested in
-installing \pscript\ fonts this is well worth looking at just as an
-example of the kind of elegant document that can be achieved with \ltx.
-If you choose one of the popular
-\pscript\indexsupsubmain{font}{PostScript} fonts, such as those built 
-into \ixpscript\ printers, you may 
-well find that the work has been done for you and it's just a question
-of using the appropriate 
-package.%
+in linguistics and non-Latin scripts.}을 얻을 수 있다.
+그닥 디테일하진 않지만, 무료이며, \pixctan을 통해 가능하고, Philipp Lehman의 \textit{Font Installation Guide,폰트 설치 가이드}~\cite{FONTINST}; 같은 것이 있다.
+심지어 너가 만약 \pscript\ 글꼴을 설치하는 것에 대해 관심이 없더라도, 이것은 \ltx로 얻을 수 있는 우아한 문서의 예시로 관상하기에 훌륭하다.
+
+\ixpscript\ 프린터에 내장된 것과 같이, \pscript\indexsupsubmain{font}{PostScript} 글꼴과 같이 널리 사용되는 글꼴 중 하나를 선택해야 한다면, 
+너는 너의 문서가 굉장히 잘 완성된다(아름답다)는 것을 느낄 수 있을 것이며, 그저 적당한 package를 사용하기만 하면 된다.
+
 \pagenote[using the appropriate package]{I have found Christopher
 League's\index{League, Christopher} \textit{\tx\ support for the FontSite
 500 CD}, obtainable from \url{http:contrapunctus.net/fs500tex}, 
@@ -100,8 +125,11 @@ a total of \$37.12, including taxes and shipping, in 2002 for 512
 \pscript\ and TrueType\indexsupsubmain{font}{TrueType} professional
 quality fonts that are legal and very reasonably priced.
 
-    Many of the fonts fall into the Decorative/Display category but the book
-fonts include:
+
+%  Many of the fonts fall into the Decorative/Display category but the book
+% fonts include:
+많은 글꼴이 장식(Decorative) / 디스플레이(Display) 범주에 속하지만 책 글꼴에는 다음이 포함됩니다.
+
 \begin{description}
 
 \item[Blackletter]\typesubidx{Blackletter}
@@ -186,57 +214,73 @@ arrows, borders, fleurons\index{fleuron} and various icons.
 \end{description}
 }  % end pagenote
 
-    A standard \ltx\ distribution includes some 
-\pscript\indexsupsubmain{font}{PostScript} fonts and the packages to support
-them are in the \Ppack{psnfss}\index{psnfss?\Ppack{psnfss}}
-bundle. Most of the fonts are for normal text work but two supply
-symbols rather than characters. Table~\ref{tab:palatinoglyphs}, although it
-is specifically for Palatino\facesubseeidx{Palatino}, shows the glyphs 
-typically available. Tables~\ref{tab:symbolglyphs} and~\ref{tab:dingglyphs}
-show the glyphs in the two symbol fonts.
+%     A standard \ltx\ distribution includes some 
+% \pscript\indexsupsubmain{font}{PostScript} fonts and the packages to support
+% them are in the \Ppack{psnfss}\index{psnfss?\Ppack{psnfss}}
+% bundle. Most of the fonts are for normal text work but two supply
+% symbols rather than characters. Table~\ref{tab:palatinoglyphs}, although it
+% is specifically for Palatino\facesubseeidx{Palatino}, shows the glyphs 
+% typically available. Tables~\ref{tab:symbolglyphs} and~\ref{tab:dingglyphs}
+% show the glyphs in the two symbol fonts.
+
+표준 \ltx\ 배포판에는 일부 \pscript\indexsupsubmain{font}{PostScript} 글꼴이 포함되어 있으며, 이를 서포트하는 패키지들이 \Ppack{psnfss}\index{psnfss?\Ppack{psnfss}} 안에 있다.
+대부분의 글꼴은 일반 텍스트 작업용이지만, but two supply symbols rather than characters.
+표~\ref{tab:palatinoglyphs} 는, 특히 Palatino\facesubseeidx{Palatino} 용도이지만, 일반적으로 사용 가능한 글리프이다.
+표 s~\ref{tab:symbolglyphs}와 ~\ref{tab:dingglyphs}는 두 symbol fonts에서의 글리프를 보여준다.
 
 \begin{table}
 \centering
-\caption{Glyphs in the \ltx\ supplied Palatino roman font}\label{tab:palatinoglyphs}
+% \caption{Glyphs in the \ltx\ supplied Palatino roman font}\label{tab:palatinoglyphs}
+\caption{\ltx\ 에 Palatino roman font의 글리프 }\label{tab:palatinoglyphs}
 \nohexoct
 \fonttable{pplr}
 \end{table}
 
 \begin{table}
 \centering
-\caption{Glyphs in the \ltx\ distributed Symbol font}\label{tab:symbolglyphs}
+% \caption{Glyphs in the \ltx\ distributed Symbol font}\label{tab:symbolglyphs}
+\caption{\ltx\ 에 Symbol font가 배부된 글리프 }\label{tab:symbolglyphs}
 \nohexoct
 \fonttable{psyr}
 \end{table}
 
 \begin{table}
 \centering
-\caption{Glyphs in the \ltx\ distributed Zapf Dingbat font}\label{tab:dingglyphs}
+% \caption{Glyphs in the \ltx\ distributed Zapf Dingbat font}\label{tab:dingglyphs}
+\caption{\ltx\ 에 Zapf Dingbat font가 배부된 글리프 }\label{tab:dingglyphs}
 \nohexoct
 \fonttable{pzdr}
 \end{table}
 
 
-These supplied \pscript\ fonts, their respective \ltx\ fontfamily\index{fontfamily} names,
-and running text examples of each, are:
+% These supplied \pscript\ fonts, their respective \ltx\ fontfamily\index{fontfamily} names,
+% and running text examples of each, are:
+이들은 \pscript\ 글꼴을 제공하고, 그들 각각 \ltx\ 에서 fontfamily\index{fontfamily} 이름 및 각각의 텍스트 실행 예제는 다음과 같다 : 
+
 \begin{description}
-\item[ITC Avant Garde Gothic\facesubseeidx{Avant Garde Gothic}] {\LXfont{pag} 
-  is a geometric sans type designed 
-  by Herb Lubalin\index{Lubalin, Herb} and Tom Carnase\index{Carnase, Tom} and 
-  based on the logo of the \textit{Avant Garde} magazine. 
-The fontfamily name is \pfontfam{pag}.
+% \item[ITC Avant Garde Gothic\facesubseeidx{Avant Garde Gothic}] {\LXfont{pag} 
+%   is a geometric sans type designed 
+%   by Herb Lubalin\index{Lubalin, Herb} and Tom Carnase\index{Carnase, Tom} and 
+%   based on the logo of the \textit{Avant Garde} magazine. 
+% The fontfamily name is \pfontfam{pag}.
+
+\item[ITC Avant Garde Gothic\facesubseeidx{Avant Garde Gothic}] {\LXfont{pag} 은 Herb Lubalin\index{Lubalin, Herb}와 
+Tom Carnase\index{Carnase, Tom}가 디자인 한 geometric sans type이며 \textit{Avant Garde} 잡지의 로고를 기반으로 한다. fontfamily 이름은 \pfontfam{pag} 이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[ITC Bookman\facesubseeidx{Bookman}] {\LXfont{pbk} was originally 
-sold in 1860 by the Miller \&  Richard\index{Miller \& Richard} foundry 
-in Scotland; it was designed by 
-Alexander Phemister\index{Phemister, Alexander}. The ITC revival is by
-Ed Benguiat\index{Benguiat, Ed}. 
-The fontfamily name is \pfontfam{pbk}.
+% \item[ITC Bookman\facesubseeidx{Bookman}] {\LXfont{pbk} was originally 
+% sold in 1860 by the Miller \&  Richard\index{Miller \& Richard} foundry 
+% in Scotland; it was designed by 
+% Alexander Phemister\index{Phemister, Alexander}. The ITC revival is by
+% Ed Benguiat\index{Benguiat, Ed}. 
+% The fontfamily name is \pfontfam{pbk}.
+
+\item[ITC Bookman\facesubseeidx{Bookman}] {\LXfont{pbk} 은 원래 스코틀랜드의  Miller \&  Richard\index{Miller \& Richard} 공장에서 1860 년에 판매되었다. 
+그것은 Alexander Phemister\index{Phemister, Alexander}에 의해 설계되었다. ITC 부흥은 Ed Benguiat\index{Benguiat, Ed}에 의한 것이다. fontfamily 이름은 \pfontfam{pbk} 이다.
 
 
 \vspace{0.5\onelineskip}
@@ -244,124 +288,153 @@ The fontfamily name is \pfontfam{pbk}.
 \vspace{0.5\onelineskip}
 }
 
-\item[Bitstream Charter\facesubseeidx{Charter}] {\LXfont{bch} was designed
-by Matthew Carter\index{Carter, Matthew} for display on low resolution
-devices, and is useful for many applications, including bookwork.
-The fontfamily name is \pfontfam{bch}.
+% \item[Bitstream Charter\facesubseeidx{Charter}] {\LXfont{bch} was designed
+% by Matthew Carter\index{Carter, Matthew} for display on low resolution
+% devices, and is useful for many applications, including bookwork.
+% The fontfamily name is \pfontfam{bch}.
+
+\item[Bitstream Charter\facesubseeidx{Charter}] {\LXfont{bch} 는 Matthew Carter\index{Carter, Matthew}가 저해상도 장치 디스플레이 용으로 설계 한 것으로 
+책 제작을 비롯한 많은 응용 분야에 유용하다. fontfamily 이름은 \pfontfam{bch}이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[Courier\facesubseeidx{Courier}] {\LXfont{pcr} is a monospaced font
-that was originally
-designed by Howard Kettler\index{Kettler, Howard} at IBM and then later
-redrawn by Adrian Frutiger\index{Frutiger, Adrian}.
-The fontfamily name is \pfontfam{pcr}.
+% \item[Courier\facesubseeidx{Courier}] {\LXfont{pcr} is a monospaced font
+% that was originally
+% designed by Howard Kettler\index{Kettler, Howard} at IBM and then later
+% redrawn by Adrian Frutiger\index{Frutiger, Adrian}.
+% The fontfamily name is \pfontfam{pcr}.
+
+\item[Courier\facesubseeidx{Courier}] {\LXfont{pcr} 는 원래 하워드가 설계 한 고정 폭(monospaced) 글꼴이다.
+IBM의 Kettler\index{Kettler, Howard}는 나중에 Adrian Frutiger\index{Frutiger, Adrian}가 다시 그려 냈다. fontfamily 이름은 \pfontfam{pcr}이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[Helvetica\facesubseeidx{Helvetica}] {\LXfont{phv} was originally 
-designed for the Haas
-foundry in Switzerland by Max Miedinger\index{Miedinger, Max}; it was later
-extended by the Stempel foundry and further refined by 
-Linotype\index{Linotype}.
-The fontfamily name is \pfontfam{phv}.
+% \item[Helvetica\facesubseeidx{Helvetica}] {\LXfont{phv} was originally 
+% designed for the Haas
+% foundry in Switzerland by Max Miedinger\index{Miedinger, Max}; it was later
+% extended by the Stempel foundry and further refined by 
+% Linotype\index{Linotype}.
+% The fontfamily name is \pfontfam{phv}.
+
+\item[Helvetica\facesubseeidx{Helvetica}] {\LXfont{phv}는 원래 Max Miedinger\index{Miedinger, Max}에 의해 스위스의 Haas 파운드리를 위해 설계되었다. 
+그것은 나중에 Stempel 파운드리에 의해 확장되었고 Linotype\index{Linotype}에 의해 더 세련되어졌다. fontfamily 이름은 \pfontfam{phv}이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[New Century Schoolbook\facesubseeidx{New Century Schoolbook}] 
-  {\LXfont{pnc}
-was designed by Morris Benton\index{Benton, Morris} for ATF (American
-Type Founders) in the early 20th century. As its name implies it was designed
-for maximum legibility in schoolbooks.
-The fontfamily name is \pfontfam{pnc}.
+% \item[New Century Schoolbook\facesubseeidx{New Century Schoolbook}] 
+%   {\LXfont{pnc}
+% was designed by Morris Benton\index{Benton, Morris} for ATF (American
+% Type Founders) in the early 20th century. As its name implies it was designed
+% for maximum legibility in schoolbooks.
+% The fontfamily name is \pfontfam{pnc}.
+
+\item[New Century Schoolbook\facesubseeidx{New Century Schoolbook}] {\LXfont{pnc}은 Morris Benton\index{Benton, Morris}이 20 세기 초 ATF (American Type Founders)를 위해 디자인했다. 이름에서 알 수 있듯이 교과서의 가독성을 극대화 할 수 있도록 설계되었다. fontfamily 이름은 \pfontfam{pnc}이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[Palatino\facesubseeidx{Palatino}] 
-  {\LXfont{ppl} was designed by Hermann 
-Zapf\index{Zapf, Hermann} and is one of the most popular typefaces today.
-The fontfamily name is \pfontfam{ppl}.
+% \item[Palatino\facesubseeidx{Palatino}] 
+%   {\LXfont{ppl} was designed by Hermann 
+% Zapf\index{Zapf, Hermann} and is one of the most popular typefaces today.
+% The fontfamily name is \pfontfam{ppl}.
+
+\item[Palatino\facesubseeidx{Palatino}] {\LXfont{ppl} 는 Hermann Zapf\index{Zapf, Hermann}가 디자인했으며 오늘날 가장 인기있는 서체 중 하나다. fontfamily 이름은 \pfontfam{ppl}이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[Times Roman\facesubseeidx{Times Roman}] 
-  {\LXfont{ptm} is Linotype's version
-of the Times New Roman\facesubseeidx{Times New Roman} face designed by 
-Stanley Morison\index{Morison, Stanley} for the
-Monotype Corporation for printing \emph{The Times} newspaper.
-The fontfamily name is \pfontfam{ptm}.
+% \item[Times Roman\facesubseeidx{Times Roman}] 
+%   {\LXfont{ptm} is Linotype's version
+% of the Times New Roman\facesubseeidx{Times New Roman} face designed by 
+% Stanley Morison\index{Morison, Stanley} for the
+% Monotype Corporation for printing \emph{The Times} newspaper.
+% The fontfamily name is \pfontfam{ptm}.
+
+\item[Times Roman\facesubseeidx{Times Roman}] {\LXfont{ptm} 은 \emph{The Times} 신문을 인쇄 할 때 Monotype Corporation에서 Stanley Morison\index{Morison, Stanley}이 디자인 한 Times New Roman\facesubseeidx{Times New Roman} 표지의 Linotype 버전이다. 
+fontfamily 이름은 \pfontfam{ptm}이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[Utopia\facesubseeidx{Utopia}] 
-  {\LXfont{put} was designed by Robert 
-Slimbach\index{Slimbach, Robert} and combines 
-Transitional\indextwo{type}{Transitional} features and contemporary details.
-The fontfamily name is \pfontfam{put}.
+% \item[Utopia\facesubseeidx{Utopia}] 
+%  {\LXfont{put} was designed by Robert 
+% Slimbach\index{Slimbach, Robert} and combines 
+% Transitional\indextwo{type}{Transitional} features and contemporary details.
+% The fontfamily name is \pfontfam{put}.
+
+Utopia는 Robert Slimbach\index{Slimbach, Robert}가 디자인했으며 과도기\indextwo{type}{Transitional}적 기능과 최신 세부 사항을 결합한다. fontfamily 이름은 \pfontfam{put}이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[ITC Zapf Chancery\facesubseeidx{Zapf Chancery}] 
-  {\LXfont{pzc} is a 
-Script\indextwo{type}{Script} type fashioned after the chancery
-handwriting styles of the Italian Renaissance. It was created by
-Hermann Zapf\index{Zapf, Hermann}.
-The fontfamily name is \pfontfam{pzc}.
+% \item[ITC Zapf Chancery\facesubseeidx{Zapf Chancery}] 
+%  {\LXfont{pzc} is a 
+% Script\indextwo{type}{Script} type fashioned after the chancery
+% handwriting styles of the Italian Renaissance. It was created by
+% Hermann Zapf\index{Zapf, Hermann}.
+% The fontfamily name is \pfontfam{pzc}.
+
+\item[ITC Zapf Chancery\facesubseeidx{Zapf Chancery}] {\LXfont{pzc} 는 이탈리아 르네상스의 찬사 스타일에 필적하는 스크립트\indextwo{type}{Script} 유형이다. 
+그것은 Hermann Zapf{Zapf, Hermann}에 의해 만들어졌다. fontfamily 이름은 \pfontfam{pzc}이다.
 
 \vspace{0.5\onelineskip}
 \fox\par\Kafka\par\namesAZ
 \vspace{0.5\onelineskip}
 }
 
-\item[Symbol\facesubseeidx{Symbol}]
-  {\LXfont{psy} contains various symbols and Greek letters for 
-  mathematical work; these are most easily accessible via
-  the \Lpack{pifont} package.
-The fontfamily name is \pfontfam{psy}.
-
-    The available glyphs are shown in \tref{tab:symbolglyphs}.
+% \item[Symbol\facesubseeidx{Symbol}]
+%   {\LXfont{psy} contains various symbols and Greek letters for 
+%   mathematical work; these are most easily accessible via
+%   the \Lpack{pifont} package.
+% The fontfamily name is \pfontfam{psy}.
+\item[Symbol\facesubseeidx{Symbol}] {\LXfont{psy} 는 다양한 기호와 수학적 작업을위한 그리스 문자를 포함한다. 
+이들은 \Lpack{pifont} 패키지를 통해 가장 쉽게 접근 할 수 있다. fontfamily 이름은 \pfontfam{psy}이다. 
+%     The available glyphs are shown in \tref{tab:symbolglyphs}.
+사용 가능한 글리프는 \tref{tab:symbolglyphs}에 나와 있다.
 }
 
-\item[Zapf Dingbats]\facesubseeidx{Zapf Dingbats}
-  {\LXfont{pzd} contains a variety of dingbats which, like the Symbol
-   characters, are most easily 
-   accessible via the \Lpack{pifont} package.
-The fontfamily name is \pfontfam{pzd}.
-
-    The available glyphs are shown in \tref{tab:dingglyphs}.
+% \item[Zapf Dingbats]\facesubseeidx{Zapf Dingbats}
+%   {\LXfont{pzd} contains a variety of dingbats which, like the Symbol
+%    characters, are most easily 
+%    accessible via the \Lpack{pifont} package.
+% The fontfamily name is \pfontfam{pzd}.
+\item[Zapf Dingbats]\facesubseeidx{Zapf Dingbats} {\LXfont{pzd} 에는 Symbol 문자와 마찬가지로 \Lpack{pifont} 패키지를 통해 가장 쉽게 액세스 할 수있는 다양한 dingbats가 포함되어 있다. 
+fontfamily 이름은 \pfontfam{pzd}이다. 
+%  The available glyphs are shown in \tref{tab:dingglyphs}.
+  사용 가능한 글리프는 \tref{tab:dingglyphs}에 나와 있다.
 }
-
-
 \end{description}
 
-    In \ltx\ there are three characteristics that apply to a font. These are:
-(a)~the shape\index{font characteristic!shape}, 
-(b)~the series\index{font characteristic!series} 
-(or weight), %\index{font characteristic!weight|see{series}}, 
-and (c)~the family\index{font characteristic!family}. 
-Table \ref{tab:fontcat} illustrates these and lists the relevant 
-commands\index{font commands} to access the different font categories.
+%    In \ltx\ there are three characteristics that apply to a font. These are:
+% (a)~the shape\index{font characteristic!shape}, 
+% (b)~the series\index{font characteristic!series} 
+% (or weight), %\index{font characteristic!weight|see{series}}, 
+% and (c)~the family\index{font characteristic!family}. 
+% Table \ref{tab:fontcat} illustrates these and lists the relevant 
+% commands\index{font commands} to access the different font categories.
+
+\ltx\ 에는 글꼴에 적용되는 세 가지 특성이 있다. 이것들은 : 
+(a)~모양(shape)\index{font characteristic!shape}, 
+(b)~시리즈(series)(또는 무게(weight))\index{font characteristic!series},  %\index{font characteristic!weight|see{series}}, 
+(c)~가족(family)\index{font characteristic!family}
+ 표 \ref{tab:fontcat} 는 이러한 내용을 보여 주며 다른 글꼴 카테고리에 액세스하는 데 필요한 명령 \index{font commands}을 나열한다.
 
 \begin{table}
 \centering
@@ -410,10 +483,13 @@ commands\index{font commands} to access the different font categories.
   {Typeset \meta{text} with a Typewriter (monospaced) font.}
 \end{table}
 
-    The normal body font\index{body font} --- the font used for the bulk 
-of the text ---
-is an upright, medium, roman font of a size specified by the font size
-option for the \cmd{\documentclass}.
+%     The normal body font\index{body font} --- the font used for the bulk 
+% of the text ---
+% is an upright, medium, roman font of a size specified by the font size
+% option for the \cmd{\documentclass}.
+
+일반 본문 글꼴\index{body font}(텍스트 본문에 사용되는 글꼴) --- 대부분의 텍스트에 사용되는 글꼴 --- 은 \cmd{\documentclass}에 대한 글꼴 크기 옵션으로 지정된 크기의 직립, 중간, 로마자 글꼴이다.
+
 \begin{syntax}
 \cmd{\normalfont} \\
 \end{syntax}
@@ -421,13 +497,17 @@ option for the \cmd{\documentclass}.
   {\cs{normalfont}}%
   {Declaration setting the font to the normal body font (upright, Roman,
 and medium weight).} 
-The declaration \cmd{\normalfont} sets the font to be the normal body font.
+% The declaration \cmd{\normalfont} sets the font to be the normal body font.
+\cmd{\normalfont}선언은 글꼴을 일반 본문 글꼴로 설정한다.
 
-    There is a set of font declarations\index{font declarations}, as shown in \tref{tab:fontdecl},
-that correspond to the commands listed in \tref{tab:fontcat}. The commands
-are most useful when changing the font for a word or two, while the 
-declarations are more convenient when you want to typeset longer passages
-in a different font.
+%    There is a set of font declarations\index{font declarations}, as shown in \tref{tab:fontdecl},
+% that correspond to the commands listed in \tref{tab:fontcat}. The commands
+% are most useful when changing the font for a word or two, while the 
+% declarations are more convenient when you want to typeset longer passages
+% in a different font.
+
+\tref{tab:fontdecl} 에 표시된대로 \tref{tab:fontcat} 에 나열된 명령에 해당하는 글꼴 선언 세트\index{font declarations}가 있다.
+명령은 한 두 단어의 글꼴을 변경할 때 가장 유용하지만, 다른 글꼴로 긴 구절을 입력하려고 할 때 선언이 더 편리하다.
 
 \begin{table}
 \centering
@@ -476,8 +556,9 @@ in a different font.
   {Declaration for using a Typewriter (monospaced) font.}
 \end{table}
 
-    Do not go wild seeing how many different kinds of fonts you can cram into
-your work as in example~\ref{egbadmf}.
+%  Do not go wild seeing how many different kinds of fonts you can cram into
+% your work as in example~\ref{egbadmf}.
+~\ref{egbadmf} 에서와 같이 자신의 작업에 굳이 굉장히 많은 글꼴을 넣으려고 하지는 말자.
 
 \begin{egsource}{egbadmf}
 Mixing \textbf{different series, \textsf{families}} and
@@ -491,8 +572,10 @@ Mixing \textbf{different series, \textsf{families}} and
 is usually \emph{highly inadvisable!}
 \end{egresult}
 
-    On the other hand there are occasions when several fonts may be used
-for a reasonable effect, as in example~\ref{eg16}.
+%    On the other hand there are occasions when several fonts may be used
+% for a reasonable effect, as in example~\ref{eg16}.
+반면에 예제 ~\ref{eg16}에서와 같이 효과적인 효과를 내기 위해 여러 글꼴을 사용할 수있는 경우가 있다.
+
 \begin{egsource}{eg16}
 \begin{center}
 \textsc{Des Dames du Temps Jadis}
@@ -543,12 +626,16 @@ But where are the snows of yesteryear?
 \glossary(emph)%
   {\cs{emph}\marg{text}}%
   {Use a change in font to emphasise \meta{text}.}
-The \cmd{\emph}\index{emphasis} command is a font changing command that 
-does not fit
-into the above scheme of things. What it does is to typeset its \meta{text}
-argument using a different font than the surrounding text. By default,
-\cmd{\emph} switches between an upright shape and an italic shape. The
-commands can be nested to produce effects like those in the next example.
+% The \cmd{\emph}\index{emphasis} command is a font changing command that 
+% does not fit
+% into the above scheme of things. What it does is to typeset its \meta{text}
+% argument using a different font than the surrounding text. By default,
+% \cmd{\emph} switches between an upright shape and an italic shape. The
+% commands can be nested to produce effects like those in the next example.
+
+\cmd{\emph}\index{emphasis} 명령은 위의 계획에 맞지 않는 글꼴 변경 명령이다. 
+그것은 주변 텍스트와 다른 글꼴을 사용하여 텍스트 인수를 조판하는 것이다. 기본적으로 \cmd{\emph}는 직립 모양과 기울임 꼴 사이를 전환한다.
+다음 예제와 같은 효과를 내기 위해 명령을 중첩 할 수 있다.
 
 \begin{egsource}{eg:emph}
 The \verb?\emph? command is used to produce some text that 
@@ -571,13 +658,16 @@ just like in this sentence.
 \glossary(eminnershape)%
   {\cs{eminnershape}\marg{shape}}%
   {Font shape for emphasized text within emphasized text.}%
-If the \cmd{\emph} command is used within italic text then the
-newly emphasized text will be typeset using the 
-\cmd{\eminnershape} font shape. The default definition is:
+% If the \cmd{\emph} command is used within italic text then the
+% newly emphasized text will be typeset using the 
+% \cmd{\eminnershape} font shape. The default definition is:
+기울임 꼴 텍스트 내에서 \cmd{\emph} 명령을 사용하면 새롭게 강조된 텍스트는 \cmd{\eminnershape} 글꼴 모양을 사용하여 조판된다.
+기본 정의는 다음과 같다 : 
 \begin{lcode}
 \newcommand*{\eminnershape}{\upshape}
 \end{lcode}
-which you can change if you wish.
+% which you can change if you wish.
+원하는 경우 변경할 수 있다.
 
 
 
