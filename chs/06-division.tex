@@ -1,25 +1,29 @@
 \chapter{문서의 장절구분}
 
-For this chapter the \cstyle{pedersen} chapterstyle has been used in
-order to demonstrate how it appears.
+% For this chapter the \cstyle{pedersen} chapterstyle has been used in
+% order to demonstrate how it appears.
+이 장에서는 \cstyle{pedersen} 챕터 스타일(chapterstyle)이 어떻게 나타나는지 알려주고자 한다.
 
+% In this chapter I first discuss the various kinds of divisions within
+% a book and the commands for typesetting these.
+이 장에서는, 먼저 책 내의 여러 종류의 구분과 그것들을 조판하는 명령에 대해 설명한다.
 
-In this chapter I first discuss the various kinds of divisions within
-a book and the commands for typesetting these.
-
-After that I describe the class methods for modifying the appearance
-of the chapter and other sectional titles (subheads)\index{subhead}.
-The facilities described here provide roughly the same as you would
-get if you used the \Lpack{titlesec}~\cite{TITLESEC} and
-\Lpack{sectsty}~\cite{SECTSTY} packages together; the commands are
-different, though.
-
+% After that I describe the class methods for modifying the appearance
+% of the chapter and other sectional titles (subheads)\index{subhead}.
+% The facilities described here provide roughly the same as you would
+% get if you used the \Lpack{titlesec}~\cite{TITLESEC} and
+% \Lpack{sectsty}~\cite{SECTSTY} packages together; the commands are
+% different, though.
+그런 다음 장(chapter)의 모양과 기타 섹션 제목, 부제목(other sectional titles, subheads\index{subhead!소제목})을 수정하는 클래스 방법(class methods)을 설명한다.
+여기에 설명 된 기능은 \Lpack{titlesec}~\cite{TITLESEC} 및 \Lpack{sectsty}~\cite{SECTSTY} 패키지를 함께 사용했을 때와 거의 동일한 기능을 제공한다. 그러나 명령은 다르다.
 \section{Logical divisions}
 
-    As described earlier there are three main logical divisions to a book;
-the \pixfrontmatter, \pixmainmatter\ and \pixbackmatter. There are three \ltx\
-commands that correspond to these, namely \cmd{\frontmatter},
-\cmd{\mainmatter} and \cmd{\backmatter}.
+    % As described earlier there are three main logical divisions to a book;
+    앞에서 설명한 것처럼 책에는 세 가지 주요 논리적 구분이 있다.
+% the \pixfrontmatter, \pixmainmatter\ and \pixbackmatter. There are three \ltx\
+% commands that correspond to these, namely \cmd{\frontmatter},
+% \cmd{\mainmatter} and \cmd{\backmatter}.
+\pixfrontmatter, \pixmainmatter\ 그리고 \pixbackmatter. 그리고 이들에 대응하는 세 가지의 \ltx\ 명령어는 \cmd{\frontmatter}, \cmd{\mainmatter} 그리고 \cmd{\backmatter} 이다.
 
 \begin{syntax}
 \cmd{\frontmatter} \cmd{\frontmatter*} \\
@@ -31,19 +35,23 @@ commands that correspond to these, namely \cmd{\frontmatter},
 \glossary(frontmatter*)%
   {\cs{frontmatter*}}%
   {Same as \cs{frontmatter} except that folios are unaltered.}
-The \cmd{\frontmatter} declaration sets the folios\index{folio} to be
-printed in lowercase roman numerals, starts the page numbering from~i,
-and prohibits any numbering
-of sectional divisions. Caption\index{caption}, equations, etc., will be
-numbered continuously.  The starred version of the command,
-\cmd{\frontmatter*}, is similar to the unstarred version except that it
-makes no changes to the page numbering or the print style for the
-folios\index{folio}. Even though \cmd{\chapter} and other divisions will not
-be numbered their titles will be added to the ToC.
+% The \cmd{\frontmatter} declaration sets the folios\index{folio} to be
+% printed in lowercase roman numerals, starts the page numbering from~i,
+% and prohibits any numbering
+% of sectional divisions. Caption\index{caption}, equations, etc., will be
+% numbered continuously.  The starred version of the command,
+% \cmd{\frontmatter*}, is similar to the unstarred version except that it
+% makes no changes to the page numbering or the print style for the
+% folios\index{folio}. Even though \cmd{\chapter} and other divisions will not
+% be numbered their titles will be added to the ToC.
+\cmd{\frontmatter} 명령어는 folios\index{folio!폴리오}를 소문자 로마 숫자로 인쇄하도록 설정하고 ~ i부터 페이지 번호 매기기를 시작하며 섹션 구분의 번호 매기기를 금지한다.
+캡션(caption\index{caption!캡션}), 수식(equations) 등은 연속적으로 번호가 매겨진다. 별표 버전의 명령어인 \cmd{\frontmatter*}는 Folio\index{folio!폴리오}의 페이지 번호 나 인쇄 스타일을 변경하지 않는다는 점을 제외하고 별표가 없는 버전과 유사하다.
+\cmd{\chapter} 및 기타 부서에 번호가 지정되지 않더라도 제목이 목차에 추가된다.
 
-    If it is to be used at all, the \cmd{\frontmatter} declaration should
-come before any text is set, otherwise the pagination scheme will be
-in disarray (in books pagination starts on the first page).
+%    If it is to be used at all, the \cmd{\frontmatter} declaration should
+% come before any text is set, otherwise the pagination scheme will be
+% in disarray (in books pagination starts on the first page).
+아무것도 사용하지 않으려면 \cmd{\frontmatter} 명령어가 텍스트를 설정하기 전에 와야한다. 그렇지 않으면 페이지 매김 체계가 혼란스러워진다. (책에서 페이지 매김이 첫 페이지부터 시작됨).
 
 \begin{syntax}
 \cmd{\mainmatter} \cmd{\mainmatter*} \\
@@ -55,21 +63,26 @@ in disarray (in books pagination starts on the first page).
 \glossary(mainmatter*)%
   {\cs{mainmatter*}}%
   {Same as \cs{mainmatter} except that folios are unaltered.}
-The \cmd{\mainmatter} declaration, which is the default at the start of a
-document, sets the folios\index{folio} to be printed in arabic numerals, starts
-the page numbering from~1, and sections and above will be numbered.
-Float\index{float} captions\index{caption}, equations, etc., will be numbered
-per chapter\index{chapter}. The starred version of the command,
-\cmd{\mainmatter*}, is similar to the unstarred version except that it
-makes no changes to the page numbering or the print style for the
-folios\index{folio}.
+% The \cmd{\mainmatter} declaration, which is the default at the start of a
+% document, sets the folios\index{folio} to be printed in arabic numerals, starts
+% the page numbering from~1, and sections and above will be numbered.
+% Float\index{float} captions\index{caption}, equations, etc., will be numbered
+% per chapter\index{chapter}. The starred version of the command,
+% \cmd{\mainmatter*}, is similar to the unstarred version except that it
+% makes no changes to the page numbering or the print style for the
+% folios\index{folio}.
+문서 시작시 기본값인 \cmd{\mainmatter} 명령어는 folios\index{folio!폴리오}를 아라비아 숫자로 인쇄하도록 설정하고 페이지 번호를 ~ 1부터 시작하며 이후로는 2,3,4,5.... 점점 커진다.
+떠다니는 객체의 캡션(Float\index{float!떠다니는객체} captions\index{caption!캡션}), 수식(equations) 등은 장(chapter\index{chapter!챕터!장})마다 번호가 매겨진다. 별표 버전의 명령어인\cmd{\mainmatter*}는 folios\index{folio!폴리오}의 페이지 번호나 인쇄 스타일을 변경하지 않는다는 점을 제외하고 별표가 없는 버전과 유사하다.
+\cs{mainmatter}의 기능을 설명하는 다음 단락이 추가되지 않았다.
 
 \LMnote{2010/01/23}{Added the following paragraph, just stating what
   \cs{mainmatter} does, was not clear before.}
-Please note that \cmd{\mainmatter} will not only change the folio
-numbers to arabic and restart it at 1, it will also make sure it
-starts at the next coming recto page. (Even when running under the
-\texttt{openany} option).
+% Please note that \cmd{\mainmatter} will not only change the folio
+% numbers to arabic and restart it at 1, it will also make sure it
+% starts at the next coming recto page. (Even when running under the
+% \texttt{openany} option).
+\cmd{\mainmatter} 는 folio 번호를 아라비아로 변경하고 1에서 다시 시작할뿐만 아니라 다음에 오는 recto 페이지에서 시작되도록 한다. ( \texttt{openany}  옵션으로 실행할 때도 ).
+
 
 
 
@@ -79,18 +92,22 @@ starts at the next coming recto page. (Even when running under the
 \glossary(backmatter)%
   {\cs{backmatter}}%
   {Prohibits sectional numbering and floats, etc., will be numbered continuously.}
-The \cmd{\backmatter} declaration makes no change to the pagination or
-folios\index{folio} but does prohibit sectional division numbering, and
-captions\index{caption}, etc., will be numbered continuously.
+% The \cmd{\backmatter} declaration makes no change to the pagination or
+% folios\index{folio} but does prohibit sectional division numbering, and
+% captions\index{caption}, etc., will be numbered continuously.
+\cmd{\backmatter} 명령어는 페이지 매김 또는 folios\index{folio!폴리오}를 변경하지 않지만, 부분(sectional)을 구분하는 번호 매기기를 금지하고 캡션\index{caption!캡션} 등은 연속적으로 번호가 매겨진다.
 
 \fancybreak{}
 
 \LMnote{2009/06/29}{Added the following section}
 
-If you have other types of floats that might be used in the front-
-main- or backmatter, then you can change some internals to add these
-to be numbered in the same manner as we do with figures and
-tables. They are defined as
+% If you have other types of floats that might be used in the front-
+% main- or backmatter, then you can change some internals to add these
+% to be numbered in the same manner as we do with figures and
+% tables. They are defined as
+전면 또는 후면에 사용할 수있는 다른 유형의 "떠다니는 개체"(floats)가 있는 경우, 그림 및 표와 같은 방식으로 번호를 매기도록 일부 내부를 변경할 수 있다.
+그것은 다음과 같이
+
 \begin{lcode}
 \newcommand\@memfront@floats{%
   \counterwithout{figure}{chapter}
@@ -105,8 +122,9 @@ tables. They are defined as
     \setcounter{table}{0}}
 \end{lcode}
 %
-The macros can also be changed in case you want to have consecutive
-figure numbering throughout, i.e.,
+% The macros can also be changed in case you want to have consecutive
+% figure numbering throughout, i.e.,
+문서 전체적인 연속적 번호 매기기를 원할 경우, 즉 매크로를 변경할 수도 있다.
 \begin{lcode}
 \makeatletter
 \counterwithout{figure}{chapter}
@@ -116,26 +134,33 @@ figure numbering throughout, i.e.,
 \newcommand\@memback@floats{}
 \makeatother
 \end{lcode}
-in the preamble.
+% in the preamble.
+서문에서.
 
 
 
 
 \section{Sectional divisions}
 
-    The \theclass{} class lets you divide a document up into eight levels
-of named divisions. They range from book\index{book}, part\index{part}
-through chapter\index{chapter} and down to
-sub-paragraph. A particular sectional division is specified by one of
-the commands \cmd{\book}, \cmd{\part}, \cmd{\chapter}, \cmd{\section},
-\cmd{\subsection},
-which is probably as deep as you want to go. If you really need finer
-divisions, they are
- \cmd{\subsubsection}, \cmd{\paragraph} and lastly \cmd{\subparagraph}.
-The sectional commands, except for \cmd{\book} and \cmd{\part},
-have the same form, so rather than describing
-each one in turn I will use \cmd{\section} as model for all but the
-two exceptions.
+%   The \theclass{} class lets you divide a document up into eight levels
+% of named divisions. They range from book\index{book}, part\index{part}
+% through chapter\index{chapter} and down to
+% sub-paragraph. A particular sectional division is specified by one of
+% the commands \cmd{\book}, \cmd{\part}, \cmd{\chapter}, \cmd{\section},
+% \cmd{\subsection},
+% which is probably as deep as you want to go. If you really need finer
+% divisions, they are
+% \cmd{\subsubsection}, \cmd{\paragraph} and lastly \cmd{\subparagraph}.
+% The sectional commands, except for \cmd{\book} and \cmd{\part},
+% have the same form, so rather than describing
+% each one in turn I will use \cmd{\section} as model for all but the
+% two exceptions.
+\theclass{} 클래스를 사용하면 문서를 8 단계의 명명 된 구분으로 나눌 수 있다.
+  그것들은 책\index{book!책}, 부분\index{part!부분}, 챕터\index{chapter!챕터} 및 하위 단락에 이르기까지 다양하다.
+특정 섹션 구분은 \cmd{\book}, \cmd{\part}, \cmd{\chapter}, \cmd{\section}, \cmd{\subsection} 명령 중 하나로 지정된다.
+더 미세한 분할이 필요한 경우, \cmd{\subsubsection}, \cmd{\paragraph}, \cmd{\subparagraph}를 쓸 수도 있다.
+\cmd{\book}  및 \cmd{\part}를 제외한 섹션적 구분 명령어(sectional commands)의 형식은 동일하다.
+따라서 각각을 따로 설명하는 대신에, 두 명령어를 제외하고 나머지에 대해서는 \cmd{\section}을 예시로 들어 설명하겠다.
 
 \begin{syntax}
 \cmd{\section}\oarg{toc-title}\oarg{head-title}\marg{title}\\
@@ -152,31 +177,42 @@ two exceptions.
   {Typesets an unnumbered section subhead \meta{title}. There are no ToC or
    running header entries.}
 
-There are two forms of the command;
-the starred version is simpler, so I'll describe its
-effects first --- it just typesets \meta{title} in the document in the format
-for that particular sectional division. Like the starred version, the plain
-version also typesets \meta{title} in the document, but it may be numbered.
-Diferent forms of the division title are available for the
-Table of Contents (\toc) and a running header\index{header}, as follows:
+% There are two forms of the command;
+% the starred version is simpler, so I'll describe its
+% effects first --- it just typesets \meta{title} in the document in the format
+% for that particular sectional division. Like the starred version, the plain
+% version also typesets \meta{title} in the document, but it may be numbered.
+% Diferent forms of the division title are available for the
+% Table of Contents (\toc) and a running header\index{header}, as follows:
+명령에는 두 가지 형태가 있다. 별표가 표시된 버전이 더 간단하니 이를 먼저 설명하겠다. 문서의 부분 섹션적 구분 형식으로 \meta{title}을 입력한다.
+별표가 표시된 버전과 마찬가지로 일반 버전도 문서에 \meta{title}을 입력하지만 번호가 매겨 질 수 있다. 다음과 같이 목차(Table of Contents)(\toc) 및 실행중인 머리글\index{header!머리글}에 다른 형식의 구분 제목을 사용할 수 있다.
+% \begin{itemize}
+% \item No optional argument: \meta{title} is used for the division title,
+%       the ToC title and a page header title.
+% \item One optional argument: \meta{title} is used for the division title;
+%       \meta{toc-title} is used for the ToC title and a page header\index{header} title.
+% \item Two optional arguments: \meta{title} is used for the division title;
+%       \meta{toc-title} is used for the ToC title; \meta{head-title}
+%       is used for a page header\index{header} title.
+% \end{itemize}
 \begin{itemize}
-\item No optional argument: \meta{title} is used for the division title,
-      the ToC title and a page header title.
-\item One optional argument: \meta{title} is used for the division title;
-      \meta{toc-title} is used for the ToC title and a page header\index{header} title.
-\item Two optional arguments: \meta{title} is used for the division title;
-      \meta{toc-title} is used for the ToC title; \meta{head-title}
-      is used for a page header\index{header} title.
+  \item argument 0개 : \meta{title}은 제목을 구분할때, 목차(ToC) 제목, 그리고 페이지 머리글에 사용된다.
+  \item argument 1개 : \meta{title}은 제목을 구분할 때 사용된다. \meta{toc-title}이 목차(ToC) 제목, 그리고 페이지 머리글\index{header!머리글}에 사용된다.
+  \item argument 2개 :  \meta{title}은 제목을 구분할 때 사용된다. \meta{toc-title}이 목차(ToC) 제목에 사용된다, 그리고 \meta{head-title}이 페이지 머리글에 사용된다.
 \end{itemize}
 
-A \cmd{\section} command restarts the numbering of any \cmd{\subsection}s
-from one.
-For most of the divisions the \meta{title} is put on the page where the command
-was issued. The \cmd{\book}, \cmd{\part} and \cmd{\chapter} commands behave
-a little differently.
+% A \cmd{\section} command restarts the numbering of any \cmd{\subsection}s
+% from one.
+% For most of the divisions the \meta{title} is put on the page where the command
+% was issued. The \cmd{\book}, \cmd{\part} and \cmd{\chapter} commands behave
+% a little differently.
+\cmd{\section} 명령은 하나에서 모든 \cmd{\subsection}의 번호 매기기를 다시 시작한다.
+대부분의 곳에서 \meta{title}은 명령이 실행 된 페이지에 있다.
+\cmd{\book}, \cmd{\part} 그리고 \cmd{\chapter} 명령은 약간 다르게 동작한다.
 
-    The \cmd{\book} and \cmd{\part} commands are simpler and both behave
-in the same way.
+%    The \cmd{\book} and \cmd{\part} commands are simpler and both behave
+% in the same way.
+\cmd{\book} 및 \cmd{\part}명령은 더 단순하며 둘 다 동일한 방식으로 작동한다.
 \begin{syntax}
 \cmd{\book}\marg{title} \\
 \cmd{\part}\marg{title} \\
@@ -189,16 +225,23 @@ in the same way.
   {\cs{part}\marg{title}}%
   {Typesets a numbered part \meta{title} on a page by itself, adding
    \meta{title} to the ToC.}
-The \cmd{\book}\marg{title} command puts the book name (default
-\texttt{\bookname}), number and \meta{title} on a page by itself. The
-numbering of books\index{book!number} has no effect on the numbering of
-\cmd{\part}s\index{part!number} or \cmd{\chapter}s\index{chapter!number}.
-Similarly the \cmd{\part}\marg{title} command puts the part name
-(default \texttt{Part}), number and \meta{title} on a page by itself.
-The numbering of parts\index{part!number} has no effect on the numbering of
-\cmd{\chapter}s\index{chapter!number}.
+% The \cmd{\book}\marg{title} command puts the book name (default
+% \texttt{\bookname}), number and \meta{title} on a page by itself. The
+% numbering of books\index{book!number} has no effect on the numbering of
+% \cmd{\part}s\index{part!number} or \cmd{\chapter}s\index{chapter!number}.
+% Similarly the \cmd{\part}\marg{title} command puts the part name
+% (default \texttt{Part}), number and \meta{title} on a page by itself.
+% The numbering of parts\index{part!number} has no effect on the numbering of
+% \cmd{\chapter}s\index{chapter!number}.
+\cmd{\book}\marg{title}  명령은 책 이름 (기본값 \texttt{\bookname}), 번호 및 \meta{title}을 페이지 자체에 넣는다.
+books\index{book!number!책!숫자}의 번호 매기기는\cmd{\part}들과  또는 \cmd{\chapter} \index{chapter!number!책!숫자}들의 번호 매기기에 영향을 미치지 않는다.
+마찬가지로 \cmd{\part}\marg{title} 명령은 페이지 자체에 부품 이름 (기본값 \texttt{Part}), 번호 및 \meta{title}을 넣는다.
+parts\index{part!number!파트!숫자}의 번호 매기기는 \cmd{\chapter}\index{chapter!number!챕터!숫자}들의 번호 매기기에 영향을 미치지 않는다.
 
-    Later I'll give a list of LaTeX's default names, like \texttt{Part}.
+
+
+%    Later I'll give a list of LaTeX's default names, like \texttt{Part}.
+    후에 \texttt{Part}와 같은 LaTeX의 기본 이름 목록을 제공하겠다.
 
 \begin{syntax}
 \cmd{\chapter}\oarg{toc-title}\oarg{head-title}\marg{title} \\
@@ -219,50 +262,65 @@ The numbering of parts\index{part!number} has no effect on the numbering of
    at the top of the page. If given \meta{head-title} is used for a
    running header.}
 
-The \cmd{\chapter} command starts a new page and puts
-the chapter name (default \texttt{Chapter}), number and \meta{title}
-at the top of the page. It restarts the numbering of any \cmd{\section}s
-from one. If no optional arguments are specified, \meta{title}
-is used as the \toc{} entry and for any page headings. If one optional
-argument is specified this is \meta{toc-title} and is used for the
-\toc{} entry and for page headings. If both optional arguments
-are specified the \meta{head-title} is used for page headings.
+% The \cmd{\chapter} command starts a new page and puts
+% the chapter name (default \texttt{Chapter}), number and \meta{title}
+% at the top of the page. It restarts the numbering of any \cmd{\section}s
+% from one. If no optional arguments are specified, \meta{title}
+% is used as the \toc{} entry and for any page headings. If one optional
+% argument is specified this is \meta{toc-title} and is used for the
+% \toc{} entry and for page headings. If both optional arguments
+% are specified the \meta{head-title} is used for page headings.
+\cmd{\chapter}  명령은 새 페이지를 시작하고 챕터 이름 (기본값 \texttt{Chapter}), 번호 및 \meta{title}을 페이지 맨 위에 놓는다.
+하나의 \cmd{\section}는 번호를 다시 시작한다.
+선택적 argument를 지정하지 않으면  \meta{title}이 \toc{}항목으로 사용되며 페이지 제목에 사용된다.
+하나의 선택적 argument가 지정되면 이는 \meta{toc-title} 이며 \toc{}항목 및 페이지 표제에 사용된다.
+두 개의 선택적 argument가 모두 지정되면 페이지 제목에 \meta{head-title}이 사용된다.
 
-The \cmd{\chapter*} command starts a new page and puts
-\meta{title} at the top of the page. It makes no \toc{} entry,
-changes no numbers and by default changes no page headings.
-If the optional \meta{head-title} argument is given, this is used
-for page headings. Use of the optional argument has the side-effect
-that the \Icn{secnumdepth} counter is set to \Icn{maxsecnumdepth} (see below
-for an explanation of these).
+% The \cmd{\chapter*} command starts a new page and puts
+% \meta{title} at the top of the page. It makes no \toc{} entry,
+% changes no numbers and by default changes no page headings.
+% If the optional \meta{head-title} argument is given, this is used
+% for page headings. Use of the optional argument has the side-effect
+% that the \Icn{secnumdepth} counter is set to \Icn{maxsecnumdepth} (see below
+% for an explanation of these).
+\cmd{\chapter*}명령은 새 페이지를 시작하고 페이지 맨 위에 \meta{title}을 넣는다. \toc{}항목을 작성하지 않고 숫자를 변경하지 않으며 기본적으로 페이지 제목을 변경하지 않는다.
+선택적인  \meta{head-title} argument가 제공되면 페이지 표제에 사용된다. 선택적 인수를 사용하면 \Icn{secnumdepth} 카운터가  \Icn{maxsecnumdepth}로 설정되는 부작용이 있다 (자세한 내용은 아래 참조).
 
-    When the \Lopt{article} option is in effect, however, things are slightly
-different. New chapters do not necessarily start on a new page.
-The \cmd{\mainmatter} command
-just turns on sectional numbering and starts arabic page numbering; the
-\cmd{\backmatter} command just turns off sectional numbering.
-    The \cmd{\tableofcontents} command and friends, as well as any
-other commands created via \cmd{\newlistof},
-\emph{always}\footnote{This is a consequence of the internal
-timing of macro calls.}
-call \verb?thispagestyle{chapter}?. If you are using the
-\Lopt{article} option you
-will probably want to ensure that the \pstyle{chapter} pagestyle is the
-same as you normally use for the document.
+%    When the \Lopt{article} option is in effect, however, things are slightly
+% different. New chapters do not necessarily start on a new page.
+그러나 \Lopt{article} 옵션이 적용되면 약간 다르다. 새 장이 반드시 새 페이지에서 시작되는 것은 아니다.
+% The \cmd{\mainmatter} command
+% just turns on sectional numbering and starts arabic page numbering; the
+% \cmd{\backmatter} command just turns off sectional numbering.
+%     The \cmd{\tableofcontents} command and friends, as well as any
+% other commands created via \cmd{\newlistof},
+% \emph{always}\footnote{This is a consequence of the internal
+% timing of macro calls.}
+% call \verb?thispagestyle{chapter}?. If you are using the
+% \Lopt{article} option you
+% will probably want to ensure that the \pstyle{chapter} pagestyle is the
+% same as you normally use for the document.
+\cmd{\mainmatter} 명령어는 섹션 번호 매기기를 켜고 페이지에 아라비아 번호 매기기를 시작한다. \cmd{\backmatter} 명령은 섹션 번호 매기기를 해제한다.
+\cmd{\tableofcontents} 명령어 및 유사한 명령어들, 그리고 \cmd{\newlistof}를 통해 생성 된 다른 명령은 \emph{always}\footnote{이는 매크로 호출의 내부 타이밍 결과입니다.} \verb? thispagestyle{chapter}?
+\Lopt{article}옵션을 사용하는 경우 \pstyle{chapter} 페이지 스타일이 문서에 일반적으로 사용하는 것과 동일해야한다.
 
-    Unlike the standard classes the \meta{title} is typeset ragged right.
-This means that if you need to force a linebreak in the \meta{title} you
-have to use \cmd{\newline} instead of the more usual \cmd{\\}. For instance
+%    Unlike the standard classes the \meta{title} is typeset ragged right.
+% This means that if you need to force a linebreak in the \meta{title} you
+% have to use \cmd{\newline} instead of the more usual \cmd{\\}. For instance
+표준 클래스와 달리 \meta{title}은 조판 오른쪽으로 정렬된다.
+즉, \meta{title}에서 줄 바꿈을 강제해야하는 경우 더 일반적인 \cmd{\\} 대신 \cmd{\newline}을 사용해야한다. 예를 들어
 \begin{lcode}
 \section{A broken\newline title}
 \end{lcode}
 
-    In the standard classes a \cmd{\section} or other
-subhead\index{subhead!near bottom of page}\index{subhead!moved}
-that is too close to the bottom of a page is moved to the top of the
-following page. If this happens and \cmd{\flushbottom} is in effect, the
-contents of the short page are stretched to make the last line flush with
-the bottom of the typeblock.
+%    In the standard classes a \cmd{\section} or other
+% subhead\index{subhead!near bottom of page}\index{subhead!moved}
+% that is too close to the bottom of a page is moved to the top of the
+% following page. If this happens and \cmd{\flushbottom} is in effect, the
+% contents of the short page are stretched to make the last line flush with
+% the bottom of the typeblock.
+표준 클래스에서 페이지 하단에 너무 가까운 \cmd{\section} 또는 다른 소제목\index{subhead!near bottom of page!소제목!페이지하단}는 다음 페이지의 상단으로 이동한다.
+이런 상황이 발생하고 \cmd{\flushbottom}이 적용되면 짧은 페이지의 내용이 늘어나 마지막 행이 유형 블록의 맨 아래와 같은 높이가 되도록 한다.
 \begin{syntax}
 \cmd{\raggedbottomsection} \\
 \cmd{\normalbottomsection} \\
@@ -282,27 +340,33 @@ the bottom of the typeblock.
 \glossary(bottomsectionpenalty)%
   {\cs{bottomsectionpenalty}}%
   {Penalty on a \cs{raggedbottomsection} short page.}
-The \cmd{\raggedbottomsection} declaration will typeset any pages that
-are short because of a moved subhead as though \cmd{\raggedbottom}
-was in effect for the short page; other pages are not affected. The
-length \lnc{\bottomsectionskip} controls the amount of stretch on the short
-page. Setting it to zero allows the last line to be flush with the bottom
-of the typeblock. The default setting of 10mm appears to remove any
-stretch. \cmd{\bottomsectionpenalty} control the penalty it costs to
-make a page break at this point. The detault is zero as the stretch is
-usually enough, by setting it to
-a negative integer one can be a bit more incouraging regarding a
-possible page break.
+% The \cmd{\raggedbottomsection} declaration will typeset any pages that
+% are short because of a moved subhead as though \cmd{\raggedbottom}
+% was in effect for the short page; other pages are not affected. The
+% length \lnc{\bottomsectionskip} controls the amount of stretch on the short
+% page. Setting it to zero allows the last line to be flush with the bottom
+% of the typeblock. The default setting of 10mm appears to remove any
+% stretch. \cmd{\bottomsectionpenalty} control the penalty it costs to
+% make a page break at this point. The detault is zero as the stretch is
+% usually enough, by setting it to
+% a negative integer one can be a bit more incouraging regarding a
+% possible page break.
+\cmd{\raggedbottomsection} 선언은 \cmd{\raggedbottom}이 짧은 페이지에 적용된 것처럼 이동 한 서브 헤드로 인해 짧은 페이지를 조판한다. 다른 페이지는 영향을받지 않는다.
+길이 \lnc{\bottomsectionskip}은 짧은 페이지의 스트레치 양을 제어한다.
+이 값을 0으로 설정하면 마지막 행이 타입 블록의 하단과 동일 평면에 놓일 수 있다. 기본 설정 인 10mm 범위를 제거하는 것으로 나타난다.
+\cmd{\bottomsectionpenalty}는 이 시점에서 페이지를 나누는 데 드는 페널티를 제어한다.
+범위가 일반적으로 충분하므로 기본값은 0이다. 음수로 설정하면 가능한 페이지 나누기에 대해 조금 더 고무적 일 수 있다.
 
-The declaration \cmd{\normalbottomsection}, which is the default,
-cancels any previous \cmd{\raggedbottomsection} declaration.
-
+% The declaration \cmd{\normalbottomsection}, which is the default,
+% cancels any previous \cmd{\raggedbottomsection} declaration.
+기본값 인 \cmd{\normalbottomsection} 선언은 이전의 \cmd{\raggedbottomsection} 선언을 취소한다.
 \subsection{Appendices} \label{sec:appendices}
 
-Appendices\index{appendix} normally come after the main text and are
-often considered to be part
-of the \cmd{\mainmatter} as they are normally numbered (the \cmd{\backmatter}
-declaration turns off all sectional numbering).
+% Appendices\index{appendix} normally come after the main text and are
+% often considered to be part
+% of the \cmd{\mainmatter} as they are normally numbered (the \cmd{\backmatter}
+% declaration turns off all sectional numbering).
+부록\index{appendix!부록}은 일반적으로 본문에서 나오며 일반적으로 번호가 매겨 지므로 \cmd{\mainmatter}의 일부로 간주되는 경우가 많다 (\cmd{\backmatter}선언은 모든 섹션 번호를 끈다).
 
 \begin{syntax}
 \cmd{\appendix} \\
@@ -315,15 +379,18 @@ declaration turns off all sectional numbering).
 \glossary(appendixname)%
   {\cs{appendixname}}%
   {Name given to chapters in appendices (default Appendix).}
-The \cmd{\appendix} declaration changes the numbering of
-chapters\index{chapter!number} to an alphabetic form and also changes
-the names of chapters from \cmd{\chaptername} (default \texttt{Chapter})
-to the value of \cmd{\appendixname} (default \texttt{Appendix})\index{appendix}.
-Thus, the first and any subsequent \cmd{\chapter}s after
-the \cmd{\appendix} command
-will be `Appendix A \ldots', `Appendix B \ldots', and so on.
-That is as far as the standard classes go but this class provides more ways
-of dealing with appendices\index{appendix}.
+% The \cmd{\appendix} declaration changes the numbering of
+% chapters\index{chapter!number} to an alphabetic form and also changes
+% the names of chapters from \cmd{\chaptername} (default \texttt{Chapter})
+% to the value of \cmd{\appendixname} (default \texttt{Appendix})\index{appendix}.
+% Thus, the first and any subsequent \cmd{\chapter}s after
+% the \cmd{\appendix} command
+% will be `Appendix A \ldots', `Appendix B \ldots', and so on.
+% That is as far as the standard classes go but this class provides more ways
+% of dealing with appendices\index{appendix}.
+\cmd{\appendix} 선언은 장 번호\index{chapter!number!장!챕터!번호}를 알파벳 형태로 변경하고 장 이름을 \cmd{\chaptername} (기본값 \texttt{Chapter})에서 \cmd{\appendixname} (기본 \texttt{Appendix} \index{appendix!부록}) 값으로 변경한다.
+따라서 \cmd{\appendix} 명령 다음의 첫 번째 및 나중의 \cmd{\chapter}는 '부록 A \ldots', 부록 B \ldots 등이 된다.
+표준 클래스가 있지만, 이 클래스는 부록\index{appendix!부록}을 다루는 더 많은 방법을 제공한다.
 
 \begin{syntax}
 \cmd{\appendixpage}\\
@@ -339,12 +406,14 @@ of dealing with appendices\index{appendix}.
 \glossary(appendixpagename)
   {\cs{appendixpagename}}%
   {Title used for an \cs{appendixpage} (default \texttt{Appendices}.}
-The \cmd{\appendixpage} command generates a part-like page (but no name
-or number) with the title given by the value of \cmd{\appendixpagename}
-(default \texttt{Appendices})\index{appendix}. It also makes an entry in
-the \toc{} using
-\cmd{\addappheadtotoc} (see below). The starred version generates the
-appendix\index{appendix} page but makes no \toc{} entry.
+% The \cmd{\appendixpage} command generates a part-like page (but no name
+% or number) with the title given by the value of \cmd{\appendixpagename}
+% (default \texttt{Appendices})\index{appendix}. It also makes an entry in
+% the \toc{} using
+% \cmd{\addappheadtotoc} (see below). The starred version generates the
+% appendix\index{appendix} page but makes no \toc{} entry.
+\cmd{\appendixpage} 명령은 \cmd{\appendixpagename} 값으로 주어진 제목을 가진 부분적인 페이지 (이름이나 번호는 없음)를 생성한다.(기본값 \texttt{Appendices}\index{appendix!부록})
+또한 \cmd{\addappheadtotoc}를 사용하여 \toc{}에 항목을 만든다 (아래 참조). 별표가 표시된 버전은 부록\index{appendix!부록} 페이지를 생성하지만 \toc{} 항목은 없다.
 
 \begin{syntax}
 \cmd{\addappheadtotoc}\\
@@ -356,9 +425,10 @@ appendix\index{appendix} page but makes no \toc{} entry.
 \glossary(appendixtocname)%
   {\cs{appendixtocname}}%
   {Title of ToC entry added by \cs{addappheadtotoc} (default \texttt{Appendices}.}
-The command \cmd{\addappheadtotoc} adds an entry to the \toc. The title is
-given by the value of \cmd{\appendixtocname} (default \texttt{Appendices})\index{appendix}.
-
+% The command \cmd{\addappheadtotoc} adds an entry to the \toc. The title is
+% given by the value of \cmd{\appendixtocname} (default \texttt{Appendices})\index{appendix}.
+\cmd{\addappheadtotoc} 명령은 \toc에 항목을 추가한다.
+제목은 \cmd{\appendixtocname} (기본값 \texttt{Appendices}\index{appendix!부록})의 값으로 제공됩니다.
 \begin{syntax}
 \senv{appendices} text \eenv{appendices}\\
 \end{syntax}
@@ -366,11 +436,13 @@ given by the value of \cmd{\appendixtocname} (default \texttt{Appendices})\index
   {\senv{appendices}}%
   {An environment form of \cs{appendix}; chapters are restored to their condition
    (including numbering) after the environment ends.}
-The \Ie{appendices} environment acts like the \cmd{\appendix}\index{appendix}
-command in that it resets the numbering and naming of chapters\index{chapter}.
-However, at the end of the environment, chapters are restored to their original
-condition and any chapter numbers continue in sequence as though the
-\Ie{appendices} environment had never been there.
+% The \Ie{appendices} environment acts like the \cmd{\appendix}\index{appendix}
+% command in that it resets the numbering and naming of chapters\index{chapter}.
+% However, at the end of the environment, chapters are restored to their original
+% condition and any chapter numbers continue in sequence as though the
+% \Ie{appendices} environment had never been there.
+\Ie{appendices} 환경은 \cmd{\appendix} \index{appendix!부록}명령과 같은 방식으로 챕터\index{chapter!챕터!장}의 번호와 이름을 재설정한다.
+그러나 환경이 끝나면 장이 원래 상태로 복원되고 \Ie{appendices} 환경이 없었던 것처럼 모든 장 번호가 순서대로 계속된다.
 
 \LMnote{2010/11/18}{Wrong names for \cs{namedsubappendices} and
   \cs{unnamedsubappendices} fixed}
@@ -388,31 +460,38 @@ condition and any chapter numbers continue in sequence as though the
 \glossary(unnamedsubappendices)%
   {\cs{unnamedsubappendices}}%
   {Do not precede the sub-appendix number with any name (the default).}
-The \Ie{subappendices}\index{appendix!subappendix} environment can be used to put appendices\index{appendix} at the end
-of a chapter\index{chapter}. Within the environment \cmd{\section} starts a
-new sub-appendix\index{appendix}. You may put \cmd{\addappheadtotoc} at the start
-of the environment if you want a heading entry in the \toc.
-If you put the declaration \cmd{\namedsubappendices}
-\emph{before} the \Ie{subappendices} environment, the sub-appendix number
-in the body of the document will be preceded by the value of
-\cmd{\appendixname}. The \cmd{\unnamedsubappendices} declaration, which is the
-default, may be used to switch off this behaviour.
+
+% The \Ie{subappendices}\index{appendix!subappendix} environment can be used to put appendices\index{appendix} at the end
+% of a chapter\index{chapter}. Within the environment \cmd{\section} starts a
+% new sub-appendix\index{appendix}. You may put \cmd{\addappheadtotoc} at the start
+% of the environment if you want a heading entry in the \toc.
+\Ie{subappendices} \index{appendix!subappendix!부록!소부록}환경을 사용하여 장\index{chapter!챕터!장} 끝에 부록\index{appendix!부록}을 넣을 수 있다. 환경 내에서 \cmd{\section} 은 새로운 하위 부록\index{appendix!부록}을 시작한다. \toc에 표제 항목을 원하면 환경 시작 부분에 \cmd{\addappheadtotoc} 를 넣을 수 있다.
+
+% If you put the declaration \cmd{\namedsubappendices}
+% \emph{before} the \Ie{subappendices} environment, the sub-appendix number
+% in the body of the document will be preceded by the value of
+% \cmd{\appendixname}. The \cmd{\unnamedsubappendices} declaration, which is the
+% default, may be used to switch off this behaviour.
+\Ie{subappendices} 환경 앞에 \cmd{\namedsubappendices} 선언을 넣으면 문서 본문의 하위 부록 번호 \emph{전}에 \cmd{\appendixname} 값이 붙는다. 기본값인 \cmd{\unnamedsubappendices} 선언을 사용하여이 동작을 끌 수 있다.
 
 \LMnote{2010/11/19}{Added this caveat, following a question on ctt}
-\textbf{Caveat:} The implementation of the named subappendices make
-use of \cmd{\setsecnumformat}, thus if you have used this command to
-change the formating of the section number you will need to re-do this
-in a special manner inside the \Ie{subappendices}
-environemt. Something like this (where a user wanted to use old style
-numerials for sectioning numbers)
+% \textbf{Caveat:} The implementation of the named subappendices make
+% use of \cmd{\setsecnumformat}, thus if you have used this command to
+% change the formating of the section number you will need to re-do this
+% in a special manner inside the \Ie{subappendices}
+% environemt. Something like this (where a user wanted to use old style
+% numerials for sectioning numbers)
+\textbf{경고:} 명명 된 하위 부록(subappendices)의 구현은 \cmd{\setsecnumformat}을 사용하므로 이 명령을 사용하여 섹션 번호의 형식을 변경 한 경우 \Ie{subappendices} 환경 내에서 특별한 방식으로이 작업을 다시 수행해야한다
+다음과 같이 하자. (사용자가 섹션 번호에 구식 숫자를 사용하려는 경우)
 \begin{verbatim}
 \begin{subappendices}
 \setsecnumformat{\sectionname\
   \oldstylenums{\csname the#1\endcsname\quad}}
 \end{verbatim}
-The macro \cmd{sectionname} is a special macro that only lives inside
-the \Ie{subappendices} environment and is only available when
-\cmd{\namedsubappendices} is applied.
+% The macro \cmd{sectionname} is a special macro that only lives inside
+% the \Ie{subappendices} environment and is only available when
+% \cmd{\namedsubappendices} is applied.
+매크로 \cmd{sectionname}은 \Ie{subappendices} 환경에만 있는 특수 매크로이며 \cmd{\namedsubappendices}가 적용되는 경우에만 사용할 수 있다.
 
 
 
