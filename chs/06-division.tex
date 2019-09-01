@@ -855,28 +855,47 @@ internally the resulting commands use \cmd{\partmark} in case you
 wish to capture the \meta{title} to use in running headers.
 
 
-
-\section{Chapter headings}
+% 여기부터 6절 끝까지 박승원 담당
+%\section{Chapter headings}
+\section{장 제목}
 \label{sec:chapter-headings}
 \index{heading!chapter|(} %| emacs
+\index{제목!장}
 
-    The chapter headings are configurable in much the same way as book or part 
-headings, but in addition there are some built in chapter styles that you may
-wish to try, or define your own.
+%    The chapter headings are configurable in much the same way as book or part 
+%headings, but in addition there are some built in chapter styles that you may
+%wish to try, or define your own.
 
-    Chapters, except when the \Lopt{article} class option is used,
- \emph{always} start on a new page with the \pstyle{chapter}
-pagestyle. The particular page, recto or verso, that they start on is
-mainly controlled by the class options. If the \Lopt{oneside} option is used
-they start on the next new page, but if the \Lopt{twoside} option is
-used the starting page may differ, as follows.
+장 제목은 book 이나 part 제목과 유사하게 조정할 수 있을 뿐만 아니라,
+미리 정의되어 있는 장 제목 스타일이나 자신이 원하는 스타일로 설정할 수 있다.
+
+%    Chapters, except when the \Lopt{article} class option is used,
+% \emph{always} start on a new page with the \pstyle{chapter}
+%pagestyle. The particular page, recto or verso, that they start on is
+%mainly controlled by the class options. If the \Lopt{oneside} option is used
+%they start on the next new page, but if the \Lopt{twoside} option is
+%used the starting page may differ, as follows.
+새로운 장은 \Lopt{article} 클래스 옵션이 쓰이지 않는 한,
+\emph{항상} 새로운 페이지에서 \pstyle{chapter} 페이지 스타일로 시작한다.
+새로운 장이 시작되는 페이지를 좌우 페이지 중 어느 쪽에 둘지는 클래스 옵션에 따라 설정된다.
+\Lopt{oneside} 옵션을 사용할 경우 새로운 장은 바로 다음의 새 페이지에서 시작되지만,
+\Lopt{twoside} 옵션을 사용할 경우 새로운 장이 시작하는 페이지가 다음과 같이 달라질 수 있다.
+
+%\begin{itemize}
+%\item[\Lopt{openright}] The chapter heading is typeset on the next recto page,
+%  which may leave a blank verso leaf.
+%\item[\Lopt{openleft}] The chapter heading is typeset on the next verso page,
+%  which may leave a blank recto leaf.
+%\item[\Lopt{openany}] The chapter heading is typeset on the next page and there
+%  will be no blank leaf.
+%\end{itemize}
 \begin{itemize}
-\item[\Lopt{openright}] The chapter heading is typeset on the next recto page,
-  which may leave a blank verso leaf.
-\item[\Lopt{openleft}] The chapter heading is typeset on the next verso page,
-  which may leave a blank recto leaf.
-\item[\Lopt{openany}] The chapter heading is typeset on the next page and there
-  will be no blank leaf.
+	\item[\Lopt{openright}] 새로운 장이 다음의 오른쪽(홀수쪽) 페이지에서 시작하며,
+	경우에 따라 빈 왼쪽 페이지가 생길 수 있다.
+	\item[\Lopt{openleft}] 새로운 장이 다음의 왼쪽(짝수쪽) 페이지에서 시작하며,
+	경우에 따라 빈 오른쪽 페이지가 생길 수 있다.
+	\item[\Lopt{openany}] 새로운 장이 바로 다음 페이지에서 시작하며,
+	빈 페이지가 생기지 않는다.
 \end{itemize}
 
 \begin{syntax}
@@ -884,20 +903,29 @@ used the starting page may differ, as follows.
 \end{syntax}
 \glossary(openright)%
   {\cs{openright}}%
-  {Force chapters to start on a new recto page.}
+  {새로운 장이 항상 오른쪽(홀수쪽) 페이지에서 시작하도록 강제.}
+%  {Force chapters to start on a new recto page.}
 \glossary(openleft)%
   {\cs{openleft}}%
-  {Force chapters to start on a new verso page.}
+  {새로운 장이 항상 왼쪽(짝수쪽) 페이지에서 시작하도록 강제.}
+%  {Force chapters to start on a new verso page.}
 \glossary(openany)%
   {\cs{openany}}%
-  {Allow chapters to start on the next new page.}
-These three declarations have the same effect as the options of the same name.
-They can be used anywhere in the document to change the chapter opening page.
+  {새로운 장이 바로 다음 페이지에서 시작.}
+%  {Allow chapters to start on the next new page.}
+  
+%These three declarations have the same effect as the options of the same name.
+%They can be used anywhere in the document to change the chapter opening page.
+이와 같은 세 명령어는 같은 이름을 가진 옵션과 동일하게 기능한다.
+문서의 어느 곳에서나 장의 시작 페이지를 변경하기 위해 사용할 수 있다.
 
-Ignoring many details, like the optional arguments, the code for 
-printing a \cmd{\chapter} heading is similar to that for \cmd{\book} 
-and \cmd{\part} (the \cs{chapterhead} command below is \emph{not}
-part of the class).
+%Ignoring many details, like the optional arguments, the code for 
+%printing a \cmd{\chapter} heading is similar to that for \cmd{\book} 
+%and \cmd{\part} (the \cs{chapterhead} command below is \emph{not}
+%part of the class).
+선택적 옵션과 같은 세부적인 사항들을 제외하고는,
+\cmd{\chapter} 제목을 출력하는 코드는 \cmd{\book} 이나 \cmd{\part} 과 유사하다
+(아래의 \cs{chapterhead} 명령은 클래스의 일부가 \emph{아니다}).
 \begin{lcode}
 \newcommand{\chapterhead}[1]{ % THIS IS A SIMPLIFIED VERSION
   \clearforchapter        % move to correct page
@@ -909,14 +937,19 @@ part of the class).
   \printchaptertitle{#1}  % title
   \afterchaptertitle}     % \afterchapskip space after title
 \end{lcode}
-The general layout is shown in \fref{lay:chap}.
+일반적인 레이아웃은 \fref{lay:chap}에 나와 있다.
+%The general layout is shown in \fref{lay:chap}.
 
 \begin{figure}
 \setlayoutscale{1}
 \centering
 \chapterdiagram
-\caption{Class layout parameters for chapter titles. Working with
-  \cs{beforechapskip} need a little thought, see the text.} 
+\caption{
+	장 제목을 위한 클래스 레이아웃 매개변수들.
+	\cs{beforechapskip}을 사용하려면 생각해볼 내용이 더 있는데, 본문의 설명을 보면 된다.
+%	Class layout parameters for chapter titles. Working with
+%  \cs{beforechapskip} need a little thought, see the text.
+} 
 \label{lay:chap}
 \end{figure}
 
@@ -925,27 +958,40 @@ The general layout is shown in \fref{lay:chap}.
 \end{syntax}
 \glossary(clearforchapter)%
   {\cs{clearforchapter}}%
-  {Selects a chapter's opening page.}
-The actual macro that sets the opening page for a chapter is 
-\cmd{\clearforchapter}. The class options \texttt{openright},
-\texttt{openleft} and \texttt{openany} (or their macro equivalents
-\cmd{\openright}, \cmd{\openleft} and
-\cmd{\openany}) define \cmd{\clearforchapter} to be respectively
-(see \S\ref{sec:moving}) 
-\cmd{\cleartorecto}, \cmd{\cleartoverso} and \cmd{\clearpage}. You can
-obviously change \cmd{\clearforchapter} to do more than just start a
-new page.
+  {새로운 장이 시작하는 쪽을 선택하는 명령어.}
+%  {Selects a chapter's opening page.}
+새로운 장이 시작하는 페이지를 설정하는 매크로는 \cmd{\clearforchapter}다.
+클래스 옵션 \texttt{openright}, \texttt{openleft}, \texttt{openany}
+(또는 그들과 동등한 매크로인 \cmd{\openright}, \cmd{\openleft}, \cmd{\openany})
+는 각각 \cmd{\clearforchapter} 이
+\cmd{\cleartorecto}, \cmd{\cleartoverso}, \cmd{\clearpage} 이 되게끔 만든다.
+(\S\ref{sec:moving} 장을 참조)
+보다시피 \cmd{\clearforchapter}가 새로운 페이지를 시작하는 것 외의 기능을 하도록 만들 수 있다.
+%The actual macro that sets the opening page for a chapter is 
+%\cmd{\clearforchapter}. The class options \texttt{openright},
+%\texttt{openleft} and \texttt{openany} (or their macro equivalents
+%\cmd{\openright}, \cmd{\openleft} and
+%\cmd{\openany}) define \cmd{\clearforchapter} to be respectively
+%(see \S\ref{sec:moving}) 
+%\cmd{\cleartorecto}, \cmd{\cleartoverso} and \cmd{\clearpage}. You can
+%obviously change \cmd{\clearforchapter} to do more than just start a
+%new page.
 
 \begin{syntax}
 \cmd{\memendofchapterhook} 
 \end{syntax}
 \glossary(memendofchapterhook)%
   {\cs{memendofchapterhook}}%
-  {Hook executed at the very end of the \cs{chapter} command.}
-Where \cmd{\clearforchapter} comes at the very beginning,
-\cmd{\memendofchapterhook} comes at the very end of the \cmd{\chapter}
-command. It does nothing by default, but could be redefined to insert,
-say, \cmd{\clearpage}:
+  {\cs{chapter} 명령어의 가장 마지막 부분에서 실행되는 hook.}
+%  {Hook executed at the very end of the \cs{chapter} command.}
+\cmd{\chapter} 명령의 가장 앞부분에는 \cmd{\clearforchapter}이,
+가장 뒷부분에는 \cmd{\memendofchapterhook}이 따른다.
+보통의 경우 아무 작업을 하지 않지만, 무언가를 삽입하기 위해 사용될 수 있다.
+다음은 \cmd{\clearpage}를 삽입하는 예시이다:
+%Where \cmd{\clearforchapter} comes at the very beginning,
+%\cmd{\memendofchapterhook} comes at the very end of the \cmd{\chapter}
+%command. It does nothing by default, but could be redefined to insert,
+%say, \cmd{\clearpage}:
 \begin{verbatim}
 \makeatletter
 \renewcommand\memendofchapterhook{%
@@ -954,10 +1000,13 @@ say, \cmd{\clearpage}:
 \end{verbatim}
 
 
-    Some books have the chapter headings on a verso page, with perhaps
-an illustration\index{illustration} or epigraph\index{epigraph}, and 
-then the text starts on the opposite
-recto page. The effect can be achieved like:
+%    Some books have the chapter headings on a verso page, with perhaps
+%an illustration\index{illustration} or epigraph\index{epigraph}, and 
+%then the text starts on the opposite
+%recto page. The effect can be achieved like:
+몇몇 책들은 새로운 장이 시작할 때 왼쪽 페이지에 일러스트\index{illustration}\tidx{일러스트}나
+인용문\index{epigraph}\tidx{인용문}을 둔 뒤 오른쪽 페이지에서 본문을 시작하기도 한다.
+이러한 디자인은 다음과 같이 제작할 수 있다:
 \begin{lcode}
 \openleft                % chapter title on verso page
 \chapter{The title}      % chapter title
@@ -976,38 +1025,53 @@ Start of the text        % chapter body
 \end{syntax}
 \glossary(chapterheadstart)%
   {\cs{chapterheadstart}}%
-  {Called at start of printing a chapter header; by default inserts \cs{beforechapskip} space.}
+  {장 헤딩의 시작에서 호출되며, 기본값으로는 \cs{beforechapskip} 공백을 삽입.}
+%  {Called at start of printing a chapter header; by default inserts \cs{beforechapskip} space.}
 \glossary(beforechapskip)%
   {\cs{beforechapskip}}%
-  {Space above chapter name and number.}
+  {장 이름과 번호 위의 공백.}
+%  {Space above chapter name and number.}
 \glossary(afterchapternum)%
   {\cs{afterchapternum}}%
-  {Called after printing a chapter number; by default inserts \cs{midchapskip} space.}
+  {장 헤딩 후에 호출되며, 기본값으로는 \cs{midchapskip} 공백을 삽입.}
+%  {Called after printing a chapter number; by default inserts \cs{midchapskip} space.}
 \glossary(midchapskip)%
   {\cs{midchapskip}}%
-  {Space between chapter name and number and the title.}
+  {장 이름과 번호, 제목 사이의 공백.}
+%  {Space between chapter name and number and the title.}
 \glossary(afterchaptertitle)%
   {\cs{afterchaptertitle}}%
-  {Called after printing a chapter title; by default inserts \cs{afterchapskip} space.}
+  {장 헤딩 후에 호출되며, 기본값으로는 \cs{afterchapskip} 공백을 삽입.}
+%  {Called after printing a chapter title; by default inserts \cs{afterchapskip} space.}
 \glossary(afterchapskip)%
   {\cs{afterchapskip}}%
-  {Space after chapter title.}
+  {장 제목 이후의 공백.}
+%  {Space after chapter title.}
 
-The macro \cmd{\chapterheadstart} is called just before printing a chapter
-name and number. By default it inserts \lnc{\beforechapskip} space (default
-50pt).
+\cmd{\chapterheadstart} 매크로는 장 이름과 번호를 식자하기 직전에 호출된다.
+기본값으로는 \lnc{\beforechapskip} 만큼의 공백을 삽입한다. (기본값 50pt)
+%The macro \cmd{\chapterheadstart} is called just before printing a chapter
+%name and number. By default it inserts \lnc{\beforechapskip} space (default
+%50pt).
 
-The macro \cmd{\afterchapternum} is called just after printing a chapter
-number. By default it inserts \lnc{\midchapskip} space (default
-20pt).
+\cmd{\afterchapternum} 매크로는 장 번호를 식자한 직후에 호출된다.
+기본값으로는 \lnc{\midchapskip} 만큼의 공백을 삽입한다. (기본값 20pt)
+%The macro \cmd{\afterchapternum} is called just after printing a chapter
+%number. By default it inserts \lnc{\midchapskip} space (default
+%20pt).
 
-The macro \cmd{\afterchaptertitle} is called just after printing a chapter
-title. By default it inserts \lnc{\afterchapskip} space (default
-40pt).
+\cmd{\afterchaptertitle} 매크로는 장 제목을 식자한 직후에 호출된다.
+기본값으로는 \lnc{\midchapskip} 만큼의 공백을 삽입한다. (기본값 40pt)
+%The macro \cmd{\afterchapskip} is called just after printing a chapter
+%title. By default it inserts \lnc{\afterchapskip} space (default
+%40pt).
 
-The lengths \lnc{\beforechapskip}, \lnc{\midchapskip} and \lnc{\afterchapskip}
-can all be changed by \cmd{\setlength} or \cmd{\addtolength}. Though
-as mentioned in \fref{lay:chap} they need some explanation:
+\lnc{\beforechapskip}, \lnc{\midchapskip}, \lnc{\afterchapskip} 들은
+\cmd{\setlength} 이나 \cmd{\addtolength} 명령을 통해 수정될 수 있다.
+물론 \fref{lay:chap} 에서 언급되었듯 그들은 약간의 설명을 필요로 한다:
+%The lengths \lnc{\beforechapskip}, \lnc{\midchapskip} and \lnc{\afterchapskip}
+%can all be changed by \cmd{\setlength} or \cmd{\addtolength}. Though
+%as mentioned in \fref{lay:chap} they need some explanation:
 \begingroup
 \medskip
 \setlength\overfullrule{5pt}
@@ -1015,22 +1079,36 @@ as mentioned in \fref{lay:chap} they need some explanation:
 \addtolength\unitlength{-\labelsep}
 \renewcommand\descriptionlabel[1]{\hspace\labelsep\parbox{\unitlength}{\cs{#1}}}
 \begin{description}
-\item[beforechapskip] See \fref{lay:chap}.  The actual distance
-  between the first baseline of the chapter stuff to the top of the
-  text block is
-  \cmd{\beforechapskip}\,+\,\cmd{\topskip}\,+\,\cmd{\baselineskip}.
-  But because the implementation of \cmd{\chapter} (via
-  \cmd{\chapterheadstart}) make use of \cmd{\vspace*}, getting rid of
-  \cmd{\beforechapskip} a strange endeavour. If you want to avoid any
-  space before the first text in the chapter heading, use
-  \begin{lcode}
-    \setlength\beforechapskip{-\baselineskip}
-  \end{lcode}
-  or redefine \cmd{\chapterheadstart} to do nothing.
+\item[beforechapskip] \fref{lay:chap}를 참조. 
+장의 baseline 과 본문 텍스트 블록의 실제 거리는 
+\cmd{\beforechapskip}\,+\,\cmd{\topskip}\,+\,\cmd{\baselineskip} 이다.
+하지만 \cmd{\chapter}의 구현 방식이 
+\cmd{\chapterheadstart}를 통해 \cmd{\vspace*}를 사용하기 때문에,
+\cmd{\beforechapskip} 를 없애야 하는 헛수고를 들이게 된다.
+만약 장 헤딩의 첫 텍스트 직전에 공백이 오는 것을 피하고 싶다면,
+\begin{lcode}
+	\setlength\beforechapskip{-\baselineskip}
+\end{lcode}
+을 사용하거나 \cmd{\chapterheadstart}가 아무것도 하지 않도록 재정의하라.
+
+%\item[beforechapskip] See \fref{lay:chap}.  The actual distance
+%  between the first baseline of the chapter stuff to the top of the
+%  text block is
+%  \cmd{\beforechapskip}\,+\,\cmd{\topskip}\,+\,\cmd{\baselineskip}.
+%  But because the implementation of \cmd{\chapter} (via
+%  \cmd{\chapterheadstart}) make use of \cmd{\vspace*}, getting rid of
+%  \cmd{\beforechapskip} a strange endeavour. If you want to avoid any
+%  space before the first text in the chapter heading, use
+%  \begin{lcode}
+%    \setlength\beforechapskip{-\baselineskip}
+%  \end{lcode}
+%  or redefine \cmd{\chapterheadstart} to do nothing.
+
 \item[midchapskip] 
 \item[afterchapskip] 
-  for both, one has to add \cmd{\baselineskip} to
-  get the distance baseline to baseline.
+둘 모두 baseline to baseline 거리를 얻기 위해서는 \cmd{\baselineskip}를 더해야 한다.
+%  for both, one has to add \cmd{\baselineskip} to
+%  get the distance baseline to baseline.
 \end{description}
 \endgroup
 
@@ -1045,52 +1123,76 @@ as mentioned in \fref{lay:chap} they need some explanation:
 \end{syntax}
 \glossary(printchaptername)%
   {\cs{printchaptername}}%
-  {Prints the chapter name using the \cs{chapnamefont}.}
+  {\cs{chapnamefont}를 사용하여 장 제목을 출력.}
+%  {Prints the chapter name using the \cs{chapnamefont}.}
 \glossary(chapnamefont)%
   {\cs{chapnamefont}}%
-  {Font used by \cs{printchaptername}.}
+  {\cs{printchaptername}에서 사용된 폰트.}
+%  {Font used by \cs{printchaptername}.}
 \glossary(chapternamenum)%
   {\cs{chapternamenum}}%
-  {Inserted between printing the chapter name and number. 
-   It is usually a space.}
+  {장 이름과 번호 사이에 삽입되며, 보통의 경우 공백이다.}
+%  {Inserted between printing the chapter name and number. 
+%   It is usually a space.}
 \glossary(printchapternum)%
   {\cs{printchapternum}}%
-  {Prints the chapter number using the \cs{chapnumfont}.}
+  {\cs{chapnumfont}를 사용하여 장 번호를 출력.}
+%  {Prints the chapter number using the \cs{chapnumfont}.}
 \glossary(chapnumfont)%
   {\cs{chapnumfont}}%
-  {Font used by \cs{printchapternum}.}
-The macro \cmd{\printchaptername} typesets the chapter name 
-(default \texttt{Chapter} or \texttt{Appendix}) using the font 
-specified by \cmd{\chapnamefont}. The default is the \cmd{\bfseries} font in
-the \cmd{\huge} size. Likewise the chapter number is typeset by 
-\cmd{\printchapternum} using the font specified by \cmd{\chapnumfont}, 
-which has the same default as \cmd{\chapnamefont}. The macro 
-\cmd{\chapternamenum}, which is defined to be a space, is called between 
-printing the chapter name and the number. 
+  {\cs{printchapternum}에서 사용된 폰트.}
+%  {Font used by \cs{printchapternum}.}
+\cmd{\printchaptername} 매크로는 \cmd{\chapnamefont}에서 지정된
+폰트를 사용하여 장 이름을 식자한다.
+장 이름의 기본값은 \texttt{Chapter} 또는 \texttt{Appendix}이며,
+\cmd{\huge} 크기와 \cmd{\bfseries} 폰트가 사용된다.
+비슷하게, 장 번호는 \cmd{\chapnumfont}에서 지정된 폰트로
+\cmd{\printchapternum}로 식자되며,
+\cmd{\chapnamefont}와 동일한 기본값을 갖는다.
+\cmd{\chapternamenum} 매크로는 장 이름과 번호 사이에 호출되어
+보통의 경우 공백을 삽입해준다.
+%The macro \cmd{\printchaptername} typesets the chapter name 
+%(default \texttt{Chapter} or \texttt{Appendix}) using the font 
+%specified by \cmd{\chapnamefont}. The default is the \cmd{\bfseries} font in
+%the \cmd{\huge} size. Likewise the chapter number is typeset by 
+%\cmd{\printchapternum} using the font specified by \cmd{\chapnumfont}, 
+%which has the same default as \cmd{\chapnamefont}. The macro 
+%\cmd{\chapternamenum}, which is defined to be a space, is called between 
+%printing the chapter name and the number. 
 
 \begin{syntax}
 \cmd{\printchaptertitle}\marg{title} \cmd{\chaptitlefont} \\
 \end{syntax}
 \glossary(printchaptertitle)%
   {\cs{printchaptertitle}\marg{title}}%
-  {Prints the chapter \meta{title} using the \cs{chaptitlefont}.}
+  {장 제목 \meta{title}을 폰트 \cs{chaptitlefont}를 사용하여 출력.}
+%  {Prints the chapter \meta{title} using the \cs{chaptitlefont}.}
 \glossary(chaptitlefont)%
   {\cs{chaptitlefont}}%
-  {Font used by \cs{printchaptertitle}.}
-The title is typeset by \cmd{\printchaptertitle} using the font specified 
-by \cmd{\chaptitlefont}. 
-By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size. 
+  {\cs{printchaptertitle}에서 사용된 폰트.}
+%  {Font used by \cs{printchaptertitle}.}
+장 제목은 \cmd{\chaptitlefont}에서 지정된 폰트로
+\cmd{\printchaptertitle}에 의해 식자된다.
+기본값으로는 \cmd{\Huge} 크기와 \cmd{\bfseries} 폰트가 사용된다.
+%The title is typeset by \cmd{\printchaptertitle} using the font specified 
+%by \cmd{\chaptitlefont}. 
+%By default this is a \cmd{\bfseries} font in the \cmd{\Huge} size. 
 
 \begin{syntax}
 \cmd{\printchapternonum} \\
 \end{syntax}
 \glossary(printchapternonum)%
   {\cs{printchapternonum}}%
-  {Replaces printing the chapter name and number in unnumbered chapters.}
-If a chapter is unnumbered, perhaps because it is in the \cmd{\frontmatter}
-or because \cmd{\chapter*} is used, then when printing the command
-\cmd{\printchapternonum} is called instead of printing the name and number,
-as illustrated below:
+  {번호가 붙지 않은 장에서 장 이름과 번호를 대체한다.}
+%  {Replaces printing the chapter name and number in unnumbered chapters.}
+\cmd{\frontmatter} 안에 있거나 \cmd{\chapter*}의 사용 등으로 인해
+장의 번호가 없을 경우,
+식자 시 \cmd{\printchapternonum} 명령이 호출되어 장 이름과 번호가 식자되는 것을 대체한다.
+아래의 예시를 보라:
+%If a chapter is unnumbered, perhaps because it is in the \cmd{\frontmatter}
+%or because \cmd{\chapter*} is used, then when printing the command
+%\cmd{\printchapternonum} is called instead of printing the name and number,
+%as illustrated below:
 \begin{lcode}
 \newcommand{\chapterhead}[1]{ % THIS IS A SIMPLIFIED VERSION
   \clearforchapter        % move to correct page
@@ -1106,147 +1208,201 @@ as illustrated below:
 %
 %
 \LMnote{2010/07/16}{added}
-By default the first paragraph following a \cs{chapter} is \emph{not}
-indented, this can be controlled by
+기본값으로는 \cs{chapter} 뒤에 바로 이어지는 첫 문단은 들여써지지 \emph{않는다}.
+이는 다음에 의해 조정될 수 있다:
+%By default the first paragraph following a \cs{chapter} is \emph{not}
+%indented, this can be controlled by
 \begin{syntax}
   \cmd{\indentafterchapter}\\
   \cmd{\noindentafterchapter}
 \end{syntax}
 \glossary(indentafterchapter)%
 {\cs{indentafterchapter}}%
-{Specifies that the first paragraph after a \cs{chapter} should be indented}
+{\cs{chapter} 뒤에 바로 이어지는 첫 문단이 들여써지도록 지정.}
+%{Specifies that the first paragraph after a \cs{chapter} should be indented}
 \glossary(noindentafterchapter)%
 {\cs{noindentafterchapter}}%
-{Specifies that the first paragraph after a \cs{chapter} should \emph{not} be indented}
-The default is not to indent the first paragraph following a
-\cs{chapter}.
+{\cs{chapter} 뒤에 바로 이어지는 첫 문단이 들여써지지 않도록 지정.}
+%{Specifies that the first paragraph after a \cs{chapter} should \emph{not} be indented}
+
+% 동어반복이라서 생략
+%The default is not to indent the first paragraph following a
+%\cs{chapter}.
 
 \begin{syntax}
 \cmd{\insertchapterspace} \\
 \end{syntax}
 \glossary(insertchapterspace)%
   {\cs{insertchapterspace}}%
-  {Called by \cs{chapter} to insert space into LoF and LoT.}
-By default a \cmd{\chapter} inserts a small amount of vertical space
-into the List of Figures and List of Tables. It calls \cmd{\insertchapterspace}
-to do this. The default definition is:
+  {\cs{chapter}에 의해 호출되어 LoF(그림 목차)와 LoT(표 목차)에 공백을 삽입.}
+%  {Called by \cs{chapter} to insert space into LoF and LoT.}
+기본값으로는 \cmd{\chapter}는 그림 목차(LoF, List of Figures)와
+표 목차(LoT, List of Tables)에 작은 양의 수직 공백을 삽입한다.
+이를 하기 위해 \cmd{\insertchapterspace}가 호출되며, 정의는 다음과 같다:
+%By default a \cmd{\chapter} inserts a small amount of vertical space
+%into the List of Figures and List of Tables. It calls \cmd{\insertchapterspace}
+%to do this. The default definition is:
 \begin{lcode}
 \newcommand{\insertchapterspace}{%
   \addtocontents{lof}{\protect\addvspace{10pt}}%
   \addtocontents{lot}{\protect\addvspace{10pt}}%
 }
 \end{lcode}
-If you would prefer no inserted spaces then 
+%If you would prefer no inserted spaces then 
+만약 공백이 없길 원한다면
 \begin{lcode}
 \renewcommand{\insertchapterspace}{}
 \end{lcode}
-will do the job. 
-Different spacing can be inserted by
-changing the value of the length arguments to \cmd{\addvspace}.
+가 적당할 것이다.
+%will do the job. 
+\cmd{\addvspace} 명령에 있는 길이 인자의 값을 수정하여
+다른 양의 공백이 삽입될 수 있다.
+%Different spacing can be inserted by
+%changing the value of the length arguments to \cmd{\addvspace}.
 
-By making suitable changes to the above macros you can make some
-simple modifications to the layout.
+위의 매크로들에 적당한 변화를 가하여 레이아웃에 약간의 변화를 줄 수 있을 것이다.
+%By making suitable changes to the above macros you can make some
+%simple modifications to the layout.
 
+\index{헤딩!장|)}
 \index{heading!chapter|)}
 
-\subsection{Defining a chapter style} \label{sec:chapterstyle}
+\subsection{장 스타일 정의하기} \label{sec:chapterstyle}
+%\subsection{Defining a chapter style} \label{sec:chapterstyle}
 
 \index{chapterstyle|(}
+\index{장스타일}
 
-    The class provides many ways in which you can implement your designs
-for chapter headings.
+이 클래스에서는 스스로 chapter 헤딩을 구현하고 정의할 수 있는 많은 방법을 제공한다.
+%    The class provides many ways in which you can implement your designs
+%for chapter headings.
 
 \begin{syntax}
 \cmd{\chapterstyle}\marg{style} \\
 \end{syntax}
 \glossary(chapterstyle)%
   {\cs{chapterstyle}\marg{style}}%
-  {Sets chapter heading layout to \meta{style}.}
-The macro \cmd{\chapterstyle} is rather like the \cmd{\pagestyle} command in 
-that it sets the style of any subsequent chapter headings to be \meta{style}.
+  {chapter의 헤딩 양식을 \meta{style}로 설정.}
+%  {Sets chapter heading layout to \meta{style}.}
+\cmd{\chapterstyle} 매크로는 \cmd{\pagestyle} 명령과 비슷하지만,
+이후의 어떤 chapter 에 대해서도 헤딩을 \meta{style}이 되도록 설정한다.
+%The macro \cmd{\chapterstyle} is rather like the \cmd{\pagestyle} command in 
+%that it sets the style of any subsequent chapter headings to be \meta{style}.
 
-    The class provides some predefined chapter styles, including the 
-\cstyle{default} style which is the familiar LaTeX \Lclass{book} class chapter
-headings style. To use the chapterstyle \cstyle{fred} just issue the command
+%    The class provides some predefined chapter styles, including the 
+%\cstyle{default} style which is the familiar LaTeX \Lclass{book} class chapter
+%headings style. To use the chapterstyle \cstyle{fred} just issue the command
+이 클래스는 미리 정의된 chapter 스타일을 몇 가지 제공한다.
+\cstyle{default} 스타일의 경우 우리에게 익숙한 \LaTeX{}의 \Lclass{book} 클래스와
+동일하게 나온다.
+\cstyle{fred} 라는 이름의 chapter 스타일을 사용하고 싶은 경우 단순히
 \begin{lcode}
 \chapterstyle{fred}
 \end{lcode}
-Different styles can be used in the same document.
+와 같은 명령을 사용하면 된다. 한 문서 내에서 여러 스타일을 사용하는 것 또한 가능하다.
+%Different styles can be used in the same document.
 
-The simpler predefined styles include:
-\LMnote{2011/05/25}{I've moved the chapter style images to the
-  showcase appendix to save some space in the main part of the manual}
+%The simpler predefined styles include:
+%\LMnote{2011/05/25}{I've moved the chapter style images to the
+%  showcase appendix to save some space in the main part of the manual}
+미리 정의된 간단한 스타일들은 아래와 같다:
 \begin{itemize}
 \item[\cstyle{default}] 
 \glossary(defaultcs)%
   {\Pcstyle{default}}%
-  {The default \Ppack{book} class chapterstyle.}
-The normal \ltx\ \Lclass{book} class chapter styling; shown in \fref{dcdefault}.
+  {기본 \Ppack{book} 클래스의 chapter 스타일.}
+%  {The default \Ppack{book} class chapterstyle.}
+%The normal \ltx\ \Lclass{book} class chapter styling; shown in \fref{dcdefault}.
+기본 \ltx\ \Lclass{book} 클래스의 chapter 스타일. 그림 \fref{dcdefault}.
 %\begin{demochap}[-3\onelineskip]{default}\end{demochap}
 
 \item[\cstyle{section}] 
 \glossary(sectioncs)%
   {\Pcstyle{section}}%
-  {Simple chapterstyle looking like a section head.}
-The heading is typeset like a section; that is, 
-there is just the number and the title on one line. This is illustrated
-in \fref{dcsection}. 
+  {Section 헤딩 형식의 chapter 스타일.}
+%  {Simple chapterstyle looking like a section head.}
+이 헤딩은 section 처럼 식자된다.
+즉, 번호만이 표시되고 제목과 번호표제가 같은 줄에 놓인다. 그림 \fref{dcsection}.
+%The heading is typeset like a section; that is, 
+%there is just the number and the title on one line. This is illustrated
+%in \fref{dcsection}. 
 %%    See \Cref{chap:topsandtails} on \pref{chap:topsandtails} for an example.
 %\begin{demochap}[2\onelineskip]{section}\end{demochap}
 
 \item[\cstyle{hangnum}] 
 \glossary(hangnumcs)%
   {\Pcstyle{hangnum}}%
-  {Simple chapterstyle looking like a section head but with the number in the margin.}
-Like the \pstyle{section} style except that the chapter
-number is put in the margin\index{margin!left}, as shown in \fref{dchangnum}. 
+  {Section 헤딩 형식이지만 번호표제가 마진 영역에 나타나는 chapter 스타일.}
+%  {Simple chapterstyle looking like a section head but with the number in the margin.}
+\pstyle{section} 스타일과 비슷하지만 번호표제가 마진 영역에 온다. 그림 \fref{dchangnum}.
+%Like the \pstyle{section} style except that the chapter
+%number is put in the margin\index{margin!left}, as shown in \fref{dchangnum}. 
 %%    See \Cref{chap:captions} on \pref{chap:captions} for an example.
 %\begin{demochap}[2\onelineskip]{hangnum}\end{demochap}
 
 \item[\cstyle{companion}]
 \glossary(companioncs)%
   {\Pcstyle{companion}}%
-  {Chapterstyle like those in the \textit{LaTeX companion} series.}
- This produces chapter headings like those of the
-\textit{LaTeX Companion} series of books. An example is in \fref{dccompanion}.
+  {\textit{LaTeX companion} 시리즈와 같은 느낌의 chapter 스타일.}
+%  {Chapterstyle like those in the \textit{LaTeX companion} series.}
+\textit{LaTeX companion} 시리즈와 같은 느낌의 chapter 스타일. 그림 \fref{dccompanion}.
+% This produces chapter headings like those of the
+%\textit{LaTeX Companion} series of books. An example is in \fref{dccompanion}.
 %%    See \Cref{chap:signposts} on \pref{chap:signposts} for an example.
 %\begin{demochap}[2\onelineskip]{companion}\end{demochap}
 
 \item[\cstyle{article}]
 \glossary(articlecs)%
   {\Pcstyle{article}}%
-  {Chapter style similar to a section head in the \Pclass{article} class but 
-   with different
-   sized fonts.}
- The heading is typeset like a \cmd{\section}
-heading in the \Lclass{article} class. This is similar to the 
-\cstyle{section} style but different fonts and spacings are used,
-as shown in \fref{dcarticle}.
+  {\Pclass{article} 클래스의 section 헤딩과 비슷하지만 다른 크기의 폰트가 사용되는 chapter 스타일.}
+%  {Chapter style similar to a section head in the \Pclass{article} class but 
+%   with different
+%   sized fonts.}
+헤딩이 \Lclass{article} 클래스의 \cmd{\section}처럼 식자된다.
+\cstyle{section} 스타일과 비슷하지만 폰트와 간격주기가 다르다. 그림 \fref{dcarticle}.
+% The heading is typeset like a \cmd{\section}
+%heading in the \Lclass{article} class. This is similar to the 
+%\cstyle{section} style but different fonts and spacings are used,
+%as shown in \fref{dcarticle}.
 %\begin{demochap}[-1\onelineskip]{article}\end{demochap}
 
 \item[\cstyle{reparticle}]
 \glossary(reparticlecs)%
   {\Pcstyle{reparticle}}%
-  {With the \Popt{article} class option it replicates a section head in 
-   the \Pclass{article} class.}
-   When the \Lopt{article} class option is used
-    the default chapter and section styles are close, but not
-    identical, to the corresponding division heads in the \Lclass{article}
-    class. The \cstyle{reparticle} chapterstyle makes \cmd{\chapter}
-    replicate the appearance of \cmd{\section} in the \Lclass{article}
-    class.
+  {\Popt{article} 옵션을 통해 \Popt{article} 클래스의 section 헤딩과 동일하게 해준다.
+  }
+%  {With the \Popt{article} class option it replicates a section head in 
+%   the \Pclass{article} class.}
+	\Popt{article} 옵션이 쓰일 경우 
+	나타나는 기본 chapter/section 스타일은
+	\Popt{article} 클래스의 것들과 비슷하지만
+	완전히 동일하지는 않다. 
+	\cstyle{reparticle} 스타일은 \cmd{\chapter} 명령이
+	\Lclass{article}의 \cmd{\section} 명령과 완전히 동일한
+	결과물을 내도록 한다.
+%   When the \Lopt{article} class option is used
+%    the default chapter and section styles are close, but not
+%    identical, to the corresponding division heads in the \Lclass{article}
+%    class. The \cstyle{reparticle} chapterstyle makes \cmd{\chapter}
+%    replicate the appearance of \cmd{\section} in the \Lclass{article}
+%    class.
 
 %%\item[\cstyle{demo}] Try this one to see what it does. On the other
 %%   hand you can look at \Cref{chap:verse} on \pref{chap:verse} to see
 %%   what it looks like.
 \end{itemize}
 
-    If you use only the predefined chapterstyles there is no need to
-plough through the rest of this section, except to look at the illustrations
-of the remaining predefined chapterstyles shown a little later.
+앞서 소개한 것과 같이 미리 정의된 chapter 스타일을 사용하고자 할 경우
+이 절의 나머지 내용을 읽을 필요가 없다.
+다만 그 스타일의 결과를 보여주는 그림이 곧 나오니 그것을 챙겨보도록 해라.
+%    If you use only the predefined chapterstyles there is no need to
+%plough through the rest of this section, except to look at the illustrations
+%of the remaining predefined chapterstyles shown a little later.
 
-The various macros shown in the \cs{chapterhead} code above are initially 
-set up as (the code is known as the \cstyle{default} style): 
+%The various macros shown in the \cs{chapterhead} code above are initially 
+%set up as (the code is known as the \cstyle{default} style): 
+\cs{chapterhead} 코드의 다양한 매크로는 처음에는 다음과 같이 정의되어 있다:
+(이는 \cstyle{default} 스타일이라고도 불린다.)
 \begin{lcode}
 \newcommand{\chapterheadstart}{\vspace*{\beforechapskip}}
 \newcommand{\printchaptername}{\chapnamefont \@chapapp}
@@ -1263,29 +1419,47 @@ set up as (the code is known as the \cstyle{default} style):
 \setlength{\midchapskip}{20pt}
 \setlength{\afterchapskip}{40pt}
 \end{lcode}
-(The mysterious \cmd{\@chapapp} is the internal macro that \ltx\ uses
-to store normally the chapter name.\footnote{Remember, if you use
-a macro that has an \texttt{@} in its name it must be in a place
-where \texttt{@} is treated as a letter.} It will normally have 
-different values,
-set automatically, when typesetting a chapter in the main body 
-(e.g., \texttt{Chapter}) or in the appendices\index{appendix} where
-it would usually be set to \texttt{Appendix}, but you can specify
-these names yourself.)
+(이 신비로운 \cmd{\@chapapp}은 \ltx\ 내부에서 chapter 의 이름을 저장하기 위해
+사용되는 매크로다. \footnote{
+매크로 이름에 \texttt{@}이 있을 경우 \texttt{@}가 letter로 인식되는 곳에서
+사용되어야만 한다는 것을 기억하라.
+})
+이것은 매번 다른 값을 가질 것이며, 조판하며 자동으로 설정될 것이다.
+예를 들어, 본문에서는 \texttt{Chapter}, 부록\index{부록}\index{appendix}에서는 
+\texttt{Appendix}로 보일 것이다.
+물론 직접 이를 설정할 수도 있다.
+%(The mysterious \cmd{\@chapapp} is the internal macro that \ltx\ uses
+%to store normally the chapter name.\footnote{Remember, if you use
+%a macro that has an \texttt{@} in its name it must be in a place
+%where \texttt{@} is treated as a letter.} It will normally have 
+%different values,
+%set automatically, when typesetting a chapter in the main body 
+%(e.g., \texttt{Chapter}) or in the appendices\index{appendix} where
+%it would usually be set to \texttt{Appendix}, but you can specify
+%these names yourself.)
 
 
 
-    A new style is specified by changing the definitions of this last set of 
-macros and/or the various font and skip specifications.
+%    A new style is specified by changing the definitions of this last set of 
+%macros and/or the various font and skip specifications.
+
+새로운 스타일은 다음에 나오는 마지막 매크로 모음의 정의나
+여러 가지 폰트/줄간격 설정을 바꿈으로서 정의된다.
 
 \begin{syntax}
 \cmd{\makechapterstyle}\marg{style}\marg{text} \\
 \end{syntax}
-Chapter styles are defined via the \cmd{\makechapterstyle} command, where
-\meta{style} is the style being defined and \meta{text} is the LaTeX code 
-defining the style. Please note that the \meta{text} \emph{always}
-start by resetting macros and lengths to the values shown above. That
-is what you actually get is is the same as
+chapter 스타일은 \cmd{\makechapterstyle} 커맨드로 정의된다.
+\meta{style}은 정의되는 스타일의 이름이며 \meta{text}는 스타일을 정의하는
+LaTeX 코드다.
+여기서 \meta{text}는 \emph{항상} 매크로와 위에 보여진 값들을 리셋하는 것으로
+시작함에 주목하라.
+당신이 실제로 얻게 될 것은 다음과 같다:
+%Chapter styles are defined via the \cmd{\makechapterstyle} command, where
+%\meta{style} is the style being defined and \meta{text} is the LaTeX code 
+%defining the style. Please note that the \meta{text} \emph{always}
+%start by resetting macros and lengths to the values shown above. That
+%is what you actually get is is the same as
 \begin{syntax}
 \cmd{\makechapterstyle}\marg{style}\{\\
   \cmd{\chapterstyle}\{default\}\\
@@ -1294,22 +1468,28 @@ is what you actually get is is the same as
 \end{syntax}
 
 
-
-    To start things off,  the \cstyle{default} chapter
-style, which mimics the chapter heads in the standard \Lclass{book} and 
-\Lclass{report} classes, as it appears in \file{memoir.cls}:
+\cstyle{default} chapter 스타일은 \file{memoir.cls} 에서 보이듯
+표준 \Lclass{book}, \Lclass{report} 클래스의 chapter 헤딩을 흉내낸다:
+%    To start things off,  the \cstyle{default} chapter
+%style, which mimics the chapter heads in the standard \Lclass{book} and 
+%\Lclass{report} classes, as it appears in \file{memoir.cls}:
 \begin{lcode}
 \makechapterstyle{default}{}
 \chapterstyle{default}
 \end{lcode}
--- since the \cstyle{default} style \emph{is} the initial value of
-\cmd{\makechapterstyle}. The actual code is seen above. 
+%-- since the \cstyle{default} style \emph{is} the initial value of
+%\cmd{\makechapterstyle}. The actual code is seen above. 
+왜냐하면 \cstyle{default} 스타일은 \cmd{\makechapterstyle} 명령의
+초기값이기 때문이다. 실제 코드는 위와 같다.
 
 
 
-    As an example of setting up a simple chapterstyle, here is the code for 
-defining the \cstyle{section} chapterstyle. In this case it is principally
-a question of eliminating most of the printing and zeroing some spacing.
+%    As an example of setting up a simple chapterstyle, here is the code for 
+%defining the \cstyle{section} chapterstyle. In this case it is principally
+%a question of eliminating most of the printing and zeroing some spacing.
+%간단한 chapter 스타일을 지정하는 예시로, 여기에 \cstyle{section} 스타일을 정의하는
+%코드를 여기 보인다. 이 경우 
+예로서, \cstyle{section} 장 스타일 정의 코드를 살펴보자.
 \begin{lcode}
 \makechapterstyle{section}{%
   \renewcommand*{\printchaptername}{}
@@ -1319,24 +1499,39 @@ a question of eliminating most of the printing and zeroing some spacing.
   \renewcommand*{\afterchapternum}{}
 }
 \end{lcode}
-In this style, \cmd{\printchaptername} is vacuous, so the normal `Chapter'
-is never typeset. The same font is used for the number and the title, and
-the number is typeset with a space after it. The macro \cmd{\afterchapternum}
-is vacuous, so the chapter title will be typeset immediately after the number.
+여기서 \cmd{\printchaptername} 는 비어있다. 그러므로 `Chapter' 라는 문자열은
+시작되지 않는다. 번호행과 타이틀에 동일한 폰트가 쓰였고, 번호 뒤에 공백 하나가 따라붙는다.
+\cmd{\afterchapternum} 매크로가 비어 있기 때문에 장 제목이 번호 뒤에 바로 식자되는 것이다.
+%In this style, \cmd{\printchaptername} is vacuous, so the normal `Chapter'
+%is never typeset. The same font is used for the number and the title, and
+%the number is typeset with a space after it. The macro \cmd{\afterchapternum}
+%is vacuous, so the chapter title will be typeset immediately after the number.
 
-    In the standard classes the title of an unnumbered chapter is typeset
-at the same position on the page as the word `Chapter' for numbered chapters.
-The macro \cmd{\printchapternonum} is called just before an unnumbered 
-chapter title text is typeset. By default this does nothing but you can use
-\cmd{\renewcommand} to change this. For example, if you wished the title
-text for both numbered and unnumbered chapters to be at the same height on
-the page then you could redefine \cmd{\printchapternonum} to insert
-the amount of vertical space taken by any `Chapter N' line. For example,
-as \cmd{\printchapternonum} is vaucuous in the \cstyle{default} chapterstyle
-the vertical position of a title depends on whether or not it is numbered.
 
-The \cstyle{hangnum} style, which is like \cstyle{section} except that it
-puts the number in the margin, is defined as follows:
+표준 클래스에서 번호가 붙지 않은 장의 제목은 기존에 `Chapter'라는 단어가 식자되는
+곳과 같은 위치에 온다.
+\cmd{\printchapternonum} 매크로는 번호가 붙지 않은 장 제목이 식자되기 직전에 호출된다.
+기본값은 아무것도 하지 않지만 원한다면 \cmd{\renewcommand}로 이를 수정할 수 있다.
+예를 들면, 번호가 붙은 장과 번호가 붙지 않은 장이 모두 페이지 상에서 같은 높이에 있기를 원한다면
+\cmd{\printchapternonum} 를 재정의하여 `Chapter N' 줄이 차지했을 만큼의
+수직 공간을 넣을 수 있다.
+%    In the standard classes the title of an unnumbered chapter is typeset
+%at the same position on the page as the word `Chapter' for numbered chapters.
+%The macro \cmd{\printchapternonum} is called just before an unnumbered 
+%chapter title text is typeset. By default this does nothing but you can use
+%\cmd{\renewcommand} to change this. For example, if you wished the title
+%text for both numbered and unnumbered chapters to be at the same height on
+%the page then you could redefine \cmd{\printchapternonum} to insert
+%the amount of vertical space taken by any `Chapter N' line. For example,
+%as \cmd{\printchapternonum} is vaucuous in the \cstyle{default} chapterstyle
+%the vertical position of a title depends on whether or not it is numbered.
+% 마지막 문장 이상해서 번역에 안 넣음
+
+\cstyle{hangnum} 스타일은 장 번호가 마진에 붙는다는 점을 제외하고
+\cstyle{section} 과 비슷하다.
+정의는 다음과 같다:
+%The \cstyle{hangnum} style, which is like \cstyle{section} except that it
+%puts the number in the margin, is defined as follows:
 \begin{lcode}
 \makechapterstyle{hangnum}{%
   \renewcommand*{\chapnumfont}{\chaptitlefont}
@@ -1351,20 +1546,27 @@ puts the number in the margin, is defined as follows:
   \renewcommand*{\afterchapternum}{}
 }
 \end{lcode}
-The chapter number is put at the left of a box wide enough for three digits.
-The box is put into the margin, via \cmd{\llap}, for typesetting. The
-chapter title is then typeset, starting at the left margin.
+장 번호는 세 자리 수가 들어갈 만큼 넉넉한 박스 좌측의 공간에 들어간다.
+박스는 조판을 위해 \cmd{\llap} 명령을 통해 마진에 놓인다.
+그 후 장 제목이 좌측 마진에서 조판되기 시작한다.
+%The chapter number is put at the left of a box wide enough for three digits.
+%The box is put into the margin, via \cmd{\llap}, for typesetting. The
+%chapter title is then typeset, starting at the left margin.
 
 \begin{syntax}
 \lnc{\chapindent} \\
 \end{syntax}
 \glossary(chapindent)%
   {\cs{chapindent}}%
-  {A length you can use in a defining chapter style (or anything else).}
-The length \lnc{\chapindent} is provided for use in specifying chapterstyles,
-but you could use it for any other purposes.
+  {장 스타일(혹은 다른 임의의 것)을 정의할 때 사용할 수 있는 길이}
+%  {A length you can use in a defining chapter style (or anything else).}
+\lnc{\chapindent} 명령이 장 스타일을 정의하는 용도로 제공되지만,
+그 외에 어떠한 다른 곳에서도 쓸 수 있다.
+%The length \lnc{\chapindent} is provided for use in specifying chapterstyles,
+%but you could use it for any other purposes.
 
-    The definition of the \cstyle{companion} chapterstyle is more complicated.
+%    The definition of the \cstyle{companion} chapterstyle is more complicated.
+\cstyle{companion} 장 스타일의 정의는 더 복잡하다.
 \begin{lcode}
 \makechapterstyle{companion}{%
   \renewcommand*{\chapnamefont}{\normalfont\LARGE\scshape}
@@ -1380,27 +1582,43 @@ but you could use it for any other purposes.
 }
 \end{lcode}
 \PWnote{2009/09/07}{Fixed adjuswidth typo.}
-As shown in \fref{dccompanion} the chapter name is in small caps and set
-flushright. The title is also set flushright aligned with the outermost 
-part of the marginal notes. This is achieved by use of the \Ie{adjustwidth}
-environment\footnote{See \S\ref{sec:adjustwidth}.} to make \ltx\ think
-that the typeblock is locally wider than it actually is.
+\fref{dccompanion}에서 보이듯 장 제목은 소문자로 우측 정렬되어 보인다.
+또한, 제목은 마진 노트 영역의 가장 바깥쪽에 놓인다.
+이는 \Ie{adjustwidth} 환경을 사용하여 구현된다 \footnote{\S\ref{sec:adjustwidth} 장을 참조하라.}.
+to make \ltx\ think that the typeblock is locally wider than it actually is.
+%As shown in \fref{dccompanion} the chapter name is in small caps and set
+%flushright. The title is also set flushright aligned with the outermost 
+%part of the marginal notes. This is achieved by use of the \Ie{adjustwidth}
+%environment\footnote{See \S\ref{sec:adjustwidth}.} to make \ltx\ think
+%that the typeblock is locally wider than it actually is.
 
-\subsection{Further chapterstyles}
+\subsection{더 많은 장 스타일}
+%\subsection{Further chapterstyles}
 
+이 클래스는 이 절에서 보이듯 더 많은 장 스타일을 제공한다.
+몇개는 내가 직접 작성한 것이며 다른 몇개는 \Pclass{memoir} 사용자들에
+의해 \ctt\ 에 포스팅된 것이다.
+나는 그 포스팅된 것들의 일부를 수정했다.
+부록, 여러 줄에 걸친 제목, 번호 없는 장이 고려되지 않은 경우가 있었기 때문이다.
+그 후 어떻게 그 문제들을 해결했는지 보이기 위해 수정된 코드를 공개했다. 
+그와 별개로 Lars Madsen\index{Madsen, Lars}는 
+수많은 스타일~\cite{CHAPSTYLES}들을 수집했고 그것들이 어떻게 만들어졌는지 보였다.
+%    The class provides more chapterstyles, which are listed here. 
+%Some are mine and others are from postings to \ctt\ by \Pclass{memoir}
+%users. I have modified some of the posted ones to cater for things like 
+%appendices, multiline titles, and unnumbered chapters which were not 
+%considered in the originals. The code
+%for some of them is given later to help you see how they are done.
+%Separately, Lars Madsen\index{Madsen, Lars} has collected a wide variety of 
+%styles~\cite{CHAPSTYLES} and shows how they were created.
 
-    The class provides more chapterstyles, which are listed here. 
-Some are mine and others are from postings to \ctt\ by \Pclass{memoir}
-users. I have modified some of the posted ones to cater for things like 
-appendices, multiline titles, and unnumbered chapters which were not 
-considered in the originals. The code
-for some of them is given later to help you see how they are done.
-Separately, Lars Madsen\index{Madsen, Lars} has collected a wide variety of 
-styles~\cite{CHAPSTYLES} and shows how they were created.
+%    If you want to try several chapterstyles in one document, request the
+%\cstyle{default} style before each of the others to ensure that a previous 
+%style's changes are not passed on to a following one.
 
-    If you want to try several chapterstyles in one document, request the
-\cstyle{default} style before each of the others to ensure that a previous 
-style's changes are not passed on to a following one.
+만약 하나의 문서에서 여러 개의 장 스타일을 사용하고 싶다면,
+매 장마다 \cstyle{default} 스타일을 호출하여 이전 장에서 일어난 스타일 변화가
+다음 장에까지 연쇄적으로 적용되지 않도록 하여라.
 
 \LMnote{2011/05/25}{I've moved the chapter style images to the
   showcase appendix to save some space in the main part of the manual}
@@ -1770,43 +1988,60 @@ is illustrated in
 
 \end{itemize}
 
+여기 주어진 스타일 중 몇개의 코드는 \ref{sec:chapter-styles}절의
+showcase 부록에 주어져 있다.
+각각의 장 스타일이 어떻게 정의되었는지에 대한 자세한 사항이 궁금하다면,
+설명되어 있는 클래스 코드를 들여다보라.
+나중에 당신이 직접 자신만의 스타일을 정의할 때 쓸 아이디어를 줄 것이다.
+%The code for some of these styles is given in
+%section~\ref{sec:chapter-styles} within the Showcase Appendix.  For
+%details of how the other chapter styles are defined, look at the
+%documented class code. This should give you ideas if you want to
+%define your own style.
 
-The code for some of these styles is given in
-section~\ref{sec:chapter-styles} within the Showcase Appendix.  For
-details of how the other chapter styles are defined, look at the
-documented class code. This should give you ideas if you want to
-define your own style.
-
-Note that it is not necessary to define a new chapterstyle if you want
-to change the chapter headings --- you can just change the individual
-macros without putting them into a style.
+장 헤딩을 변경하고 싶다고 해서 아예 새로운 장 스타일을 만들어야 하는 것은 아니다.
+그냥 각각의 매크로를 직접 수정하는 것으로 충분할 것이다.
+%Note that it is not necessary to define a new chapterstyle if you want
+%to change the chapter headings --- you can just change the individual
+%macros without putting them into a style.
 
 
-
+\index{장 스타일|)}
 \index{chapterstyle|)}
 
-\subsection{Chapter precis}
+\subsection{장 요약}
+%\subsection{Chapter precis}
 \label{sec:chapter-precis}
 
+\index{장!요약|(}
 \index{chapter!precis|(}
 
 
-   Some old style novels, and even some modern text 
- books,\footnote{For example, Robert Sedgewick, \textit{Algorithms},
- Addison-Wesley, 1983.} include a short synopsis of the contents of 
- the chapter either immediately
- after the chapter heading\index{heading!chapter} or in the \toc, or in both places.
+몇몇 고풍스러운 소설이나 현대의 교과서들%
+\footnote{예를 들어, Robert Sedgewick의 \textit{Algorithms},
+	Addison-Wesley, 1983.}은
+장 헤딩\index{헤딩!장}\index{heading!chapter} 직후나,
+\toc 혹은 둘 모두에 장의 내용을 소개하는 짧은 요약문이 있다.
+
+%   Some old style novels, and even some modern text 
+% books,\footnote{For example, Robert Sedgewick, \textit{Algorithms},
+% Addison-Wesley, 1983.} include a short synopsis of the contents of 
+% the chapter either immediately
+% after the chapter heading\index{heading!chapter} or in the \toc, or in both places.
 
 \begin{syntax}
 \cmd{\chapterprecis}\marg{text} \\
 \end{syntax}
 \glossary(chapterprecis)%
   {\cs{chapterprecis}\marg{text}}%
-  {Prints \meta{text} and also adds it to the ToC.}
-     The command \cmd{\chapterprecis} prints its argument 
- both at the
- point in the document where it is called, and also adds it to the \file{.toc}
- file. For example:
+  {\meta{text}를 식자하며 목차(ToC)에도 이를 추가.}
+%  {Prints \meta{text} and also adds it to the ToC.}
+\cmd{\chapterprecis} 명령은 그의 인자를 문서 내에서 호출된 곳과
+\file{.toc} 파일 모두에 추가한다. 예를 들어:
+%     The command \cmd{\chapterprecis} prints its argument 
+% both at the
+% point in the document where it is called, and also adds it to the \file{.toc}
+% file. For example:
  \begin{lcode}
  ...
  \chapter{}%  first chapter
@@ -1814,18 +2049,25 @@ macros without putting them into a style.
  ...
  \end{lcode}
 
-    Now for the details.
+%    Now for the details.
+이제 구체적인 내용을 소개하겠다.
 
 \begin{syntax}
 \lnc{\prechapterprecisshift} \\
 \end{syntax}
 \glossary(prechapterprecisshift)%
   {\cs{prechapterprecisshift}}%
-  {Spacing between a chapter head and a chapter precis.}
-The length \lnc{\prechapterprecisshift} controls the vertical spacing before
-a \cmd{\chapterprecis}. If the precis immediately follows a \cmd{\chapter}
-then a different space is required depending on whether or not the
-\Lopt{article} class option is used. The class sets:
+  {장 헤딩과 장 요약문 사이의 공백.}
+%  {Spacing between a chapter head and a chapter precis.}
+\lnc{\prechapterprecisshift} 길이는 \cmd{\chapterprecis} 이전의 수직 공백의 양을 조절한다.
+만약 요약문이 \cmd{\chapter} 뒤에 바로 나온다면,
+\Lopt{article} 클래스 옵션이 사용되었는지의 여부에 따라
+다른 공백의 양이 사용되어야 할 것이다.
+클래스는 그를 다음과 같이 설정한다:
+%The length \lnc{\prechapterprecisshift} controls the vertical spacing before
+%a \cmd{\chapterprecis}. If the precis immediately follows a \cmd{\chapter}
+%then a different space is required depending on whether or not the
+%\Lopt{article} class option is used. The class sets:
 \begin{lcode}
 \ifartopt
   \setlength{\prechapterprecisshift}{0pt}
@@ -1841,29 +2083,40 @@ then a different space is required depending on whether or not the
 \end{syntax}
 \glossary(chapterprecishere)%
   {\cs{chapterprecishere}\marg{text}}%
-  {Typesets \meta{text} for a chapter precis.}
+  {\meta{text}를 장 요약문에 식자한다.}
+%  {Typesets \meta{text} for a chapter precis.}
 \glossary(chapterprecistoc)%
   {\cs{chapterprecistoc}\marg{text}}%
-  {Adds \meta{text} for a chapter precis to the ToC.}
- The \cmd{\chapterprecis} command calls these two commands to print the
- \meta{text} in the document (the \cmd{\chapterprecishere} command) 
- and to put it into the \toc{} (the \cmd{\chapterprecistoc} command). 
- These can be used individually if required.
+  {\meta{text}를 장 요약문을 위해 목차(ToC)에 추가한다.}
+%  {Adds \meta{text} for a chapter precis to the ToC.}
+\cmd{\chapterprecis} 명령은 이 두 명령을 호출하여
+문서 내에 \meta{text}를 출력하고(\cmd{\chapterprecishere} 명령),
+\toc{} 에도 넣는다. (\cmd{\chapterprecistoc} 명령). 
+필요할 경우 둘은 따로 사용될 수 있다.
+% The \cmd{\chapterprecis} command calls these two commands to print the
+% \meta{text} in the document (the \cmd{\chapterprecishere} command) 
+% and to put it into the \toc{} (the \cmd{\chapterprecistoc} command). 
+% These can be used individually if required.
 
 \begin{syntax}
 \cmd{\precisfont} \\
 \cmd{\prechapterprecis} \cmd{\postchapterprecis} \\
 \end{syntax}
-The \cmd{\chapterprecishere} macro is intended for use immediately after 
-a \cmd{\chapter}. The \meta{text} argument is typeset in
-the \cmd{\precisfont} font in a \Ie{quote} environment. The macro's 
-definition is:
+\cmd{\chapterprecishere} 매크로는 \cmd{\chapter} 바로 뒤에 사용될 목적으로 있다.
+\meta{text} 인자가 \cmd{\precisfont} 폰트로 \Ie{quote} 환경 안에서 식자된다.
+이 매크로의 정의는 다음과 같다:
+%The \cmd{\chapterprecishere} macro is intended for use immediately after 
+%a \cmd{\chapter}. The \meta{text} argument is typeset in
+%the \cmd{\precisfont} font in a \Ie{quote} environment. The macro's 
+%definition is:
 \begin{lcode}
 \newcommand{\chapterprecishere}[1]{%
   \prechapterprecis #1\postchapterprecis}
 \end{lcode}
-where \cmd{\prechapterprecis}, \cmd{\postchapterprecis} and \cmd{\precisfont}
-are defined as:
+여기서 \cmd{\prechapterprecis}, \cmd{\postchapterprecis}, \cmd{\precisfont}
+의 정의는 다음과 같다:
+%where \cmd{\prechapterprecis}, \cmd{\postchapterprecis} and \cmd{\precisfont}
+%are defined as:
 \begin{lcode}
 \newcommand{\prechapterprecis}{%
   \vspace*{\prechapterprecisshift}%
@@ -1871,29 +2124,41 @@ are defined as:
 \newcommand{\postchapterprecis}{\end{quote}}
 \newcommand*{\precisfont}{\normalfont\itshape}
 \end{lcode}
-Any or all of these can be changed if another style of typesetting is required.
+이들의 전부 혹은 일부는 필요에 따라 수정될 수 있다.
+%Any or all of these can be changed if another style of typesetting is required.
 
 \LMnote{2010/06/09}{Changed a bit, and moved the glossary stuff here
   where it naturally belong}
-Next the following macros control the formatting of the precis text in
-the ToC.
+다음의 매크로들은 목차(ToC) 내에서의 요약문의 형식을 설정한다.
+%Next the following macros control the formatting of the precis text in
+%the ToC.
 \begin{syntax}
 \cmd{\precistoctext}\marg{text} \cmd{\precistocfont} \cmd{\precistocformat} \\
 \end{syntax}
 \glossary(precistoctext)%
   {\cs{precistoctext}\marg{text}}%
-  {ToC entry for chapter precis \meta{text}}
+  {ToC에 들어갈 장 요약문 \meta{text}}
+%  {ToC entry for chapter precis \meta{text}}
 \glossary(precistocfont)%
   {\cs{precistocfont}}%
-  {Font for typesetting \cs{precistoctext}.}
+  {\cs{precistoctext} 식자에 사용될 폰트.}
+%  {Font for typesetting \cs{precistoctext}.}
 \glossary(precistocformat)%
   {\cs{precistocformat}}%
-  {Format for typesetting \cs{precistoctext}.}
-The \cmd{\chapterprecistoc} macro puts \cmd{\precistoctext}\marg{text} into 
-the \pixfile{toc} file. The default definition similar to (but not
-exactly\footnote{Internally we use a different name for \cs{leftskip}
-  and \cs{rightskip} to make it easier to do right to left documents
-with the class and the \texttt{bidi} package.})
+  {\cs{precistoctext} 식자에 사용될 형식.}
+%  {Format for typesetting \cs{precistoctext}.}
+\cmd{\chapterprecistoc} 매크로는 \cmd{\precistoctext}\marg{text}를
+\pixfile{toc} 파일에 넣는다.
+기본값 정의는 다음과 유사하다:
+(하지만 정확히 동일하지는 않다.%
+\footnote{내부적으로는 \cs{leftskip}와 \cs{rightskip}에 대해 다른 이름을 사용하여
+우에서 좌로 진행되는 문서들을 조판하거나 \texttt{bidi} 패키지를 사용하기 편하게 한다.}
+)
+%The \cmd{\chapterprecistoc} macro puts \cmd{\precistoctext}\marg{text} into 
+%the \pixfile{toc} file. The default definition similar to (but not
+%exactly\footnote{Internally we use a different name for \cs{leftskip}
+%  and \cs{rightskip} to make it easier to do right to left documents
+%with the class and the \texttt{bidi} package.})
 \begin{lcode}
 \DeclareRobustCommand{\precistoctext}[1]{%
   {\nopagebreak\leftskip \cftchapterindent\relax
@@ -1901,10 +2166,14 @@ with the class and the \texttt{bidi} package.})
     \rightskip \@tocrmarg\relax
     \precistocformat\precistocfont #1\par}}
 \end{lcode}
-Effectively, in the \toc{} \cmd{\precistoctext} typesets its argument like 
-a chapter title using the \cmd{\precistocfont} (default
-\cmd{\itshape}), and \cmd{\precistocformat} (default \cmd{\noindent}).
+\toc{} \cmd{\precistoctext}는 그의 인자를 \cmd{\precistocfont} (기본값 \cmd{\itshape})와
+\cmd{\precistocformat} (기본값 \cmd{\noindent})를 사용하여
+장 제목처럼 식자하게 된다.
+%Effectively, in the \toc{} \cmd{\precistoctext} typesets its argument like 
+%a chapter title using the \cmd{\precistocfont} (default
+%\cmd{\itshape}), and \cmd{\precistocformat} (default \cmd{\noindent}).
 
+\index{장!요약문|)}
 \index{chapter!precis|)}
 
 
@@ -2413,13 +2682,20 @@ Since the macro is only called in the proper context, we can use
 
 
 
-\section{Fancy anonymous breaks}
+%\section{Fancy anonymous breaks}
+\section{번호 없는 장절구획 꾸미기}
 
-    Often, in novels, there is a need to break up the text to indicate that
-there is a major break in the story, but not enough to warrant starting a new
-chapter. I have called these 
-\emph{anonymous divisions}\index{anonymous division}\index{division!anonymous} 
-as there is neither number nor title associated with them. 
+%    Often, in novels, there is a need to break up the text to indicate that
+%there is a major break in the story, but not enough to warrant starting a new
+%chapter. I have called these 
+%\emph{anonymous divisions}\index{anonymous division}\index{division!anonymous} 
+%as there is neither number nor title associated with them. 
+소설을 쓸 때 종종 본문의 텍스트 사이를 쪼개
+이야기의 흐름이 끝났다는 것을 보여줘야 하지만
+그렇다고 아예 새로운 장을 열기에는 애매한 경우가 있다.
+이 구획은 번호나 제목이 붙지 않기 때문에,
+이를 \emph{번호 없는 장절구획}\index{번호 없는 장절구획}\index{division!anonymous} \index{anonymous division}
+으로 부르곤 한다.
     
 \begin{syntax}
 \cmd{\plainbreak}\marg{num} \cmd{\plainbreak*}\marg{num}  \\
@@ -2427,33 +2703,47 @@ as there is neither number nor title associated with them.
 \end{syntax} 
 \glossary(plainbreak)%
   {\cs{plainbreak}\marg{num}}%
-  {An anonymous division of \meta{num} blank lines and the following
-   paragraph is not indented.}
+  {번호 없이 \meta{num} 개의 빈 줄로 이루어진 구획. 이어지는 문단은 들여써지지 않는다.
+  }
+%  {An anonymous division of \meta{num} blank lines and the following
+%   paragraph is not indented.}
 \glossary(plainbreak*)%
   {\cs{plainbreak*}\marg{num}}%
-  {Like \cs{plainbreak} except that the following paragraph is indented.}
+  {이어지는 문단이 들여써지지 않는다는 것을 제외하고 \cs{plainbreak}와 동일.}
+%  {Like \cs{plainbreak} except that the following paragraph is indented.}
 \glossary(fancybreak)%
   {\cs{fancybreak}\marg{text}}%
-  {An anonymous division with \meta{text} centered and the following
-   paragraph is not indented.}
+  {중앙정렬된 \meta{text}로 이루어진 구획. 이어지는 문단은 들여써지지 않는다.}
+%  {An anonymous division with \meta{text} centered and the following
+%   paragraph is not indented.}
 \glossary(fancybreak*)%
   {\cs{fancybreak*}\marg{text}}%
-  {Like \cs{fancybreak} except that the following paragraph is indented.}
+  {이어지는 문단이 들여써지지 않는다는 것을 제외하고 \cs{fancybreak}와 동일.}
+%  {Like \cs{fancybreak} except that the following paragraph is indented.}
 
-    The \cmd{\plainbreak} is an anonymous division. It puts \meta{num}
-blank lines into the typescript and the first line of the following
-paragraph is not indented\index{paragraph!indentation}. Another anonymous 
-division is \cmd{\fancybreak} which puts \meta{text} centered into the 
-typescript and the initial line of the following paragraph is not 
-indented\index{paragraph!indentation}. For
-example:
+%    The \cmd{\plainbreak} is an anonymous division. It puts \meta{num}
+%blank lines into the typescript and the first line of the following
+%paragraph is not indented\index{paragraph!indentation}. Another anonymous 
+%division is \cmd{\fancybreak} which puts \meta{text} centered into the 
+%typescript and the initial line of the following paragraph is not 
+%indented\index{paragraph!indentation}. For
+%example:
+\cmd{\plainbreak} 는 번호 없는 장절구획이다.
+이는 typescript 내에 \meta{num}개의 빈 줄을 삽입하며,
+이어지는 문단의 첫 줄이 들여써지지\index{paragraph!indentation}\index{들여쓰기} 않는다.
+다른 번호 없는 장절구획 명령에는 \cmd{\fancybreak}가 있다.
+이는 중앙정렬된 \meta{text}를 typescript 내에 삽입하며,
+마찬가지로 이어지는 문단의 첫 줄이 들여써지지\index{paragraph!indentation}\index{들여쓰기} 않는다.
+예를 들어:
 \begin{lcode}
 \fancybreak{{*}\\{* * *}\\{*}}
 \end{lcode}
-typesets a little diamond made of asterisks.
+은 작은 별 기호(asterisk)들로 이루어진 작은 마름모 모양을 만든다.
+%typesets a little diamond made of asterisks.
 
-    The starred versions of the commands indent the first line of the
-following paragraph\index{paragraph!indentation}.
+%    The starred versions of the commands indent the first line of the
+%following paragraph\index{paragraph!indentation}.
+스타가 붙은 버전의 명령어들은 첫 줄을 들여쓴다.\index{paragraph!indentation}\index{들여쓰기}
 
 \begin{syntax}
 \cmd{\plainfancybreak}\marg{space}\marg{num}\marg{text} \\
@@ -2461,47 +2751,75 @@ following paragraph\index{paragraph!indentation}.
 \end{syntax}
 \glossary(plainfancybreak)%
   {\cs{plainfancybreak}\marg{space}\marg{num}\marg{text}}%
-  {An anonymous division that acts like \cs{fancybreak} at the top
-   of the page, or at the bottom if there is less than \meta{space}
-   left on the page, otherwise it acts like \cs{plainbreak}.
-   The following paragraph is not indented.}
+  {페이지의 윗부분에 있을 경우 \cs{fancybreak}처럼,
+  아래부분에 있을 경우 페이지에 남은 공간이 \meta{space}보다 적을 경우
+	\cs{plainbreak}처럼 작동하는 번호 없는 장절구획.}
+%  {An anonymous division that acts like \cs{fancybreak} at the top
+%   of the page, or at the bottom if there is less than \meta{space}
+%   left on the page, otherwise it acts like \cs{plainbreak}.
+%   The following paragraph is not indented.}
 \glossary(plainfancybreak*)%
   {\cs{plainfancybreak*}\marg{space}\marg{num}\marg{text}}%
-  {Like \cs{plainfancybreak} except that the following paragraph is indented.}
-If a plain break comes at the top or bottom of a page then it is very 
-difficult for a reader to discern that there is a break at all.
-If there is text on the page and enough space left to put some text
-after a break the \cmd{\plainfancybreak} command will use a \cmd{\plainbreak}
-with \meta{num} lines, 
-otherwise (the break would come at the top or bottom of the page) it
-will use a \cmd{\fancybreak} with \meta{text}. The \meta{space} argument is a
-length specifying the space needed for the \meta{num} blank lines and some
-number of text lines for after the plain break. The starred version of
-the command uses the starred versions of the \cmd{\plainbreak} and
-\cmd{\fancybreak} commands.
+  {이어지는 문단이 들여써지지 않는다는 것을 제외하고 \cs{plainfancybreak}와 동일.}
+%  {Like \cs{plainfancybreak} except that the following paragraph is indented.}
+만약 구획이 페이지의 맨 위나 아래에 등장한다면,
+읽는 이는 내용의 구획이 있음을 알아차리기 어렵게 된다.
+만약 어떤 페이지에 본문 뒤에 구획을 넣고 나서도
+다른 텍스트를 넣을 수 있을 정도로 충분한 공간이 있다면,
+\cmd{\plainfancybreak} 명령어는 \meta{num}개의 줄로 이루어진 
+\cmd{\plainbreak}를 사용하게 될 것이다.
+그렇지 않다면, (구획이 페이지의 맨 위나 아래에 등장한다면)
+이는 \meta{text}로 구성된 \cmd{\fancybreak}를 사용하게 될 것이다.
+\meta{space} 인자는 \meta{num}개의 빈 줄이나
+구획 뒤의 본문을 이루는 텍스트의 줄 수 만큼의 높이를 나타낸다.
+스타가 붙은 버전의 명령어들은 스타가 붙은 버전의 \cmd{\plainbreak}와
+\cmd{\fancybreak}를 사용한다.
+%If a plain break comes at the top or bottom of a page then it is very 
+%difficult for a reader to discern that there is a break at all.
+%If there is text on the page and enough space left to put some text
+%after a break the \cmd{\plainfancybreak} command will use a \cmd{\plainbreak}
+%with \meta{num} lines, 
+%otherwise (the break would come at the top or bottom of the page) it
+%will use a \cmd{\fancybreak} with \meta{text}. The \meta{space} argument is a
+%length specifying the space needed for the \meta{num} blank lines and some
+%number of text lines for after the plain break. The starred version of
+%the command uses the starred versions of the \cmd{\plainbreak} and
+%\cmd{\fancybreak} commands.
 
-
-    Unfortunately there is an interaction between the requested, plain,
-and fancy break spaces.
-    Let $P$ be the space (in lines) required for the plain break, 
-$F$ the space (in lines)
-required for the fancy break, and $S$ the \meta{space} argument (in lines). 
-From some experiments it appears that the condition for the plain break 
-to avoid the top and bottom of the page is that $S - P > 1$. 
-Also, the condition for the fancy break to avoid being put in the middle 
-of a page (i.e., not at the top or bottom) is that  $S - F < 3$.
-For example, if the plain and fancy breaks take the same vertical space
-then $S = P +2$ is the only value that matches the conditions. In general, 
-if $F = P + n$ then the condition is $1 < S-P < 3+n$, which means that 
-for the \cmd{\plainfancybreak} command the
-fancy break must always take at least as much space as the plain break.
+% 김강수 선생님의 http://wiki.ktug.org/wiki/wiki.php/MemucsManual?action=download&value=memucs-manual.pdf 
+% 에 나와있는 번역문을 사용
+불행하게도 사용자가 요구한 plain, fancy break 공간 사이에는 상호간섭이 있다. $ P $가
+plain break를 위해서 요청된 공간(행)이고 $ F $가 fancy break를 위해서 요구되는 공간(행)
+이라고 하자. $ S $는 \meta{space} 공간(행)이다. 몇 번의 실험을 통해, plain break 페이지의 위쪽
+과 아래쪽을 피할 조건은 $ S −P > 1 $이라는 사실을 알게 되었다. 또한, fancy break가 페이
+지의 중간에 놓이지 않을 조건(즉, 상단과 하단이 아닌 위치에 올 조건)은 $ S − F < 3 $이다.
+예를 들어서, plain break와 fancy break가 동일한 수직 공간을 취하는 경우가 $ S = P + 2 $
+이 만족되면 일어난다. 일반적으로 $ F = P +n $이면 그 조건은 $ 1 < S −P < 3+n $이고, 이럴
+경우에 \cmd{\plainfancybreak} 명령은 fancy break가 항상 plain break에 필요한 공간 만큼을
+취하게 된다.
+%    Unfortunately there is an interaction between the requested, plain,
+%and fancy break spaces.
+%    Let $P$ be the space (in lines) required for the plain break, 
+%$F$ the space (in lines)
+%required for the fancy break, and $S$ the \meta{space} argument (in lines). 
+%From some experiments it appears that the condition for the plain break 
+%to avoid the top and bottom of the page is that $S - P > 1$. 
+%Also, the condition for the fancy break to avoid being put in the middle 
+%of a page (i.e., not at the top or bottom) is that  $S - F < 3$.
+%For example, if the plain and fancy breaks take the same vertical space
+%then $S = P +2$ is the only value that matches the conditions. In general, 
+%if $F = P + n$ then the condition is $1 < S-P < 3+n$, which means that 
+%for the \cmd{\plainfancybreak} command the
+%fancy break must always take at least as much space as the plain break.
 
 
 \fancybreak{\pfbreakdisplay}
 
-    The \cmd{\plainfancybreak} macro inserts a plain break in the middle of
-a page or if the break would come at the bottom or top of a page it
-inserts a fancy break instead.
+\cmd{\plainfancybreak} 매크로는 페이지의 중간에 plain break 을 넣거나,
+구획이 페이지의 맨 위나 아래에 등장한다면 fancy break 를 넣는다.
+%    The \cmd{\plainfancybreak} macro inserts a plain break in the middle of
+%a page or if the break would come at the bottom or top of a page it
+%inserts a fancy break instead.
 
 \begin{syntax}
 \cmd{\pfbreak} \cmd{\pfbreak*} \\
@@ -2523,16 +2841,21 @@ inserts a fancy break instead.
   {\cs{pfbreakdisplay}\marg{text}}%
   {\meta{text} for a \cs{pfbreak}'s \cs{fancybreak}.}
   
-The \cmd{\pfbreak} macro is an alternate for \cmd{\plainfancybreak} that may
-be more convenient to use. The gap for the plain break is given by the
-length \lnc{\pfbreakskip} which is initialised to produce two blank lines.
-The fancy break, which takes the same vertical space, is given by the
-\meta{text} argument of \cmd{\pfbreakdisplay}. The default definition:
-\LMnote{2010/11/22}{typo, not spelled pfbt}
+%The \cmd{\pfbreak} macro is an alternate for \cmd{\plainfancybreak} that may
+%be more convenient to use. The gap for the plain break is given by the
+%length \lnc{\pfbreakskip} which is initialised to produce two blank lines.
+%The fancy break, which takes the same vertical space, is given by the
+%\meta{text} argument of \cmd{\pfbreakdisplay}. The default definition:
+%\LMnote{2010/11/22}{typo, not spelled pfbt}
+ \cmd{\pfbreak} 매크로는 \cmd{\plainfancybreak} 를 대신하여 더 편하게 사용할 수 있다.
+ Plain break를 위한 공백은 \lnc{\pfbreakskip}로 나타내어지는 길이로 정해지는데,
+ 이는 두 개의 빈 줄을 만드는 것이 초기 설정이다.
+ Fancy break는 동일한 높이만큼의 공간을 사용하지만,
+\cmd{\pfbreakdisplay} 명령의  \meta{text} 인자를 사용한다.
+정의된 기본값은 앞서 보인 것처럼 3개의 별표(asterisk)를 사용하는 것이다.
 \begin{lcode}
 \newcommand*{\pfbreakdisplay}{*\quad*\quad*}
 \end{lcode}
-typesets three asterisks, as shown a few lines before this.
 
 \index{anonymous division!styling|(}
 
@@ -2541,32 +2864,42 @@ typesets three asterisks, as shown a few lines before this.
  \ensuremath{\clubsuit\quad\diamondsuit\quad\clubsuit}}
 \fancybreak{\pfbreakdisplay}
 
-    You can change the definition of \cmd{\pfbreakdisplay} for a different
-style if you wish. The
-fancy break just before this was produced via:
+\cmd{\pfbreakdisplay}의 정의를 바꿔 다른 모양으로 보이게 할 수도 있다.
+방금 보인 fancy break는 다음의 명령으로 만들어졌다:
+%    You can change the definition of \cmd{\pfbreakdisplay} for a different
+%style if you wish. The
+%fancy break just before this was produced via:
 \begin{lcode}
 \renewcommand{\pfbreakdisplay}{%
   \ensuremath{\clubsuit\quad\diamondsuit\quad\clubsuit}}
 \fancybreak{\pfbreakdisplay}
 \end{lcode}
-I used \cmd{\fancybreak} as I'm not sure where the break will come on the
-page and the simple \cmd{\pfbreak} macro might just have produced a couple
-of blank lines instead of the fancy display.
+여기서는 \cmd{\fancybreak}를 사용했다.
+구획이 페이지 나눔이 될지 어떨지 문서를 작성하는 중에는 알 수 없기 때문이다.
+만약 여기서 \cmd{\pfbreak}를 사용했다면,
+내가 보여주고자 했던 fancy display 대신 단순히 두 개의 빈 줄이 나타났을수도 있다.
+%I used \cmd{\fancybreak} as I'm not sure where the break will come on the
+%page and the simple \cmd{\pfbreak} macro might just have produced a couple
+%of blank lines instead of the fancy display.
 
-  The paragraph following \cmd{\pfbreak} is not indented. If you want
-it indented use the \cmd{\pfbreak*} starred version.
+%  The paragraph following \cmd{\pfbreak} is not indented. If you want
+%it indented use the \cmd{\pfbreak*} starred version.
+\cmd{\pfbreak} 명령 뒤의 문단은 들여써지지 않으며, 만약 들여쓰지게 하고 싶다면
+별표가 있는 버전 \cmd{\pfbreak*}를 사용하면 된다.
 
 \renewcommand{\pfbreakdisplay}{\ding{167}\quad\ding{167}\quad\ding{167}}
 \fancybreak{\pfbreakdisplay}
 
- The fancy break using 
-fleurons\index{fleuron} just before this paragraph was produced by:
+% The fancy break using 
+%fleurons\index{fleuron} just before this paragraph was produced by:
+방금 나타난 꽃문양의\index{꽃문양}\index{fleuron} fancy break는,
+\Lpack{pifont} 패키지의 \cmd{\ding} 명령을 사용하여 아래의 코드로 만들어졌다:
 \begin{lcode}
 \renewcommand{\pfbreakdisplay}{%
   \ding{167}\quad\ding{167}\quad\ding{167}}
 \fancybreak{\pfbreakdisplay}
 \end{lcode}
-where the \cmd{\ding} command is from the \Lpack{pifont} package.
+%where the \cmd{\ding} command is from the \Lpack{pifont} package.
 
 \makeatletter
 \newcommand{\motif}[1]{\cleaders\hbox{#1}\hfil}
@@ -2576,128 +2909,208 @@ where the \cmd{\ding} command is from the \Lpack{pifont} package.
 
 \fancybreak{\chain{\diamondpattern}{0.25\textwidth}}
 
-    The fancy break made with fleurons was simple to specify. There are 
-many other symbols that you can
-use in \ltx\ and these can be combined in potentially attractive ways to
-produce a fancy break like the one just above.
+꽃문양을 이용한 fancy break는 지정하기 간단했다.
+또한, \ltx\ 에서 사용할 수 있는 기호가 많기 때문에
+잘 조합하여 위와 같이 예쁜 모양의 fancy break 를 만들어내는데에 사용할 수 있다.
 
-    The following idea was originally suggested by Christina 
-Thiele~\cite{ORNAMENTAL}, and can
-be used to string together mathematical symbols. It works following the same
-principles as the dot leaders in the Table of Contents.
+%    The fancy break made with fleurons was simple to specify. There are 
+%many other symbols that you can
+%use in \ltx\ and these can be combined in potentially attractive ways to
+%produce a fancy break like the one just above.
 
-    Define a macro called with the syntax \cs{motif}\marg{shape}, where
-\meta{shape} is a symbol or other shape to be repeated in a chain,
+다음의 아이디어는 Christina Thiele~\cite{ORNAMENTAL} 에 의해 제안되었으며,
+수학적 기호들을 묶는 데에 사용될 수 있다.
+이는 목차(table of contents)에서의 dot leaders 와 같은 원리로 작동한다.
+%    The following idea was originally suggested by Christina 
+%Thiele~\cite{ORNAMENTAL}, and can
+%be used to string together mathematical symbols. It works following the same
+%principles as the dot leaders in the Table of Contents.
+
+%    Define a macro called with the syntax \cs{motif}\marg{shape}, where
+%\meta{shape} is a symbol or other shape to be repeated in a chain,
+\cs{motif}\marg{shape} 와 같은 양식으로 매크로를 지정하라.
+여기서 \meta{shape}는 체인 안에서 반복될 기호다.
 \begin{lcode}
 \newcommand{\motif}[1]{\cleaders\hbox{#1}\hfil}
 \end{lcode}
-The definition of \cs{motif} is basically taken from \tx, and is part of the
-code for making things like dot leaders. \cmd{\hbox}\marg{stuff} puts
-\meta{stuff} into a horizontal box, and \cmd{\cleaders}\meta{box} fills
-a specified amount of space using whatever number of copies of the 
-\meta{box} as is needed; if there is
-too much space to be filled by a whole number of boxes, the spare space
-is spread around equally. \cmd{\hfil} is stretchy space. The \cs{motif} macro
-essentially says, fill up a space with with copies of \meta{shape}.
+\cs{motif}의 정의는 \tx 에서 따온 것이며, dot leaders 과 같은 것을 만드는 기본 재료다.
+\cmd{\hbox}\marg{stuff} 는 \meta{stuff} 를 수평 박스에 넣으며,
+\cmd{\cleaders}\meta{box} 는 지정된 양만큼의 공백을 채워넣는다.
+만약 여러 개의 박스로 채워질 공간이 너무 많다면,
+남는 공간은 골고루 분배될 것이다.
+\cmd{\hfil} 는 잘 늘어나는 공간이다. 
+즉, \cs{motif} 매크로는 \meta{shape} 들로 공간을 채우는 것이다.
+%The definition of \cs{motif} is basically taken from \tx, and is part of the
+%code for making things like dot leaders. \cmd{\hbox}\marg{stuff} puts
+%\meta{stuff} into a horizontal box, and \cmd{\cleaders}\meta{box} fills
+%a specified amount of space using whatever number of copies of the 
+%\meta{box} as is needed; if there is
+%too much space to be filled by a whole number of boxes, the spare space
+%is spread around equally. \cmd{\hfil} is stretchy space. The \cs{motif} macro
+%essentially says, fill up a space with with copies of \meta{shape}.
 
-    We also need another macro, \cs{chain}\marg{shape}\marg{length}, 
-where \marg{shape}
-is a shape to be repeated as many times as it takes to fill up a distance
-\meta{length}.
+%    We also need another macro, \cs{chain}\marg{shape}\marg{length}, 
+%where \marg{shape}
+%is a shape to be repeated as many times as it takes to fill up a distance
+%\meta{length}.
+우리는 \cs{chain}\marg{shape}\marg{length} 와 같은 매크로도 필요로 한다.
+여기에서 \marg{shape}는 \meta{length} 만큼의 공간을 채우기 위해 필요한 만큼
+반복될 문양이다.
 \begin{lcode}
 \newcommand{\chain}[2]{\leavevmode\hbox to #2{\motif{#1}}}
 \end{lcode}
-The \cmd{\leavevmode} makes sure that we are typesetting horizontally, and
-\cmd{\hbox} \verb?to? \verb?<length>{stuff}? puts \meta{stuff} into a horizontal 
-box with the
-fixed length of \meta{length}. Roughly, what \cs{chain} and \cs{motif}
-do together is typeset enough copies of \meta{shape} to make up
-a distance \meta{length}. 
+\cmd{\leavevmode} 명령은 우리가 좌우로 식자하고 있음을 보장시켜주며,
+\cmd{\hbox} \verb?to? \verb?<length>{stuff}? 는 \meta{stuff} 를
+\meta{length} 만큼의 고정된 길이를 가진 수평 박스에 넣어준다.
+%The \cmd{\leavevmode} makes sure that we are typesetting horizontally, and
+%\cmd{\hbox} \verb?to? \verb?<length>{stuff}? puts \meta{stuff} into a horizontal 
+%box with the
+%fixed length of \meta{length}. Roughly, what \cs{chain} and \cs{motif}
+%do together is typeset enough copies of \meta{shape} to make up
+%a distance \meta{length}. 
 
-    That is what we have been aiming for. All that
-remains is to decide on what shape we might want to use. Here is one
-consisting of diamonds.
+%    That is what we have been aiming for. All that
+%remains is to decide on what shape we might want to use. Here is one
+%consisting of diamonds.
+우리가 하려고 하던 것이 바로 그것이다.
+이제 남은 일은 어떤 모양을 사용할지 결정하는 것이다.
+다음은 마름모 문양으로 이루어진 한 예시이다:
 \begin{lcode}
 \makeatletter
 \newcommand{\diamonds}{\m@th$\mkern-.6mu \diamond \mkern-.6mu$}
 \makeatother
 \end{lcode}
-The \cmd{\diamond} symbol can only be used in math mode, hence it
-is surrounded by the shorthand \verb?$...$?. \tx\ usually leaves a little
-space around maths but the \cmd{\m@th} command stops that. \cmd{\mkern}
-adjusts space in math mode, and in this case we are eliminating
-the spaces\footnote{It is usually a matter for experiment to find
-the right values for the kerning.\label{fn:kerning}} 
-that would normally be on either 
-side of the diamond symbol.
-The whole effect gives us a diamond symbol with zero space around it.
+\cmd{\diamond} 기호는 math mode 에서만 사용될 수 있기 때문에
+\verb?$...$?로 둘러싸여 있다. 
+보통 \tx\ 은 수학 기호 주위에 약간의 공백을 주지만 \cmd{\m@th}은 그를 막아준다.
+\cmd{\mkern}는 math mode 에서의 공백을 조정해주며,
+이 경우 우리는 마름모 좌우에 있었을 공백을 제거한다.
+\footnote{보통 올바른 커닝\label{fn:kerning}을 위한 적정값을 찾는 것은 실험을 해봐야 알게 된다.}
+최종적으로는 좌우에 0칸의 공백을 가진 맘름모 기호를 얻게 된다.
+%The \cmd{\diamond} symbol can only be used in math mode, hence it
+%is surrounded by the shorthand \verb?$...$?. \tx\ usually leaves a little
+%space around maths but the \cmd{\m@th} command stops that. \cmd{\mkern}
+%adjusts space in math mode, and in this case we are eliminating
+%the spaces\footnote{It is usually a matter for experiment to find
+%the right values for the kerning.\label{fn:kerning}} 
+%that would normally be on either 
+%side of the diamond symbol.
+%The whole effect gives us a diamond symbol with zero space around it.
 
-    The fancy break at the start of this discussion was typeset by
+%    The fancy break at the start of this discussion was typeset by
+이 절의 시작에 보였던 fancy break는 아래와 같이 조판되었다:
 \begin{lcode}
 % define \motif, \chain, \diamonds and then
 \fancybreak{\chain{\diamonds}{0.25\textwidth}}
 \end{lcode}
-The code is not part of the \Lclass{memoir} class; I defined it just
-as indicated in the body of the book. It would more naturally go
-into the preamble or a package. You might like to try specifying your
-own pattern, say \cs{clubs}, using the \cmd{\club} math symbol but leaving
-some space between them.
+이 코드는 \Lclass{memoir} 클래스에 들어잇지 않다.
+나는 이것을 본문 내에서 직접 정의했다.
+프리앰플이나 패키지 안에서 이것을 정의해두는 것이 보통일 것이다.
+만약 자신의 패턴을 직접 정의하고 싶다면, 가령 \cs{clubs}라 할 경우,
+\cmd{\club} 수학 기호를 사용하고 좌우에 약간의 공백을 두는 것이 될 것이다.
+%The code is not part of the \Lclass{memoir} class; I defined it just
+%as indicated in the body of the book. It would more naturally go
+%into the preamble or a package. You might like to try specifying your
+%own pattern, say \cs{clubs}, using the \cmd{\club} math symbol but leaving
+%some space between them.
 
+\index{번호 없는 장절 구획!스타일링|)}
 \index{anonymous division!styling|)}
 
 
-\section{Footnotes in division headings}
+%\section{Footnotes in division headings}
+\section{장절 헤딩 내의 각주}
 
 \index{footnote!in heading|(}
+\index{각주!장절 헤딩 내|(}
 
-    With the sectioning commands the text of the required argument
-\meta{title} is used as the text for the section title in the body
-of the document.
+%    With the sectioning commands the text of the required argument
+%\meta{title} is used as the text for the section title in the body
+%of the document.
+절을 지정하는 명령어에서 필수 인자 \meta{title}의 텍스트는
+본문 내에서 그 절의 제목을 지정하는 데에 쓰인다.
 
-    When the optional argument \meta{toc-title} is used in a sectioning
-command it is moving and any fragile\index{fragile command} 
-commands must be \cmd{\protect}ed\index{protect},
-while the \meta{title} argument is fixed. The \meta{toc-title} also
-serves double duty:
+선택 인자 \meta{toc-title}가 절 명령어에서 사용될 경우
+그는 움직일 수 있게 되므로
+모든 fragile\index{fragile command} 명령어들은
+\cmd{\protect}ed\index{protect} 되어야 하며,
+\meta{title} 인자는 고정되어야 한다.
+\meta{toc-title}는 다음과 같이 두 가지 장소에서 쓰인다:
 \begin{enumerate}
-\item It is used as the text of the title in the \toc;
-\item It is used as the text in page headers\index{header}. 
+	\item \toc 내의 장 제목으로 쓰인다.
+	\item 본문 내 페이지의 헤더\index{헤더}\index{header}로 쓰인다.
 \end{enumerate}
 
-    If the optional argument is not present, then the \meta{title} is
-moving and serves the triple duty of providing the text for the body and \toc{}
-titles and for page headers\index{header}.
+%    When the optional argument \meta{toc-title} is used in a sectioning
+%command it is moving and any fragile\index{fragile command} 
+%commands must be \cmd{\protect}ed\index{protect},
+%while the \meta{title} argument is fixed. The \meta{toc-title} also
+%serves double duty:
+%\begin{enumerate}
+%\item It is used as the text of the title in the \toc;
+%\item It is used as the text in page headers\index{header}. 
+%\end{enumerate}
 
-    Some folk feel an urge to add a footnote\index{footnote} to a sectioning 
-title, which
-should be resisted. If their flesh is weak, then the optional argument must
-be used and the \cmd{\footnote} attached to the required argument only.
-If the optional argument is not used then the footnote mark\index{footnote!mark} and text is
-likely to be scattered all over the place, on the section page, in the \toc,
-on any page that includes \meta{title} in its headers\index{header}. This is 
-unacceptable to any reader. So, a footnoted\index{footnote} title should look like
-this:
+만약 선택 인자가 없을 경우 \meta{title}가 본문 내 텍스트,
+\toc{}의 제목, 그리고 페이지 헤더\index{헤더}\index{header} 이렇게
+세 곳에서 다함께 쓰이게 된다.
+
+% moving 이 뭘까
+%    If the optional argument is not present, then the \meta{title} is
+%moving and serves the triple duty of providing the text for the body and \toc{}
+%titles and for page headers\index{header}.
+
+
+몇몇 사람들은 장 제목에 각주\index{각주}\index{footnote}를 달려고 하는데 이는 지양되어야 한다.
+그들이 충분한 인내와 체력을 갖고 있지 않다면(?)
+웬만하면 선택 인자를 사용함과 동시에 \cmd{\footnote}는 필수 인자에만 사용하는 것이 좋다.
+만약 선택 인자가 사용되지 않는다면 각주 마크\index{각주!마크}\index{footnote!mark}와
+텍스트가 절 페이지, \toc, \meta{title}을 포함하는 모든 페이지의 헤더\index{헤더}\index{header}에
+널브러져버릴 가능성이 높다.
+어느 독자도 이런 일을 원하지 않을 것이다.
+결론적으로, 각주\index{각주}\index{footnote}를 포함한 절 제목은 아래와 같아야 한다:
 \begin{lcode}
-\chapter[Title]{Title\footnote{Do you really have to do this?}}
+	\chapter[제목]{제목\footnote{정말 이렇게 해야만 하겠습니까?}}
 \end{lcode}
+%    Some folk feel an urge to add a footnote\index{footnote} to a sectioning 
+%title, which
+%should be resisted. If their flesh is weak, then the optional argument must
+%be used and the \cmd{\footnote} attached to the required argument only.
+%If the optional argument is not used then the footnote mark\index{footnote!mark} and text is
+%likely to be scattered all over the place, on the section page, in the \toc,
+%on any page that includes \meta{title} in its headers\index{header}. This is 
+%unacceptable to any reader. So, a footnoted\index{footnote} title should look like
+%this:
+%\begin{lcode}
+%\chapter[Title]{Title\footnote{Do you really have to do this?}}
+%\end{lcode}
 
 \index{footnote!in heading|)} %| emacs
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Predefined heading styles}
+\section{미리 정의된 헤딩 스타일}
+%\section{Predefined heading styles}
 
-   All \ltx\ classes for typesetting books and reports provide a particular
-style for sectional headings. The \Mname\ class is unusual in that it provides
-several sets of heading styles. Each set has different spacing around the
-division heads, and different fonts in different sizes. 
-    As a reference, \tref{tab:secfonts} lists the default fonts used
-for the sectional headings. These fonts are all bold but in different
-sizes depending on the division level.
+책이나 보고서를 조판하는 데에 쓰이는 모든 \ltx\ 클래스들은
+section 헤딩 스타일을 정의하는 하나의 스타일을 제공한다.
+\Mname\ 클래스는 여러 가지 헤딩 스타일을 제공한다는 점에서 특이하다.
+각각의 스타일은 구획 헤딩 주변의 공간, 폰트, 글자크기가 다르다.
+참조용으로, \tref{tab:secfonts}은 section 헤딩에 사용되는 기본 폰트의 목록을 보여준다.
+이 폰트들은 모두 볼드체로 사용되지만 구획 레벨에 따라 다른 크기로 조판된다.
+
+%   All \ltx\ classes for typesetting books and reports provide a particular
+%style for sectional headings. The \Mname\ class is unusual in that it provides
+%several sets of heading styles. Each set has different spacing around the
+%division heads, and different fonts in different sizes. 
+%    As a reference, \tref{tab:secfonts} lists the default fonts used
+%for the sectional headings. These fonts are all bold but in different
+%sizes depending on the division level.
 
 \begin{table}
 \centering
-\caption{Default fonts for sectional headings}\label{tab:secfonts}
+%\caption{Default fonts for sectional headings}\label{tab:secfonts}
+\caption{Section 헤딩을 위한 기본 폰트의 목록}\label{tab:secfonts}
 \begin{tabular}{lll} \toprule
 \cmd{\booknamefont}       & \verb?\huge\bfseries? & \huge\bfseries huge \\
 \cmd{\booknumfont}        & \verb?\huge\bfseries? & \huge\bfseries huge \\
@@ -2723,16 +3136,22 @@ sizes depending on the division level.
 \end{syntax}
 \glossary(makeheadstyles)%
   {\cs{makeheadstyles}\marg{name}\marg{code}}%
-  {Create a new set of sectional division headstyles called \meta{name} 
-   defined by \meta{code}.}
+  {새로운 셋의 section 구획 헤딩 스타일을 만든다.
+  	\meta{name}와 같은 이름을 갖고 \meta{code}에 의해 정의된다.}
+%  {Create a new set of sectional division headstyles called \meta{name} 
+%   defined by \meta{code}.}
 \glossary(headstyles)%
   {\cs{headstyles}\marg{name}}%
-  {Use the \meta{name} set of headstyles for sectional division heads.}
-The default sectional division head styles provided by \Mname\ form the
-\hstyle{default} headstyles and give the same appearance as the standard
-\Lclass{book} and \Lclass{report} classes. The set is created via the
-\cmd{\makeheadstyles} macro and called for via the \cmd{headstyles} 
-declaration. 
+    {section 구획 헤딩 스타일로 \meta{name}을 사용.}
+%  {Use the \meta{name} set of headstyles for sectional division heads.}
+%The default sectional division head styles provided by \Mname\ form the
+%\hstyle{default} headstyles and give the same appearance as the standard
+%\Lclass{book} and \Lclass{report} classes. The set is created via the
+%\cmd{\makeheadstyles} macro and called for via the \cmd{headstyles} 
+%declaration. 
+\Mname\ 에서 제공되는 기본 section 구획 헤딩 스타일들은 \hstyle{default} 헤딩 스타일을 구성하며,
+\Lclass{book}과 \Lclass{report} 클래스의 것과 동일한 생김새로 만들어준다.
+각각의 셋은 \cmd{\makeheadstyles} 매크로로 생성되며 \cmd{headstyles} 선언문을 통해 호출된다.
 \begin{lcode}
 \makeheadstyles{default}{%
   \renewcommand*{\booknamefont}{\normalfont\huge\bfseries}
@@ -2742,10 +3161,13 @@ declaration.
 \headstyles{default}
 \end{lcode}
 
-    A somewhat different set of headstyles is used for this manual. When using
-\cmd{\makeheadstyles} you only need to specify things that differ from
-the \hstyle{default}. Within the class the \hstyle{memman} set of headstyles 
-is defined as:
+%    A somewhat different set of headstyles is used for this manual. When using
+%\cmd{\makeheadstyles} you only need to specify things that differ from
+%the \hstyle{default}. Within the class the \hstyle{memman} set of headstyles 
+%is defined as:
+이 매뉴얼에서는 조금 다른 셋의 헤딩 스타일이 사용되었다.
+\cmd{\makeheadstyles}을 사용할 때는 \hstyle{default}와 다른 것들만 특정해주면 된다.
+이 클래스 내에서 \hstyle{memman} 셋 헤딩 스타일은 다음과 같이 정의된다:
 \begin{lcode}
 \newcommand*{\addperiod}[1]{#1.}
 \makeheadstyles{memman}{%
@@ -2788,15 +3210,19 @@ is defined as:
   \setaftersubparaskip{-1em}%
   \setsubparaheadstyle{\normalfont\normalsize\itshape\addperiod}}
 \end{lcode}
-    You can see the effect throughout this document. This chapter is
-slightly different in that I have used the \cstyle{pedersen} chapterstyle
-instead of the \cstyle{demo3} chapterstyle that I have normally used.
+이 문서 전체에서 이것의 영향을 볼 수 있을 것이다.
+이 장에서는 보통 내가 사용했던 \cstyle{demo3}와는 다른
+\cstyle{pedersen} chapter 스타일을 사용했기에 조금 다르게 보일 것이다.
+%    You can see the effect throughout this document. This chapter is
+%slightly different in that I have used the \cstyle{pedersen} chapterstyle
+%instead of the \cstyle{demo3} chapterstyle that I have normally used.
     
 \begin{table}
 \centering
-\caption{Fonts used by different headstyles}\label{tab:headfonts}
+%\caption{Fonts used by different headstyles}\label{tab:headfonts}
+\caption{각각의 헤딩 스타일에서 사용된 폰트 목록.}\label{tab:headfonts}
 \begin{tabular}{llllllll} \toprule
-Headstyles & & chapter & section & subsec & subsubsec & para & subpara \\ \midrule
+헤딩 스타일 & & chapter & section & subsec & subsubsec & para & subpara \\ \midrule
 \hstyle{bringhurst} & & CAPS  & \textsc{s. caps} & \textit{Italic} & \textsc{s. caps} & \textit{Italic} & \textit{Italic} \\
 \hstyle{crosshead}  & & \textbf{Bold}   & CAPS & \textbf{Bold} & \textsc{s. caps} & \textit{Italic} & \textsc{s. caps} \\
 \hstyle{default}    & & \textbf{Bold}   & \textbf{Bold} & \textbf{Bold} & \textbf{Bold} & \textbf{Bold} & \textbf{Bold}   \\
@@ -2810,37 +3236,74 @@ Headstyles & & chapter & section & subsec & subsubsec & para & subpara \\ \midru
 \end{table}
 
 
-    Several other sets of headstyles are provided as well and the full list
-is below. The different fonts used are given in \tref{tab:headfonts} and
-generally speaking they start off being large for chapter heads but are
-normal size by the time subsubsection heads are reached, or before.
+%    Several other sets of headstyles are provided as well and the full list
+%is below. The different fonts used are given in \tref{tab:headfonts} and
+%generally speaking they start off being large for chapter heads but are
+%normal size by the time subsubsection heads are reached, or before.
+
+다른 여러 헤딩 셋들도 제공되며, 전체적인 목록은 아래에 나와 있다.
+\tref{tab:headfonts}에 나와있듯 서로 다른 폰트가 사용되며,
+보통의 경우 chapter 헤딩에서는 크게 나오지만
+subsubsection 헤딩이나 그 전 즈음 되어서는 기본 크기로 조판된다.
 
 \begin{itemize}
-\item[\hstyle{bringhurst}] A set based on Bringhurst's \btitle{Elements of
-     Typographic Style}~\cite{BRINGHURST99}. It uses the \cstyle{bringhurst}
-     chapterstyle (\fref{dcbringhurst}).
-\item[\hstyle{crosshead}] This set uses the \cstyle{crosshead} chapterstyle
-     and the lower level division titles are set as crossheads.
-\item[\hstyle{default}] The default set corresponding the \ltx\
-     \Lclass{book} class.
-\item[\hstyle{dowding}] A set based on Dowding's 
-     \btitle{Finer Points}~\cite{DOWDING96}. It uses the \cstyle{dowding} 
-     chapterstyle (\fref{dcdowding}).
-\item[\hstyle{komalike}] A set based on the kind of headings used in
-     the KOMA \Lclass{scrbook} class, where there are all in a bold sans serif font.
-     It uses the \cstyle{komalike} chapterstyle (\fref{dckomalike}).
-\item[\hstyle{memman}] The set used in this document, including the 
-     \cstyle{demo3} chapterstyle.
-\item[\hstyle{ntglike}] A set based on the kind of headings used in
-     the NTG (Dutch TUG) \Lclass{boek} class. It uses the \cstyle{ntglike}
-     chapterstyle (\fref{dcntglike}) and the headings are quiter than the 
-     default.
-\item[\hstyle{tandh}] A set based the heads used in Thames \& Hudson 
-     \btitle{Manual of Typography}~\cite{MCLEAN80}. It uses the \cstyle{tandh}
-     chapterstyle (\fref{dctandh})
-\item[\hstyle{wilsondob}] A set based on those used in Adrian Wilson's
-     \btitle{Design of Books}~\cite{ADRIANWILSON93}. It uses the \cstyle{wilsondob}
-     chapterstyle (\fref{dcwilsondob}).
-
+	\item[\hstyle{bringhurst}] Bringhurst의 \btitle{Elements of
+		Typographic Style}~\cite{BRINGHURST99} 책에서 사용되는 셋.
+		그 책은 \cstyle{bringhurst} chapterstyle 을 사용한다(\fref{dcbringhurst}).
+	\item[\hstyle{crosshead}] 이 셋은 \cstyle{crosshead} chapterstyle을 사용하며
+	더 낮은 단계의 구획 제목에서는 crosshead로 지정된다.
+%	and the lower level division titles are set as crossheads.
+	\item[\hstyle{default}] \ltx\ 의
+	\Lclass{book} 클래스에 해당되는 기본 셋.
+	\item[\hstyle{dowding}] Dowding의
+	\btitle{Finer Points}~\cite{DOWDING96}에 기반한 셋. 그 책은 \cstyle{dowding} 
+	chapterstyle 을 사용한다(\fref{dcdowding}).
+	\item[\hstyle{komalike}] KOMA \Lclass{scrbook} 클래스의 헤딩 종류에 기반한 셋.
+	모든 글자가 bold sans serif font로 식자되며, 
+	이는  \cstyle{komalike} chapterstyle 을 사용한다(\fref{dckomalike}).
+	\item[\hstyle{memman}] \cstyle{demo3} chapterstyle 을 포함하여 이 문서 내에서 사용된 셋.
+	\item[\hstyle{ntglike}] NTG (Dutch TUG)의 \Lclass{boek} 클래스의 헤딩 종류에 기반한 셋. 
+	이는 \cstyle{ntglike}
+	chapterstyle (\fref{dcntglike})을 사용하며 기본 셋에 비해 조용하다.
+	\item[\hstyle{tandh}] Thames 과 Hudson 의
+	\btitle{Manual of Typography}~\cite{MCLEAN80} 책에서 사용된 헤딩에 기반한 셋.
+	이 책은 \cstyle{tandh}
+	chapterstyle (\fref{dctandh}) 을 사용한다.
+	\item[\hstyle{wilsondob}] Adrian Wilson 의
+	\btitle{Design of Books}~\cite{ADRIANWILSON93} 책에서 사용된 헤딩에 기반한 셋. 
+	이 책은 \cstyle{wilsondob}
+	chapterstyle (\fref{dcwilsondob}) 을 사용한다.
+	
 \end{itemize}
 
+
+
+%\begin{itemize}
+%\item[\hstyle{bringhurst}] A set based on Bringhurst's \btitle{Elements of
+%     Typographic Style}~\cite{BRINGHURST99}. It uses the \cstyle{bringhurst}
+%     chapterstyle (\fref{dcbringhurst}).
+%\item[\hstyle{crosshead}] This set uses the \cstyle{crosshead} chapterstyle
+%     and the lower level division titles are set as crossheads.
+%\item[\hstyle{default}] The default set corresponding the \ltx\
+%     \Lclass{book} class.
+%\item[\hstyle{dowding}] A set based on Dowding's 
+%     \btitle{Finer Points}~\cite{DOWDING96}. It uses the \cstyle{dowding} 
+%     chapterstyle (\fref{dcdowding}).
+%\item[\hstyle{komalike}] A set based on the kind of headings used in
+%     the KOMA \Lclass{scrbook} class, where there are all in a bold sans serif font.
+%     It uses the \cstyle{komalike} chapterstyle (\fref{dckomalike}).
+%\item[\hstyle{memman}] The set used in this document, including the 
+%     \cstyle{demo3} chapterstyle.
+%\item[\hstyle{ntglike}] A set based on the kind of headings used in
+%     the NTG (Dutch TUG) \Lclass{boek} class. It uses the \cstyle{ntglike}
+%     chapterstyle (\fref{dcntglike}) and the headings are quiter than the 
+%     default.
+%\item[\hstyle{tandh}] A set based the heads used in Thames \& Hudson 
+%     \btitle{Manual of Typography}~\cite{MCLEAN80}. It uses the \cstyle{tandh}
+%     chapterstyle (\fref{dctandh})
+%\item[\hstyle{wilsondob}] A set based on those used in Adrian Wilson's
+%     \btitle{Design of Books}~\cite{ADRIANWILSON93}. It uses the \cstyle{wilsondob}
+%     chapterstyle (\fref{dcwilsondob}).
+%
+%\end{itemize}
+%
