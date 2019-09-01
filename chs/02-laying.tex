@@ -1,258 +1,363 @@
-\chapter{Laying out the page} \label{chap:layingpage}
+%\chapter{Laying out the page} \label{chap:layingpage}
+\chapter{페이지 앉히기} \label{chap:layingpage}
 
-Up until this chapter the \pstyle{headings} pagestyle\index{pagestyle}
-has been used; pagestyles are described in \Sref{sec:pagestyles}.
-This, and later chapters, are typeset with the \pstyle{ruled} pagestyle.
+%Up until this chapter the \pstyle{headings} pagestyle\index{pagestyle}
+%has been used; pagestyles are described in \Sref{sec:pagestyles}.
+%This, and later chapters, are typeset with the \pstyle{ruled} pagestyle.
+이 앞까지 \pstyle{headings} 페이지 스타일\tidx{pagestyle,페이지 스타일}을
+적용해왔다. 페이지 스타일에 대해서는 \Sref{sec:pagestyles} 절에
+기술되어 있다. 이 장 이후로는 \pstyle{ruled} 페이지 스타일로 조판한다.
 
-\section{Introduction}
+%\section{Introduction}
+\section{소개}
 
-    The class provides a default page 
-layout\index{page layout}\indextwo{page layout}{default}, 
-in which the page size is the
-same as the stock\index{stock} size and the typeblock\index{typeblock} is 
-roughly in the middle of the page.
-    This chapter describes the commands provided by the class to help you
-produce your own page layout if the default is inappropriate.
+%    The class provides a default page 
+%layout\index{page layout}\indextwo{page layout}{default}, 
+%in which the page size is the
+%same as the stock\index{stock} size and the typeblock\index{typeblock} is 
+%roughly in the middle of the page.
+%    This chapter describes the commands provided by the class to help you
+%produce your own page layout if the default is inappropriate.
+이 클래스의 기본 페이지 레이아웃은\tidx{페이지 레이아웃,page layout}\indextwo{page layout}{default}\indextwo{페이지 레이아웃}{기본값}
+페이지 크기가 용지 크기\tidx{stock,용지}와 같고
+조판 영역\tidx{typeblock}의 크기는 대략 페이지의 중앙에 놓이는 것이다.
+이러한 기본값이 만족스럽지 않을 때 자신만의
+페이지 레이아웃을 만들어낼 수 있도록 하는 명령을 이 클래스가 제공한다.
+이 장에서 이에 대하여 살펴본다.
 
-    If you are happy with the default layout you may skip the rest of this
-chapter.
+%    If you are happy with the default layout you may skip the rest of this
+%chapter.
+기본 레이아웃으로 만족한다면 이 장의 내용을 건너뛰어도 좋다.
 
 \fancybreak{}
 
-    The pages of a book carry the text which is intended to educate, entertain
-and/or amuse the reader. The page must be designed to serve the purposes of
-the author and to ease the reader's task in assimilating the author's ideas.
-A good page design is one which the general reader does not notice. If the
-reader is constantly noticing the page layout, even unconsciously, it distracts
-from the purpose of the book. It is not the job of the designer to 
-shout, or even to murmur, `look at my work'.
+%    The pages of a book carry the text which is intended to educate, entertain
+%and/or amuse the reader. The page must be designed to serve the purposes of
+%the author and to ease the reader's task in assimilating the author's ideas.
+%A good page design is one which the general reader does not notice. If the
+%reader is constantly noticing the page layout, even unconsciously, it distracts
+%from the purpose of the book. It is not the job of the designer to 
+%shout, or even to murmur, `look at my work'.
+책의 각 페이지는 독자에게 정보와 즐거움과 놀라움을 주려는 의도록 텍스트를 배치한다.
+페이지는 저자의 이러한 목적에 적합하도록, 그리고 독자가 저자의 생각과 의도를
+파악하기 쉽도록 디자인되어야 한다.
+일반적 독자가 쉽게 알아차리기 어려운 것이 좋은 페이지 디자인이다. 독자에게
+끊임없이 페이지 레이아웃이 의식적이든 무의식적이든 신경쓰이게 한다면 
+책의 원래 목적과는 동떨어진 효과를 가져오게 된다. 
+디자인이 “이것 좀 봐줘”라고 노골적으로 들이대거나 주의를 끌려한다면
+그것은 좋은 디자인이 아니다.
 
-    There are three main parts to a page: the page itself, the 
-typeblock\index{typeblock}, and 
-the margins\index{margin} separating the typeblock\index{typeblock} from 
-the edges of the page. Of slightly lesser importance are the running 
-headers\index{header} and footers\index{footer}, 
-and possibly marginal\index{marginalia} notes.
-The art of page design is obtaining a harmonious balance or rhythm between
-all these.
+%    There are three main parts to a page: the page itself, the 
+%typeblock\index{typeblock}, and 
+%the margins\index{margin} separating the typeblock\index{typeblock} from 
+%the edges of the page. Of slightly lesser importance are the running 
+%headers\index{header} and footers\index{footer}, 
+%and possibly marginal\index{marginalia} notes.
+%The art of page design is obtaining a harmonious balance or rhythm between
+%all these.
+페이지에는 세 가지 주요 구성부분이 있다. 페이지 자체, 조판 영역\tidx{typeblock, 조판 영역}, 마진\tidx{margin,여백,마진}. 마진이란 페이지의 끝단에서 조판영역까지를 말한다.
+좀 덜 중요한 요소로서 면주(상단면주와 하단면주)\tidx{header,footer,상단면주,하단면주}가 있고 여백주석\index{marginalia}이 있을 수도 있다.
+페이지 디자인의 성공 여부는 이 모든 것이 얼마나 조화롭고 균형있고 리듬감있게
+배치되는가에 달렸다.
 
-    Although the form is different, the facilities described in this chapter 
-are similar to those provided by the \Lpack{geometry} 
-package~\cite{GEOMETRY}.
+%    Although the form is different, the facilities described in this chapter 
+%are similar to those provided by the \Lpack{geometry} 
+%package~\cite{GEOMETRY}.
+형식이 많이 다르기는 하지만 이 장에서 설명하는 기능들은 \Lpack{geometry} 패키지~\cite{GEOMETRY}가 제공하는 것과 유사하다.
 
 \fancybreak{}
 
 \begin{adjustwidth}{3em}{3em}
   \itshape
-  Note, if your paper choice matches one of the class paper options,
-  then you can skip forward to section~\ref{sec:typeblock2} --
-  \emph{\titleref{sec:typeblock2}}, as you have already chosen your
-  stock size and does not need trimming.
+%  Note, if your paper choice matches one of the class paper options,
+%  then you can skip forward to section~\ref{sec:typeblock2} --
+%  \emph{\titleref{sec:typeblock2}}, as you have already chosen your
+%  stock size and does not need trimming.
+만약 클래스에 용지 옵션을 적용한 글을 쓰고 있다면 \ref{sec:typeblock2} -- \emph{\titleref{sec:typeblock2}} 절로
+바로 가도 된다. 용지(stock) 크기를 이미 선택하였고 트리밍이 필요하지 않은
+경우이기 때문이다.
 \end{adjustwidth}
 
-On the other hand, if, say, you are designing a document, that is to
-be printed on one type of paper (the stock), and then trimmed to
-another, please read on.
+%On the other hand, if, say, you are designing a document, that is to
+%be printed on one type of paper (the stock), and then trimmed to
+%another, please read on.
+그러나 만약 지금 하고 있는 일이 특정 용지(stock)를 선택하고 트리밍을
+표시하여야 하는 문서를 디자인을 하고 있는 상황이라면, 다음 절을 계속 읽도록 하라.
 
-% Before we start let use summarize what laying out the page
-% involves\fxnote{where did the spacings around enumerate go? Had to add
-% a blank line}
-
-% \begin{enumerate}[(a)]
-% \item Figure out the stock size of your document and whether or not
-%   you need to trim the stock to get the desired paper size.
-  
-%   Most people just specify the stick and paper size via a class option
-%   like \Lopt{a4paper}. Thus you can proceed to
-%   section~\ref{sec:typeblock2}.
-% \item Specify the text block, basically the margins. 
-
-%   The class provide two interfaces for this: (1) Set the margins
-%   around the text block, thereby defining the text block, and (2),
-%   specify the size of the text block directly and then place it on the
-%   page.
-% \item Specify auxiliary layout, like placement of headers, footers and
-%   margin notes.
-% \item At the end (\emph{very important}) we ask the class to put
-%   everything together and check that they make sense.
-% \end{enumerate}
-
-
-
-
+%%% Before we start let use summarize what laying out the page
+%%% involves\fxnote{where did the spacings around enumerate go? Had to add
+%%% a blank line}
+%%
+%%% \begin{enumerate}[(a)]
+%%% \item Figure out the stock size of your document and whether or not
+%%%   you need to trim the stock to get the desired paper size.
+%%  
+%%%   Most people just specify the stick and paper size via a class option
+%%%   like \Lopt{a4paper}. Thus you can proceed to
+%%%   section~\ref{sec:typeblock2}.
+%%% \item Specify the text block, basically the margins. 
+%%
+%%%   The class provide two interfaces for this: (1) Set the margins
+%%%   around the text block, thereby defining the text block, and (2),
+%%%   specify the size of the text block directly and then place it on the
+%%%   page.
+%%% \item Specify auxiliary layout, like placement of headers, footers and
+%%%   margin notes.
+%%% \item At the end (\emph{very important}) we ask the class to put
+%%%   everything together and check that they make sense.
+%%% \end{enumerate}
 
 
-\section{Stock material}
+
+
+
+
+%\section{Stock material}
+\section{용지}
 \label{sec:stock-material}
 
-Printing is the act of laying symbols onto a piece of
-stock\index{stock} material.  Some print on T-shirts by a process
-called silk screening, where the shapes of the symbols are made in a
-screen and then fluid is squeezed through the screen onto the stock
-material --- in this case the fabric of the T shirt. Whether or not
-this is of general interest it is not the sort of printing or stock
-material that is normally used in book production. Books, except for
-the very particular, are printed on paper\index{paper}.
+%Printing is the act of laying symbols onto a piece of
+%stock\index{stock} material.  Some print on T-shirts by a process
+%called silk screening, where the shapes of the symbols are made in a
+%screen and then fluid is squeezed through the screen onto the stock
+%material --- in this case the fabric of the T shirt. Whether or not
+%this is of general interest it is not the sort of printing or stock
+%material that is normally used in book production. Books, except for
+%the very particular, are printed on paper\index{paper}.
+인쇄라는 것은 어떤 소재의 일부에 기호를 앉히는 행동이다.
+실크 스크린이라 불리는 티셔츠 인쇄 과정을 생각해보면 여기서는
+인쇄할 기호 모양을 스크린에 떠서, 이 경우의 소재가 되는 티셔츠 옷감에 대고 
+스크린 위로 잉크를 흘려넣는다. 그러나 이런 것은
+책을 만드는 데 일반적으로 쓰이는 종류의 인쇄나 소재가 아니다.
+아주 특별한 경우를 제외하면 책의 인쇄 소재는 종이\tidx{용지,paper,stock}이다.
 
-    In the desktop publishing world the stock\indextwo{stock}{paper}
-paper\indextwo{stock}{size} is usually one from a range of standard sizes. 
-In the USA it is typically
-letterpaper\index{letterpaper}\index{stock!size!letterpaper} 
-(11 by 8.5 inches) and in the 
-rest of the world A4\index{A4 paper}\index{stock!size!A4} paper 
-(297 by 210 mm), with one page per piece of stock\index{stock}. In commercial 
-printing the stock\index{stock!commercial printing} material is 
-much larger with several 
-pages being printed on each stock\index{stock} piece; 
-the stock\index{stock} is then folded, cut and trimmed to form
-the final pages for binding. The class assumes that desktop publishing is 
-the norm.
+%    In the desktop publishing world the stock\indextwo{stock}{paper}
+%paper\indextwo{stock}{size} is usually one from a range of standard sizes. 
+탁상출판의 세계에서 용지\indextwo{stock}{paper}는 표준 크기가 정해져 있다.
+%In the USA it is typically
+%letterpaper\index{letterpaper}\index{stock!size!letterpaper} 
+%(11 by 8.5 inches) and in the 
+%rest of the world A4\index{A4 paper}\index{stock!size!A4} paper 
+%(297 by 210 mm), with one page per piece of stock\index{stock}. In commercial 
+%printing the stock\index{stock!commercial printing} material is 
+%much larger with several 
+%pages being printed on each stock\index{stock} piece; 
+%the stock\index{stock} is then folded, cut and trimmed to form
+%the final pages for binding. The class assumes that desktop publishing is 
+%the norm.
+미국에서 주로 쓰이는 것은 letterpaper\index{letterpaper}\index{stock!size!letterpaper}\index{용지!크기!letterpaper}(11 $\times$ 8.5인치)이다.
+다른 나라에서는 용지 한 장의 크기를 A4 사이즈로 하는 경우가 많다.\index{A4 paper}\index{A4 용지}\index{stock!size!A4}\index{용지!크기!A4}\index{stock}
+상업출판에서 사용되는 용지는 이보다 훨씬 큰 종이에 여러 페이지를 인쇄할 수
+있게 되어 있다.\index{stock!commercial printing}\index{stock}\index{용지!상업 출판}
+이 인쇄되는 용지를 접고 자르고 트리밍하여 최종적으로 제본할
+수 있는 페이지로 만든다. 이 클래스는 탁상출판을 보편적인 경우로 상정하고
+제작하였다.
 
-
-\section{The page}
+%\section{The page}
+\section{페이지(頁)}
 \label{sec:page}
  
-    The class assumes that there will be only a single page on a side of
-each piece of stock\index{stock}; two sides means that there can be two
-pages, one on the front and the other on the back. 
+%    The class assumes that there will be only a single page on a side of
+%each piece of stock\index{stock}; two sides means that there can be two
+%pages, one on the front and the other on the back. 
+이 클래스는 용지의 한 면에 한 페이지만 존재한다고 본다.
+그리고 두 종류의 페이지가 있어서 앞면과 뒷면의 맞쪽을 이룬다고 상정한다.
 
 \begin{figure}
 \centering
 \drawpage
-\caption{\ltx\ page layout parameters for a recto page} \label{fig:anoddpage}
+%\caption{\ltx\ page layout parameters for a recto page} 
+\caption{오른쪽 페이지(홀수면)의 \ltx\ 페이지 레이아웃 파라미터}
+\label{fig:anoddpage}
 \end{figure}
 
-    The parameters\index{page layout!LaTeX parameters?\ltx\ parameters} 
-used by \ltx\ itself to define the page layout are 
-illustrated in \fref{fig:anoddpage}. \ltx\ does not actually care about the
-physical size of a page --- it assumes that, with respect to the top lefthand
-corner, the sheet of paper\index{sheet} to be printed is infinitely wide 
-and infinitely long. If you happen to have a typeblock\index{typeblock} 
-that is too wide or too long for the sheet, \ltx\ will merrily position 
-text outside the physical boundaries.
+%    The parameters\index{page layout!LaTeX parameters?\ltx\ parameters} 
+%used by \ltx\ itself to define the page layout are 
+%illustrated in \fref{fig:anoddpage}. \ltx\ does not actually care about the
+%physical size of a page --- it assumes that, with respect to the top lefthand
+%corner, the sheet of paper\index{sheet} to be printed is infinitely wide 
+%and infinitely long. If you happen to have a typeblock\index{typeblock} 
+%that is too wide or too long for the sheet, \ltx\ will merrily position 
+%text outside the physical boundaries.
+\ltx\ 자체에서 정의하는 페이지 레이아웃의 파라미터들을 \fref{fig:anoddpage}에
+보였다.\index{page layout!LaTeX parameters?\ltx\ parameters}\index{페이지 레이아웃!LaTeX 파라미터}
+\ltx 은 페이지의 물리적 크기에 대해서는 아무런 상관도 하지 않는다.
+단지 왼쪽 상단의 기준점을 정해두고 인쇄될 영역은 무한대라고 가정한다.\index{sheet}\index{typeblock} 조판 영역이 인쇄될 용지 영역에 비하여
+너무 크거나 길 때 \ltx 은 주저없이 물리적 경계 바깥쪽에 텍스트를
+놓는다.\index{조판 영역}\index{인쇄 영역}
 
-    The \ltx\ parameters are often not particularly convenient if, say, 
-the top of the text must be a certain distance below the top of the page 
-and the \foredge{} margin\index{margin!foredge?\foredge} must be twice 
-the spine margin\index{margin!spine}. It is obviously possible
-to calculate the necessary values for the parameters, but it is
-not a pleasurable task.
+%    The \ltx\ parameters are often not particularly convenient if, say, 
+%the top of the text must be a certain distance below the top of the page 
+%and the \foredge{} margin\index{margin!foredge?\foredge} must be twice 
+%the spine margin\index{margin!spine}. It is obviously possible
+%to calculate the necessary values for the parameters, but it is
+%not a pleasurable task.
+\ltx\ 파라미터가 불편할 때가 있다. 이를테면 텍스트의 상단이 페이지 상단보다
+정해진 길이만큼 떨어져야 한다든지 바깥쪽 여백\index{margin!foredge?\foredge}\index{여백!바깥쪽 여백}이 안쪽 여백\index{margin!spine}\index{여백!안쪽 여백}보다 2배의 길이여야 하는 경우이다. 파라미터의 값을 필요하면 계산하는 것이
+가능하기야 하지만 불편한 것이 사실이다.
 
-    The class provides various means of specifying the page layout, which are
-hopefully more convenient to use than the standard ones. Various
-adjustable parameters\index{page layout!class parameters} are used that 
-define the stock\indextwo{stock}{size} size, page\indextwo{page}{size} size, and so 
-on. These differ in some respects from the parameters in the standard classes,
-although the parameters for marginal notes are the same in both cases.
-Figure~\ref{fig:oddstock} shows the main class layout parameters for a
-recto page.
-These may be changed individually by \cmd{\setlength} or by using the 
-commands described below. Figure~\ref{fig:evenstock} illustrates the
-same parameters on a verso page.
-
+%    The class provides various means of specifying the page layout, which are
+%hopefully more convenient to use than the standard ones. Various
+%adjustable parameters\index{page layout!class parameters} are used that 
+%define the stock\indextwo{stock}{size} size, page\indextwo{page}{size} size, and so 
+%on. These differ in some respects from the parameters in the standard classes,
+%although the parameters for marginal notes are the same in both cases.
+%Figure~\ref{fig:oddstock} shows the main class layout parameters for a
+%recto page.
+%These may be changed individually by \cmd{\setlength} or by using the 
+%commands described below. Figure~\ref{fig:evenstock} illustrates the
+%same parameters on a verso page.
+이 클래스는 페이지 레이아웃을 지정하는 다양한 수단을 제공한다. 이것이 표준
+클래스의 그것보다 편리하기를 바란다. 설정값을 변경할 수 있는 파라미터를 이용하여
+용지 크기, 페이지 크기 등을 바꿀 수 있다.\tidx{page layout!class parameters,페이지 레이아웃!클래스 파라미터}\indextwo{stock}{size}\indextwo{용지}{크기}
+\indextwo{페이지}{크기}
+표준 클래스와 이 클래스의 파라미터에서, 마진 노트를 위한 파라미터는 양자가 동일하지만 서로 다른 것이 몇 가지 있다. 그림~\ref{fig:oddstock}\은 홀수면(오른쪽 페이지)에 대한 이 클래스의 파라미터를 보인 것이다. 이 파라미터들은 \cmd{\setlength}나 아래 설명하는 명령을 이용하여 각각 바꿀 수 있다. 
+그림~\ref{fig:evenstock}\은 짝수면(왼쪽 페이지)에 대하여 같은 파라미터를 보인 것이다.
 
 \begin{figure}
 \centering
 \oddpagelayoutfalse
 \drawstock
-\caption{The \textsf{memoir} class page layout parameters for a verso page} \label{fig:evenstock}
+%\caption{The \textsf{memoir} class page layout parameters for a verso page} 
+\caption{왼쪽 페이지에 대한 \textsf{memoir} 클래스 파라미터}
+\label{fig:evenstock}
 \end{figure}
 
 \begin{figure}
 \centering
 %%%\drawmarginparsfalse
 \drawstock
-\caption{The \textsf{memoir} class page layout parameters for a recto page} \label{fig:oddstock}
+%\caption{The \textsf{memoir} class page layout parameters for a recto page} 
+\caption{오른쪽 페이지에 대한 \textsf{memoir} 클래스 파라미터}
+\label{fig:oddstock}
 \end{figure}
 
 
 \fancybreak{}
 
 
-    The first step in designing the page layout\index{page layout!design} 
-is to decide on the page size\indextwo{page}{size} and then pick an 
-appropriate stock\indextwo{stock}{size} size. Selecting a standard 
-stock\indextwo{stock}{size} size will
-be cheaper than having to order specially sized stock\index{stock} material. 
+%    The first step in designing the page layout\index{page layout!design} 
+%is to decide on the page size\indextwo{page}{size} and then pick an 
+%appropriate stock\indextwo{stock}{size} size. Selecting a standard 
+%stock\indextwo{stock}{size} size will
+%be cheaper than having to order specially sized stock\index{stock} material. 
+페이지 레이아웃을 디자인하는 첫 단계는 페이지의 크기를 결정하고 알맞은
+용지 크기를 선택하는 것이다. 표준 용지를 사용하면 특별한 크기의
+용지를 설정하는 것보다 편하다.\tidx{page layout!design,페이지 레이아웃!디자인}\tidx{stock,용지}\indextwo{page}{size}\indextwo{stock}{size}\indextwo{페이지}{크기}\indextwo{용지}{크기}
 
 \begin{syntax}
 \cmd{\setstocksize}\marg{height}\marg{width} \\
 \end{syntax}
 \glossary(setstocksize)%
   {\cs{setstocksize}\marg{height}\marg{width}}%
-  {Set the stock paper size to be \meta{height} by \meta{width}.}
+  {용지 크기를 \meta{height} $\times$ \meta{width}로 설정한다.}
+%  {Set the stock paper size to be \meta{height} by \meta{width}.}
 \glossary(stockheight)%
   {\ls{stockheight}}%
-  {Height of the stock paper.}
+  {용지의 세로 길이.}
+%  {Height of the stock paper.}
 \glossary(stockwidth)%
   {\ls{stockwidth}}%
-  {Width of the stock paper.}
-    The class options\index{stock paper size option} 
-provide for some common stock\indextwo{stock}{size} sizes. 
-So if you have specified the class option \texttt{a4paper} and intend
-to print on A4, then you have no need for \cmd{\setstocksize}, proceed
-directly to section~\ref{sec:typeblock2}. Alternatively, the class
-provide settings for many other standard stock sizes, see
-\tref{tab:sizeoptsmetric} through \tref{tab:sizeoptsbrit}. 
+  {용지의 가로 길이.}
+%  {Width of the stock paper.}
+%    The class options\index{stock paper size option} 
+%provide for some common stock\indextwo{stock}{size} sizes. 
+%So if you have specified the class option \texttt{a4paper} and intend
+%to print on A4, then you have no need for \cmd{\setstocksize}, proceed
+%directly to section~\ref{sec:typeblock2}. Alternatively, the class
+%provide settings for many other standard stock sizes, see
+%\tref{tab:sizeoptsmetric} through \tref{tab:sizeoptsbrit}. 
+클래스 옵션으로 몇 가지 용지 크기를 선택할 수 있다.\tidx{stock paper size option,용지 크기 옵션}\indextwo{stock}{size}\indextwo{용지}{크기}
+따라서 클래스 옵션 \texttt{a4paper}를 지정하고 A4에 인쇄할 생각이라면
+\cmd{\setstocksize} 명령에 대해서 알 필요가 없으니 \ref{sec:typeblock2} 절로
+바로 진행해도 좋다. 이 외에도 이 클래스는 여러 표준 용지 크기에 대한
+설정을 제공한다. \tref{tab:sizeoptsmetric}부터 \tref{tab:sizeoptsbrit}까지를
+살펴보라.
 
-
-If you have some other size that you want to use, the 
-command \cmd{\setstocksize} can be used to
-specify that the stock\index{stock!specifying size} size is 
-\meta{height} \index{stock!height} by \meta{width}\index{stock!width}. 
-For example the following specifies a stock\index{stock!size} of 9 by 4 inches:
+%If you have some other size that you want to use, the 
+%command \cmd{\setstocksize} can be used to
+%specify that the stock\index{stock!specifying size} size is 
+%\meta{height} \index{stock!height} by \meta{width}\index{stock!width}. 
+%For example the following specifies a stock\index{stock!size} of 9 by 4 inches:
+만약 용지 크기를 새롭게 설정하려 한다면 \cmd{\setstocksize} 명령을
+사용하면 된다. 세로 길이가 \meta{height}, 가로 길이가 \meta{width}가
+되도록 설정해준다. 다음 명령은 용지 크기를 세로(높이) 9인치, 가로(너비) 4인치가 되도록 한다.
+\tidx{stock!height,용지!높이,stock!width,용지!너비,stock!specifying size,용지!크기 설정}
 \begin{lcode}
 \setstocksize{9in}{4in}
 \end{lcode}
 
-The size of the page\indextwo{page}{size} must be no larger than the 
-stock\indextwo{stock}{size} but 
-may be smaller which means that after printing
-the stock\index{stock!trimmed} must be trimmed down to the size of the page.
-The page may 
-be positioned anywhere within the bounds of the stock\index{stock}.
+%The size of the page\indextwo{page}{size} must be no larger than the 
+%stock\indextwo{stock}{size} but 
+%may be smaller which means that after printing
+%the stock\index{stock!trimmed} must be trimmed down to the size of the page.
+%The page may 
+%be positioned anywhere within the bounds of the stock\index{stock}.
+페이지 크기는 용지 크기보다 커서는 안 된다. 용지보다 작다면 나중에 용지를
+트리밍할 것이라는 뜻이다. 페이지가 용지 위에 놓이는 위치는
+용지 범위 안이기만 하면 어디든 상관없다.\indextwo{page}{size}\indextwo{페이지}{크기}\tidx{stock!trimmed,용지!트리밍,stock,용지}
 
-    Page layout should be conceived in terms of a double spread\index{spread};
-when you open a book in the middle what you see is a double spread --- 
-a verso page on the left and a recto page on the right with the spine 
-between them. Most books when closed are taller\index{proportion!book} 
-than they are wide; this makes them easier to hold when open
-for reading. A squarish page when opened out into a wide spread 
-makes for discomfort unless the book is supported on a table.
+%    Page layout should be conceived in terms of a double spread\index{spread};
+%when you open a book in the middle what you see is a double spread --- 
+%a verso page on the left and a recto page on the right with the spine 
+%between them. Most books when closed are taller\index{proportion!book} 
+%than they are wide; this makes them easier to hold when open
+%for reading. A squarish page when opened out into a wide spread 
+%makes for discomfort unless the book is supported on a table.
+페이지 레이아웃은 맞쪽 펼침면\tidx{spread,펼침면}으로 인식한다.
+책을 펼쳤을 때의 모양이 맞쪽 펼침면이다. 짝수면이 왼쪽에 있고 홀수면이 오른쪽에 있으며
+그 사이에 제본부위(책등)가 있다. 
+책은 닫았을 때 가로가 긴 것보다 세로가 긴 것이 많다.\tidx{proportion!book,비율!책} 그것이 펼쳐서 읽기 쉽기 때문이다. 가로가 길게 짜부라진 책은 책상 위에 펼쳐놓지 않는 한
+읽기 불편하다.
 
 \begin{syntax}
 \cmd{\settrimmedsize}\marg{height}\marg{width}\marg{ratio} \\
 \end{syntax}
 \glossary(settrimmedsize)%
   {\cs{settrimmedsize}\marg{height}\marg{width}\marg{ratio}}%
-  {Sets the size of the trimmed stock paper.}
+  {트리밍한 용지의 크기}
+%  {Sets the size of the trimmed stock paper.}
 \glossary(paperheight)%
   {\ls{paperheight}}%
-  {The height of the trimmed stock paper.}
+  {트리밍한 용지의 높이}
+%  {The height of the trimmed stock paper.}
 \glossary(paperwidth)%
   {\ls{paperwidth}}%
-  {The width of the trimmed stock paper.}
-Initially the page size\indextwo{page}{size} is made the same as the 
-stock\indextwo{stock}{size} size, as set by the 
-paper\index{stock paper size option} size option.
-The command \cmd{\settrimmedsize}\index{page!specifying size} 
-can be used to specify the height\index{page!height} and width\index{page!width} 
-of the page (after any trimming). The \meta{ratio} argument is 
-the amount by which the \meta{height} or the \meta{width} must be multiplied 
-by to give the
-width or the height. Only two out of the three possible arguments must be 
-given values with the other (unvalued) argument given as \verb?*? 
-(an asterisk). The lengths \lnc{\paperheight} and \lnc{\paperwidth} are 
-calculated according to the given arguments. That is, the command enables
-the \lnc{\paperheight} 
-and \lnc{\paperwidth} to be specified directly or as one being in a given
-ratio to the other. The potential combinations of arguments and the 
-corresponding results are listed in \tref{tab:rectsize}.
-
+  {트리밍한 용지의 너비}
+%  {The width of the trimmed stock paper.}
+%Initially the page size\indextwo{page}{size} is made the same as the 
+%stock\indextwo{stock}{size} size, as set by the 
+%paper\index{stock paper size option} size option.
+%The command \cmd{\settrimmedsize}\index{page!specifying size} 
+%can be used to specify the height\index{page!height} and width\index{page!width} 
+%of the page (after any trimming). The \meta{ratio} argument is 
+%the amount by which the \meta{height} or the \meta{width} must be multiplied 
+%by to give the
+%width or the height. Only two out of the three possible arguments must be 
+%given values with the other (unvalued) argument given as \verb?*? 
+%(an asterisk). The lengths \lnc{\paperheight} and \lnc{\paperwidth} are 
+%calculated according to the given arguments. That is, the command enables
+%the \lnc{\paperheight} 
+%and \lnc{\paperwidth} to be specified directly or as one being in a given
+%ratio to the other. The potential combinations of arguments and the 
+%corresponding results are listed in \tref{tab:rectsize}.
+맨먼저 페이지 크기는 papersize 옵션에 의하여 주어지는 용지 크기와 동일하게 설정된다.\indextwo{page}{size}\indextwo{페이지}{크기}\indextwo{stock}{size}\indextwo{용지}{크기}\index{stock paper size option}\index{용지 크기 옵션}
+\cmd{\settrimmedsize} 명령은 페이지의 (트리밍 후의) 세로, 가로 길이를
+설정한다.\tidx{page!specifying size,페이지!크기 지정,page!height,page!width,페이지!높이,페이지!너비}
+\meta{ratio} 인자는 주어진 너비(width)나 높이(height) 값에 이 값을 곱하여 \meta{height}
+또는 \meta{width}를 설정하게 하는 값이다. 세 개의 인자 가운데 두 개만를
+명시적 값으로 지정하여야 하고 값을 정하지 않을 인자는 \verb?*? (별표)로
+주어야 한다. \lnc{\paperheight}와 \lnc{\paperwidth}의 길이가
+이 인자 값에 따라 계산된다. 다시 말하면 이 명령은
+\lnc{\paperheight}와 \lnc{\paperwidth}의 값을 직접 또는 주어지는 상대적
+비율값에 따라서 계산하게 하는 것이다. 인자 중에서 어떤 것을 주고 어떤 것을
+주지 않을 수 있는가와 그에 따른 결과를 \tref{tab:rectsize}에 요약하였다.
 
 \begin{table}
 \centering
-\caption{Arguments and results for \cs{settrimmedsize} and \cs{settypeblocksize} } \label{tab:rectsize}
+%\caption{Arguments and results for \cs{settrimmedsize} and \cs{settypeblocksize} } 
+\caption{\cs{settrimmedsize} 및 \cs{settypeblocksize} 명령의 인자와 결과}
+\label{tab:rectsize}
 %\begin{tabular}{ccc|l} \hline
 \begin{tabular}{cccl} \toprule
 \meta{height} & \meta{width} & \meta{ratio} & Result \\ \midrule
@@ -268,134 +373,186 @@ corresponding results are listed in \tref{tab:rectsize}.
 \end{tabular}
 \end{table}
 
-    If you have used \cmd{\setstocksize} to redefine the stock\index{stock}, 
-then to get the same page size, do:
+%    If you have used \cmd{\setstocksize} to redefine the stock\index{stock}, 
+%then to get the same page size, do:
+용지 크기를 다르게 설정하기 위하여 \cmd{\setstocksize} 명령을
+사용하였다면 다음 명령으로 페이지 크기를 용지와 동일하게 만든다.\index{stock}
 \begin{lcode}
 \settrimmedsize{\stockheight}{\stockwidth}{*}
 \end{lcode}
-or for the page dimensions to be 90\% of the stock\index{stock} dimensions:
+%or for the page dimensions to be 90\% of the stock\index{stock} dimensions:
+페이지 크기를 용지의 90\%로 설정하려면 다음과 같이 한다.
 \begin{lcode}
 \settrimmedsize{0.9\stockheight}{0.9\stockwidth}{*}
 \end{lcode}
 
-    The following are three different ways of defining an 8 by 5 inch page.
+%    The following are three different ways of defining an 8 by 5 inch page.
+다음 세 가지 서로 다른 방법은 모두 페이지 크기를 가로 5인치, 세로 8인치로 설정한다.
 \begin{lcode}
 \settrimmedsize{8in}{5in}{*}
 \settrimmedsize{8in}{*}{0.625}  % 5 = 0.625 times 8
 \settrimmedsize{*}{5in}{1.6}    % 8 = 1.6 times 5
 \end{lcode}
 
-If you look at a well bound hardback book you
-can see that the sheets are folded so that they are continuous at the spine, 
-where they are sewn together into the binding. The top of the pages should be
-smooth so that when the book is upright on a bookshelf dust has a harder 
-job seeping between the pages than if the top was all raggedy. Thus, if
-the stock\index{stock!trimmed} is trimmed it will be trimmed at the top. 
-It will also have been
-cut at the \foredge s of the pages and at the bottom, otherwise the book
-would be unopenable and unreadable.
+%If you look at a well bound hardback book you
+%can see that the sheets are folded so that they are continuous at the spine, 
+%where they are sewn together into the binding. The top of the pages should be
+%smooth so that when the book is upright on a bookshelf dust has a harder 
+%job seeping between the pages than if the top was all raggedy. Thus, if
+%the stock\index{stock!trimmed} is trimmed it will be trimmed at the top. 
+%It will also have been
+%cut at the \foredge s of the pages and at the bottom, otherwise the book
+%would be unopenable and unreadable.
+잘 만들어진 하드백 제본 도서를 보면 각 낱장을 책등쪽에 접어 묶은 다음
+이것을 실로 철하여 제본하고 있다. 페이지의 상단은 매끈하게 되어야 하는데
+책이 책장에 똑바로 놓였을 때 울퉁불퉁한 것에 비하여 먼지가 스며들기
+어렵게 만들려고 그렇게 하는 것이다. 따라서 용지를 트리밍할 때는
+상단을 가지런하게 잘라내야 한다.\index{stock!trimmed}\index{용지!트리밍}
+또한 페이지의 바깥쪽 마진과 아래쪽도 트리밍 해야 한다. 그러지 않으면
+책을 펼쳐 읽을 수가 없게 된다.
 
 \begin{syntax}
 \cmd{\settrims}\marg{top}\marg{foredge} \\
 \end{syntax}
 \glossary(settrims)%
   {\cs{settrims}\marg{top}\marg{foredge}}%
-  {Sets the amount to be trimmed from the top and \foredge{} of the stock paper.}
+  {용지의 상단과 바깥쪽 트리밍할 크기를 설정한다.}
+%  {Sets the amount to be trimmed from the top and \foredge{} of the stock paper.}
 \glossary(trimtop)%
   {\ls{trimtop}}%
-  {Amount to be trimmed from the top of the stock paper.}
+  {용지 상단의 트리밍할 값}
+%  {Amount to be trimmed from the top of the stock paper.}
 \glossary(trimedge)%
   {\ls{trimedge}}%
-  {Amount to be trimmed from the \foredge{} of the stock paper.}
-The command \cmd{\settrims} can be used to specify 
-the amount intended to be removed from the top 
-(\meta{top}) and \foredge{} (\meta{foredge}) of the 
-stock\index{stock!specifying trimming} 
-material to produce the top and \foredge{} of a recto page. 
-Note that the combination of \cmd{\settrims} and \cmd{\settrimmedsize}
-locate the page\index{page} with respect to the stock\index{stock}.
-By default the top and edge trims are zero, which means that if any trimming
-is required it will be at the spine and bottom edges of the stock
-unless \cmd{\settrims} is used to alter this.
+  {용지 바깥쪽 마진의 트리밍할 값}
+%  {Amount to be trimmed from the \foredge{} of the stock paper.}
+%The command \cmd{\settrims} can be used to specify 
+%the amount intended to be removed from the top 
+%(\meta{top}) and \foredge{} (\meta{foredge}) of the 
+%stock\index{stock!specifying trimming} 
+%material to produce the top and \foredge{} of a recto page. 
+%Note that the combination of \cmd{\settrims} and \cmd{\settrimmedsize}
+%locate the page\index{page} with respect to the stock\index{stock}.
+%By default the top and edge trims are zero, which means that if any trimming
+%is required it will be at the spine and bottom edges of the stock
+%unless \cmd{\settrims} is used to alter this.
+\cmd{\settrims} 명령은 홀수면의 상단과 \foredge{}를 맞추기 위해
+용지의 상단(\meta{top})과 바깥쪽 마진(\meta{foredge})에서 잘라내어야 할 길이를 지정한다.\tidx{stock!specifying trimming,용지!트리밍 설정}
+\cmd{\settrims}와 \cmd{\settrimmedsize} 명령을 함께 써서 페이지를
+용지 위의 어딘가의 위치에 놓을 수 있다는 사실을 알아두자.\tidx{stock,용지,page,페이지}
+기본적으로 상단과 여백쪽 잘라내기 값은 0이다. \cmd{\settrims} 명령을
+써서 이것을 바꾸지 않는 한 잘라내기가 용지의 바닥과 안쪽 마진에서 일어난다는 뜻이다.
 
-    You can either do any trim calculation for youself or let \ltx\ do it for
-you. For example, with an 8in by 5in page on 10in by 7in stock
+%    You can either do any trim calculation for youself or let \ltx\ do it for
+%you. For example, with an 8in by 5in page on 10in by 7in stock
+트리밍 값을 계산하는 것은 직접 할 수도 있고 \ltx 에게 계산시킬 수도 있다.
+가로 5인치 세로 8인치 페이지를 가로 7인치 세로 10인치 용지에 앉히는 예를 들어본다.
 \begin{lcode}
 \settrims{2in}{2in}
 \end{lcode}
-specifies trimming 2in from the top and \foredge{} of the stock
-giving the desired page size. Taking a design where, say, the page 
-is 90\% of the stock size it's easy to get \ltx\ to do the calculation:
+%specifies trimming 2in from the top and \foredge{} of the stock
+%giving the desired page size. Taking a design where, say, the page 
+%is 90\% of the stock size it's easy to get \ltx\ to do the calculation:
+원하는 페이지 크기를 얻기 위해서 용지의 상단과 바깥쪽 여백을 2인치씩 잘라내도록
+하였다.
+그런데 예컨대 용지의 90\% 페이지를 만들려 하는 경우에는 \ltx 에게 계산시키는
+것이 쉬울 것이다.
 \begin{lcode}
 \setlength{\trimtop}{\stockheight}    % \trimtop = \stockheight
 \addtolength{\trimtop}{-\paperheight}  %          - \paperheight
 \setlength{\trimedge}{\stockwidth}    % \trimedge = \stockwidth
 \addtolength{\trimedge}{-\paperwidth} %           - \paperwidth
 \end{lcode}
-which will set all the trimming to be at the top and \foredge. 
-If you wanted, say, equal trims at the top and bottom you could go 
-on and specify
+%which will set all the trimming to be at the top and \foredge. 
+%If you wanted, say, equal trims at the top and bottom you could go 
+%on and specify
+이렇게 하면 모든 트리밍 값이 상단과 바깥여백에서 일어난다.
+만약 하단도 상단과 같은 크기로 잘라내려고 한다면 다음과 같이 설정한다.
 \begin{lcode}
 \settrims{0.5\trimtop}{\trimedge}
 \end{lcode}
 
 \fancybreak{}
 
-See also section~\ref{sec:predefined-layouts} --
-\emph{\titleref{sec:predefined-layouts}}, where we present some extra
-commands. For example \cmd{\setpagecc} for placing a trimmed page
-centered on the stock.
+%See also section~\ref{sec:predefined-layouts} --
+%\emph{\titleref{sec:predefined-layouts}}, where we present some extra
+%commands. For example \cmd{\setpagecc} for placing a trimmed page
+%centered on the stock.
+\ref{sec:predefined-layouts} \emph{\titleref{sec:predefined-layouts}} 절도 함께 보라. 몇 가지 추가적인 명령이 나와 있다. 
+예를 들어 \cmd{\setpagecc} 명령은 트리밍된 페이지가 용지의 중앙에 오도록 한다.
 
-After trimming the various methods to specify the typeblock, now
-refers to the \emph{trimmed} page, not the stock material.
+%After trimming the various methods to specify the typeblock, now
+%refers to the \emph{trimmed} page, not the stock material.
+트리밍 이후에 조판 영역을 지정하는 여러 가지 방법을 소개할 것이다.
+이후로 \emph{트리밍된} 페이지만을 언급하고 용지에 대해서는 더 문제삼지 않는다.
 
+%\section{The typeblock} 
+\section{조판 영역}
+\label{sec:typeblock2}
 
-\section{The typeblock} \label{sec:typeblock2}
+%    Like the page, the typeblock\index{proportion!typeblock} is normally 
+%rectangular with the height greater than the width.
+%%    Consider a typeblock that includes no illustrations\index{illustration} 
+%%or tables\index{table}.
+%The lines of text must be laid out so that they are easy to read.
+%Common practice, and more recently psychological testing, has shown that
+%long lines of text are difficult to read. Thus, there is a physiological
+%upper limit to the width of the typeblock. From a practical viewpoint,
+%a line should not be too short because then there is difficulty in justifying
+%the text.
+페이지와 마찬가지로 조판영역도 세로 길이가 가로 길이보다 긴 직사각형
+영역으로 이루어진다.\tidx{proportion!typeblock,비율!조판영역}
+본문의 길이는 가독성을 고려하여 배치되어야 한다. 관행으로 보나
+최근의 생리학적 연구결과로 보나 본문 글줄이 너무 길면 읽기가 어렵다.
+그래서 조판 영역의 가로 길이에는 상한을 둔다. 실무적 관점에서
+한 행은 텍스트를 양끝맞추기하는 데 어려울 정도로 너무 짧아서도 안 된다.
 
-    Like the page, the typeblock\index{proportion!typeblock} is normally 
-rectangular with the height greater than the width.
-%    Consider a typeblock that includes no illustrations\index{illustration} 
-%or tables\index{table}.
-The lines of text must be laid out so that they are easy to read.
-Common practice, and more recently psychological testing, has shown that
-long lines of text are difficult to read. Thus, there is a physiological
-upper limit to the width of the typeblock. From a practical viewpoint,
-a line should not be too short because then there is difficulty in justifying
-the text.
+%\subsection{A note on the width of the typeblock}
+\subsection{조판영역의 글줄 길이에 관한 주석}
 
-\subsection{A note on the width of the typeblock}
+%    Experiments have shown that the number of characters in a line of
+%single column\index{column} text on a page should be
+%in the range 60 to 70 for ease of reading. The range may be as much
+%as 45 to 75 characters but 66 characters is often
+%considered to be the ideal number. Much shorter and the eye is dashing
+%back and forth between each line. Much longer and it is hard to pick up the
+%start of the next line if the eye has to jump back too far --- the same line
+%may be read twice or the following line may be inadvertently jumped over.
+%For double column\index{column!double} text the ideal number of characters 
+%is around 45, give or take 5 or so.
+실험에 의하면 단단 일행의 문자 수가 60에서 70 범위일 때 읽기 쉽다고 한다.\tidx{column,컬럼} 이 범위는 45자에서 75자 정도로 보아도 될 것인데 보통 66자가
+가장 좋은 것으로 간주된다. 이보다 짧으면 눈이 행 사이에서 왕복하는 빈도가 너무
+높아지고 이보다 길면 행의 마지막에서 눈이 너무 멀리 이동해야 하기 때문에
+다음 행의 시작부분을 잘 찾아내지 못하여 같은 곳을 두 번 읽거나 다음 줄을 건너뛰거나
+할 수 있다. 다단 텍스트에서 이상적인 것은 5자 정도 출입이 있는 45자 안팎이다.\tidx{column!double,다단!이단}
 
-
-    Experiments have shown that the number of characters in a line of
-single column\index{column} text on a page should be
-in the range 60 to 70 for ease of reading. The range may be as much
-as 45 to 75 characters but 66 characters is often
-considered to be the ideal number. Much shorter and the eye is dashing
-back and forth between each line. Much longer and it is hard to pick up the
-start of the next line if the eye has to jump back too far --- the same line
-may be read twice or the following line may be inadvertently jumped over.
-For double column\index{column!double} text the ideal number of characters 
-is around 45, give or take 5 or so.
-
-    Bringhurst\index{Bringhurst, Robert}~\cite{BRINGHURST99} gives a 
-method for determining the number
-of characters in a line for any font\index{font!measuring}: 
-measure the length of the lowercase alphabet and use a 
-copyfitting\index{copyfitting} 
-table that shows for a given alphabet 
-length and line length, the average number of characters in that line.
- Table~\ref{tab:copyfitting} is an
-abridged version of Bringhurt's copyfitting table.
-For example, it suggests that a font with a length of 130pt should be
-set on a measure of about 26pc for a single column\index{column!single} 
-or in an 18pc wide column if there are multiple\index{column!multiple} 
-columns.
+%    Bringhurst\index{Bringhurst, Robert}~\cite{BRINGHURST99} gives a 
+%method for determining the number
+%of characters in a line for any font\index{font!measuring}: 
+%measure the length of the lowercase alphabet and use a 
+%copyfitting\index{copyfitting} 
+%table that shows for a given alphabet 
+%length and line length, the average number of characters in that line.
+% Table~\ref{tab:copyfitting} is an
+%abridged version of Bringhurt's copyfitting table.
+%For example, it suggests that a font with a length of 130pt should be
+%set on a measure of about 26pc for a single column\index{column!single} 
+%or in an 18pc wide column if there are multiple\index{column!multiple} 
+%columns.
+Bringhurst\index{Bringhurst, Robert}~\cite{BRINGHURST99}는 
+특정 폰트에서 한 행의 글자 수를 결정하는 방법을 제시하고 있다.\tidx{font!measuring,폰트!적정문자수} 알파벳 소문자의 길이를 측정하고, 그
+알파벳의 길이, 행장, 한 행에서의 평균 문자수를 보여주는 적정문자수표(copyfitting table)를 이용한다.\index{copyfitting}\index{적정문자수표}
+표~\ref{tab:copyfitting}\는 Bringhurst의 적정문자수표를 축약한
+것이다. 예를 들면 130포인트 길이의 폰트는 단단 텍스트에서는 약 26pc 척도로
+설정되어야 하고 다단 텍스트에서는 18pc 너비의 단으로 구성되어야 한다.\tidx{column!single,column!multiple,다단!단단,다단!이단}
  
 
 \begin{table}
 %%%\DeleteShortVerb{\|}
 \centering
-\caption{Average characters per line} \label{tab:copyfitting}
+%\caption{Average characters per line} 
+\caption{평균 행당 문자수}
+\label{tab:copyfitting}
 \begin{tabular}{r !\quad rrrrrrrr} %|
   \toprule
 Pts. & \multicolumn{8}{c}{Line length in picas} \\
@@ -439,63 +596,97 @@ Pts. & \multicolumn{8}{c}{Line length in picas} \\
 %%%\MakeShortVerb{\|}
 \end{table}
 
-    Morten H{\o}gholm\index{H{\o}gholm, Morten} has done some curve fitting
-to the data. He determined that the expressions
+%    Morten H{\o}gholm\index{H{\o}gholm, Morten} has done some curve fitting
+%to the data. He determined that the expressions
+Morten H{\o}gholm\index{H{\o}gholm, Morten}은 이 데이터의 곡선 맞춤
+방정식을 다음과 같이 제시하였다.
 \begin{equation}
 L_{65} = 2.042\alpha + 33.41 \label{eq:L65}
 \end{equation}
-and
+%and
+그리고
 \begin{equation}
 L_{45} = 1.415\alpha + 23.03 \label{eq:L45}
 \end{equation}
-fitted aspects of the data, where $\alpha$ is the length of the alphabet
-in points, and $L_{i}$ is the suggested width in points, for a line with
-$i$ characters (remember that 1pc = 12pt).
+%fitted aspects of the data, where $\alpha$ is the length of the alphabet
+%in points, and $L_{i}$ is the suggested width in points, for a line with
+%$i$ characters (remember that 1pc = 12pt).
+여기서 $\alpha$는 포인트 단위로 표시된 알파벳 길이이고 $L_{i}$는
+$i$개 문자가 있는 한 행에 대하여 포인트 단위로 표시된 추천 길이이다.
+(1pc는 12pt임을 기억하라.)
 
 
+%Table~\ref{tab:cmrlengths} gives the lowercase 
+%alphabet\index{alphabet length} lengths for 
+%some typefaces over a range of font sizes; this may be used in conjunction
+%with \tref{tab:copyfitting} on \pref{tab:copyfitting} when deciding
+%on an appropriate textwidth\index{textwidth}. I have grouped the 
+%listed typefaces into roman, sans-serif, and monospaced, and they are 
+%all available in a standard \ltx\ system. The 
+%Computer Modern Roman\facesubseeidx{Computer Modern},
+%Concrete Roman\facesubseeidx{Concrete Roman},
+%Computer Sans\facesubseeidx{Computer Sans},
+%and Typewriter\facesubseeidx{Computer Typewriter}
+%typefaces\index{typeface} were all designed by Donald Knuth 
+%using\index{font!Metafont} 
+%\metafont, specifically for use with \tx. The other font families are
+%\pscript{} outline fonts and can be used in many document publishing systems.
+표~\ref{tab:cmrlengths}\는 몇몇 폰트에 대하여 일련의 폰트 크기에 따른
+알파벳 소문자 길이를 보여준다. \pageref{tab:copyfitting} 페이지의\tref{tab:copyfitting}\과 함께 사용하여 적정 본문 길이를 결정할 수 있다.
+\tidx{alphabel lentgh,알파벳 길이,textwidth}
+폰트 이름을 로만, 산세리프, 모노스페이스 순서로 배열하였는데
+표준 \ltx\ 시스템에서 모두 사용가능하다. 
+Computer Modern Roman, Concrete Roman, Computer Sans, Typewriter 폰트는
+모두 도널드 커누스가 \metafont 를 사용하여 특히 \tx 에서 쓰려고 디자인한 것이다.
+다른 폰트 패밀리들은 \pscript{} 윤곽선 글꼴로서 여러 조판 시스템에서 사용되고
+있는 것들이다.
+\facesubseeidx{Computer Modern}\facesubseeidx{Concrete Roman}\facesubseeidx{Computer Sans}\facesubseeidx{Computer Typewriter}
+\tidx{typeface,폰트,font!Metafont,폰트!메타폰트}
+%These particular fonts are available for use in \ltx\ via the packages
+%in the \Ppack{psnfss}\index{psnfss?\Ppack{psnfss}}
+%bundle. Be aware that the Knuthian\index{font!Knuthian} fonts were designed to form a 
+%font family --- 
+%that is, they were designed to work together and complement each other --- 
+%while the listed \pscript{}
+%fonts\index{font!PostScript} were designed by different people at different 
+%times and for different purposes. Bringhurst~\cite[p. 96]{BRINGHURST99}
+%memorably says `Baskerville\facesubseeidx{Baskerville}, 
+%Helvetica\facesubseeidx{Helvetica}, 
+%Palatino\facesubseeidx{Palatino} and 
+%Times Roman\facesubseeidx{Times Roman}, 
+%for example --- which are four of the most widely available 
+%typefaces --- are four faces with nothing to offer one another except
+%public disagreement'.
+이 특정 폰트들은 \Ppack{psnfss} 묶음에 포함된 패키지를 이용하여 \ltx 에서 
+사용할 수 있다.\index{psnfss?\Ppack{psnfss}}
+커누스의 폰트들은 폰트 가족을 이루도록 설계되었다. 즉 그 폰트들을 함께
+조화롭게 사용할 수 있게 디자인되어 있다.\tidx{font!Knuthian,폰트!커누스의 폰트}
+반면에 위에 열거된 다른 \pscript{} 폰트들은 서로 다른 사람이 다른 시기에 다른
+목적으로 디자인한 것들이다.\tidx{font!PostScript,폰트!포스트스크립트}
+Bringhurst~\cite[p. 96]{BRINGHURST99}는 기억하기 쉽도록 다음과 같이 말한
+바가 있다. “예를 들면 Baskerville, Helvetica, Palatino, Times Roman, 이 네 
+폰트는 (가장 널리 사용되는 것으로서) 별다른 고민 없이 그냥 사용해도 큰 문제 없다.”
+\facesubseeidx{Baskerville}\facesubseeidx{Helvetica}\facesubseeidx{Palatino}\facesubseeidx{Times Roman}
 
-Table~\ref{tab:cmrlengths} gives the lowercase 
-alphabet\index{alphabet length} lengths for 
-some typefaces over a range of font sizes; this may be used in conjunction
-with \tref{tab:copyfitting} on \pref{tab:copyfitting} when deciding
-on an appropriate textwidth\index{textwidth}. I have grouped the 
-listed typefaces into roman, sans-serif, and monospaced, and they are 
-all available in a standard \ltx\ system. The 
-Computer Modern Roman\facesubseeidx{Computer Modern},
-Concrete Roman\facesubseeidx{Concrete Roman},
-Computer Sans\facesubseeidx{Computer Sans},
-and Typewriter\facesubseeidx{Computer Typewriter}
-typefaces\index{typeface} were all designed by Donald Knuth 
-using\index{font!Metafont} 
-\metafont, specifically for use with \tx. The other font families are
-\pscript{} outline fonts and can be used in many document publishing systems.
-These particular fonts are available for use in \ltx\ via the packages
-in the \Ppack{psnfss}\index{psnfss?\Ppack{psnfss}}
-bundle. Be aware that the Knuthian\index{font!Knuthian} fonts were designed to form a 
-font family --- 
-that is, they were designed to work together and complement each other --- 
-while the listed \pscript{}
-fonts\index{font!PostScript} were designed by different people at different 
-times and for different purposes. Bringhurst~\cite[p. 96]{BRINGHURST99}
-memorably says `Baskerville\facesubseeidx{Baskerville}, 
-Helvetica\facesubseeidx{Helvetica}, 
-Palatino\facesubseeidx{Palatino} and 
-Times Roman\facesubseeidx{Times Roman}, 
-for example --- which are four of the most widely available 
-typefaces --- are four faces with nothing to offer one another except
-public disagreement'.
 
-
-    The monospaced\index{font!monospaced}\index{monospaced font} fonts, 
-Courier\facesubseeidx{Courier} and Typewriter\facesubseeidx{Typewriter}
-have no place in high quality typesetting except when typesetting computer
-code or the like, or when trying to fake text written on a real typewriter.
-Ignoring these, a quick glance at the \tablerefname{} shows that 
-Bookman\facesubseeidx{Bookman} is a broad font while 
-Times\facesubseeidx{Times Roman} is narrow as befits its original 
-design intent for typesetting narrow columns in newspapers. 
-Computer Modern\facesubseeidx{Computer Modern}
-tends towards the narrow end of the range.
+%    The monospaced\index{font!monospaced}\index{monospaced font} fonts, 
+%Courier\facesubseeidx{Courier} and Typewriter\facesubseeidx{Typewriter}
+%have no place in high quality typesetting except when typesetting computer
+%code or the like, or when trying to fake text written on a real typewriter.
+%Ignoring these, a quick glance at the \tablerefname{} shows that 
+%Bookman\facesubseeidx{Bookman} is a broad font while 
+%Times\facesubseeidx{Times Roman} is narrow as befits its original 
+%design intent for typesetting narrow columns in newspapers. 
+%Computer Modern\facesubseeidx{Computer Modern}
+%tends towards the narrow end of the range.
+Courier와 Typewriter 같은 모노스페이스 폰트는 실제 고품위 출판에서는
+거의 쓰이지 않는다. 이것은 컴퓨터 코드나 소스를 식자해야 할 때나 아니면
+타자기로 타자친 모양을 흉내내어 식자하여야 할 때에 사용되는 것이다.
+이것을 제외하고 \tablerefname\를 간단히 살펴보면 Bookman은 폭이 넓은
+폰트이고 Times는 원래 신문지상의 좁은 컬럼에서 사용하기 위해 만들었던
+제작 의도대로 폭이 좁은 폰트인 것을 알 수 있다. Computer Modern은 
+폭이 좁은 편에 더 가깝다.
+\facesubseeidx{Bookman}\facesubseeidx{Times Roman}\facesubseeidx{Computer Modern}
 
 
 \begin{syntax}
@@ -503,33 +694,44 @@ tends towards the narrow end of the range.
 \end{syntax}
 \glossary(xlvchars)%
   {\ls{xlvchars}}%
-  {Approximate length of 45 characters.}
+  {개략적인 45문자 길이.}
+%  {Approximate length of 45 characters.}
 \glossary(lxvchars)%
   {\ls{lxvchars}}%
-  {Approximate length of 65 characters.}
-Based on \tref{tab:cmrlengths}, the two lengths 
-\lnc{\xlvchars} and 
-\lnc{\lxvchars} are initially set to approximately the lengths of a 
-line of text with
-45\index{measure!45 characters} or 
-65\index{measure!65 characters} characters, respectively, for  
-Computer Modern Roman in the type size selected for the document.
+  {개략적인 65문자 길이.}
+%  {Approximate length of 65 characters.}
+%Based on \tref{tab:cmrlengths}, the two lengths 
+%\lnc{\xlvchars} and 
+%\lnc{\lxvchars} are initially set to approximately the lengths of a 
+%line of text with
+%45\index{measure!45 characters} or 
+%65\index{measure!65 characters} characters, respectively, for  
+%Computer Modern Roman in the type size selected for the document.
+\tref{tab:cmrlengths}에 따라 
+두 개의 길이 명령 \lnc{\xlvchars}와 \lnc{\lxvchars}가
+다른 폰트 사용이 지정되지 않았을 때 문서가 설정한 폰트 크기에 따라
+Computer Modern Roman 폰트에 대하여 각각 45글자와 65글자에 해당하는
+개략적인 길이로 설정된다.\tidx{measure!45 characters,measure!65 characters,길이!45글자,길이!65글자}
 
-    If you are using a different font or size you can use something like the 
-following to calculate and print out the length for you.
+%    If you are using a different font or size you can use something like the 
+%following to calculate and print out the length for you.
+다른 폰트를 사용한다면 다음에 보이는 것과 같이 하여 그 길이를
+계산하여 보여줄 수 있다.
 \begin{lcode}
 \newlength{\mylen}                % a length
 \newcommand{\alphabet}{abc...xyz} % the lowercase alphabet
 \begingroup                       % keep font change local
-% font specification e.g., \Large\sffamily
+%% font specification e.g., \Large\sffamily
 \settowidth{\mylen}{\alphabet}
 The length of this alphabet is \the\mylen. % print in document
 \typeout{The length of the Large sans alphabet 
          is \the\mylen}                    % put in log file
 \endgroup                         % end the grouping
 \end{lcode}
-The \cmd{\typeout} macro prints its argument to the terminal and the
-log file. There is, however, an easier method.
+%The \cmd{\typeout} macro prints its argument to the terminal and the
+%log file. There is, however, an easier method.
+\cmd{\typeout} 매크로는 그 인자를 터미널과 로그 파일로 출력한다.
+그러나 더 쉬운 방법이 있다.
 
 \begin{syntax}
 \cmd{\setxlvchars}\oarg{fontspec} \\
@@ -537,45 +739,71 @@ log file. There is, however, an easier method.
 \end{syntax}
 \glossary(setxlvchars)%
   {\cs{setxlvchars}\oarg{fontspec}}%
-  {Sets \cs{xlvchars} to the length of 45 characters in the \meta{fontspec} 
-   font (default \cs{normalfont}).}
+  {\cs{xlvchars}를 \meta{fontspec}으로 주어지는 폰트(기본값은 \cs{normalfont})에서의 45글자에 해당하는 길이로 설정한다.}
+%  {Sets \cs{xlvchars} to the length of 45 characters in the \meta{fontspec} 
+%   font (default \cs{normalfont}).}
 \glossary(setlxvchars)%
   {\cs{setlxvchars}\oarg{fontspec}}%
-  {Sets cs{lxvchars} to the length of 65 characters in the \meta{fontspec} 
-   font (default \cs{normalfont}).}
-The macros \cmd{\setxlvchars} and \cmd{\setlxvchars}, which were suggested
-by Morten H{\o}gholm\index{H{\o}gholm, Morten}, 
-set the lengths \lnc{\xlvchars} and \lnc{\lxvchars}
-respecively for the font \meta{fontspec}. The default for \meta{fontspec}
-is \cmd{\normalfont}. For example, the values of \lnc{\lxvchars} and
-\lnc{\xlvchars} after calling:
+  {\cs{lxvchars}를 \meta{fontspec}으로 주어지는 폰트(기본값은 \cs{normalfont})에서의 65글자에 해당하는 길이로 설정한다.}
+%  {Sets cs{lxvchars} to the length of 65 characters in the \meta{fontspec} 
+%   font (default \cs{normalfont}).}
+%The macros \cmd{\setxlvchars} and \cmd{\setlxvchars}, which were suggested
+%by Morten H{\o}gholm\index{H{\o}gholm, Morten}, 
+%set the lengths \lnc{\xlvchars} and \lnc{\lxvchars}
+%respecively for the font \meta{fontspec}. The default for \meta{fontspec}
+%is \cmd{\normalfont}. For example, the values of \lnc{\lxvchars} and
+%\lnc{\xlvchars} after calling:
+Morten H{\o}gholm\index{H{\o}gholm, Morten}이 제안한 매크로
+\cmd{\setxlvchars}와 \cmd{\setlxvchars}는 \meta{fontspec} 폰트에
+대하여 각각 \lnc{\xlvchars}와 \lnc{\lxvchars} 길이를 설정한다.
+\meta{fontspec}의 기본값은 \cmd{\normalfont}이다.
+예를 들어보면 다음 코드가 실행된 이후의 \lnc{\lxvchars}와 \lnc{\xlvchars} 값은
 \begin{lcode}
 \setlxvchars \setxlvchars[\small\sffamily]
 \end{lcode}
 \begingroup
-are: \setlxvchars\setxlvchars[\small\sffamily]
-\lnc{\lxvchars} = \the\lxvchars, and \lnc{\xlvchars} = \the\xlvchars.
+%are:
+이렇게 된다.
+\setlxvchars\setxlvchars[\small\sffamily]
+\lnc{\lxvchars} = \the\lxvchars
+, 그리고
+%, and 
+\lnc{\xlvchars} = \the\xlvchars.
 \endgroup
 
-    Morten H{\o}gholm\footnote{Private communication} also commented:
+%    Morten H{\o}gholm\footnote{Private communication} also commented:
+Morten H{\o}gholm은\footnote{개인적인 교신에서} 또 다음과 같이 언급하였다.
 \begin{quotation}
-    \ldots I was defining some environments that had to have \lnc{\parindent}
-as their indentation. For some reason I just wrote \verb?1.5em? instead
-of \lnc{\parindent} because I `knew' that was the value. What I had 
-overlooked was that I had loaded the \Lpack{mathpazo} package~\cite{MATHPAZO},
-thus, among other things,  altering \lnc{\parindent}. Conclusion: the
-environment would use 1.5em = 18.0pt, whereas the \lnc{\parindent}
-was only 17.607pt.
+%    \ldots I was defining some environments that had to have \lnc{\parindent}
+%as their indentation. For some reason I just wrote \verb?1.5em? instead
+%of \lnc{\parindent} because I `knew' that was the value. What I had 
+%overlooked was that I had loaded the \Lpack{mathpazo} package~\cite{MATHPAZO},
+%thus, among other things,  altering \lnc{\parindent}. Conclusion: the
+%environment would use 1.5em = 18.0pt, whereas the \lnc{\parindent}
+%was only 17.607pt.
+\ldots 저는 \lnc{\parindent}를 인덴트 값으로 갖는 환경을 정의하려 하였습니다.
+몇 가지 이유가 있어서 \lnc{\parindent}에 해당하는 값이라고 제가 “알고 있던”
+\verb?1.5em?을 적어넣었는데, 나중에 보니 제가 \Lpack{mathpazo} 패키지~\cite{MATHPAZO}를 로드하고 있었던 것입니다.
+그러자 다른 것은 차치하고 \lnc{\parindent} 값이 바뀌어버린 것입니다.
+결론: \lnc{\parindent}는 17.607pt인 데 비해서 제가 작성한 그 환경에서는
+1.5em = 18.0pt가 되어야 했던 것입니다.
 
-    This, and other related situations can be avoided if one places
+%    This, and other related situations can be avoided if one places
+%\begin{center}
+%\cmd{\RequirePackage}\marg{font-package}\cmd{\normalfont}
+%\end{center}
+%\emph{before} \cmd{\documentclass}.
+이런 상황은 
 \begin{center}
 \cmd{\RequirePackage}\marg{font-package}\cmd{\normalfont}
 \end{center}
-\emph{before} \cmd{\documentclass}.
+를 \cmd{\documentclass}보다 \emph{이전에} 둠으로써 피해갈 수 있습니다.
 \end{quotation}
-Note that, in general, it is inadviseable to put any 
-commands\index{packages before class} before
-\cmd{\documentclass}.
+%Note that, in general, it is inadviseable to put any 
+%commands\index{packages before class} before
+%\cmd{\documentclass}.
+일반적으로 말해서 어떤 명령을 \cmd{\documentclass} 이전에 두라고 하는 것은
+조언으로서 적절치 못하다는 점을 알아두자.\index{packages before class}\index{클래스 이전에 오는 패키지}
 
 
 
@@ -585,7 +813,9 @@ commands\index{packages before class} before
    New Century Schoolbook}
 \begin{table}
 \centering
-\caption{Lowercase alphabet lengths, in points, for various fonts}\label{tab:cmrlengths}
+%\caption{Lowercase alphabet lengths, in points, for various fonts}
+\caption{다양한 폰트에서 포인트별 소문자 알파벳 길이}
+\label{tab:cmrlengths}
 \begin{tabular}{lrrrrrrrr} \toprule
                                             & 8pt & 9pt & 10pt & 11pt & 12pt & 14pt & 17pt & 20pt \\ \midrule
 \fontfamily{pbk}\selectfont Bookman         & 113 & 127 & 142 & 155 & 170 & 204 & 245 & 294 \\
@@ -613,115 +843,164 @@ commands\index{packages before class} before
 
 
 
-\subsection{Specifying the typeblock size}
+%\subsection{Specifying the typeblock size}
+\subsection{조판 영역 크기 설정}
 \label{sec:spec-typebl-size}
 
 
 
 
-    The height of the typeblock\index{typeblock!height} should be 
-equivalent to an integral number of lines. The class provides two
-different methods to specify the typeblock. \cmd{\settypeblocksize}
-(below) will set the size of the typeblock, other commands will then
-be used to place it on the paper. Alternatively the typeblock size can
-be determined by setting the margins around it. We present this later
-on in this section (see \cmd{\setlrmarginsandblock} and
-\cmd{\setulmarginsandblock}). 
+%    The height of the typeblock\index{typeblock!height} should be 
+%equivalent to an integral number of lines. The class provides two
+%different methods to specify the typeblock. \cmd{\settypeblocksize}
+%(below) will set the size of the typeblock, other commands will then
+%be used to place it on the paper. Alternatively the typeblock size can
+%be determined by setting the margins around it. We present this later
+%on in this section (see \cmd{\setlrmarginsandblock} and
+%\cmd{\setulmarginsandblock}). 
+조판 영역의 높이는 행수의 합과 같아야 한다. 이 클래스는 
+조판 영역을 설정하는 두 가지 방법을 제공한다.
+\cmd{\settypeblocksize} (아래 설명)는 조판 영역의 크기를 정하고,
+그런 다음 다른 명령으로 그것을 용지 위에 위치짓는다.
+다른 방법으로 조판 영역의 크기를 그 주변의 여백 크기를 설정함으로써
+지정할 수 있다. 이 절의 뒷 부분에서 이에 대하여 설명한다. (\cmd{\setlrmarginsandblock}과 \cmd{\setulmarginsandblock}을 보라.)
+\tidx{typeblock!height,조판 영역!높이}
 
 \begin{syntax}
 \cmd{\settypeblocksize}\marg{height}\marg{width}\marg{ratio} \\
 \end{syntax}
 \glossary(settypeblocksize)%
   {\cs{settypeblocksize}\marg{height}\marg{width}\marg{ratio}}%
-  {Sets the size of the typeblock.}
+  {조판 영역의 크기를 설정한다.}
+%  {Sets the size of the typeblock.}
 \glossary(textheight)%
   {\ls{textheight}}%
-  {The height of the typeblock.}
+  {조판 영역의 높이}
+%  {The height of the typeblock.}
 \glossary(textwidth)%
   {\ls{textwidth}}%
-  {The width of the typeblock.}
-The command \cmd{\settypeblocksize}\index{typeblock!specifying size} 
-is similar to
-\cmd{\settrimmedsize} except that it sets the \lnc{\textheight} and 
-\lnc{\textwidth} for the typeblock\index{typeblock!height}\index{typeblock!width}. 
-The potential combinations of arguments and the 
-corresponding results are listed in \tref{tab:rectsize} on \pref{tab:rectsize}.
-For instance, here are three ways of specifying
-a 6in by 3in typeblock\index{typeblock}:
+  {조판 영역의 너비}
+%  {The width of the typeblock.}
+%The command \cmd{\settypeblocksize}\index{typeblock!specifying size} 
+%is similar to
+%\cmd{\settrimmedsize} except that it sets the \lnc{\textheight} and 
+%\lnc{\textwidth} for the typeblock\index{typeblock!height}\index{typeblock!width}. 
+\cmd{\settypeblocksize} 명령은 \cmd{\settrimmedsize}와 비슷하지만
+조판 영역에 해당하는 \lnc{\textheight}와 \lnc{\textwidth}를 설정한다는
+점이 다르다.\tidx{typeblock!specifying size,조판 영역!크기 설정,typeblock!width,조판 영역!너비}
+%The potential combinations of arguments and the 
+%corresponding results are listed in \tref{tab:rectsize} on \pref{tab:rectsize}.
+인자의 조합 가능성과 그 해당하는 결과를 \pageref{rectsize} 페이지의 \tref{tab:rectsize}에 열거하였다.
+%For instance, here are three ways of specifying
+%a 6in by 3in typeblock\index{typeblock}:
+예를 들면 다음 보기는 조판 영역을 가로 3인치, 세로 6인치로 설정하는
+세 가지 방법이다.\tidx{typeblock,조판 영역}
 \begin{lcode}
 \settypeblocksize{6in}{3in}{*}
 \settypeblocksize{6in}{*}{0.5}
 \settypeblocksize{*}{3in}{2}
 \end{lcode}
 
-    The typeblock\index{typeblock} has to be located on the page. There is 
-a relationship between the page, typeblock\index{typeblock} and 
-margins\index{margin}. The sum of the spine, or inner, 
-margin\index{margin!spine}\index{margin!inner}, 
-the \foredge, or outer, margin\index{margin!foredge?\foredge}\index{margin!outer} 
-and the width of the 
-typeblock\index{typeblock!width} must equal the width\index{page!width} 
-of the page. 
-Similarly the sum of the upper margin\index{margin!upper}, 
-the lower margin\index{margin!lower} and the height of the 
-typeblock\index{typeblock!height} 
-must equal the height\index{page!height} of the page. 
-The process of locating the 
-typeblock\index{typeblock} with respect to the page can be viewed
-either as positioning the typeblock\index{typeblock} with respect to the edges 
-of the page or as setting the margins\index{margin} between the page and the 
-typeblock\index{typeblock}.
+%    The typeblock\index{typeblock} has to be located on the page. There is 
+%a relationship between the page, typeblock\index{typeblock} and 
+%margins\index{margin}. The sum of the spine, or inner, 
+%margin\index{margin!spine}\index{margin!inner}, 
+%the \foredge, or outer, margin\index{margin!foredge?\foredge}\index{margin!outer} 
+%and the width of the 
+%typeblock\index{typeblock!width} must equal the width\index{page!width} 
+%of the page. 
+조판 영역은 페이지 위에 놓여야 한다. 페이지와 조판 영역, 여백 공간 사이에는
+일정한 관계가 있다. 안쪽 여백과 바깥쪽 여백, 그리고 조판 영역의 가로 길이의
+합은 페이지의 가로 길이와 같아야 한다. 안쪽 여백은 책등쪽 여백이고 바깥쪽 여백은 오른쪽 페이지의 오른쪽 끝 부분 여백이다.\tidx{typeblock,조판 영역,margin,여백,마진,margin!spine,margin!inner,margin!foredge?\foredge,margin!outer,여백!바깥쪽,여백!안쪽}
+%Similarly the sum of the upper margin\index{margin!upper}, 
+%the lower margin\index{margin!lower} and the height of the 
+%typeblock\index{typeblock!height} 
+%must equal the height\index{page!height} of the page. 
+마찬가지로, 상단 여백과 하단 여백, 그리고 조판 영역의 세로 길이의 합은
+페이지의 세로 길이와 같아야 한다.\tidx{margin!lower,margin!upper,typeblock!height,page!height,여백!상단,여백!하단,조판 영역!높이,페이지!높이}
+%The process of locating the 
+%typeblock\index{typeblock} with respect to the page can be viewed
+%either as positioning the typeblock\index{typeblock} with respect to the edges 
+%of the page or as setting the margins\index{margin} between the page and the 
+%typeblock\index{typeblock}.
+조판 영역을 페이지에 앉히는 과정은 조판 영역을 페이지의 끝을 기준으로
+어디에 놓을지의 문제로 볼 수도 있고 페이지와 조판 영역 사이의 여백의
+크기를 정하는 문제로 볼 수도 있다.\tidx{typeblock,margin,조판 영역,여백}
 
-    Remembering that the page layout should be defined in terms of the
-appearance as a spread\index{spread}, the spine margin\index{margin!spine} 
-is normally half the \foredge{} margin\index{margin!foredge?\foredge}, 
-so that the white space is equally distributed around the sides of the text. 
+%    Remembering that the page layout should be defined in terms of the
+%appearance as a spread\index{spread}, the spine margin\index{margin!spine} 
+%is normally half the \foredge{} margin\index{margin!foredge?\foredge}, 
+%so that the white space is equally distributed around the sides of the text. 
+페이지 레이아웃은 펼침면으로 정의한다는 사실을 상기하자.
+안쪽 여백은 보통 바깥쪽 여백의 반이다. 그래야 공백 공간이 텍스트의 좌우에 
+고르게 분배된다.\tidx{spread,margin!foredge?\foredge,펼침면,여백!바깥쪽}
 
 \begin{note}
-  One will often find that using \cmd{\settypeblocksize} without
-  subsequent use of \cmd{\setlrmargins} and \cmd{\setulmargins} will
-  result in errors as the relationships mentioned above are not met
-  (the \lnc{\textwidth} has changed, but not the margins).
+%  One will often find that using \cmd{\settypeblocksize} without
+%  subsequent use of \cmd{\setlrmargins} and \cmd{\setulmargins} will
+%  result in errors as the relationships mentioned above are not met
+%  (the \lnc{\textwidth} has changed, but not the margins).
+\cmd{\settypeblocksize} 명령을 사용하고서 그 뒤에 \cmd{\setlrmargins}와
+\cmd{\setulmargins}를 사용하지 않으면 위에서 언급한 관계를 충족하지 못하여(\lnc{\textwidth}는 바뀌었지만 여백 길이가 바뀌지 않아서) 오류를 만나게 되는 수가 있다.
 
-  We may add auto adjustments to a future version of \theclass.
+%  We may add auto adjustments to a future version of \theclass.
+이후 버전 \theclass 에서 자동 조절 기능을 추가할 수도 있다.
 \end{note}
 
 
-    There is more latitude in choosing the 
-proportions\index{proportion!margin} 
-of the upper and lower margins, though usually the upper 
-margin\index{margin!upper} is less than the lower margin\index{margin!lower}
-so the typeblock\index{typeblock!location} is not vertically centered.
+%    There is more latitude in choosing the 
+%proportions\index{proportion!margin} 
+%of the upper and lower margins, though usually the upper 
+%margin\index{margin!upper} is less than the lower margin\index{margin!lower}
+%so the typeblock\index{typeblock!location} is not vertically centered.
+상단 하단 여백의 비율을 정하는 데 많은 선택지가 있는데
+보통 상단 여백을 하단 여백보다 짧게 잡는다.\tidx{proportion!margin,margin!upper,margin!lower,비율!여백,여백!상단,여백!하단}
+그래서 조판 영역이 수직 중앙에 놓이지 않는다.\tidx{typeblock!location,조판 영역!위치}
 
-    Two methods are provided for setting the horizontal dimensions on a page.
-One is where the width of the typeblock\index{typeblock!width} 
-is fixed and the margins\index{margin} are adjustable. 
-The other method is where the size of the margins\index{margin} determines 
-the width of the typeblock\index{typeblock!width}.
+%    Two methods are provided for setting the horizontal dimensions on a page.
+%One is where the width of the typeblock\index{typeblock!width} 
+%is fixed and the margins\index{margin} are adjustable. 
+%The other method is where the size of the margins\index{margin} determines 
+%the width of the typeblock\index{typeblock!width}.
+페이지의 수평 길이를 정하는 두 가지 방법이 있다.
+하나는 조판 영역의 너비를 고정시키고 여백을 조절하는 것이고
+다른 하나는 여백의 크기를 먼저 정하고 결과적으로 조판 영역의 너비가
+결정되게 하는 것이다.\tidx{typeblock!width,margin,여백,조판 영역!너비}
 
 \begin{syntax}
 \cmd{\setlrmargins}\marg{spine}\marg{edge}\marg{ratio} \\
 \end{syntax}
 \glossary(setlrmargins)%
   {\cs{setlrmargins}\marg{spine}\marg{edge}\marg{ratio}}%
-  {Sets the spine and \foredge{} margins for the current typeblock width.}
-The command \cmd{\setlrmargins}\index{margin!specify width} can be used to specify
-the side margins\footnote{Only the spine margin is noted in
-\fref{fig:oddstock} and~\ref{fig:evenstock}; 
-the \foredge\ margin\index{margin!foredge?\foredge} is at the 
-opposite side of the typeblock.} 
-with the width of the page and the typeblock being fixed.
- 
-Not more than one one argument value is required, with any
-unvalued arguments being denoted by an asterisk. There are several cases to 
-consider and these are tabulated in \tref{tab:lrmargins}.
+  {현재 조판 영역의 너비를 정하기 위해 안쪽 여백과 바깥쪽 여백 값을 설정한다.}
+%  {Sets the spine and \foredge{} margins for the current typeblock width.}
+%The command \cmd{\setlrmargins}\index{margin!specify width} can be used to specify
+%the side margins\footnote{Only the spine margin is noted in
+%\fref{fig:oddstock} and~\ref{fig:evenstock}; 
+%the \foredge\ margin\index{margin!foredge?\foredge} is at the 
+%opposite side of the typeblock.} 
+%with the width of the page and the typeblock being fixed.
+\cmd{\setlrmargins} 명령은 페이지 너비와 조판 영역을 고정시켜놓고
+옆 여백을 설정하기 위해 사용한다.\footnote{\fref{fig:oddstock}\과 \ref{fig:evenstock}에는 안쪽 여백만 표시되어 있다. 바깥쪽 여백은 조판 영역의 반대편이다.}
 
-    In the \tablerefname, $S$ is the calculated spine 
-margin\index{margin!spine}, 
-$E$ is the calculated \foredge{} margin\index{margin!foredge?\foredge}, 
-and $P_{w}$ and $B_{w}$ are respectively the page\index{page!width} and 
-typeblock\index{typeblock!width} 
-widths. The \cmd{\setlrmargins}\index{margin!specifying size} command maintains the relationship
+ 
+%Not more than one one argument value is required, with any
+%unvalued arguments being denoted by an asterisk. There are several cases to 
+%consider and these are tabulated in \tref{tab:lrmargins}.
+한 개 이상의 인자 값이 필요하다. 값을 주지 않는 인자는 별표로 표시한다.
+여러 가지 경우를 고려할 수 있어서 이에 대하여 \tref{tab:lrmargins}에
+요약하였다.
+
+%    In the \tablerefname, $S$ is the calculated spine 
+%margin\index{margin!spine}, 
+%$E$ is the calculated \foredge{} margin\index{margin!foredge?\foredge}, 
+%and $P_{w}$ and $B_{w}$ are respectively the page\index{page!width} and 
+%typeblock\index{typeblock!width} 
+%widths. The \cmd{\setlrmargins}\index{margin!specifying size} command maintains the relationship
+\tablerefname에서 $S$는 계산된 안쪽 여백의 값이고 $E$는 계산된 바깥쪽 여백의
+값이다. 그리고 $P_w$와 $B_w$는 각각 페이지와 조판 영역의 너비를 나타낸다.
+\tidx{margin!spine,margin!foredge?\foredge,page!width,typeblock!width,여백!안쪽,여백!바깥쪽,페이지!너비,조판 영역!너비}
+\cmd{\setlrmargins} 명령은 다음 관계식을 만족한다.\index{margin!specifying size}\index{여백!크기 지정}
 \begin{displaymath}
 S + E = K_{w}  = \textrm{constant} \mbox{\space} (= P_{w} - B_{w}).
 \end{displaymath}
@@ -729,7 +1008,9 @@ S + E = K_{w}  = \textrm{constant} \mbox{\space} (= P_{w} - B_{w}).
 
 \begin{table}
 \centering
-\caption{Arguments and results for \cs{setlrmargins} } \label{tab:lrmargins}
+%\caption{Arguments and results for \cs{setlrmargins} } 
+\caption{\cs{setlrmargins}의 인자와 그 결과}
+\label{tab:lrmargins}
 %\begin{tabular}{ccc|l} \hline
 \begin{tabular}{cccl} \toprule
 \meta{spine} & \meta{edge} & \meta{ratio} & Result \\ \midrule
@@ -745,15 +1026,19 @@ S + E = K_{w}  = \textrm{constant} \mbox{\space} (= P_{w} - B_{w}).
 \end{tabular}
 \end{table}
 
-The cases marked ambiguous in the \tablerefname{} are where the particular combination
-of argument values may make it impossible to guarantee the relationship.
+%The cases marked ambiguous in the \tablerefname{} are where the particular combination
+%of argument values may make it impossible to guarantee the relationship.
+\tablerefname 에서 ambiguous라고 표시된 경우는 인자 값의 특정 조합이
+위의 관계식을 보장하지 못하는 경우이다.
 
-    Assuming that we have a 3in wide typeblock\index{typeblock!width} on a 5in 
-wide page and we want the spine margin\index{margin!spine} to be 0.8in and 
-the \foredge{} margin\index{margin!foredge?\foredge} to be 1.2in 
-(i.e., the \foredge{} margin is half as big again as the spine margin) 
-this can be accomplished in three ways (with the \cmd{\paperwidth} and 
-\lnc{\textwidth} being previously specified and fixed):
+%    Assuming that we have a 3in wide typeblock\index{typeblock!width} on a 5in 
+%wide page and we want the spine margin\index{margin!spine} to be 0.8in and 
+%the \foredge{} margin\index{margin!foredge?\foredge} to be 1.2in 
+%(i.e., the \foredge{} margin is half as big again as the spine margin) 
+%this can be accomplished in three ways (with the \cmd{\paperwidth} and 
+%\lnc{\textwidth} being previously specified and fixed):
+5인치 너비의 페이지에 조판 영역의 너비를 3인치로 하고 안쪽 여백을 0.8인치, 바깥쪽 여백을 1.2인치로 (즉 바깥쪽 여백이 안쪽 여백의 반만큼 더 크게)
+설정하려고 한다고 해보자. 세 가지 방법으로 이것을 해낼 수 있다. (\cmd{\paperwidth}와 \lnc{\textwidth}는 미리 정해져서 고정되어 있다.)
 \begin{lcode}
 % specify spine margin
     \setlrmargins{0.8in}{*}{*}   
@@ -768,24 +1053,33 @@ this can be accomplished in three ways (with the \cmd{\paperwidth} and
 \end{syntax}
 \glossary(setlrmarginsandblock)%
   {\cs{setlrmarginsandblock}\marg{spine}\marg{edge}\marg{ratio}}%
-  {Sets the spine and \foredge{} margins, modifying the typeblock width to match.}
-The command \cmd{\setlrmarginsandblock}\index{margin!specifying size}
-can be used to specify the spine\index{margin!spine} and 
-\foredge\ margins\index{margin!foredge?\foredge}, 
-where the page width\index{page!width} is fixed and the width of the 
-typeblock\index{typeblock!width} 
-depends on the margins\index{margin}. Results
-for this command are given in \tref{tab:lrblock}. The same notation is used,
-but in this case \cmd{\setlrmarginsandblock} maintains the relationship 
+  {조판 영역의 너비를 수정하여 안쪽 여백과 바깥쪽 여백을 설정한다.}
+%  {Sets the spine and \foredge{} margins, modifying the typeblock width to match.}
+%The command \cmd{\setlrmarginsandblock}\index{margin!specifying size}
+%can be used to specify the spine\index{margin!spine} and 
+%\foredge\ margins\index{margin!foredge?\foredge}, 
+%where the page width\index{page!width} is fixed and the width of the 
+%typeblock\index{typeblock!width} 
+%depends on the margins\index{margin}. Results
+%for this command are given in \tref{tab:lrblock}. The same notation is used,
+%but in this case \cmd{\setlrmarginsandblock} maintains the relationship 
+\cmd{\setlrmarginsandblock} 명령은 페이지 너비는 고정되어 있지만 
+조판 영역의 너비는 여백 설정에 따라 달라지는 경우에 안쪽 여백과 바깥쪽 여백을
+설정하는 데 사용한다.\tidx{margin!specifying size,margin!spine,margin!foredge?\foredge,page!width,typeblock!width,여백!크기 지정,여백!안쪽,여백!바깥쪽,페이지!너비,조판 영역!너비}
+이 명령의 결과는 \tref{tab:lrblock}에 주어져 있다. 같은 기호를 사용하여
+이 경우에 \cmd{\setlrmarginsandblock}은 다음 관계를 만족한다.
 \begin{displaymath}
 S + B_{w} + E = \textrm{constant} \mbox{\space} (= P_{w}).
 \end{displaymath}
-The width of the typeblock\index{typeblock} is calculated 
-from $B_{w} = P_{w} - S - E$.
+%The width of the typeblock\index{typeblock} is calculated 
+%from $B_{w} = P_{w} - S - E$.
+조판 영역의 너비는 $B_w = P_w - S - E$로 계산된다.\tidx{typeblock,조판 영역}
 
 \begin{table}
 \centering
-\caption{Arguments and results for \cs{setlrmarginsandblock} } \label{tab:lrblock}
+%\caption{Arguments and results for \cs{setlrmarginsandblock} } 
+\caption{\cs{setlrmarginsandblock}의 인자와 결과}
+\label{tab:lrblock}
 %\begin{tabular}{ccc|l} \hline
 \begin{tabular}{cccl} \toprule
 \meta{spine} & \meta{edge} & \meta{ratio} & Result \\ \midrule
@@ -801,14 +1095,17 @@ from $B_{w} = P_{w} - S - E$.
 \end{tabular}
 \end{table}
 
-    Assuming that we want a 3in wide typeblock\index{typeblock!width} on a 
-5in wide page\index{page!width} and we want the spine 
-margin\index{margin!spine} to be 0.8in and the \foredge{} 
-margin\index{margin!foredge?\foredge} to be 1.2in 
-(i.e., the \foredge\ margin is half as big again as the spine margin) 
-this can be accomplished in the following ways (with the \lnc{\textwidth} 
-being calculated from the previously specified \cmd{\paperwidth} and the 
-specified margins):
+%    Assuming that we want a 3in wide typeblock\index{typeblock!width} on a 
+%5in wide page\index{page!width} and we want the spine 
+%margin\index{margin!spine} to be 0.8in and the \foredge{} 
+%margin\index{margin!foredge?\foredge} to be 1.2in 
+%(i.e., the \foredge\ margin is half as big again as the spine margin) 
+%this can be accomplished in the following ways (with the \lnc{\textwidth} 
+%being calculated from the previously specified \cmd{\paperwidth} and the 
+%specified margins):
+5인치 너비의 페이지에 조판 영역의 너비를 3인치로 하고 안쪽 여백을 0.8인치,
+바깥쪽 여백을 1.2인치로 (즉 바깥쪽 여백이 안쪽 여백의 반만큼 더 길도록) 한다고
+하자. 이것은 아래와 같은 방법으로 (\lnc{\textwidth}가 이미 주어진 \cmd{\paperwidth}와 여백 길이로부터 계산되어 나오도록) 할 수 있다.\tidx{typeblock!width,page!width,margin!spine,margin!foredge?\foredge,조판 영역!너비,페이지!너비,여백!안쪽,여백!바깥쪽}
 \begin{lcode}
 % specify both margins
     \setlrmarginsandblock{0.8in}{1.2in}{*}   
@@ -817,9 +1114,10 @@ specified margins):
 % specify fore-edge & spine/fore-edge ratio
     \setlrmarginsandblock{*}{1.2in}{0.667}   
 \end{lcode}
-If we wanted the margins\index{margin!specifying size} to be both 1in 
-instead then any of the following 
-will do it:
+%If we wanted the margins\index{margin!specifying size} to be both 1in 
+%instead then any of the following 
+%will do it:
+만약 양쪽 여백을 똑같이 1인치로 하고자 한다면 다음과 같이 하면 된다.\tidx{margin!specifying size,여백!크기 설정}
 \begin{lcode}
 % specify both margins
     \setlrmarginsandblock{1in}{1in}{*} 
@@ -838,52 +1136,73 @@ will do it:
 \end{syntax}
 \glossary(setbinding)%
   {\cs{setbinding}\marg{length}}%
-  {Adds a binding allowance to the spine margin.}
-In some cases, for example when doing a Japanese stab binding, it may be 
-desireable to add a small allowance\index{binding allowance} 
-to the spine margin for the binding.
-You can use the command \cmd{\setbinding} for this purpose. It decreases the
-effective page width by \meta{length} and later this length will be added
-on to the spine margin, thus restoring the page width to its original value.
-If you use \cmd{\setbinding} than it must be \emph{after} setting the page 
-width and \emph{before} setting the spine and fore-edge margins.
+  {안쪽 여백에 제본 허용치를 추가}
+%  {Adds a binding allowance to the spine margin.}
+%In some cases, for example when doing a Japanese stab binding, it may be 
+%desireable to add a small allowance\index{binding allowance} 
+%to the spine margin for the binding.
+%You can use the command \cmd{\setbinding} for this purpose. It decreases the
+%effective page width by \meta{length} and later this length will be added
+%on to the spine margin, thus restoring the page width to its original value.
+%If you use \cmd{\setbinding} than it must be \emph{after} setting the page 
+%width and \emph{before} setting the spine and fore-edge margins.
+동아시아 고서의 천공제본같은 경우에 안쪽 여백에 제본을 위한 약간의 여백이 추가되는
+것이 바람직하다. 이를 위하여 \cmd{\setbinding} 명령을 사용할 수 있다.
+\meta{length} 길이만큼 유효 페이지 너비에서 뺐다가 나중에 이 길이를
+안쪽 여백에 더하여 준다. 그리하여 페이지 전체의 너비가 원래의 것과 같도록 만든다.
+\cmd{\setbinding}을 사용한다면 반드시 페이지 너비 설정 부분 \emph{이후},
+안쪽 및 바깥쪽 여백 설정 \emph{이전}에 해야 된다.\tidx{binding allowance,제본여백}
 
-    That completes the methods for specifying the horizontal spacings. There 
-are similar commands for setting the vertical spacings which are 
-described below.
+%    That completes the methods for specifying the horizontal spacings. There 
+%are similar commands for setting the vertical spacings which are 
+%described below.
+여기까지가 가로 길이를 설정하는 방법에 관한 부분이다. 세로 길이에 대하여서도
+비슷한 명령이 제공된다. 이하에서 서술한다.
 
 \begin{syntax}
 \cmd{\setulmargins}\marg{upper}\marg{lower}\marg{ratio} \\
 \end{syntax}
 \glossary(setulmargins)%
   {\cs{setulmargins}\marg{upper}\marg{lower}\marg{ratio}}%
-  {Sets the upper and lower margins with the current typeblock height.}
-The command \cmd{\setulmargins} can be used to 
-specify\index{margin!specifying size}
-the upper and lower margins\footnote{Only the upper margin is noted in
-\fref{fig:oddstock} and~\ref{fig:evenstock}; 
-the lower margin\index{margin!lower} is the distance between the bottom
-of the typeblock\index{typeblock} and the bottom of the page.} 
-where the heights of the page\index{page!height} and the 
-typeblock\index{typeblock!height} are 
-fixed. This is similar to \cmd{\setlrmargins}. Using a slightly 
-different notation this time, with $U$ being the upper 
-margin\index{margin!upper}, $L$ being the lower margin\index{margin!lower}, 
-and $P_{h}$ and $B_{h}$ being the 
-\emph{height} of the page\index{page!height} and 
-typeblock\index{typeblock!height}, respectively, 
-the results are shown in \tref{tab:ulmargins}.
-The \cmd{\setulmargins} command maintains the relationship
+  {조판 영역이 주어져 있을 때 상단 및 하단 여백을 설정한다.}
+%  {Sets the upper and lower margins with the current typeblock height.}
+%The command \cmd{\setulmargins} can be used to 
+%specify\index{margin!specifying size}
+%the upper and lower margins\footnote{Only the upper margin is noted in
+%\fref{fig:oddstock} and~\ref{fig:evenstock}; 
+%the lower margin\index{margin!lower} is the distance between the bottom
+%of the typeblock\index{typeblock} and the bottom of the page.} 
+%where the heights of the page\index{page!height} and the 
+%typeblock\index{typeblock!height} are 
+%fixed. This is similar to \cmd{\setlrmargins}. Using a slightly 
+%different notation this time, with $U$ being the upper 
+%margin\index{margin!upper}, $L$ being the lower margin\index{margin!lower}, 
+%and $P_{h}$ and $B_{h}$ being the 
+%\emph{height} of the page\index{page!height} and 
+%typeblock\index{typeblock!height}, respectively, 
+%the results are shown in \tref{tab:ulmargins}.
+%The \cmd{\setulmargins} command maintains the relationship
+\cmd{\setulmargins} 명령은 페이지의 높이와 조판 영역의 높이가 고정되어 있을 때
+상단 여백과 하단 여백을 설정하는 데 사용한다.\footnote{\fref{fig:oddstock}\과
+\ref{fig:evenstock}에는 상단 여백만이 표시되어 있다. 하단 여백은 조판 영역의
+아래쪽 끝에서 페이지의 바닥까지의 길이이다.}\tidx{margin!specifying size,margin!lower,typeblock,page!height,typeblock!height,여백!크기 설정,여백!하단,조판 영역,페이지!높이,조판 영역!높이}
+이것은 \cmd{\setlrmargins}와 비슷하다. 이번에는 살짝 다른 부호를 이용하여
+$U$가 상단 여백, $L$이 하단 여백, $P_h$와 $B_h$를 각각 페이지와 조판 영역의 \emph{높이}라고 하자. 결과는 \tref{tab:ulmargins}에 나타내었다.
+\cmd{\setulmargins} 명령은 다음 관계식을 만족한다.
 \begin{displaymath}
 U + L = K_{h}  = \textrm{constant} \mbox{\space} (= P_{h} - B_{h}).
 \end{displaymath}
 
-    Note that in terms of the traditional \ltx\ parameters memoir's 
-\lnc{\uppermargin} is (\lnc{\topmargin} + \lnc{\headheight} + \lnc{\headsep}).
+%    Note that in terms of the traditional \ltx\ parameters memoir's 
+%\lnc{\uppermargin} is (\lnc{\topmargin} + \lnc{\headheight} + \lnc{\headsep}).
+종래 \ltx 의 파라미터 용어로 하자면 memoir의 \lnc{\uppermargin}은 
+(\lnc{\topmargin} + \lnc{\headheight} + \lnc{\headsep})이다.
 
 \begin{table}
 \centering
-\caption{Arguments and results for \cs{setulmargins} } \label{tab:ulmargins}
+%\caption{Arguments and results for \cs{setulmargins} } 
+\caption{\cs{setulmargins}의 인자와 그 결과}
+\label{tab:ulmargins}
 %\begin{tabular}{ccc|l} \hline
 \begin{tabular}{cccl} \toprule
 \meta{upper} & \meta{lower} & \meta{ratio} & Result \\ \midrule
@@ -904,25 +1223,33 @@ U + L = K_{h}  = \textrm{constant} \mbox{\space} (= P_{h} - B_{h}).
 \end{syntax}
 \glossary(setulmarginsandblock)%
   {\cs{setulmarginsandblock}\marg{upper}\marg{lower}\marg{ratio}}%
-  {Sets the upper and lower margins, modifying the typeblock height to match.}
-The command \cmd{\setulmarginsandblock}
-can be used to specify\index{margin!specifying size} 
-the upper\index{margin!upper} and lower margins\index{margin!lower}, 
-where the page height\index{page!height}
-is fixed and the height of the typeblock\index{typeblock!height} 
-depends on the margins. Results
-for this command are given in \tref{tab:ulblock}. The same notation is used,
-but in this case \cmd{\setulmarginsandblock} maintains the
-relationship 
+  {상단 여백과 하단 여백을 설정하여 조판 영역의 높이가 수정되도록 한다.}
+%  {Sets the upper and lower margins, modifying the typeblock height to match.}
+%The command \cmd{\setulmarginsandblock}
+%can be used to specify\index{margin!specifying size} 
+%the upper\index{margin!upper} and lower margins\index{margin!lower}, 
+%where the page height\index{page!height}
+%is fixed and the height of the typeblock\index{typeblock!height} 
+%depends on the margins. Results
+%for this command are given in \tref{tab:ulblock}. The same notation is used,
+%but in this case \cmd{\setulmarginsandblock} maintains the
+%relationship 
+\cmd{\setulmarginsandblock} 명령은 페이지의 높이가 고정되어 있고 조판 영역의
+높이는 여백 길이에 따라 달라지는 경우에 상단 여백과 하단 여백을 설정하는 데 사용한다.\tidx{margin!specifying size,margin!upper,margin!lower,page!height,여백!크기 설정,여백!상단,여백!하단,페이지!높이,조판 영역!높이}
+이 명령의 결과는 \tref{tab:ulblock}에 나타내었다. 같은 부호를 사용하여
+이 경우를 나타내면 \cmd{\setulmarginsandblock} 명령은 다음 관계식을 만족한다.
 \begin{displaymath}
 U + B_{h} + L = \textrm{constant} \mbox{\space} (P_{h}).
 \end{displaymath}
-The height of the typeblock\index{typeblock!specifying size} 
-is calculated from $B_{h} = P_{h} - U - L$.
+%The height of the typeblock\index{typeblock!specifying size} 
+%is calculated from $B_{h} = P_{h} - U - L$.
+조판 영역의 높이는 $B_h = P_h - U - L$로 계산된다.\tidx{typeblock!specifying size,조판 영역!크기 설정}
 
 \begin{table}
 \centering
-\caption{Arguments and results for \cs{setulmarginsandblock} } \label{tab:ulblock}
+%\caption{Arguments and results for \cs{setulmarginsandblock} } 
+\caption{\cs{setulmarginsandblock}의 인자와 그 결과}
+\label{tab:ulblock}
 %\begin{tabular}{ccc|l} \hline
 \begin{tabular}{cccl} \toprule
 \meta{upper} & \meta{lower} & \meta{ratio} & Result \\ \midrule
@@ -939,7 +1266,8 @@ is calculated from $B_{h} = P_{h} - U - L$.
 \end{table}
 
 \begin{note}
-  Readers may find several folio designs in \cite{MEMDESIGN}.
+%  Readers may find several folio designs in \cite{MEMDESIGN}.
+여백 면주 디자인의 몇 가지 예를 \cite{MEMDESIGN}에서 찾아볼 수 있다.
 \end{note}
 
 
@@ -951,73 +1279,107 @@ is calculated from $B_{h} = P_{h} - U - L$.
 \end{syntax}
 \glossary(setcolsepandrule)%
   {\cs{setcolsepandrule}\marg{colsep}\marg{thickness}}%
-  {Sets the width of the gutter and the thickness of the rule in the gutter.}
+  {단 사이 간격의 크기와 단 사이 공백에 그리는 괘선의 두께를 설정한다.}
+%  {Sets the width of the gutter and the thickness of the rule in the gutter.}
 \glossary(columnsep)%
   {\ls{columnsep}}%
-  {Width of the gutter between columns.}
+  {단 사이 간격}
+%  {Width of the gutter between columns.}
 \glossary(columnseprule)%
   {\ls{columnseprule}}%
- {Thickness of the rule in the gutter.}
-    For twocolumn\index{column!double} text the width of 
-the gutter\index{gutter}
-between the columns must be specified. \ltx\ also lets you draw a 
-vertical rule in the middle of the 
-gutter. The macro \cmd{\setcolsepandrule} 
-sets the gutter width\index{gutter!width}, \lnc{\columnsep}, to \meta{colsep} 
-and the thickness of the rule, \lnc{\columnseprule}, 
-to \meta{thickness}. A \meta{thickness} of 0pt means that the rule will be
-invisible. Visible rules usually have a thickness\index{rule!thickness} 
-of about 0.4pt. The total width of the twocolumns\index{column!double} 
-of text and the gutter equals the width of the typeblock\index{typeblock}.
+  {단 사이 괘선의 두께}
+% {Thickness of the rule in the gutter.}
+%    For twocolumn\index{column!double} text the width of 
+%the gutter\index{gutter}
+%between the columns must be specified. \ltx\ also lets you draw a 
+%vertical rule in the middle of the 
+%gutter. The macro \cmd{\setcolsepandrule} 
+%sets the gutter width\index{gutter!width}, \lnc{\columnsep}, to \meta{colsep} 
+%and the thickness of the rule, \lnc{\columnseprule}, 
+%to \meta{thickness}. A \meta{thickness} of 0pt means that the rule will be
+%invisible. Visible rules usually have a thickness\index{rule!thickness} 
+%of about 0.4pt. The total width of the twocolumns\index{column!double} 
+%of text and the gutter equals the width of the typeblock\index{typeblock}.
+이단 조판에서 단 사이 간격을 지정해야 한다. \ltx 에서도 단 사이 중앙에
+수직 괘선을 그을 수 있다. \cmd{\setcolsepandrule} 매크로는
+단 사이 간격의 크기 \lnc{\columnsep}을 \meta{colsep}으로 설정하고
+괘선의 두께 \lnc{\columnseprule}을 \meta{thickness}로 설정한다.
+\meta{thickness}가 0pt이면 선은 표시되지 않는다.\tidx{column!double,gutter,gutter!width,rule!thickness,다단!이단,단 사이 간격,괘선!두께}
+괘선이 보이게 할 때 보통 사용하는 두께는 0.4pt 정도이다.
+이단 문서의 총 너비(조판 영역 너비)는 각 단의 본문 너비에 단 사이 간격을
+더한 것과 같다.\tidx{typeblock,조판 영역}
 
-    This completes the methods for specifying the layout of the
-main elements of the page --- the page\index{page!specifying size} 
-size, the size of the typeblock\index{typeblock!specifying size} and the 
-margins\index{margin!specifying size} 
-surrounding the typeblock\index{typeblock!location}. 
+%    This completes the methods for specifying the layout of the
+%main elements of the page --- the page\index{page!specifying size} 
+%size, the size of the typeblock\index{typeblock!specifying size} and the 
+%margins\index{margin!specifying size} 
+%surrounding the typeblock\index{typeblock!location}. 
+이리하여 페이지의 주요 부분 즉,
+페이지 크기, 조판 영역의 크기, 조판 영역을 둘러싸는 여백의 크기에 해당하는 레이아웃 설정 방법을 모두 알았다.\tidx{page!specifying size,typeblock!specifying size,margin!specifying size,typeblock!location,페이지!크기 설정,조판 영역!크기 설정,여백!크기 설정,조판 영역!위치}
 
-\section{Headers, footers and marginal notes}
+%\section{Headers, footers and marginal notes}
+\section{상단, 하단, 여백에 들어가는 요소}
 \label{sec:head-foot-marg}
 \index{header|(}\index{footer|(}
 
-    A page may have two additional items, and usually has at least one of 
-these. They are the running header and running footer. If the page has a 
-folio\index{folio} then it is located either in the header or in the footer. 
-The word `in' is used rather lightly here as the folio\index{folio}
-may not be actually \emph{in} the header or footer but is always located 
-at some constant relative position. A common position for the 
-folio\index{folio} is towards the \foredge\index{foredge?\foredge}\index{margin!outer} of the 
-page, either in the header or the footer. This makes it easy to spot when 
-thumbing through the book. It may be placed at the center of the footer, 
-but unless you want to really annoy the reader do not place it near
-the spine.
+%    A page may have two additional items, and usually has at least one of 
+%these. They are the running header and running footer. If the page has a 
+%folio\index{folio} then it is located either in the header or in the footer. 
+%The word `in' is used rather lightly here as the folio\index{folio}
+%may not be actually \emph{in} the header or footer but is always located 
+%at some constant relative position. A common position for the 
+%folio\index{folio} is towards the \foredge\index{foredge?\foredge}\index{margin!outer} of the 
+%page, either in the header or the footer. This makes it easy to spot when 
+%thumbing through the book. It may be placed at the center of the footer, 
+%but unless you want to really annoy the reader do not place it near
+%the spine.
+페이지에는 두 가지 요소가 더 있는데 적어도 둘 중 하나는 있다. 상단 면주와
+하단 면주가 그것이다. 페이지에 페이지 번호(폴리오)가 붙는다면 상단 면주나
+하단 면주에 위치한다. 물론 페이지 번호가 상단이나 하단에 오지 않는 경우도
+있기야 하지만 어쨌든 페이지의 상대적으로 일관된 위치에 놓여야 한다.
+페이지 번호를 두는 보편적인 위치는 상단이나 하단의 바깥쪽 여백에 가까이 두는 것이다. 그래야 책을 대강 훑어볼 때 쉽게 위치를 가늠할 수 있게 된다.
+하단의 중앙에 두는 경우도 있는데, 독자를 학대할 의도가 아니라면 
+안쪽 여백 가까이에 두지는 말하야 한다.\tidx{folio,foredge?\foredge,margin!outer,폴리오, 페이지 번호,바깥쪽 여백}
 
-    Often a page header contains the current chapter title, with perhaps a 
-section title on the opposite header, as aids to the reader in navigating 
-around the book. Some books put the book title into one of the headers, 
-usually the verso one, but I see 
-little point in that as presumably the reader knows which particular book he
-is reading, and the space would be better used providing more useful signposts.
+%    Often a page header contains the current chapter title, with perhaps a 
+%section title on the opposite header, as aids to the reader in navigating 
+%around the book. Some books put the book title into one of the headers, 
+%usually the verso one, but I see 
+%little point in that as presumably the reader knows which particular book he
+%is reading, and the space would be better used providing more useful signposts.
+대개 페이지 상단에는 왼쪽에 장 제목, 반대편에 절 제목을 두어서 독자가
+책을 훑어보는 것이 가능하게 하고 있다. 어떤 책에는 책 자체의 제목을
+(주로 왼쪽) 상단에 두는 경우도 있는데 필자가 생각하기에 독자는 이미
+자기가 읽는 책 제목 정도는 알고 있을 것으로 봐도 될 터이므로 책 제목을 거기에 두는 게
+무슨 의미가 있나 싶다. 차라리 좀더 유용한 정보를 제공하는 자리로 쓰는 게
+공간을 낭비하지 않는 일일 것이다.
 
 \index{header!specifying size|(}
+\index{상단!크기 설정}
 
 \begin{syntax}
 \cmd{\setheadfoot}\marg{headheight}\marg{footskip} \\
 \end{syntax}
 \glossary(setheadfoot)%
   {\cs{setheadfoot}\marg{headheight}\marg{footskip}}%
-  {Sets the headheight and footskip.}
+  {상단 하단 영역을 설정한다.}
+%  {Sets the headheight and footskip.}
 \glossary(headheight)%
   {\ls{headheight}}%
-  {Height available for a header.}
+  {상단 영역의 높이}
+%  {Height available for a header.}
 \glossary(footskip)%
   {\ls{footskip}}%
-  {Distance between the bottom of the typeblock and the bottom of a footer.}
-The \cmd{\setheadfoot} macro sets the
-\lnc{\headheight} parameter to the value \meta{headheight} and the
-\lnc{\footskip} parameter to \meta{footskip}. It is usual to set the
-\lnc{\headheight} to at least the value of the \lnc{\baselineskip} of
-the normal body font.
+  {조판 영역의 아래끝과 하단 면주 영역의 아래끝 사이의 간격}
+%  {Distance between the bottom of the typeblock and the bottom of a footer.}
+%The \cmd{\setheadfoot} macro sets the
+%\lnc{\headheight} parameter to the value \meta{headheight} and the
+%\lnc{\footskip} parameter to \meta{footskip}. It is usual to set the
+%\lnc{\headheight} to at least the value of the \lnc{\baselineskip} of
+%the normal body font.
+\cmd{\setheadfoot} 매크로는 \lnc{\headheight} 파라미터를 \meta{headheight} 값으로 설정하고 \lnc{\footskip} 파라미터를
+\meta{footskip} 값으로 설정한다. 일반적으로 \lnc{\headheight}는
+최소한 본문 기본 폰트의 \lnc{\baselineskip} 값을 가지도록 한다.
 
 
 \begin{syntax}
@@ -1025,27 +1387,39 @@ the normal body font.
 \end{syntax}
 \glossary(setheaderspaces)%
   {\cs{setheaderspaces}\marg{headdrop}\marg{headsep}\marg{ratio}}%
-  {Sets the spacing above and below a header.}
+  {상단 영역의 위 아래 간격 설정}
+%  {Sets the spacing above and below a header.}
 \glossary(headsep)%
   {\ls{headsep}}%
-  {Distance between the bottom of a header and the top of the typeblock.}
+  {상단 영역의 아래끝과 조판 영역 위끝 사이의 간격}
+%  {Distance between the bottom of a header and the top of the typeblock.}
 \glossary(headdrop)%
   {\ls{headdrop}}%
-  {Distance between the top of the trimmed page and the top of a header.}
-The command \cmd{\setheaderspaces} is similar to \cmd{\setulmargins}.
-Using the notation $U$ for the upper margin\index{margin!upper} (as before), $H_{h}$ for the
-\lnc{\headheight}, $H_{s}$ for the \lnc{\headsep} and $D$ for the
-\lnc{\headdrop}, where the \lnc{\headdrop} is the distance between the top
-of the trimmed page and the top of the header\footnote{The head drop is not
-shown in \fref{fig:oddstock} or~\ref{fig:evenstock}.}, 
-then the macro \cmd{\setheaderspaces} maintains the relationship
+  {트리밍된 페이지의 위끝과 상단 영역의 위끝 사이의 간격}
+%  {Distance between the top of the trimmed page and the top of a header.}
+%The command \cmd{\setheaderspaces} is similar to \cmd{\setulmargins}.
+%Using the notation $U$ for the upper margin\index{margin!upper} (as before), $H_{h}$ for the
+%\lnc{\headheight}, $H_{s}$ for the \lnc{\headsep} and $D$ for the
+%\lnc{\headdrop}, where the \lnc{\headdrop} is the distance between the top
+%of the trimmed page and the top of the header\footnote{The head drop is not
+%shown in \fref{fig:oddstock} or~\ref{fig:evenstock}.}, 
+%then the macro \cmd{\setheaderspaces} maintains the relationship
+\cmd{\setheaderspaces} 명령은 \cmd{\setulmargins}와 유사하다.
+$U$가 상단 여백을 나타내는 부호이고 $H_h$를 \lnc{\headheight},
+$H_s$를 \lnc{\headsep}, $D$를 \lnc{\headdrop}이라고 하자.
+여기서 \lnc{\headdrop}이란 트리밍된 페이지의 윗쪽 끝에서 상단 영역의
+위쪽 끝까지의 길이를 가리킨다.\footnote{head drop은 \fref{fig:oddstock}이나
+\ref{fig:evenstock}에 표시되지 않았다.}
+그러면 \cmd{\setheaderspaces} 매크로는 다음 관계를 충족한다.
 \begin{displaymath}
 D + H_{s} = C_{h}  = \textrm{constant} \mbox{\space} (= U - H_{h}).
 \end{displaymath}
 
 \begin{table}
 \centering
-\caption{Arguments and results for \cs{setheaderspaces} } \label{tab:headspaces}
+%\caption{Arguments and results for \cs{setheaderspaces} } 
+\caption{\cs{setheaderspaces}의 인자와 그 결과}
+\label{tab:headspaces}
 %\begin{tabular}{ccc|l} \hline
 \begin{tabular}{cccl} \toprule
 \meta{headdrop} & \meta{headsep} & \meta{ratio} & Result \\ \midrule
@@ -1061,21 +1435,31 @@ D + H_{s} = C_{h}  = \textrm{constant} \mbox{\space} (= U - H_{h}).
 \end{tabular}
 \end{table}
 
-The macro \cmd{\setheaderspaces} is for specifying the spacing above and below
-the page header.
-The possible arguments and results are shown in \tref{tab:headspaces}. Typically,
-the \lnc{\headsep} is of more interest than the \lnc{\headdrop}.
+%The macro \cmd{\setheaderspaces} is for specifying the spacing above and below
+%the page header.
+%The possible arguments and results are shown in \tref{tab:headspaces}. Typically,
+%the \lnc{\headsep} is of more interest than the \lnc{\headdrop}.
+\cmd{\setheaderspaces} 매크로는 페이지 상단의 아래 위 간격을 설정하는 데
+사용한다. 줄 수 있는 인자와 그 효과에 대해서 \tref{tab:headspaces}에
+나타내었다. 대체로 \lnc{\headsep}이 \lnc{\headdrop}보다
+더 중요하다.
 
 \index{header!specifying size|)}
 \index{footer|)}\index{header|)}
+\tidx{상단!크기 설정,하단,여백 문단}
 
 \index{marginalia|(}
-   Finally, some works have marginal notes. These really come last in the 
-design scheme, providing the margins have been made big enough to accomodate 
-them. Figure~\ref{fig:evenstock} shows the marginal note parameters on a verso
-page, and also illustrates that some parameters control different 
-positions on the stock\index{stock}.
-
+%   Finally, some works have marginal notes. These really come last in the 
+%design scheme, providing the margins have been made big enough to accomodate 
+%them. Figure~\ref{fig:evenstock} shows the marginal note parameters on a verso
+%page, and also illustrates that some parameters control different 
+%positions on the stock\index{stock}.
+마지막으로 여백 문단에 대하여 해야 할 일이 있다.
+이 작업은 레이아웃 설정의 맨 마지막 단계에 와서,
+여백에 문단을 넣기에 충분할 만큼의 공간을 확보하고서 해야 한다.
+그림~\ref{fig:evenstock}\는 여백 문단의 파라미터를 짝수면에 대해
+보여주고 있으며 용지 상의 위치를 제어할 수 있는 몇 가지 파라미터를 그림으로
+알려준다.\tidx{stock,용지}
 
 
 \begin{syntax}
@@ -1083,41 +1467,57 @@ positions on the stock\index{stock}.
 \end{syntax}
 \glossary(setmarginnotes)%
   {\cs{setmarginnotes}\marg{separation}\marg{width}\marg{push}}%
-  {Sets the length parameters for marginal notes.}
+  {여백 문단의 길이 파라미터를 설정한다.}
+%  {Sets the length parameters for marginal notes.}
 \glossary(marginparsep)%
   {\ls{marginparsep}}%
-  {Horizontal distance between the edge of the typeblock and a marginal note.}
+  {조판 영역의 끝에서 여백 문단까지의 수평 길이}
+%  {Horizontal distance between the edge of the typeblock and a marginal note.}
 \glossary(marginparwidth)%
   {\ls{marginparwidth}}%
-  {Maximum width of marginal note.}
+  {여백 문단 너비의 최대치}
+%  {Maximum width of marginal note.}
 \glossary(marginparpush)%
   {\ls{marginparpush}}%
-  {Minimum vertical distance between marginal notes.}
+  {여백 문단 상호간 거리 최소치}
+%  {Minimum vertical distance between marginal notes.}
 
-The command \cmd{\setmarginnotes}
-sets the parameters for marginal notes. The distance \lnc{\marginparsep} 
-between the typeblock\index{typeblock} and any note is set 
-to \meta{separation}, the 
-maximum width for a note, \lnc{\marginparwidth}, is set to \meta{width}
-and the minimum vertical distance between notes, \lnc{\marginparpush},
-is set to \meta{push}.
+%The command \cmd{\setmarginnotes}
+%sets the parameters for marginal notes. The distance \lnc{\marginparsep} 
+%between the typeblock\index{typeblock} and any note is set 
+%to \meta{separation}, the 
+%maximum width for a note, \lnc{\marginparwidth}, is set to \meta{width}
+%and the minimum vertical distance between notes, \lnc{\marginparpush},
+%is set to \meta{push}.
+\cmd{\setmarginnotes} 명령은 여백 문단의 파라미터를 설정한다.
+조판 영역에서 여백 문단까지의 거리 \lnc{\marginparsep}를 \meta{separation}
+값으로 설정하고 여백 문단의 최대 너비 \lnc{\marginparwidth}를 
+\meta{width} 값으로 설정하고 여백 문단 서로 간의 거리 최소값 \lnc{\marginparpush}를 \meta{push} 값으로 설정한다.
 
 \begin{note}
-  As of \theclass\ v3.6k, we have added an auto adjustment feature for
-  \lnc{\marginparwidth}, such that unless \cmd{\setmarginnotes} have
-  been used to make a specific choice, the \lnc{\marginparwidth} is
-  chosen according to the algorithm described in
-  Section~\ref{sec:auto-csmarg}. The algorithm relies on
-  \cmd{\marginparmargin} (if used) being set \emph{before}
-  \cmd{\checkandfixthelayout}.
+%  As of \theclass\ v3.6k, we have added an auto adjustment feature for
+%  \lnc{\marginparwidth}, such that unless \cmd{\setmarginnotes} have
+%  been used to make a specific choice, the \lnc{\marginparwidth} is
+%  chosen according to the algorithm described in
+%  Section~\ref{sec:auto-csmarg}. The algorithm relies on
+%  \cmd{\marginparmargin} (if used) being set \emph{before}
+%  \cmd{\checkandfixthelayout}.
+\theclass\ v3.6k 버전에서 \lnc{\marginparwidth} 값의
+자동 설정 기능을 추가하였다. 그래서 \cmd{\setmarginnotes}를
+사용하여 특정한 값을 지정하지 않으면 \cmd{\marginparwidth}는
+\ref{sec:auto-csmarg} 절에서 기술하는 알고리즘에 따라 설정된다.
+이 알고리즘은 \cmd{\marginparmargin}이 (사용된다면) \cmd{\checkandfixthelayout}
+\emph{이전에} 와야만 동작한다.
 
-  We may add other auto adjusting features to future \theclass\ releases.
+%  We may add other auto adjusting features to future \theclass\ releases.
+\theclass 의 이후 버전에서 더 많은 자동 조정 기능을 추가할 것이다.
 \end{note}
 
 \index{marginalia|)} %|
 
 
-\section{Other}
+%\section{Other}
+\section{기타}
 \label{sec:other}
 
 
@@ -1129,102 +1529,148 @@ is set to \meta{push}.
 % {Sets \cs{skip}\cs{footins} and its minipage counterpart.}
 
 \noindent
-When footnotes are added to the text block they are added
-\cs{skip}\cs{footins} below the text. Since this is a skip it usually
-needs special syntax to change it. Instead we have provided an
-interface to set it.\footnote{This interface also sets the equivalent
-  lengths used when \cs{twocolumnfootnotes} and friends are being
-  used.} The default sizes are \cs{bigskipamount}.
+%When footnotes are added to the text block they are added
+%\cs{skip}\cs{footins} below the text. Since this is a skip it usually
+%needs special syntax to change it. Instead we have provided an
+%interface to set it.\footnote{This interface also sets the equivalent
+%  lengths used when \cs{twocolumnfootnotes} and friends are being
+%  used.} The default sizes are \cs{bigskipamount}.
+각주가 조판 영역에 놓일 때는 \cs{skip}\cs{footins} 만큼의 거리를 본문에
+추가한다. 이것은 skip이기 때문에 이를 바꾸려면 특별한 문법이 필요하다.
+이 값을 설정할 수 있는 명령을 제공한다.\footnote{이 명령은 \cs{twocolumnfootnotes}나 그 유사한 명령이 사용될 때 해당하는 값들도
+함께 변경한다.}
+기본값은 \cs{bigskipamount}이다.
 
 
 
 
-\section{Putting it together}
+%\section{Putting it together}
+\section{종합}
 
-    The page layout parameters\index{page layout!class parameters} 
-just discussed are not always the same
-as those that are expected by \ltx, or by \ltx\ packages. The parameters
-that \ltx\ expects are shown in \fref{fig:anoddpage}. You can either use
-the class commands for changing the page layout or change the \ltx\ 
-parameters\index{page layout!LaTeX parameters?\ltx\ parameters}
-directly using either \cmd{\setlength} or \cmd{\addtolength} applied to the
-parameter(s) to be modified. If you choose the latter route, those class 
-parameters which differ from the standard \ltx\ parameters will \emph{not} be
-modified. 
+%    The page layout parameters\index{page layout!class parameters} 
+%just discussed are not always the same
+%as those that are expected by \ltx, or by \ltx\ packages. The parameters
+%that \ltx\ expects are shown in \fref{fig:anoddpage}. You can either use
+%the class commands for changing the page layout or change the \ltx\ 
+%parameters\index{page layout!LaTeX parameters?\ltx\ parameters}
+%directly using either \cmd{\setlength} or \cmd{\addtolength} applied to the
+%parameter(s) to be modified. If you choose the latter route, those class 
+%parameters which differ from the standard \ltx\ parameters will \emph{not} be
+%modified. 
+지금까지 논의한 페이지 레이아웃 파라미터들은 \ltx 이나 \ltx\ 패키지에서
+활용하는 것과 똑같지 않다. \ltx 가 요청하는 파라미터는 \fref{fig:anoddpage}에서
+보였다. 페이지 레이아웃을 바꾸려면 이 클래스의 명령을 사용하든가 아니면 
+바꾸고자 하는 \ltx\ 
+파라미터에 직접 \cmd{\setlength}나 \cmd{\addtolength}를 적용하여
+수정할 수 있다. 두 번째 방법을 적용하는 경우에 표준 \ltx\ 파라미터와
+다른 이 클래스의 파라미터는 수정되지 \emph{않는다}.\tidx{page layout!class parameters,페이지 레이아웃!memoir의 파라미터,page layout!LaTeX parameters?\ltx\ parameters,페이지 레이아웃!LaTeX의 파라미터}
 
-    The general process of setting up your own page layout\index{page layout} 
-is along these lines:
+%    The general process of setting up your own page layout\index{page layout} 
+%is along these lines:
+자신만의 페이지 레이아웃을 작성하는 일반적 과정은 다음 절차를 따른다.\tidx{page layout,페이지 레이아웃}
 \begin{itemize}
-\item Decide on the required finished page\indextwo{page}{size} size,
-  and pick a stock\indextwo{stock}{size} size that is at least as
-  large as the page.
-\item If needed, use \cmd{\setstocksize}\index{stock!specifying size}
-  to set the values of \lnc{\stockheight} and \lnc{\stockwidth},
-  followed by \cmd{\settrimmedsize} to specify the values\ of
-  \lnc{\paperheight} and \lnc{\paperwidth}.
+%\item Decide on the required finished page\indextwo{page}{size} size,
+%  and pick a stock\indextwo{stock}{size} size that is at least as
+%  large as the page.
+\item 최종 출력 페이지의 크기를 결정하고 그 페이지를 앉힐 수 있는 크기의 용지를 선정한다.\indextwo{page}{size}\indextwo{stock}{size}\indextwo{페이지}{크기}\indextwo{용지}{크기}
+%\item If needed, use \cmd{\setstocksize}\index{stock!specifying size}
+%  to set the values of \lnc{\stockheight} and \lnc{\stockwidth},
+%  followed by \cmd{\settrimmedsize} to specify the values\ of
+%  \lnc{\paperheight} and \lnc{\paperwidth}.
+\item 필요하다면 \cmd{\setstocksize}를 써서 \lnc{\stockheight}와 \lnc{\stockwidth}의 값을 정하고 그 뒤에 \cmd{\settrimmedsize} 명령으로 \lnc{\paperheight}와 \lnc{\paperwidth}의 값을 지정한다.\tidx{stock!specifying size,용지!크기 설정}
   
-  If you use and print on, say, A4, the \texttt{a4paper} class option
-  is enough, no \cmd{\setstocksize} needed.
-\item Decide on the location of the page\index{page!location} with
-  respect to the stock\index{stock}. If the page and
-  stock\index{stock} sizes are the same, then call
-  \verb?\settrims{0pt}{0pt}?.  If they are not the same size then
-  decide on the appropriate values for \lnc{\trimtop} and
-  \lnc{\trimedge} to position the page on the stock\index{stock}, and
-  then set\index{trim!specifying} these through \cmd{\settrims}.
-\item Decide on the size of the typeblock\indextwo{typeblock}{size}
-  and use \cmd{\settypeblocksize}\index{typeblock!specifying size} to
-  specify the values of \lnc{\textheight} and \lnc{\textwidth}.
-\item If you need a binding\index{binding allowance} allowance, now is
-  the time for \cmd{\setbinding}.
-\item Pick the value for the spine margin\index{margin!spine}, and use
-  \cmd{\setlrmargins}\index{margin!specifying size} to set the values
-  for the \lnc{\spinemargin} and \lnc{\foremargin}.
+%  If you use and print on, say, A4, the \texttt{a4paper} class option
+%  is enough, no \cmd{\setstocksize} needed.
+만약 A4를 써서 인쇄하는 경우라면 \texttt{a4paper} 클래스 옵션으로 충분하고 \cmd{\setstocksize} 같은 것은 불필요하다.
 
-  An alternative sequence is to use \cmd{\setlrmarginsandblock} to set
-  the \lnc{\textwidth} for a particular choice of side
-  margins\index{margin}.
+%\item Decide on the location of the page\index{page!location} with
+%  respect to the stock\index{stock}. If the page and
+%  stock\index{stock} sizes are the same, then call
+%  \verb?\settrims{0pt}{0pt}?.  If they are not the same size then
+%  decide on the appropriate values for \lnc{\trimtop} and
+%  \lnc{\trimedge} to position the page on the stock\index{stock}, and
+%  then set\index{trim!specifying} these through \cmd{\settrims}.
+\item 용지에 놓이는 페이지의 위치를 정한다. 페이지와 용지의 크기가 동일하다면
+\verb?\settrims{0pt}{0pt}?를 선언한다. 크기가 같지 않다면 페이지를 용지
+위에 두기 위해서 \lnc{\trimtop}과 \lnc{\trimedge}의 적절한 값을 결정한 다음에
+\cmd{\settrimes} 명령으로 이들을 설정한다.\tidx{page!location,stock,trim!specifying,페이지!위치,용지,트리밍!설정}
+%\item Decide on the size of the typeblock\indextwo{typeblock}{size}
+%  and use \cmd{\settypeblocksize}\index{typeblock!specifying size} to
+%  specify the values of \lnc{\textheight} and \lnc{\textwidth}.
+\item 조판 영역의 크기를 결정하고 \cmd{\settypeblocksize} 명령으로 \lnc{\textheight}와 \lnc{\textwidth}를 설정한다.\tidx{typeblock!specifying size,조판 영역!크기 설정}\indextwo{typeblock}{size}\indextwo{조판 영역}{크기}
+%\item If you need a binding\index{binding allowance} allowance, now is
+%  the time for \cmd{\setbinding}.
+\item 제본 영역이 필요하다면 \cmd{\setbinding} 명령을 여기서 쓴다.\tidx{binding allowance,제본 영역}
+%\item Pick the value for the spine margin\index{margin!spine}, and use
+%  \cmd{\setlrmargins}\index{margin!specifying size} to set the values
+%  for the \lnc{\spinemargin} and \lnc{\foremargin}.
+\item 안쪽 여백 크기를 정하고 \cmd{\setlrmargins} 명령으로 \lnc{\spinemargin}과 \lnc{\foremargin}의 값을 설정한다.
 
-\item Pick the value for the upper margin\index{margin!upper} and use
-  \cmd{\setulmargins} to set the values\index{margin!specifying size}
-  for the \lnc{\uppermargin} and \cmd{\lowermargin}.
+%  An alternative sequence is to use \cmd{\setlrmarginsandblock} to set
+%  the \lnc{\textwidth} for a particular choice of side
+%  margins\index{margin}.
+다른 방법으로 \cmd{\setlrmarginsandblock} 명령을 사용하여 \lnc{\textwidth}의 크기를 양쪽 여백 크기로부터 설정할 수 있다.\tidx{margin,margin!spine,margin!specifying size,여백, 여백!안쪽,여백!크기 설정}
 
-  An alternative sequence is to use \cmd{\setulmarginsandblock} to set
-  the \lnc{\textheight} for a particular choice of upper and lower
-  margins\index{margin}.
+%\item Pick the value for the upper margin\index{margin!upper} and use
+%  \cmd{\setulmargins} to set the values\index{margin!specifying size}
+%  for the \lnc{\uppermargin} and \cmd{\lowermargin}.
+\item 상단 여백의 크기를 정하고 \cmd{\setulmargins} 명령을 써서 \lnc{\uppermargin}과 \lnc{\lowermargin} 값을 설정한다.
 
-  The typeblock is now located\index{typeblock!location} on the page.
+%  An alternative sequence is to use \cmd{\setulmarginsandblock} to set
+%  the \lnc{\textheight} for a particular choice of upper and lower
+%  margins\index{margin}.
+다른 방법으로 \cmd{\setulmarginsandblock} 명령을 이용하여 상단 및 하단
+여백의 크기를 정해줌으로써 \lnc{\textheight}가 계산되게 할 수 있다.\tidx{margin!upper,margin!specifying size,margin,여백,여백!상단,여백!하단,여백!크기 설정,typeblock!location,조판 영역!위치}
 
-\item Pick the values for the \lnc{\headheight} and \lnc{\footskip}
-  and use \cmd{\setheadfoot}\index{header!specifying size} to specify
-  these.
+%  The typeblock is now located\index{typeblock!location} on the page.
+조판 영역은 이제 페이지 위에 앉혀졌다.
 
-\item Pick your value for \cmd{\headskip} and use
-  \cmd{\setheaderspaces} to set this and \lnc{\headmargin}.
+%\item Pick the values for the \lnc{\headheight} and \lnc{\footskip}
+%  and use \cmd{\setheadfoot}\index{header!specifying size} to specify
+%  these.
+\item \lnc{\headheight}와 \lnc{\footskip} 값을 결정하고 \cmd{\setheadfoot} 명령으로 이를 설정한다.\tidx{header!specifying size,상단!크기 설정}
 
-\item If you are going to have any marginal\index{marginalia} notes,
-  use \cmd{\setmarginnotes} to specify the values for
-  \lnc{\marginparsep}, \lnc{\marginparwidth} and \lnc{\marginparpush}.
+%\item Pick your value for \cmd{\headskip} and use
+%  \cmd{\setheaderspaces} to set this and \lnc{\headmargin}.
+\item \cmd{\headskip}의 값을 정하고 \cmd{\setheaderspaces} 명령으로
+이것과 \lnc{\headmargin}을 설정한다.
+
+%\item If you are going to have any marginal\index{marginalia} notes,
+%  use \cmd{\setmarginnotes} to specify the values for
+%  \lnc{\marginparsep}, \lnc{\marginparwidth} and \lnc{\marginparpush}.
+\item 여백 문단을 둘 생각이라면 \cmd{\setmarginnotes} 명령을 사용하여
+\lnc{\marginparsep}, \cmd{\marginparwidth}, \cmd{\marginparpush} 값을
+설정한다.
 
 \end{itemize}
 
-    You can plan and specify your layout in any order that is 
-convenient to you. Each of the page layout commands is independent of the 
-others; also if
-a value is set at one point, say the \lnc{\textwidth}, and is then
-later changed in some way, only the last of the settings is used as the actual
-value.
+%    You can plan and specify your layout in any order that is 
+%convenient to you. Each of the page layout commands is independent of the 
+%others; also if
+%a value is set at one point, say the \lnc{\textwidth}, and is then
+%later changed in some way, only the last of the settings is used as the actual
+%value.
+레이아웃을 설계하고 설정하는 것은 편할 대로 하면 된다. 각 페이지 레이아웃 명령은
+서로에 대하여 독립적이다. 어떤 값이 어디에선가 정해지면, 예컨대 \lnc{\textwidth}라 할 때 이것은 나중에 어떻게든 바꿀 수 있다. 
+마지막에 정해진 값만이 실제로 유효하다.
 
 
-    Comparing \figurerefname s~\ref{fig:oddstock} and~\ref{fig:anoddpage} 
-you can see the different layout\index{page layout!parameters} parameters 
-provided by the class and used by standard
-\ltx. For convenience, and because the figures do not show all
-the parameters, the two sets of parameters are listed in \tref{tab:stockpage}.
+%    Comparing \figurerefname s~\ref{fig:oddstock} and~\ref{fig:anoddpage} 
+%you can see the different layout\index{page layout!parameters} parameters 
+%provided by the class and used by standard
+%\ltx. For convenience, and because the figures do not show all
+%the parameters, the two sets of parameters are listed in \tref{tab:stockpage}.
+\figurerefname~\ref{fig:oddstock}\과 \ref{fig:anoddpage}\를
+비교해보면 이 클래스가 제공하는 파라미터와 표준 \ltx 의 그것이
+다르다는 것을 알 수 있다.\tidx{page layout!parameters,페이지 레이아웃!파라미터}
+편의상 이 그림들이 모든 파라미터를 다 보여주지 않기 때문에 두 종류의
+파라미터를 \tref{tab:stockpage}에 열거하여 두었다.
 
 \begin{table}
 \centering
-\caption{The class and \ltx\ page layout parameters}\label{tab:stockpage}
+%\caption{The class and \ltx\ page layout parameters}
+\caption{이 클래스와 \ltx 의 페이지 레이아웃 파라미터}
+\label{tab:stockpage}
 %\begin{tabular}{ll} \hline
 \begin{tabular}{ll} \toprule
 Class & \ltx\ \\ \midrule
@@ -1255,9 +1701,12 @@ Class & \ltx\ \\ \midrule
 \end{tabular}
 \end{table}
 
-    Unless you are satisfied with the default page layout, after specifying 
-the layout that you want you have to call the \cmd{\checkandfixthelayout}
-command to finally implement your specification.
+%    Unless you are satisfied with the default page layout, after specifying 
+%the layout that you want you have to call the \cmd{\checkandfixthelayout}
+%command to finally implement your specification.
+기본 페이지 레이아웃으로 만족할 수 없으면
+각 레이아웃 값을 원하는 것으로 바꾼 다음에 \cmd{\checkandfixthelayout}
+명령을 실행하여 이 설정값이 최종적으로 유효하게 하라.
 
 \begin{syntax}
 \cmd{\checkandfixthelayout}\oarg{algorithm} \\
@@ -1267,83 +1716,135 @@ command to finally implement your specification.
 \end{syntax}
 \glossary(checkandfixthelayout)%
   {\cs{checkandfixthelayout}\oarg{algorithm}}%
-  {Command to check and implement the page layout specifications, adjusting
-   the \cs{textheight} using \meta{algorithm} 
-   (classic, fixed, lines, or nearest, the default being classic) 
-   for the calculation.}%
+  {페이지 레이아웃 설정값을 검토하고 \meta{algorithm}을
+  적용하여 \cs{textheight}을 조정한다. 그리고 이 값을 유효하게 한다.
+  계산에 쓰이는 \meta{algorithm}은 classic, fixed, lines, nearest 중의 하나이고
+  디폴트는 classic이다.}
+%  {Command to check and implement the page layout specifications, adjusting
+%   the \cs{textheight} using \meta{algorithm} 
+%   (classic, fixed, lines, or nearest, the default being classic) 
+%   for the calculation.}%
 \glossary(checkthelayout)%
   {\cs{checkthelayout}\oarg{algorithm}}%
-  {Command to check the page layout specifications, adjusting
-   the \cs{textheight} using \meta{algorithm} 
-   (classic, fixed, lines, or nearest, the default being classic) 
-   for the calculation.}%
+  {페이지 레이아웃 지정값을 검토하여 \cs{textheight}를
+  조정한다. \meta{algorithm}을 사용하여 계산하는데 
+  classic, fixed, lines, nearest 중 하나이고 디폴트는 classic이다.}
+%  {Command to check the page layout specifications, adjusting
+%   the \cs{textheight} using \meta{algorithm} 
+%   (classic, fixed, lines, or nearest, the default being classic) 
+%   for the calculation.}%
 \glossary(topskip)%
   {\ls{topskip}}%
-  {The height of the first line of text on a page. This is usually
-   less than the \cs{baselineskip}.}
+  {페이지 상의 텍스트 첫 줄의 높이. \cs{baselineskip}보다
+  대개 작은 값이다.}
+%  {The height of the first line of text on a page. This is usually
+%   less than the \cs{baselineskip}.}
 \glossary(baselineskip)%
   {\ls{baselineskip}}%
-  {The normal vertical distance between the baselines of adjacent lines 
-   of text (depends on the size of the font).}
+  {인접한 텍스트의 글줄의 baseline 사이의 기본 수직 간격. 폰트의 크기에
+  따라 달라진다.}
+%  {The normal vertical distance between the baselines of adjacent lines 
+%   of text (depends on the size of the font).}
 
-    The \cmd{\checkandfixthelayout} macro uses 
-\cmd{\checkthelayout} to
-check the page layout specification you have given, and then calls
-\cmd{\fixthelayout} to finally implement it.
+%    The \cmd{\checkandfixthelayout} macro uses 
+%\cmd{\checkthelayout} to
+%check the page layout specification you have given, and then calls
+%\cmd{\fixthelayout} to finally implement it.
+\cmd{\checkandfixthelayout} 매크로는 \cmd{\checkthelayout}을
+이용하여 페이지 레이아웃 설정값을 검토한다. 그런 다음에 최종적으로
+\cmd{\fixthelayout}을 불러서 그 값이 유효하게 만든다.
 
-The \cmd{\checkthelayout} macro checks the class layout 
-parameters\index{page layout!check parameters} to see whether  
-they have `sensible' values (e.g., the \lnc{\textwidth} is not negative)
-and, depending on the \meta{algorithm} argument, it may modify the 
-\lnc{\textheight}. It does not actually implement the layout.
+%The \cmd{\checkthelayout} macro checks the class layout 
+%parameters\index{page layout!check parameters} to see whether  
+%they have `sensible' values (e.g., the \lnc{\textwidth} is not negative)
+%and, depending on the \meta{algorithm} argument, it may modify the 
+%\lnc{\textheight}. It does not actually implement the layout.
+\cmd{\checkthelayout} 매크로는 이 클래스의 레이아웃 파라미터로
+주어진 값이 “유의미한” 값인지 (예를 들면 \lnc{\textwidth}가 음수는 아닌지)
+검사한다. 그리고 \meta{algorithm} 인자에 지정한 방식으로
+\lnc{\textheight}를 수정한다. 실제로 레이아웃 값을 바꾸지는 않는다.\tidx{page layout!check parameters,페이지 레이아웃!설정값 검토}
 
-   When using \cmd{\flushbottom} \ltx\ expects that the \lnc{\textheight} 
-is such that an integral number of text lines in the body font will fit
-exactly into the height. If not, then it issues `underfull vbox' messages.
-More precisely, if  $b$ is the \lnc{\baselineskip} and $t$ is the 
-\lnc{\topskip}, $N$ is an integer (the number of lines in the typeblock), 
-and $T$ is the
-\lnc{\textheight} then to avoid underfull vboxes the following relationship
-must hold
+%   When using \cmd{\flushbottom} \ltx\ expects that the \lnc{\textheight} 
+%is such that an integral number of text lines in the body font will fit
+%exactly into the height. If not, then it issues `underfull vbox' messages.
+\cmd{\flushbottom}을 사용할 때 \ltx 는 \lnc{\textheight}가 
+본문 폰트의 글줄 행수의 정수배로서 들어맞을 것을 예상한다.
+만약 그렇지 않으면 “underfull vbox” 메시지를 출력한다.
+%More precisely, if  $b$ is the \lnc{\baselineskip} and $t$ is the 
+%\lnc{\topskip}, $N$ is an integer (the number of lines in the typeblock), 
+%and $T$ is the
+%\lnc{\textheight} then to avoid underfull vboxes the following relationship
+%must hold
+더 정확하게 말하면 $b$가 \lnc{\baselineskip}이고 $t$가 \lnc{\topskip}이고
+$N$이 정수(조판 영역의 행 수)이고 $T$가 \lnc{\textheight}라고 할 때
+underfull vbox를 만나지 않으려면 다음 관계를 만족해야 한다.
 \begin{equation}
 T = (N-1)b + t \label{eq:heightlines}
 \end{equation}
-By default \cmd{\checkthelayout} ensures that the final \lnc{\textheight} 
-meets this criterion. The optional \meta{algorithm} argument lets you control
-just how it does this. In the following $H$ is your requested value for
-the \lnc{\textheight} and the other symbols are as before, with $T$ as
-the adjusted value, and using integer arithmetic.\footnote{In this context 
-`integer arithmetic' means that the result of a division will be rounded down.
-For example $99/10$ in `real arithmetic' results in $9.9$, whereas with
-integer arithmetic the result is 9, not 10.}
-The permissible values for \meta{algorithm} are:
+%By default \cmd{\checkthelayout} ensures that the final \lnc{\textheight} 
+%meets this criterion. The optional \meta{algorithm} argument lets you control
+%just how it does this. 
+기본적으로 \cmd{\checkthelayout}은 최종적인 \lnc{\textheight}가
+이 조건을 만족하도록 만들어준다. 옵션 인자 \meta{algorithm}은
+이 일을 어떻게 하게 할 것인지를 제어할 수 있게 한다.
+%In the following $H$ is your requested value for
+%the \lnc{\textheight} and the other symbols are as before, with $T$ as
+%the adjusted value, and using integer arithmetic.\footnote{In this context 
+%`integer arithmetic' means that the result of a division will be rounded down.
+%For example $99/10$ in `real arithmetic' results in $9.9$, whereas with
+%integer arithmetic the result is 9, not 10.}
+다음에서 $H$는 요청한 \lnc{\textheight} 값이고 다른 기호는 앞서와 같으며,
+$T$는 조정된 값이다. 그리고 정수 연산을 이용한다.\footnote{여기서 “정수 연산”이라는 것은 나눗셈의 결과가 소수점 아래를 버리는 것임을 뜻한다. 예를 들어 $99/10$의
+“실수 연산” 결과는 $9.9$이지만 정수 연산으로 결과는 10이 아니라 9가 된다.}
+%The permissible values for \meta{algorithm} are:
+\meta{algorithm}에 올 수 있는 값은 다음 중 하나이다.
 \begin{itemize}
-\item[\texttt{fixed}] The \lnc{\textheight} is not altered. 
+\item[\texttt{fixed}] 
+%The \lnc{\textheight} is not altered. 
+%\begin{equation} T = H \end{equation}
+%If you use this option you may find that underfull vboxes are reported
+%for \cmd{\flushbottom} pages.
+\lnc{\textheight}를 수정하지 않는다.
 \begin{equation} T = H \end{equation}
-If you use this option you may find that underfull vboxes are reported
-for \cmd{\flushbottom} pages.
-\item[\texttt{classic}] This is the default and is the one used by the standard
-classes. 
+이 옵션을 선택하면 \cmd{\flushbottom} 페이지에서 underfull vbox를
+만나게 될 것이다.
+
+\item[\texttt{classic}] 
+%This is the default and is the one used by the standard
+%classes. 
+기본값이며 표준 클래스에서 사용하는 방식이다.
 \begin{equation} T = b \lfloor H/b \rfloor + t \end{equation}
-The relationship (\ref{eq:heightlines}) is maintained. This algorithm
-gets as close to $H$ as possible from below.
-\item[\texttt{lines}] This is similar to \texttt{classic}, but results in a 
-smaller final value.
+%The relationship (\ref{eq:heightlines}) is maintained. This algorithm
+%gets as close to $H$ as possible from below.
+관계식 (\ref{eq:heightlines})\가 유지된다. 이 알고리즘은 아래 것에 비하여
+가능한 한 $H$에 가까운 값을 얻게 한다.
+\item[\texttt{lines}] 
+%This is similar to \texttt{classic}, but results in a 
+%smaller final value.
+\texttt{classic}과 비슷하지만 결과 값이 조금 적어진다.
 \begin{equation} T = b \lfloor (H-b)/b \rfloor + t \end{equation}
-The relationship (\ref{eq:heightlines}) is maintained.
-\item[\texttt{nearest}] The calculated value is the nearest to the given value
-while still maintaining the relationship (\ref{eq:heightlines}).
+%The relationship (\ref{eq:heightlines}) is maintained.
+관계식 (\ref{eq:heightlines})\는 유지된다.
+\item[\texttt{nearest}] 
+%The calculated value is the nearest to the given value
+%while still maintaining the relationship (\ref{eq:heightlines}).
+관계식 (\ref{eq:heightlines})\를 유지하면서도 최대한 주어진 값에 가까운 값을
+계산한다.
 \begin{equation} 
   T = b \lfloor (H - t + b/2)/b \rfloor +  t 
 \end{equation} 
-In contrast to \texttt{classic}, \texttt{nearest}
-will get as close to $H$ as possible even if this means that $T$ ends
-up being slightly larger than $H$.
+%In contrast to \texttt{classic}, \texttt{nearest}
+%will get as close to $H$ as possible even if this means that $T$ ends
+%up being slightly larger than $H$.
+\texttt{classic}과 비교하자면 \texttt{nearest}는 $T$가 $H$보다 살짝
+커지더라도 가능한 한 $H$ 값에 가까운 결과를 얻게 한다.
 \end{itemize}
 
 \begin{table}
 \centering
-\caption{Results from sample \cs{textheight} adjustments} \label{tab:textht}
+%\caption{Results from sample \cs{textheight} adjustments} 
+\caption{\cs{textheight} 조절의 결과}
+\label{tab:textht}
 \begin{tabular}{ccccc} \toprule
   & \multicolumn{4}{c}{Algorithm} \\ \cmidrule{2-5}
   &  fixed & classic & lines & nearest \\ \cmidrule{2-5}
@@ -1359,37 +1860,51 @@ Requested height & \multicolumn{4}{c}{adjusted height in pts, (lines) } \\
 \end{tabular}
 \end{table}
 
-    Table~\ref{tab:textht} shows the results from the various \lnc{\textheight}
-adjustment calculations\footnote{For comparison the optimum heights from 
-equation \ref{eq:heightlines} for 10, 11 and 12 lines are respectively
-118pt, 130pt and 142pt.} where the \lnc{\baselineskip} is 12pt and 
-the \lnc{\topskip} is 10pt, which are the normal values for a Computer 
-Modern 10pt font.
-In all cases the \texttt{fixed} algorithm resulted in 
-underfull vboxes. If you know the number of lines that you want, say 42,
-then requesting
+%    Table~\ref{tab:textht} shows the results from the various \lnc{\textheight}
+%adjustment calculations\footnote{For comparison the optimum heights from 
+%equation \ref{eq:heightlines} for 10, 11 and 12 lines are respectively
+%118pt, 130pt and 142pt.} where the \lnc{\baselineskip} is 12pt and 
+%the \lnc{\topskip} is 10pt, which are the normal values for a Computer 
+%Modern 10pt font.
+표~\ref{tab:textht}\는 각각의 \lnc{\textheight} 계산의 결과를 보여준다.\footnote{비교를 위하여, 10, 11, 12행에 해당하는 관계식 \ref{eq:heightlines}를 만족하는 적정 높이는 각각 118pt, 130pt, 142pt이다.}
+%In all cases the \texttt{fixed} algorithm resulted in 
+%underfull vboxes. If you know the number of lines that you want, say 42,
+%then requesting
+모든 경우에 \texttt{fixed} 알고리즘은 underfull vbox 결과를 가져온다.
+원하는 행수가 고정되어 있다면, 예를 들어 42행이라 할 때,
 \begin{lcode}
 %% setting equivalent to \setlength{\textheight}{42\baselineskip}
 \checkandfixthelayout[lines]
 \end{lcode}
-will result in the most appropriate \lnc{\textheight}.
+%will result in the most appropriate \lnc{\textheight}.
+이렇게 선언하는 것이 결과적으로 가장 좋은 \lnc{\textheight}를 얻게할 것이다.
 
-    If you use the \Lpack{calc} package you can use constructs like 
-the following in a page layout specification:
+%    If you use the \Lpack{calc} package you can use constructs like 
+%the following in a page layout specification:
+\Lpack{calc} 패키지를 사용한다면 페이지 레이아웃 설정값에서
+다음과 같이 하여 계산해낼 수 있다.
 \begin{lcode}
 \setlength{\textheight}{41\baselineskip + \topskip}
 \settypeblocksize{41\baselineskip + \topskip}{33pc}{*}
 \end{lcode}
 
-    The \cmd{\fixthelayout} macro finally implements the layout,
-making due adjustement for any binding\index{binding allowance} allowance,
-and calculates the values for all the standard \ltx\ layout 
-parameters\index{page layout!LaTeX parameters?\ltx\ parameters} (such
-that packages can use these expected values).
-If you have used the class macros to change
-the layout in any way, you must call \cmd{\checkandfixthelayout} after you have
-made all the necessary changes. As an aid, the final layout parameter values
-are displayed on the terminal and written out to the log file.
+%    The \cmd{\fixthelayout} macro finally implements the layout,
+%making due adjustement for any binding\index{binding allowance} allowance,
+%and calculates the values for all the standard \ltx\ layout 
+%parameters\index{page layout!LaTeX parameters?\ltx\ parameters} (such
+%that packages can use these expected values).
+\cmd{\fixthelayout} 매크로는 최종적으로 레이아웃을 실현한다.
+제본 여백이 필요하면 적절한 수정을 행하고 표준 \ltx\ 레이아웃 
+파라미터의 모든 값을 (다른 패키지가 요구하는 값을
+활용할 수 있도록) 다시 계산한다.\tidx{binding allowance,page layout!LaTeX parameters?\ltx\ parameters,제본 부분,페이지 레이아웃!LaTeX 파라미터}
+%If you have used the class macros to change
+%the layout in any way, you must call \cmd{\checkandfixthelayout} after you have
+%made all the necessary changes. As an aid, the final layout parameter values
+%are displayed on the terminal and written out to the log file.
+어떤 식으로든 레이아웃을 이 클래스의 매크로를 이용하여 바꾸었다면
+필요한 모든 수정이 이루어진 후에 \cmd{\checkandfixthelayout}을 
+불러야 한다. 덤으로 최종 레이아웃 파라미터의 값이 터미널에 표시되며
+로그 파일에 기록된다.
 
 \LMnote{2010/09/17}{added \cs{\settypeoutlayoutunit}}
 \begin{syntax}
@@ -1399,50 +1914,74 @@ are displayed on the terminal and written out to the log file.
 \end{syntax}
 \glossary(settypeoutlayoutunit)%
   {\cs{settypeoutlayoutunit}}%
-  {Allows the user to set the unit in which to typeset the layout
-    listing. Supported units: \texttt{pt}, \texttt{mm}, \texttt{cm},
-    \texttt{in}, \texttt{bp}, \texttt{dd} and \texttt{cc}.}
+  {레이아웃 리스팅을 출력할 때 사용할 단위를 설정할 수 있다. 지원하는 단위는 
+  \texttt{pt}, \texttt{mm}, \texttt{cm},
+    \texttt{in}, \texttt{bp}, \texttt{dd}, \texttt{cc}이다.}
+%  {Allows the user to set the unit in which to typeset the layout
+%    listing. Supported units: \texttt{pt}, \texttt{mm}, \texttt{cm},
+%    \texttt{in}, \texttt{bp}, \texttt{dd} and \texttt{cc}.}
 \glossary(typeoutlayout)%
   {\cs{typeoutlayout}}%
-  {Outputs the current values of the class layout parameters to the 
-   terminal and log file.}
+  {클래스의 레이아웃 파라미터 값을 터미널과 로그파일에 출력한다.}
+%  {Outputs the current values of the class layout parameters to the 
+%   terminal and log file.}
 \glossary(typeoutstandardlayout)%
   {\cs{typeoutstandardlayout}}%
-  {Outputs the current values of the standard \ltx\ layout parameters 
-   to the terminal and log file.}
- \cmd{\typeoutlayout} writes the current class layout
-parameter\index{page layout!class parameters} values to the terminal 
-and the log file. It is called by \cmd{\checkandfixthelayout} but you can 
-use it yourself at any time.
-The macro \cmd{\typeoutstandardlayout} writes the
-standard layout parameter\index{page layout!LaTeX parameters?\ltx\ parameters}
- values to the terminal and log file so that you can
-compare the two sets of parameter values.
+  {표준 \ltx\ 레이아웃 파라미터의 현재값을 터미널과 로그파일에 출력한다.}
+%  {Outputs the current values of the standard \ltx\ layout parameters 
+%   to the terminal and log file.}
+% \cmd{\typeoutlayout} writes the current class layout
+%parameter\index{page layout!class parameters} values to the terminal 
+%and the log file. It is called by \cmd{\checkandfixthelayout} but you can 
+%use it yourself at any time.
+\cmd{\typeoutlayout}은 현재의 이 클래스 레이아웃 파라미터 값을 터미널과 로그 파일로 출력한다. \cmd{\checkandfixthelayout} 명령이 이 매크로롤 호출한다. 그러나 원한다면 어느 때라도 사용할 수 있다.\tidx{page layout!class parameters,페이지 레이아웃!memoir의 파라미터}
+%The macro \cmd{\typeoutstandardlayout} writes the
+%standard layout parameter\index{page layout!LaTeX parameters?\ltx\ parameters}
+% values to the terminal and log file so that you can
+%compare the two sets of parameter values.
+\cmd{\typeoutstandardlayout} 매크로는 표준 레이아웃 파라미터 값을
+터미널과 로그 파일로 출력하여 두 종류의 파라미터 값을 비교할 수 있게 한다.\tidx{page layout!LaTeX parameters?\ltx\ parameters,페이지 레이아웃!LaTeX 파라미터}
 
-By using the macro \cmd{\settypeoutlayoutunit}, the user can change
-the unit in which the layout list is shown. Very handy when designing
-in, say, centimeters. Supported units are \texttt{pt}, \texttt{pc},
-\texttt{mm}, \texttt{cm}, \texttt{in}, \texttt{bp}, \texttt{dd} and
-\texttt{cc}, default being \texttt{pt}, see \tref{tab:units} for more
-information about the units.
+%By using the macro \cmd{\settypeoutlayoutunit}, the user can change
+%the unit in which the layout list is shown. Very handy when designing
+%in, say, centimeters. Supported units are \texttt{pt}, \texttt{pc},
+%\texttt{mm}, \texttt{cm}, \texttt{in}, \texttt{bp}, \texttt{dd} and
+%\texttt{cc}, default being \texttt{pt}, see \tref{tab:units} for more
+%information about the units.
+\cmd{\settypeoutlayoutunit} 매크로를 사용하여 레이아웃 리스트를 출력할 때
+사용할 단위를 바꿀 수 있다. 디자인 단위가 예컨대 센티미터일 경우에 편리하다.
+지원하는 단위는 \texttt{pt}, \texttt{pc},
+\texttt{mm}, \texttt{cm}, \texttt{in}, \texttt{bp}, \texttt{dd},
+\texttt{cc}이고 기본값은 \texttt{pt}이다. 단위에 관하여 자세한 것은 \tref{tab:units}\를 보라.
 
-\section{Side margins}
+%\section{Side margins}
+\section{양면 여백}
 
-    In \Lopt{twoside} printing the spine margin is normally the same on
-both recto and verso pages and, unless the spine and \foredge{} margins are the
-same, the typeblock is shifted side to side when printing the recto and 
-verso pages. Additionally you can have different headers and footers for the
-recto and verso pages. However, in \Lopt{oneside} printing the typeblock 
-is not moved and the headers and footers are the same for both odd and 
-even pages.
+%    In \Lopt{twoside} printing the spine margin is normally the same on
+%both recto and verso pages and, unless the spine and \foredge{} margins are the
+%same, the typeblock is shifted side to side when printing the recto and 
+%verso pages. Additionally you can have different headers and footers for the
+%recto and verso pages. However, in \Lopt{oneside} printing the typeblock 
+%is not moved and the headers and footers are the same for both odd and 
+%even pages.
+\Lopt{twoside} 인쇄에서 안쪽 여백은 보통 짝수면과 홀수면에서 동일하게 설정한다.
+안쪽 여백과 바깥쪽 여백이 같지 않으면 조판 영역은 홀수면과 짝수면의 인쇄시에
+좌우로 왔다갔다한다. 그리고 홀수면과 짝수면에 서로 다른 상단 하단 면주를 가진다.
+그러나 \Lopt{oneside} 인쇄에서 조판 영역은 변화가 없고 상하단 면주도 짝수면과 홀수면에서 모두 동일하다.
 
-    Some documents are designed to have, say, a very wide righthand margin
-in which to put illustrations; this leads to needing the spine margin on
-verso pages to be much larger than the spine margin on recto pages. This
-can be done with the \Lopt{oneside} option. However, different headers
-and footers are required for the recto and verso pages, which can only be
-done with the \Lopt{twoside} option. The way to get the desired effects
-is like this (\Lopt{twoside} is the default class option):
+%    Some documents are designed to have, say, a very wide righthand margin
+%in which to put illustrations; this leads to needing the spine margin on
+%verso pages to be much larger than the spine margin on recto pages. This
+%can be done with the \Lopt{oneside} option. However, different headers
+%and footers are required for the recto and verso pages, which can only be
+%done with the \Lopt{twoside} option. The way to get the desired effects
+%is like this (\Lopt{twoside} is the default class option):
+어떤 문서는 예컨대 오른쪽 여백을 매우 넓게 잡아서 삽화를 놓도록 디자인한다.
+이 경우 짝수면의 안쪽 여백은 홀수면의 안쪽 여백보다 훨씬 커져야 한다.
+이것은 \Lopt{oneside} 옵션으로 가능하다. 그러나 짝수면과 홀수면에
+서로 다른 상하단 면주가 필요하다면 이 때는 \Lopt{twoside} 옵션을
+사용하여야 한다. 원하는 효과를 얻기 위해서는 다음과 같이 한다. (이 클래스의
+디폴트는 \Lopt{twoside}이다.)
 \begin{lcode}
 \documentclass{memoir}
 %%% set up the recto page layout
@@ -1453,163 +1992,200 @@ is like this (\Lopt{twoside} is the default class option):
 
 %\section{Printing and viewing}
 
-\section{Emitting the page size}
+%\section{Emitting the page size}
+\section{출력 페이지 크기}
 \label{sec:emitting-page-size}
 
-At the start of the document the class will automatically emit the
-chosen stocksize to the output format (DVI or PDF).\footnote{In
-  earlier versions we had macros \cs{fixpdflayout} and
-  \cs{fixdvipslayout} that held some of the code needed to emit this
-  data. With the newer engines like LuaLaTeX, this became unfeasible
-  thus they we discontinued (their use now emit a warning).}
+%At the start of the document the class will automatically emit the
+%chosen stocksize to the output format (DVI or PDF).\footnote{In
+%  earlier versions we had macros \cs{fixpdflayout} and
+%  \cs{fixdvipslayout} that held some of the code needed to emit this
+%  data. With the newer engines like LuaLaTeX, this became unfeasible
+%  thus they we discontinued (their use now emit a warning).}
+문서의 시작 부분에 이 클래스는 자동적으로 선택한 용지 크기로 출력 형식의(DVI 또는 PDF) 크기를 설정한다.\footnote{이전 버전에서 \cs{fixpdflayout}과 \cs{fixdvipslayout}이라는 매크로가 있었다. 용지 크기를 출력 포맷으로
+송출하는 코드를 가지고 있는 것이었으나 최근의 LuaLaTeX 같은 엔진에서는 이런
+기능이 필요없게 되어서 이 매크로들은 더이상 사용하지 않는다. (사용하면 경고 메시지만을 보인다.)}
 
 
-%     When \pdfltx\ is used to generate a \pixpdf\ version of a \Pclass{memoir}
-% document some special setup must be done.
-% \begin{syntax}
-% \cmd{\fixpdflayout} \\
-% \end{syntax}
-% \glossary(fixpdflayout)%
-%   {\cs{fixpdflayout}}%
-%   {Sets up page size information for \pdfltx.}
-% The macro \cmd{\fixpdflayout}\index{page layout!PDF} is
-% \emph{automatically}\footnote{That is you do not need to.} called after the preamble when
-% \pdfltx{} is used to generate \pixpdf. The default definition is effectively:
-% \begin{lcode}
-% \newcommand*{\fixpdflayout}{
-%   \pdfpageheight=\the\stockheight
-%   \pdfpagewidth=\the\stockwidth
-%   \ifxetex\else
-%   \ifdim\pdforigin=0pt\pdforigin=1in\fi
-%   \ifdim\pdfhorigin=0pt\pdfhorigin=1in\fi
-%   \fi}
-% \end{lcode}
-% The first settings (\verb?\pdfpage...?) ensure that \pdfltx{} knows
-% the size of the physical sheet\indextwo{stock}{size} for printing. 
-% The \verb?\...origin? settings
-% set the \pdf{} origin per the \tx\ origin, provided that their values are
-% 0pt. If you have set the origin values yourself, either in a \pdfltx{} 
-% configuration\index{configuration file} file or earlier in the preamble, 
-% the \cmd{\fixpdflayout}
-% macro will not alter them (if you need an origin value to be 0 then
-% set it to 1sp, which is visually indistinguishable from 0pt).
 
-% \begin{syntax}
-% \cmd{\fixdvipslayout} \\
-% \end{syntax}
-% \glossary(fixdvipslayout)%
-%   {\cs{fixdvipslayout}}%
-%   {Sets up page size information for dvi processors.}
+%%     When \pdfltx\ is used to generate a \pixpdf\ version of a \Pclass{memoir}
+%% document some special setup must be done.
+%% \begin{syntax}
+%% \cmd{\fixpdflayout} \\
+%% \end{syntax}
+%% \glossary(fixpdflayout)%
+%%   {\cs{fixpdflayout}}%
+%%   {Sets up page size information for \pdfltx.}
+%% The macro \cmd{\fixpdflayout}\index{page layout!PDF} is
+%% \emph{automatically}\footnote{That is you do not need to.} called after the preamble when
+%% \pdfltx{} is used to generate \pixpdf. The default definition is effectively:
+%% \begin{lcode}
+%% \newcommand*{\fixpdflayout}{
+%%   \pdfpageheight=\the\stockheight
+%%   \pdfpagewidth=\the\stockwidth
+%%   \ifxetex\else
+%%   \ifdim\pdforigin=0pt\pdforigin=1in\fi
+%%   \ifdim\pdfhorigin=0pt\pdfhorigin=1in\fi
+%%   \fi}
+%% \end{lcode}
+%% The first settings (\verb?\pdfpage...?) ensure that \pdfltx{} knows
+%% the size of the physical sheet\indextwo{stock}{size} for printing. 
+%% The \verb?\...origin? settings
+%% set the \pdf{} origin per the \tx\ origin, provided that their values are
+%% 0pt. If you have set the origin values yourself, either in a \pdfltx{} 
+%% configuration\index{configuration file} file or earlier in the preamble, 
+%% the \cmd{\fixpdflayout}
+%% macro will not alter them (if you need an origin value to be 0 then
+%% set it to 1sp, which is visually indistinguishable from 0pt).
+%
+%% \begin{syntax}
+%% \cmd{\fixdvipslayout} \\
+%% \end{syntax}
+%% \glossary(fixdvipslayout)%
+%%   {\cs{fixdvipslayout}}%
+%%   {Sets up page size information for dvi processors.}
+%
+%% The macro \cmd{\fixdvipslayout}\index{page layout!dvips} is automatically 
+%% called after the preamble 
+%% when \pixpdf{} output is not being produced. It provides the \Lprog{dvips} 
+%% processor
+%% with information about the stock\indextwo{stock}{size} size, 
+%% which a viewer or printer may use.
+%
+%% The macros \cmd{\fixpdflayout} and \cmd{\fixdvipslayout} are
+%% automatically executed at the start of the document, in combinations
+%% that make the most sense (i.e., \cmd{\fixpdflayout} when using XeLaTeX
+%% or \pdfltx{} and \cmd{fixdvipslayout} for the rest.
+%
+%
+%% \LMnote{2015/02/23}{Next lines outcommented as I do not feel that this
+%%   kind of examples belong in a manual like this}
+%
+%%     With a \Lopt{landscape} document and using the processing route
+%% \verb?latex -> dvips? the resulting \file{ps} \pscript{} file may appear 
+%% upside-down when viewed with, say, \Lprog{ghostview} 
+%% (also known as \Lprog{gsview32}). If this happens
+%% try putting the following in your preamble:
+%% \begin{lcode}
+%% \addtodef{\fixdvipslayout}{}{%
+%%   \special{!TeXDict begin /landplus90{true}store end }}
+%% \end{lcode}
+%% If required, additional code can be added to \cmd{\fixdvipslayout} by repeated
+%% applications of \cmd{\addtodef}. Some other potential specials for \pscript{}
+%% printing may be\footnote{At least for an HP 5SiMx LaserJet duplex printer.}
+%% \begin{lcode}
+%% % specify duplex printing 
+%% \special{!TeXDict begin <</Duplex true>> setpagedevice end} 
+%% % specify short side binding
+%% \special{!TeXDict begin <</Tumble true>> setpagedevice end} 
+%% \end{lcode}
+%% %<< because of emacs ...
 
-% The macro \cmd{\fixdvipslayout}\index{page layout!dvips} is automatically 
-% called after the preamble 
-% when \pixpdf{} output is not being produced. It provides the \Lprog{dvips} 
-% processor
-% with information about the stock\indextwo{stock}{size} size, 
-% which a viewer or printer may use.
+%\section{Example} 
+\section{예제}
+\label{sec:pexamp}
 
-% The macros \cmd{\fixpdflayout} and \cmd{\fixdvipslayout} are
-% automatically executed at the start of the document, in combinations
-% that make the most sense (i.e., \cmd{\fixpdflayout} when using XeLaTeX
-% or \pdfltx{} and \cmd{fixdvipslayout} for the rest.
-
-
-% \LMnote{2015/02/23}{Next lines outcommented as I do not feel that this
-%   kind of examples belong in a manual like this}
-
-%     With a \Lopt{landscape} document and using the processing route
-% \verb?latex -> dvips? the resulting \file{ps} \pscript{} file may appear 
-% upside-down when viewed with, say, \Lprog{ghostview} 
-% (also known as \Lprog{gsview32}). If this happens
-% try putting the following in your preamble:
-% \begin{lcode}
-% \addtodef{\fixdvipslayout}{}{%
-%   \special{!TeXDict begin /landplus90{true}store end }}
-% \end{lcode}
-% If required, additional code can be added to \cmd{\fixdvipslayout} by repeated
-% applications of \cmd{\addtodef}. Some other potential specials for \pscript{}
-% printing may be\footnote{At least for an HP 5SiMx LaserJet duplex printer.}
-% \begin{lcode}
-% % specify duplex printing 
-% \special{!TeXDict begin <</Duplex true>> setpagedevice end} 
-% % specify short side binding
-% \special{!TeXDict begin <</Tumble true>> setpagedevice end} 
-% \end{lcode}
-% %<< because of emacs ...
-
-\section{Example} \label{sec:pexamp}
-
-    Suppose you want a page that will fit on both A4\index{paper!size!A4} 
-and US letterpaper\index{paper!size!letterpaper} stock\index{stock},
-wanting to do the least amount of trimming. The layout requirements
-are as follows.
+%    Suppose you want a page that will fit on both A4\index{paper!size!A4} 
+%and US letterpaper\index{paper!size!letterpaper} stock\index{stock},
+%wanting to do the least amount of trimming. The layout requirements
+%are as follows.
+A4와 US letterpaper 양쪽 용지에 모두 적합하여 트리밍을 최소한으로 할 수 있도록
+페이지를 만들고 싶다고 하자. 필요한 레이아웃은 다음과 같다.\tidx{paper!size!A4,paper!size!letterpaper,stock,용지,용지!크기!A4,용지!크기!letterpaper}
 \begin{itemize}\tightlist
-\item The width of the typeblock\index{typeblock} should be such that
-  there are the optimum number of characters per line.
-\item The ratio of the height to the width of the
-  typeblock\index{typeblock} should equal the golden section.
-\item The text has to start 50pt below the top of the page.  We will
-  use the default \lnc{\headheight} and \lnc{\footskip}.
-\item The ratio of the outer margin\index{margin!outer} to the inner
-  margin\index{margin!inner} should equal the golden
-  section\index{golden section}, as should the space above and below
-  the header\index{header}.
-\item There is no interest at all in
-  marginal\index{marginalia} notes, so we can ignore any settings for
-  these.
+\item
+% The width of the typeblock\index{typeblock} should be such that
+%  there are the optimum number of characters per line.
+조판 영역의 너비는 행당 최적의 글자수로 구하여야 한다.\tidx{typeblock,조판 영역}
+\item 
+%The ratio of the height to the width of the
+%  typeblock\index{typeblock} should equal the golden section.
+조판 영역의 종횡비가 황금비가 되도록 하자.\tidx{typeblock,조판 영역}
+\item 
+%The text has to start 50pt below the top of the page.  We will
+%  use the default \lnc{\headheight} and \lnc{\footskip}.
+텍스트는 페이지 상단 끝에서부터 50포인트 아래에서 시작한다.
+\lnc{\headheight}와 \lnc{\footskip}의 기본값을 사용할 것이다.
+\item 
+%The ratio of the outer margin\index{margin!outer} to the inner
+%  margin\index{margin!inner} should equal the golden
+%  section\index{golden section}, as should the space above and below
+%  the header\index{header}.
+바깥쪽 여백의 안쪽 여백에 대한 비율이 황금비가 되도록 하자. 상단 면주의
+아래 위 간격의 비도 마찬가지로 한다.\tidx{margin!outer,margin!inner,header,golden ratio,황금비,여백!바깥쪽,여백!안쪽,상단 면주}
+\item 
+%There is no interest at all in
+%  marginal\index{marginalia} notes, so we can ignore any settings for
+%  these.
+여백 문단은 무시한다.\tidx{marginalia,여백 문단}
 \end{itemize}
-    We can either do the maths ourselves or get \ltx\ to do it for us. Let's
-use \ltx. First we will work out the size of the largest sheet that can be
-cut from A4\index{paper!size!A4} and 
-letterpaper\index{paper!size!letterpaper}, 
-whose sizes are \abybm{297}{210}{mm} and 
-\abybm{11}{8.5}{in}; A4 is taller and narrower than letterpaper. 
+%    We can either do the maths ourselves or get \ltx\ to do it for us. Let's
+%use \ltx. First we will work out the size of the largest sheet that can be
+%cut from A4\index{paper!size!A4} and 
+%letterpaper\index{paper!size!letterpaper}, 
+%whose sizes are \abybm{297}{210}{mm} and 
+%\abybm{11}{8.5}{in}; A4 is taller and narrower than letterpaper. 
+계산은 직접 해도 되지만 \ltx 에게 시켜도 되니까 \ltx 이 계산을 수행하도록 하자.
+먼저 해야 할 일은 A4와 letterpaper에서 공통으로 잘라낼 수 있는 최대 크기를 구하는 일이다. A4의 크기는 \abybm{297}{210}{mm}이고 letterpaper는 \abybm{11}{8.5}{in}이다. A4가 세로가 길고 letterpaper보다 좁다.\tidx{paper!size!A4,paper!size!letterpaper,용지!크기!A4,용지!크기!letterpaper}
 \begin{lcode}
 \settrimmedsize{11in}{210mm}{*}
 \end{lcode}
-The stocksize is defined by the class option, which could be either
-\Lopt{letterpaper} or \Lopt{a4paper}, but we have to work out the
-trims to reduce the stock\index{stock} to the page. To make life easier, 
-we will only trim
-the \foredge{} and the bottom of the stock\index{stock}, so the 
-\lnc{\trimtop} is zero.
-The \lnc{\trimtop} and \lnc{\trimedge} are easily specified by 
+%The stocksize is defined by the class option, which could be either
+%\Lopt{letterpaper} or \Lopt{a4paper}, but we have to work out the
+%trims to reduce the stock\index{stock} to the page.
+용지 크기는 클래스 옵션으로 정의한다. \Lopt{letterpaper} 또는 \Lopt{a4paper}일 수 있다. 그러나 용지를 페이지에 맞추어서 트리밍해야 한다.\tidx{stock,용지}
+%To make life easier, 
+%we will only trim
+%the \foredge{} and the bottom of the stock\index{stock}, so the 
+%\lnc{\trimtop} is zero.
+%The \lnc{\trimtop} and \lnc{\trimedge} are easily specified by 
+일을 쉽게 하기 위해 용지의 바깥쪽 여백과 아래만을 트리밍하기로 하자.
+그러면 \lnc{\trimtop}은 0이 된다. \lnc{\trimtop}과 \lnc{\trimedge}는
+간단히 다음과 같이 정의한다.
 \begin{lcode}
 \setlength{\trimtop}{0pt} 
 \setlength{\trimedge}{\stockwidth}
 \addtolength{\trimedge}{-\paperwidth}
 \end{lcode}
-Or if you are using the \Lpack{calc} package, perhaps:
+%Or if you are using the \Lpack{calc} package, perhaps:
+아니면 \Lpack{calc} 패키지를 이용하여,
 \begin{lcode}
 \settrims{0pt}{\stockwidth - \paperwidth}
 \end{lcode}
-Specification of the size of the typeblock\index{typeblock} is also easy 
+이렇게 한다. 조판 영역을 설정하는 것도 간단하다.\tidx{typeblock,조판 영역}
+%Specification of the size of the typeblock\index{typeblock} is also easy 
 \begin{lcode}
 \settypeblocksize{*}{\lxvchars}{1.618}
 \end{lcode}
-and now the upper and lower margins\index{margin!upper}\index{margin!lower} 
-are specified by
+%and now the upper and lower margins\index{margin!upper}\index{margin!lower} 
+%are specified by
+이제 상단 하단 여백을 다음과 같이 하여 설정하겠다.\tidx{margin!upper,margin!lower,여백!상단,여백!하단}
 \begin{lcode}
 \setulmargins{50pt}{*}{*}
 \end{lcode}
-The spine and \foredge\ margins\index{margin!spine}\index{margin!foredge?\foredge} 
-are specified just by the value of the golden section\index{golden section}, 
-via 
+%The spine and \foredge\ margins\index{margin!spine}\index{margin!foredge?\foredge} 
+%are specified just by the value of the golden section\index{golden section}, 
+%via 
+안쪽 바깥쪽 여백은 황금비를 이용하여 설정한다.\tidx{margin!spine,margin!foredge?\foredge,golden section,여백!안쪽,여백!바깥쪽,황금분할}
 \begin{lcode}
 \setlrmargins{*}{*}{1.618}
 \end{lcode}
-The only remaining calculation to be done is the \lnc{\headmargin} and 
-\lnc{\headsep}. Again this just involves using a ratio
+%The only remaining calculation to be done is the \lnc{\headmargin} and 
+%\lnc{\headsep}. Again this just involves using a ratio
+남은 계산은 \lnc{\headmargin}과 \lnc{\headsep}이다.
+이것도 같은 비율을 사용하여,
 \begin{lcode}
 \setheaderspaces{*}{*}{1.618}
 \end{lcode}
-To finish off we have to make sure that the layout is changed 
+정의하였다.
+%To finish off we have to make sure that the layout is changed 
+마치기 위해서 변경된 레이아웃 값을 검토하고 활성화한다.
 \begin{lcode}
 \checkandfixthelayout
 \end{lcode}
 
 
-\subsection{The page layout of this manual}
+%\subsection{The page layout of this manual}
+\subsection{이 매뉴얼의 레이아웃}
 
 \begin{figure}
 \setlayoutscale{0.49}
@@ -1619,12 +2195,16 @@ To finish off we have to make sure that the layout is changed
 \drawmarginparstrue
 \drawparametersfalse
 \drawstock
-\caption{The recto page layout for this manual}\label{fig:thispagelay}
+%\caption{The recto page layout for this manual}
+\caption{이 매뉴얼의 홀수면 레이아웃}
+\label{fig:thispagelay}
 \end{figure}
 
 
 
-    The page layout for this manual is defined in the preamble\index{preamble} as:
+%    The page layout for this manual is defined in the preamble\index{preamble} as:
+프리앰블\tidx{preamble,프리앰블}에 정의되어 있는 이 매뉴얼의
+페이지 레이아웃은 다음과 같다.
 \begin{lcode}
 \settrimmedsize{11in}{210mm}{*}
 \setlength{\trimtop}{0pt}
@@ -1639,19 +2219,28 @@ To finish off we have to make sure that the layout is changed
 \checkandfixthelayout
 \end{lcode}
 
-An illustration of the layout is shown in \fref{fig:thispagelay} which also
-lists the parameter values resulting from the code above, to the nearest point.
+%An illustration of the layout is shown in \fref{fig:thispagelay} which also
+%lists the parameter values resulting from the code above, to the nearest point.
+\fref{fig:thispagelay}에 보인 레이아웃 개략은 위의 코드가 적용된
+결과인 파라미터 값을 근사적으로 표현한 것이다.
 
-I initially used the layout defined in \S\ref{sec:pexamp}, which I thought
-looked reasonable, but then I decided to use the one above in order
-to save paper\index{paper} when anyone printed out the manual. The wider
-typeblock\index{typeblock} also makes it easier for TeX when dealing with 
-lines that include unhyphenatable text, like the LaTeX code.
+%I initially used the layout defined in \S\ref{sec:pexamp}, which I thought
+%looked reasonable, but then I decided to use the one above in order
+%to save paper\index{paper} when anyone printed out the manual. The wider
+%typeblock\index{typeblock} also makes it easier for TeX when dealing with 
+%lines that include unhyphenatable text, like the LaTeX code.
+처음에 나는 \S\ref{sec:pexamp}에 정의된 레이아웃을 사용했었다.
+그것이 납득할 수 있었기 때문이었지만 나중에 위의 정의로 바꾸기로 결심했는데
+매뉴얼을 인쇄했을 때 용지를 절약하기 위해서였다.\tidx{paper,용지,typeblock,조판 영역}
+조판 영역을 넓게 잡은 것도 LaTeX 코드와 같이 하이픈처리 하기 힘든 텍스트가
+포함된 글줄을 TeX이 좀더 쉽게 다룰 수 있게 하기 위해서였다.
 
-    Andreas Mathias, via Rolf Niepraschk,\footnote{Email 
-from \url{niepraschk@ptb.de} on 2002/02/05.}
-has suggested that the following might be better for typesetting the manual
-on A4 paper.
+%    Andreas Mathias, via Rolf Niepraschk,\footnote{Email 
+%from \url{niepraschk@ptb.de} on 2002/02/05.}
+%has suggested that the following might be better for typesetting the manual
+%on A4 paper.
+Rolf Niepraschk\footnote{\url{niepraschk@ptb.de} 2002/02/05일자 이메일}가 전해준 바, Andreas Mathias는 A4 용지에 매뉴얼을 인쇄하려면 다음처럼
+조판하는 것이 좋을 것이라고 제안하였다 한다.
 \begin{lcode}
 \documentclass[a4paper]{memoir}
 ...
@@ -1668,26 +2257,34 @@ on A4 paper.
 \checkandfixthelayout
 \end{lcode}
 
-    However, the layout that I have provided will print on both letterpaper
-and A4 sized stock even if it might look better if it was designed for always
-being printed on one or the other.
+%    However, the layout that I have provided will print on both letterpaper
+%and A4 sized stock even if it might look better if it was designed for always
+%being printed on one or the other.
+A4나 letterpaper 둘 중 하나에서 항상 인쇄되도록 디자인하는 것이 더 좋기는 하지만
+나는 내가 제공하는 레이아웃이 letterpaper와 A4 용지 모두에서 인쇄되도록 하고 싶었다.
 
-\section{Predefined layouts}
+%\section{Predefined layouts}
+\section{미리 정의된 레이아웃}
 \label{sec:predefined-layouts}
 
 
-    The class, like the standard classes, will automatically produce 
-working layouts for \Lopt{letterpaper}
-and \Lopt{a4paper} size options. They might be a bit problematic, though,
-when the page is much smaller, particularly with respect to the space 
-alloted for marginal notes. You perhaps will find the \Lpack{layouts}
-package~\cite{LAYOUTS} useful for checking the page layout.
+%    The class, like the standard classes, will automatically produce 
+%working layouts for \Lopt{letterpaper}
+%and \Lopt{a4paper} size options. They might be a bit problematic, though,
+%when the page is much smaller, particularly with respect to the space 
+%alloted for marginal notes. You perhaps will find the \Lpack{layouts}
+%package~\cite{LAYOUTS} useful for checking the page layout.
+표준 클래스와 마찬가지로 이 클래스도 \Lopt{letterpaper}와 \Lopt{a4paper}에
+대하여 자동적으로 레이아웃을 만들어준다. 페이지가 너무 작을 때나 여백 문단을
+위해 할당되는 공간에 약간 문제가 있기는 하지만. \Lpack{layouts} 패키지~\cite{LAYOUTS}가 페이지 레이아웃을 검토하는 데 유용하다.
 
-   Some non-default layouts are provided via the commands \cmd{\medievalpage},
-\cmd{\isopage} and \cmd{\semiisopage}; these set the size and position of the
-typeblock with respect to the page. After using any of these commands you
-\emph{must} call \cmd{\checkandfixthelayout} (and after having made any other
-changes to match the new layout).
+%   Some non-default layouts are provided via the commands \cmd{\medievalpage},
+%\cmd{\isopage} and \cmd{\semiisopage}; these set the size and position of the
+%typeblock with respect to the page. After using any of these commands you
+%\emph{must} call \cmd{\checkandfixthelayout} (and after having made any other
+%changes to match the new layout).
+몇 종류의 추가적인 레이아웃이 \cmd{\medievalpage}, \cmd{\isopage}, \cmd{\semiisopage} 명령으로 제공된다. 이들은 조판 영역의 크기와 페이지에 대한 상대 위치를 설정해준다. 
+이 명령 중 하나를 사용한 후에는 (그리고 그밖의 레이아웃 관련 변경을 모두 수행한 후에) \cmd{\checkandfixthelayout} 매크로를 \emph{필수적으로} 실행해야 한다.
 
 \begin{figure}[p]
 \begin{leftfullpage}
@@ -1695,7 +2292,9 @@ changes to match the new layout).
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.3}{1.62}{0.18}{1.13}{1.5}{0}
 \end{minipage}
-\caption{Default layout for letterpaper} \label{fig:pagefirstlay}
+%\caption{Default layout for letterpaper} 
+\caption{letterpaper를 위한 기본 레이아웃}
+\label{fig:pagefirstlay}
 
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.3}{1.19}{0.11}{1.5}{2}{0}
@@ -1704,7 +2303,8 @@ changes to match the new layout).
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.3}{1.25}{0.08}{1.5}{2}{0}
 \end{minipage}
-\caption{Letterpaper layout: Left \cs{medievalpage}, Right \cs{medievalpage}\texttt{[12]}}
+%\caption{Letterpaper layout: Left \cs{medievalpage}, Right \cs{medievalpage}\texttt{[12]}}
+\caption{letterpaper 레이아웃: 좌 \cs{medievalpage}, 우 \cs{medievalpage}\texttt{[12]}}
 
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.3}{1.315}{0.11}{1.29}{2}{0}
@@ -1713,7 +2313,8 @@ changes to match the new layout).
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.3}{1.3}{0.08}{1.4}{2}{0}
 \end{minipage}
-\caption{Letterpaper layout: Left \cs{isopage}, Right \cs{isopage}\texttt{[12]}}
+%\caption{Letterpaper layout: Left \cs{isopage}, Right \cs{isopage}\texttt{[12]}}
+\caption{letterpaper 레이아웃: 좌 \cs{isopage}, 우 \cs{isopage}\texttt{[12]}}
 
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.3}{1.46}{0.11}{1}{2}{0}
@@ -1722,7 +2323,8 @@ changes to match the new layout).
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.3}{1.4}{0.08}{1}{2}{0}
 \end{minipage}
-\caption{Letterpaper layout: Left \cs{semiisopage}, Right \cs{semiisopage}\texttt{[12]}}
+%\caption{Letterpaper layout: Left \cs{semiisopage}, Right \cs{semiisopage}\texttt{[12]}}
+\caption{letterpaper 레이아웃: 좌 \cs{semiisopage}, 우 \cs{semiisopage}\texttt{[12]}}
 \end{leftfullpage}
 \end{figure}
 \begin{figure}[p]
@@ -1731,7 +2333,8 @@ changes to match the new layout).
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.41}{1.75}{0.17}{1.22}{1.5}{0}
 \end{minipage}
-\caption{Default layout for a4paper}
+%\caption{Default layout for a4paper}
+\caption{a4paper를 위한 기본 레이아웃}
 
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.41}{1.38}{0.11}{1.5}{2}{0}
@@ -1740,7 +2343,8 @@ changes to match the new layout).
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.41}{1.39}{0.08}{1.5}{2}{0}
 \end{minipage}
-\caption{A4paper layout: Left \cs{medievalpage}, Right \cs{medievalpage}\texttt{[12]}}
+%\caption{A4paper layout: Left \cs{medievalpage}, Right \cs{medievalpage}\texttt{[12]}}
+\caption{a4paper 레이아웃: 좌 \cs{medievalpage}, 우 \cs{medievalpage}\texttt{[12]}}
 
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.41}{1.41}{0.11}{1.42}{2}{0}
@@ -1749,7 +2353,8 @@ changes to match the new layout).
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.41}{1.41}{0.08}{1.4}{2}{0}
 \end{minipage} 
-\caption{A4paper layout: Left \cs{isopage}, Right \cs{isopage}\texttt{[12]}}
+%\caption{A4paper layout: Left \cs{isopage}, Right \cs{isopage}\texttt{[12]}}
+\caption{a4paper 레이아웃: 좌 \cs{isopage}, 우 \cs{isopage}\texttt{[12]}}
 
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.41}{1.62}{0.11}{1}{2}{0}
@@ -1758,7 +2363,9 @@ changes to match the new layout).
 \begin{minipage}[b]{\pwlayi}
 \drawaspread{\pwlayii}{1.41}{1.55}{0.08}{1}{2}{0}
 \end{minipage}
-\caption{A4paper layout: Left \cs{semiisopage}, Right \cs{semiisopage}\texttt{[12]}} \label{fig:pagelastlay}
+%\caption{A4paper layout: Left \cs{semiisopage}, Right \cs{semiisopage}\texttt{[12]}} 
+\caption{a4paper 레이아웃: 좌 \cs{semiisopage}, 우 \cs{semiisopage}\texttt{[12]}}
+\label{fig:pagelastlay}
 \end{fullpage}
 \end{figure}
 
@@ -1771,21 +2378,28 @@ changes to match the new layout).
 \end{syntax}
 \glossary(medievalpage)%
   {\cs{medievalpage}\oarg{spine}}%
-  {Generates a page layout according to the principles of early printers.}
-The \cmd{\medievalpage} command generates the position and size of the 
-typeblock according to the principles of medieval scribes and the early 
-printers, as discovered and described by Jan Tschichold~\cite{TSCHICHOLD91}.
+  {초창기 인쇄기 시대의 모양을 따르는 레이아웃을 만든다.}
+%  {Generates a page layout according to the principles of early printers.}
+%The \cmd{\medievalpage} command generates the position and size of the 
+%typeblock according to the principles of medieval scribes and the early 
+%printers, as discovered and described by Jan Tschichold~\cite{TSCHICHOLD91}.
+\cmd{\medievalpage} 명령은 조판 영역의 크기와 위치를 중세 필사본과 인쇄 초창기의 조판 규칙을 따라 배치한다. Jan Tschichold~\cite{TSCHICHOLD91}에 묘사된 바와 같다.
 %%%some details about this were given earlier in \Sref{sec:gutenbergpage}. 
-The basic principle is that the 
-spine, top, \foredge\ and bottom margins 
-around the typeblock are in the ratio 2:3:4:6. Typically the spine margin
-was 1/9 the width of the page, which is what \cmd{\medievalpage} assumes
-by default. This can be changed with the optional \meta{spine} argument. For
-example, to get narrower margins with the spine being 1/12 the page width:
+%The basic principle is that the 
+%spine, top, \foredge\ and bottom margins 
+%around the typeblock are in the ratio 2:3:4:6. Typically the spine margin
+%was 1/9 the width of the page, which is what \cmd{\medievalpage} assumes
+%by default. This can be changed with the optional \meta{spine} argument. For
+%example, to get narrower margins with the spine being 1/12 the page width:
+기본 규칙은 다음과 같다. 조판 영역의 안쪽, 윗쪽, 바깥쪽, 아랫쪽 여백의
+비율이 2:3:4:6이다. 또한 안쪽 여백은 페이지 너비의 1/9로 하고 이것을 \cmd{\medievalpage}의 기본값으로 한다. \meta{spine} 옵션 인자로 
+바꿀 수 있다. 예를 들면 페이지 너비의 1/12 정도의 더 좁은 안쪽 여백을
+설정하려면 
 \begin{lcode}
 \medievalpage[12]
 \end{lcode}
-Note that \meta{spine} must be an integer.
+이와 같이 한다. \meta{spine}은 정수여야 한다.
+%Note that \meta{spine} must be an integer.
 
 \begin{syntax}
 \cmd{\isopage}\oarg{spine} \\
@@ -1793,35 +2407,51 @@ Note that \meta{spine} must be an integer.
 \end{syntax}
 \glossary(isopage)%
   {\cs{isopage}\oarg{spine}}%
-  {Generates a page layout especially suited to ISO proportioned paper.}
+  {ISO 비율 용지에 적합한 레이아웃을 생성한다.}
+%  {Generates a page layout especially suited to ISO proportioned paper.}
 \glossary(semiisopage)%
   {\cs{semiisopage}\oarg{spine}}%
-  {Generates a page layout especially suited to ISO proportioned paper but with
-   smaller margins than \cs{isopage}.}
-Robert Bringhurst~\cite{BRINGHURST99} presented a page layout that was
-especially suitable for ISO proportioned paper, although it can be applied to
-any page proportion. The \cmd{\isopage} command implements this design. The
-spine margin is normally 1/9 the page width and the top margin is 1/9 the
-page height, and the \foredge\ and bottom margins are respectively twice the
-spine and top margins. 
+  {ISO 비율 용지에 적합하지만 \cs{isopage}보다 여백이 좁은 레이아웃을 생성한다.}
+%  {Generates a page layout especially suited to ISO proportioned paper but with
+%   smaller margins than \cs{isopage}.}
+%Robert Bringhurst~\cite{BRINGHURST99} presented a page layout that was
+%especially suitable for ISO proportioned paper, although it can be applied to
+%any page proportion. The \cmd{\isopage} command implements this design. The
+%spine margin is normally 1/9 the page width and the top margin is 1/9 the
+%page height, and the \foredge\ and bottom margins are respectively twice the
+%spine and top margins. 
+Robert Bringhurst~\cite{BRINGHURST99}는 (다른 규격 용지에도 잘 적용할 수 있지만) 특히 ISO 규격 용직에 적합한
+페이지 레이아웃을 제시하였다. \cmd{\isopage} 명령으로 이 디자인을 구현한다.
+안쪽 여백은 페이지 너비의 1/9이고 상단 여백은 페이지 높이의 1/9이며 
+바깥쪽 여백과 하단 여백은 각각 안쪽 여백과 상단 여백의 2배이다.
 
-   The \cmd{\semiisopage} layout is similar where the spine margin by default 
-is 1/9 the page width, but the top margin is the same as the spine margin.
-Again the \foredge\ and bottom margins are respectively twice the
-spine and top margins. 
+%   The \cmd{\semiisopage} layout is similar where the spine margin by default 
+%is 1/9 the page width, but the top margin is the same as the spine margin.
+%Again the \foredge\ and bottom margins are respectively twice the
+%spine and top margins. 
+\cmd{\semiisopage} 레이아웃은 안쪽 여백이 페이지 너비의 1/9이라는 점에서
+비슷하다. 그러나 상단 여백이 안쪽 여백과 같다. 바깥쪽 여백과 하단 여백은 각각
+안쪽 여백과 상단 여백의 2배이다.
 
-The size of the spine (and top) margins can be changed by using the optional
-\meta{spine} argument, which must be an integer. To set the spine margin to
-be, for example, 1/8 of the page width:
+%The size of the spine (and top) margins can be changed by using the optional
+%\meta{spine} argument, which must be an integer. To set the spine margin to
+%be, for example, 1/8 of the page width:
+안쪽 (그리고 상단) 여백은 옵션 인자 \meta{spine}을 이용하여 바꿀 수 있다.
+이 인자는 정수로 주어야 한다. 예를 들어 안쪽 여백을 페이지 너비의 1/8로 하려면
 \begin{lcode}
 \semiisopage[8]% or \isopage[8]
 \end{lcode}
-The same factor applies to both the spine and top margins in the case
-of \cmd{\isopage}.
+%The same factor applies to both the spine and top margins in the case
+%of \cmd{\isopage}.
+이와 같이 한다. \cmd{\isopage}의 경우에는 왼쪽 여백과 상단 여백에 
+같은 값이 둘 다 적용된다.
 
-    Spreads showing a variety of these layouts are in \fref{fig:pagefirstlay} 
-through \ref{fig:pagelastlay}. These were produced with the aid of the
-\Lpack{layouts} package.
+%    Spreads showing a variety of these layouts are in \fref{fig:pagefirstlay} 
+%through \ref{fig:pagelastlay}. These were produced with the aid of the
+%\Lpack{layouts} package.
+이 레이아웃이 만드는 펼침면의 개략적인 모양을 \fref{fig:pagefirstlay}부터
+\ref{fig:pagelastlay}까지 보였다. 이 그림을 얻는 데 \Lpack{layouts} 패키지의
+도움을 받았다.
 
 \fancybreak{}
 
@@ -1832,37 +2462,51 @@ through \ref{fig:pagelastlay}. These were produced with the aid of the
 \end{syntax}
 \glossary(setpagebl)%
   {\cs{setpagebl}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the bottom left
-   of the stock; see \cs{settrimmedsize}.}
+  {주어진 크기의 페이지를 용지의 왼쪽 아래에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the bottom left
+%   of the stock; see \cs{settrimmedsize}.}
 \glossary(setpagebl)%
   {\cs{setpageml}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the middle left
-   of the stock; see \cs{settrimmedsize}.}
+  {주어진 크기의 페이지를 용지의 왼쪽 중앙에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the middle left
+%   of the stock; see \cs{settrimmedsize}.}
 \glossary(setpagebl)%
   {\cs{setpagetl}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the top left
-   of the stock; see \cs{settrimmedsize}.}
-When your page is smaller than the stock it has to be positioned on
-the stock by specifying the trims to give the desired size and location.
-The macro \cmd{\setpagebl}, which takes the same arguments as 
-\cmd{\settrimmedsize} (see \tref{tab:rectsize} on \pref{tab:rectsize}),
-calculates the trims so that the page is located at the bottom left of
-the stock. Similarly \cmd{\setpageml} and \cmd{\setpagetl} will locate
-the page at the middle left and the top left, respectively, of the stock.
-For instance, if you are using letterpaper stock but want the final trimmed
-page size to be A5, then this will put page area at the bottom left of the
-stock.
+  {주어진 크기의 페이지를 용지의 왼쪽 위에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the top left
+%   of the stock; see \cs{settrimmedsize}.}
+%When your page is smaller than the stock it has to be positioned on
+%the stock by specifying the trims to give the desired size and location.
+페이지가 용지보다 작으면 용지에 원하는 만큼의 크기로 트리밍을 적용하여
+용지 위에 놓을 위치를 잡아야 한다.
+%The macro \cmd{\setpagebl}, which takes the same arguments as 
+%\cmd{\settrimmedsize} (see \tref{tab:rectsize} on \pref{tab:rectsize}),
+%calculates the trims so that the page is located at the bottom left of
+%the stock. Similarly \cmd{\setpageml} and \cmd{\setpagetl} will locate
+%the page at the middle left and the top left, respectively, of the stock.
+\cmd{\setpagebl} 매크로는 \cmd{\settrimmedsize} (\pageref{tab:rectsize} 페이지의 \tref{tab:rectsize}\를 보라)와 같은 인자를 취하여 트리밍 값을 계산한 다음 용지의 왼쪽 아래에 페이지를 앉힌다. 
+\cmd{\setpageml}과 \cmd{\setpagetl}은 이와 비슷하게 페이지를 각각 용지의 왼쪽 가운데(middle left)와 왼쪽 위(top left)에 가져다놓는다. 
+%For instance, if you are using letterpaper stock but want the final trimmed
+%page size to be A5, then this will put page area at the bottom left of the
+%stock.
+예를 들어 최종 트리밍된 크기는 A5이고 용지는 letterpaper라고 하자. 트리밍되는 페이지를 용지의 왼쪽 바닥 부분에 놓으려 한다고 하자.
 \begin{lcode}
 \pagebv % sets page height and width for A5 paper
 \setpagebl{\paperheight}{\paperwidth}{*}
 ...
 \checkandfixthelayout
 \end{lcode}
-The above macros position the page at the left of the stock because usually 
-trimming of the stock is limited to the top, right, and bottom, the left 
-being the spine when the pages are finally assembled. To reposition the page to
-the center of the stock the following will halve the top and edge
-trims.
+%The above macros position the page at the left of the stock because usually 
+%trimming of the stock is limited to the top, right, and bottom, the left 
+%being the spine when the pages are finally assembled. To reposition the page to
+%the center of the stock the following will halve the top and edge
+%trims.
+이 매크로는 페이지의 위치를 용지의 왼쪽으로 한다. 왜냐하면 용지의 잘라내기는
+top, right, bottom에서만 일어나도록 한정되기 때문이다.
+left는 마지막에 인쇄되어 트리밍된
+종이를 모두 모아 제본하여 책등이 될 곳이다.
+페이지를 용지의 중앙으로 가져다놓고 싶으면 상단과 하단을 반씩 잘라내도록
+다음처럼 한다.
 \begin{lcode}
 \settrims{0.5\trimtop}{0.5\trimedge}
 ...
@@ -1879,44 +2523,54 @@ trims.
 \end{syntax}
 \glossary(setpagetm)%
   {\cs{setpagetm}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the top middle
-   of the stock; see \cs{settrimmedsize}.}
+  {주어진 크기의 페이지를 용지의 top middle에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the top middle
+%   of the stock; see \cs{settrimmedsize}.}
 \glossary(setpagetr)%
   {\cs{setpagetr}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the top right
-   of the stock; see \cs{settrimmedsize}.}
+  {주어진 크기의 페이지를 용지의 top right에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the top right
+%   of the stock; see \cs{settrimmedsize}.}
 \glossary(setpagemr)%
   {\cs{setpagemr}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the middle right
-   of the stock; see \cs{settrimmedsize}.}
+  {주어진 크기의 페이지를 용지의 middle right에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the middle right
+%   of the stock; see \cs{settrimmedsize}.}
 \glossary(setpagebr)%
   {\cs{setpagebr}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the bottom right
-   of the stock; see \cs{settrimmedsize}.}
+  {주어진 크기의 페이지를 용지의 bottom right에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the bottom right
+%   of the stock; see \cs{settrimmedsize}.}
 \glossary(setpagebm)%
   {\cs{setpagebm}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the bottom middle
-   of the stock; see \cs{settrimmedsize}.}
+  {주어진 크기의 페이지를 용지의 bottom middle에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the bottom middle
+%   of the stock; see \cs{settrimmedsize}.}
 \glossary(setpagecc)%
   {\cs{setpagecc}\marg{height}\marg{width}\marg{ratio}}%
-  {Specifies a page of the given dimensions positioned at the center
-   of the stock; see \cs{settrimmedsize}.}
+  {주어진 크기의 페이지를 용지의 center에 놓는다. \cs{settrimmedsize}를 보라.}
+%  {Specifies a page of the given dimensions positioned at the center
+%   of the stock; see \cs{settrimmedsize}.}
 
-    The commands \cmd{\setpagetm}, \cmd{\setpagetr}, \cmd{\setpagemr},
-\cmd{\setpagebr}, \cmd{\setpagebm}, \cmd{\setpagecc} are analagous to the
-earlier ones and they set a page at the top middle, top right, middle right,
-bottom right, bottom middle and centered with respect to the stock.
+%    The commands \cmd{\setpagetm}, \cmd{\setpagetr}, \cmd{\setpagemr},
+%\cmd{\setpagebr}, \cmd{\setpagebm}, \cmd{\setpagecc} are analagous to the
+%earlier ones and they set a page at the top middle, top right, middle right,
+%bottom right, bottom middle and centered with respect to the stock.
+\cmd{\setpagetm}, \cmd{\setpagetr}, \cmd{\setpagemr}, \cmd{\setpagebr}, \cmd{\setpagebm}, \cmd{\setpagecc}는 이와 비슷한 명령으로 각각 페이지를 용지의 top middle, top right, middle right, bottom right, bottom middle, center에 놓는다.
 
 
-Remember that after you have finished defining the layout you want you
-have to call \cmd{\checkandfixthelayout} for all the changes to take
-effect.
+%Remember that after you have finished defining the layout you want you
+%have to call \cmd{\checkandfixthelayout} for all the changes to take
+%effect.
+레이아웃 관련 설정을 행한 이후에는 변경 사항이 효력을 발휘하도록 하기 위해서 \cmd{\checkandfixthelayout}을 실행하여야 한다는 사실을 기억하자.
 
 \fancybreak{}
 
-In Figure~\ref{fig:setpage} we show the effect of the nine
-\cmd{\setpageXX}. The code used for the examples is similar to the
-code below, and then the result is scaled down.
+%In Figure~\ref{fig:setpage} we show the effect of the nine
+%\cmd{\setpageXX}. The code used for the examples is similar to the
+%code below, and then the result is scaled down.
+그림~\ref{fig:setpage}\는 이 아홉 개의 \cmd{\setpageXX} 명령의 효과를 시각적으로 보여준다. 
+여기에 사용된 코드는 다음에 보인 것과 같으며 결과를 축소하여 나타내었다.
 
 \begin{lcode}
 \documentclass[showtrims]{memoir}
@@ -1968,9 +2622,10 @@ code below, and then the result is scaled down.
   \hfill
   \fbox{\includegraphics[page=9,scale=0.3]{setpage-example.pdf}}
 
-  \caption{Example of the nine \cs{setpageXX} macros for placing
-    a trimmed page on the stock. These are all odd pages, under
-    \Lopt{twoside}, even pages will have the left/right trims reversed.}
+%  \caption{Example of the nine \cs{setpageXX} macros for placing
+%    a trimmed page on the stock. These are all odd pages, under
+%    \Lopt{twoside}, even pages will have the left/right trims reversed.}
+\caption{아홉 가지 \cs{setpageXX} 매크로로써 트리밍된 페이지를 용지에 놓는 예. 이것은 모두 \Lopt{twoside} 옵션을 준 홀수면이며 짝수면은 왼쪽/오른쪽 트리밍이 반대 방향이다.}
   \label{fig:setpage}
 \end{figure}
 
