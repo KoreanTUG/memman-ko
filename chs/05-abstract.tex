@@ -1,63 +1,95 @@
-\chapter{Abstracts}
+%\chapter{Abstracts}
+\chapter{요약문}
 
+%    Abstracts\index{abstract} do not normally appear in books but 
+%they are often an essential
+%part of an article in a technical journal. Reports may or may not
+%include an abstract, but if so it will often be called a `Summary'.
+%There may be an even shorter abstract as well, often called an 
+%`Executive Summary', for those who feel that details are irrelevant.
+단행본에는 요약문(abstract)\tidx{abstract,요약문}이 없다. 그러나 과학기술 저널의 논문에는 필수적 요소이다. 보고서에는 요약문이 있을 수도 없을 수도 있지만 만약 붙는다면
+흔히 ‘개관(Summary)’이라는 명칭을 더 자주 사용한다. 이보다 훨씬 짧은 요약문으로 ‘개요(Executive Summary)’라 불리는 것이 있는데 이것은 세부적인 사항에
+대해서는 신경쓸 필요가 없는 사람을 위한 것이다.
 
-    Abstracts\index{abstract} do not normally appear in books but 
-they are often an essential
-part of an article in a technical journal. Reports may or may not
-include an abstract, but if so it will often be called a `Summary'.
-There may be an even shorter abstract as well, often called an 
-`Executive Summary', for those who feel that details are irrelevant.
+%    In the standard classes appearance of the \Ie{abstract} environment
+%is fixed. The class provides a set of controls adjusting the appearance of
+%an \Ie{abstract} environment.
+표준 클래스의 \Ie{abstract} 환경의 모양은 고정되어 있다. 그러나 이 클래스에서는
+\Ie{abstract} 환경의 모양을 조절할 수 있는 방법을 제공한다.
 
-    In the standard classes appearance of the \Ie{abstract} environment
-is fixed. The class provides a set of controls adjusting the appearance of
-an \Ie{abstract} environment.
+%    Questions about how to have a 
+%one-column\index{column!single} abstract\index{abstract} in a 
+%two-column\index{column!double} paper
+%seem to pop up fairly regularly on the
+%\texttt{comp.text.tex} newsgroup. While an answer based on responses
+%on \ctt\ is provided in the FAQ,
+%the class provides a more author-friendly means
+%of accomplishing this. 
+이단(two-column)\tidx{column!double,컬럼!이단} 문서에
+단단(one-column)\tidx{column!single,컬럼!단단} 요약문을 붙이는 방법에
+대한 질문은 \texttt{comp.text.tex} 뉴스그룹에 꽤 자주 주기적으로 올라온다.
+\ctt 의 답변을 모아놓은 FAQ에 해답이 실려 있지만 이 클래스는 좀더 문서작성자 친화적인
+방법을 제공한다.
 
-    Questions about how to have a 
-one-column\index{column!single} abstract\index{abstract} in a 
-two-column\index{column!double} paper
-seem to pop up fairly regularly on the
-\texttt{comp.text.tex} newsgroup. While an answer based on responses
-on \ctt\ is provided in the FAQ,
-the class provides a more author-friendly means
-of accomplishing this. 
-
-\section{Styling}
+%\section{Styling}
+\section{요약문의 양식}
 
 \index{abstract!styling|(}
+\index{요약문!스타일짜기}
 
-    Much of this part of the class is a reimplementation of the 
-\Lpack{abstract} package~\cite{ABSTRACT}.
+%    Much of this part of the class is a reimplementation of the 
+%\Lpack{abstract} package~\cite{ABSTRACT}.
+이 부분은 \Lpack{abstract} 패키지~\cite{ABSTRACT}를 재구현한 것이다.
 
-   The typeset format of an \Ie{abstract} in a \Lclass{report} or 
-\Lclass{article} class document depends on the class
-options.\footnote{The \texttt{abstract} environment is not 
-available for the \Lclass{book} class.} The formats are:
+%
+%   The typeset format of an \Ie{abstract} in a \Lclass{report} or 
+%\Lclass{article} class document depends on the class
+%options.\footnote{The \texttt{abstract} environment is not 
+%available for the \Lclass{book} class.} The formats are:
+\Lclass{report}와 \Lclass{article} 클래스의 \Ie{abstract}가 조판되는
+형식은 클래스 옵션에 따라 달라진다.\footnote{\Lclass{book} 클래스에는 \texttt{abstract} 환경이 없다.}
+
+%\begin{itemize}
+%\item \Lopt{titlepage} class option: The abstract 
+%    heading\indextwo{heading}{abstract} (i.e., value of 
+%   \cmd{\abstractname}) is typeset centered in a bold font; the text is set in
+%   the normal font and to the normal width.
 \begin{itemize}
-\item \Lopt{titlepage} class option: The abstract 
-    heading\indextwo{heading}{abstract} (i.e., value of 
-   \cmd{\abstractname}) is typeset centered in a bold font; the text is set in
-   the normal font and to the normal width.
-\item \Lopt{twocolumn} class option: The abstract 
-   heading\indextwo{heading}{abstract} is typeset like
-   an unnumbered section; the text is set in the normal font and to the
-   normal width (of a single column\index{column!single}). 
-\item Default (neither of the above class options): The abstract 
-   heading\indextwo{heading}{abstract}
-   is typeset centered in a small bold font; the text is set in a small
-   font and indented like the \Ie{quotation} environment.
+\item 클래스 옵션 \Lopt{titlepage}: 요약문 표제\indextwo{heading}{abstract}\indextwo{요약문}{표제}(즉 \cmd{\abstractname} 명령의 값)가 
+굵은 글씨로 가운데 정렬되고 텍스트는 정상 폰트와 정상 길이로 식자된다.
+%\item \Lopt{twocolumn} class option: The abstract 
+%   heading\indextwo{heading}{abstract} is typeset like
+%   an unnumbered section; the text is set in the normal font and to the
+%   normal width (of a single column\index{column!single}). 
+\item 클래스 옵션 \Lopt{twocolumn}: 요약문 표제는 번호없는 절 제목처럼
+식자되고 텍스트는 정상 폰트로, 그리고 (단단 문서) 정상 길이로 식자된다.
+%\item Default (neither of the above class options): The abstract 
+%   heading\indextwo{heading}{abstract}
+%   is typeset centered in a small bold font; the text is set in a small
+%   font and indented like the \Ie{quotation} environment.
+\item 디폴트 (위의 어떤 옵션도 주어지지 않았을 때): 요약문 표제는 작은 볼드 폰트로 가운데 정렬되어 식자되고 텍스트는 작은(small) 폰트로 \Ie{quotation} 환경과
+같이 들여쓰기하여 식자된다.
+%\end{itemize}
 \end{itemize}
 
-   This class provides an \Ie{abstract} environment and
-handles to modify the typesetting of an \Ie{abstract}.
+%
+%   This class provides an \Ie{abstract} environment and
+%handles to modify the typesetting of an \Ie{abstract}.
+이 클래스는 \Ie{abstract} 환경을 제공하며
+\Ie{abstract} 환경의 조판 형태를 수정할 수 있다. 
 
+%
 \begin{syntax}
 \senv{abstract} text \eenv{abstract} \\
 \end{syntax}
 \glossary(abstract)%
   {\senv{abstract}}%
-  {Environment for typesetting an abstract.}
-There is nothing special about using the \Ie{abstract} environment. 
-Formatting is controlled by the macros described below.
+  {요약문(abstract)을 조판하는 환경}
+%  {Environment for typesetting an abstract.}
+%There is nothing special about using the \Ie{abstract} environment. 
+%Formatting is controlled by the macros described below.
+\Ie{abstract} 환경의 사용법에 특별할 것은 없다. 다음 명령을 이용하여
+그 형태를 제어한다.
 
 \begin{syntax}
 \cmd{\abstractcol} \\
@@ -67,31 +99,44 @@ Formatting is controlled by the macros described below.
 \end{syntax}
 \glossary(abstractcol)%
   {\cs{abstractcol}}%
-  {Declares that an abstract in a \Popt{twocolumn} document should be
-   typeset like an unnumbered chapter.}
+  {\Popt{twocolumn} 문서에서 번호붙지 않는 chapter와 같은 모양으로 조판하도록
+  선언한다.}
+%  {Declares that an abstract in a \Popt{twocolumn} document should be
+%   typeset like an unnumbered chapter.}
 \glossary(abstractintoc)%
   {\cs{abstractintoc}}%
-  {Specifies that the abstact's title is to be added to the ToC.} 
+  {abstract의 표제를 ToC에 추가한다.}
+%  {Specifies that the abstact's title is to be added to the ToC.} 
 \glossary(abstractnum)%
   {\cs{abstractnum}}%
-  {Specifies that an abstract is to be typeset like a numbered chapter.}
+  {abstract가 번호붙는 chapter와 같은 모양으로 식자되도록 한다.}
+%  {Specifies that an abstract is to be typeset like a numbered chapter.}
 \glossary(abstractrunin)%
   {\cs{abstractrunin}}%
-  {Specifies that the title of an abstract should be set as a run-in heading.}
+  {abstract 표제가 문단 첫머리에 표시되도록 한다.}
+%  {Specifies that the title of an abstract should be set as a run-in heading.}
 
-    The normal format for an abstract is with a centered, bold title
-and the text in a small font, inset from the margins\index{margin}.
+%    The normal format for an abstract is with a centered, bold title
+%and the text in a small font, inset from the margins\index{margin}.
+요약문의 표준 형식은 볼드체 표제를 가운데정렬하고 텍스트를 작은(small) 폰트로
+찍으면서 양쪽 여백을 조금 두는 것이다\index{margin}\tidx{여백,마진}
 
-The \cmd{\abstractcol} declaration specifies that an abstract in a
-\Lopt{twocolumn} class option document should be typeset like a
-normal, unnumbered chapter.
-The \cmd{\abstractintoc} specifies that the abstract title should
-be added to the \toc. The declaration \cmd{\abstractnum} specifies that the 
-abstract should be typeset like a numbered chapter and 
-\cmd{\abstractrunin} specifies that
-the title of the abstract should look like a run-in heading; these two
-declarations are mutually exclusive. Note that the \cmd{\abstractnum}
-declaration has no effect if the abstract is in the \cmd{\frontmatter}.
+%
+%The \cmd{\abstractcol} declaration specifies that an abstract in a
+%\Lopt{twocolumn} class option document should be typeset like a
+%normal, unnumbered chapter.
+\cmd{\abstractcol} 선언은 \Lopt{twocolumn} 클래스 옵션이 주어진 문서에서 
+요약문은 정상적인 번호붙지 않은 chapter처럼 식자되도록 한다.
+%The \cmd{\abstractintoc} specifies that the abstract title should
+%be added to the \toc. The declaration \cmd{\abstractnum} specifies that the 
+%abstract should be typeset like a numbered chapter and 
+%\cmd{\abstractrunin} specifies that
+%the title of the abstract should look like a run-in heading; these two
+%declarations are mutually exclusive. Note that the \cmd{\abstractnum}
+%declaration has no effect if the abstract is in the \cmd{\frontmatter}.
+\cmd{\abstractintoc} 명령은 요약문 표제가 \toc 에 추가되도록 한다. \cmd{\abstractnum}이라고 선언하면 보통의 번호붙는 chapter와 같은 모양으로 식자되고
+\cmd{\abstractrunin}이라 하면 요약문의 표제가 문단을 파고드는 헤딩으로 나타나게 한다.
+이 두 가지 선언은 상호배타적이다. \cmd{\abstractnum} 선언은 요약문이 \cmd{\frontmatter} 부분 안에 놓이면 효과가 없다.
 
 \begin{syntax}
 \cmd{\abstractname} \\
@@ -100,18 +145,25 @@ declaration has no effect if the abstract is in the \cmd{\frontmatter}.
 \end{syntax}
 \glossary(abstractname)%
   {\cs{abstractname}}%
-  {An abstract's title.}
+  {abstract의 표제}
+%  {An abstract's title.}
 \glossary(abstractnamefont)%
   {\cs{abstractnamefont}}%
-  {Font for typesetting and abstract's title (\cs{abstractname}).}
+  {abstract 표제를 식자할 폰트}
+%  {Font for typesetting and abstract's title (\cs{abstractname}).}
 \glossary(abstracttextfont)%
   {\cs{abstracttextfont}}%
-  {Font for typesetting the body text of an abstract.}
-\cmd{\abstractname} (default `\abstractname') is used as the title for
-the \Ie{abstract} environment and is set using the \cmd{\abstractnamefont}.
-The body of the abstract is typeset using the \cmd{\abstracttextfont}.
-These two commands can be redefined to change the fonts if you wish.
-The default definitions are 
+  {abstract의 본문 텍스트를 식자할 폰트}
+%  {Font for typesetting the body text of an abstract.}
+%\cmd{\abstractname} (default `\abstractname') is used as the title for
+%the \Ie{abstract} environment and is set using the \cmd{\abstractnamefont}.
+\cmd{\abstractname} (기본값은 “\abstractname”) 명령은 \Ie{abstract} 환경의
+표제로서 \cmd{\abstractnamefont} 폰트로 식자한다.
+%The body of the abstract is typeset using the \cmd{\abstracttextfont}.
+%These two commands can be redefined to change the fonts if you wish.
+%The default definitions are 
+인용문의 본문은 \cmd{\abstracttextfont} 폰트를 써서 식자하며 이 두 명령은 원한다면 재정의하여 폰트를 바꿀 수 있다.
+디폴트 정의는 다음과 같다.
 \begin{lcode}
 \newcommand{\abstractnamefont}{\normalfont\small\bfseries}
 \newcommand{\abstracttextfont}{\normalfont\small}
@@ -123,39 +175,54 @@ The default definitions are
 \end{syntax}
 \glossary(absleftindent)%
   {\cs{absleftindent}}%
-  {Indentation of the left of the \Pe{abstract} text.}
+  {\Pe{abstract} 텍스트의 왼쪽에 인덴트를 둔다.}
+%  {Indentation of the left of the \Pe{abstract} text.}
 \glossary(absrightindent)%
   {\cs{absrightindent}}%
-  {Indentation of the right of the \Pe{abstract} text.}
+%  {Indentation of the right of the \Pe{abstract} text.}
+  {\Pe{abstract} 텍스트의 오른쪽에 인덴트를 둔다.}
 \glossary(absparindent)%
   {\cs{absparindent}}%
-  {Paragraph indent in the \Pe{abstract} environment.}
+  {\Pe{abstract} 본문의 문단 들여쓰기를 행한다.}
+%  {Paragraph indent in the \Pe{abstract} environment.}
 \glossary(absparsep)%
   {\cs{absparsep}}%
-  {Paragraph separation in the \Pe{abstract} environment.}
-   This version of \Ie{abstract} uses a \Ie{list} environment for typesetting
-the text. These four lengths can be changed (via \cmd{\setlength}
- or \cmd{\addtolength}) to adjust
-the left and right margins\index{margin}, the paragraph indentation\index{paragraph!indentation}, and the vertical skip
-between paragraphs in this environment. 
-The default values depend on whether or not the \Lopt{twocolumn}
-class option is used. The general layout parameters for lists are illustrated
-in \fref{fig:listlay}.
+  {\Pe{abstract} 환경의 문단 사이에 간격을 준다.}
+%  {Paragraph separation in the \Pe{abstract} environment.}
+%   This version of \Ie{abstract} uses a \Ie{list} environment for typesetting
+%the text. These four lengths can be changed (via \cmd{\setlength}
+% or \cmd{\addtolength}) to adjust
+%the left and right margins\index{margin}, the paragraph indentation\index{paragraph!indentation}, and the vertical skip
+%between paragraphs in this environment. 
+이 버전의 \Ie{abstract}는 \Ie{list} 환경을 사용하여 텍스트를 식자한다.
+이 네 길이값들은 (\cmd{\setlength} 또는 \cmd{\addtolength}를 통하여)
+왼쪽 오른쪽 여백, 문단 들여쓰기, 또는 문단 사이의 간격을 재설정할 수 있다.\index{margin}\index{paragraph!indentation}\tidx{여백,마진,문단!들여쓰기}
+%The default values depend on whether or not the \Lopt{twocolumn}
+%class option is used. The general layout parameters for lists are illustrated
+%in \fref{fig:listlay}.
+기본값은 \Lopt{twocolumn} 옵션이 클래스에 주어졌는가 여부에 따라 달라진다.
+리스트 환경에 사용되는 레이아웃 파라미터들은 \fref{fig:listlay}에 
+소개되어 있다.
 
 \begin{syntax}
 \cmd{\abslabeldelim}\marg{text} \\
 \end{syntax}
 \glossary(abslabeldelim)%
   {\cs{abslabeldelim}\marg{text}}%
-  {\meta{text} is typeset immediately after \cs{abstractname} in a run-in
-   heading.}
-If the \cmd{\abstractrunin} declaration has been given, 
-the heading is typeset as a run-in heading. That is, it is the 
-first piece of text on the first line of the abstract text.
-The \meta{text} argument of \cmd{\abslabeldelim} is typeset
-immediately after the heading. By default it is defined to do nothing, but
-if you wanted, for example, the \cmd{\abstractname} to be followed by 
-a colon and some extra space you could specify
+  {\meta{text}는 문단 첫머리 헤딩에서 \cs{abstractname} 직후에 식자되는 텍스트이다.}
+%  {\meta{text} is typeset immediately after \cs{abstractname} in a run-in
+%   heading.}
+%If the \cmd{\abstractrunin} declaration has been given, 
+%the heading is typeset as a run-in heading. That is, it is the 
+%first piece of text on the first line of the abstract text.
+%The \meta{text} argument of \cmd{\abslabeldelim} is typeset
+%immediately after the heading. By default it is defined to do nothing, but
+%if you wanted, for example, the \cmd{\abstractname} to be followed by 
+%a colon and some extra space you could specify
+만약 \cmd{\abstractrunin} 선언이 주어지면 표제가 문단 첫머리 헤딩으로 식자된다.
+즉 표제기 문단 첫 줄의 맨 처음에 나타난다. \cmd{\abslabeldelim} 명령의 \meta{text} 옵션은
+이 파고드는 표제 직후에 놓인다. 기본적으로 아무 것도 오지 않지만 원한다면
+예컨대 콜론이나 추가 간격을 줄 수 있다.
 \begin{lcode}
 \abslabeldelim{:\quad}
 \end{lcode}
@@ -165,49 +232,68 @@ a colon and some extra space you could specify
 \end{syntax}
 \glossary(absnamepos)%
   {\cs{absnamepos}}%
-  {Position of a non run-in title for an \Pe{abstract} (\texttt{flushleft}, 
-   \texttt{center}, or \texttt{flushright}).}
-   If the \cmd{\abstractrunin} declaration is not used then the heading 
-is typeset in its own environment, specified by 
-\cmd{\absnamepos}. The default definition is
+  {\Pe{abstract} 표제가 문단 첫머리가 아닐 적에 그 정렬 위치를 지정한다.
+  즉 \texttt{flushleft}, \texttt{center}, \texttt{flushright} 가운데 하나이다.}
+%  {Position of a non run-in title for an \Pe{abstract} (\texttt{flushleft}, 
+%   \texttt{center}, or \texttt{flushright}).}
+%   If the \cmd{\abstractrunin} declaration is not used then the heading 
+%is typeset in its own environment, specified by 
+%\cmd{\absnamepos}. The default definition is
+만약 \cmd{\abstractrunin} 선언이 사용되지 않으면 표제는 
+\cmd{\absnamepos}에 의하여 지정되는 정렬방식으로 식자한다.
+기본값은
 \begin{lcode}
 \newcommand{\absnamepos}{center}
 \end{lcode}
-It can be defined to be one of \Ie{flushleft}, \Ie{center},
-or \Ie{flushright} to give a left, centered or right aligned heading; 
-or to any
-other appropriate environment which is supported by a used package\index{package}.
+으로 되어 있다.
+%It can be defined to be one of \Ie{flushleft}, \Ie{center},
+%or \Ie{flushright} to give a left, centered or right aligned heading; 
+%or to any
+%other appropriate environment which is supported by a used package\index{package}.
+\Ie{flushleft}, \Ie{flushright}, \Ie{center} 가운데 하나를 정할 수 
+있으며 각각 왼쪽 정렬, 오른쪽 정렬, 가운데 정렬한다.
+만약 사용중인 패키지가 제공하는 정렬 환경이 있다면\index{package}\index{패키지}
+그 환경을 사용할 수 있다.
 
 \begin{syntax}
 \lnc{\abstitleskip} \\
 \end{syntax}
 \glossary(abstitleskip)%
   {\cs{abstitleskip}}
-  {Space around the title of an \Pe{abstract}.}
-   With the \cmd{\abstractrunin} declaration a horizontal space of length 
-\lnc{\abstitleskip} is typeset
-before the heading. For example, if \lnc{\absparindent} is non-zero, then:
+  {\Pe{abstract} 표제의 상하좌우 간격}
+%  {Space around the title of an \Pe{abstract}.}
+%   With the \cmd{\abstractrunin} declaration a horizontal space of length 
+%\lnc{\abstitleskip} is typeset
+%before the heading. For example, if \lnc{\absparindent} is non-zero, then:
+\cmd{\abstractrunin} 선언이 있으면 \lnc{\abstitleskip}은 표제의
+전후에 오는 수평간격을 설정한다. 예를 들면 \lnc{\apsparindent}가 $0$이 아니면
 \begin{lcode}
 \setlength{\abstitleskip}{-\absparindent}
 \end{lcode}
- will typeset the heading flush left.
+% will typeset the heading flush left.
+이 결과는 표제를 왼쪽 정렬할 것이다.
 
-Without the \cmd{\abstractrunin} declaration, \lnc{\abstitleskip} is 
-aditional vertical 
-space (either positive
-or negative) that is inserted between the abstract name and the text of
-the abstract.
-
-\index{abstract!styling|)}
-
-\section{One column abstracts}
-
-\index{abstract!one column|(}
-
-   The usual advice~\cite{FAQ} about creating a 
-one-column\index{column!double} 
-\Ie{abstract} in a 
-\Lopt{twocolumn} document is to write code like this:
+%Without the \cmd{\abstractrunin} declaration, \lnc{\abstitleskip} is 
+%aditional vertical 
+%space (either positive
+%or negative) that is inserted between the abstract name and the text of
+%the abstract.
+\cmd{\abstractrunin} 선언이 없으면 \lnc{\abstitleskip}은
+요약문 표제와 본문 사이의 추가 수직 간격(음수일 수도 있고 양수일 수도 있다)을
+설정한다.\index{abstract!styling|)}
+%\index{abstract!styling|)}
+%
+%\section{One column abstracts}
+\section{단단 요약문}
+%
+\index{abstract!one column|(}\index{요약문!단단}
+%
+%   The usual advice~\cite{FAQ} about creating a 
+%one-column\index{column!double} 
+%\Ie{abstract} in a 
+%\Lopt{twocolumn} document is to write code like this:
+\Lopt{twocolumn} 문서에서 단단 요약문을 만드는 데 대한
+일반적 조언~\cite{FAQ}은 다음과 같이 하라는 것이다.
 \begin{lcode}
 \documentclass[twocolumn...]{...}
 ...
@@ -229,13 +315,18 @@ one-column\index{column!double}
 \end{syntax}
 \glossary(onecolabstract)%
   {\senv{onecolabstract}}%
-  {Environment for typesetting a one column abstract in a two column document.}
+  {이단 문서에서 단단 요약문을 조판하는 환경}
+%  {Environment for typesetting a one column abstract in a two column document.}
 \glossary(saythanks)%
   {\cs{saythanks}}%
-  {Following a \Pe{onecolabstract} it ensures that \cs{thanks} are printed.}
-The class provides a \Ie{onecolabstract} environment that you can use
-for a one column\index{column!single} abstract in a \Lopt{twocolumn} document, 
-and it is used like this:
+  {\Pe{onecolabstract}에 이어서 \cs{thanks} 명령이 인쇄되도록 한다.}
+%  {Following a \Pe{onecolabstract} it ensures that \cs{thanks} are printed.}
+%The class provides a \Ie{onecolabstract} environment that you can use
+%for a one column\index{column!single} abstract in a \Lopt{twocolumn} document, 
+%and it is used like this:
+이 클래스는 \Ie{onecolabstract} 환경을 제공하는데 이것은 \Lopt{twocolumn}
+문서에서 단단 요약문\index{column!single}\tidx{다단!단단}을
+식자하는 데 사용한다.
 \begin{lcode}
 \documentclass[twocolumn...]{memoir}
 ...
@@ -248,17 +339,24 @@ and it is used like this:
 \saythanks % typesets any \thanks commands
 ...
 \end{lcode}
-The command \cmd{\saythanks} ensures that any \cmd{\thanks} texts from
-an earlier \cmd{\maketitle} are printed out as normal.
+%The command \cmd{\saythanks} ensures that any \cmd{\thanks} texts from
+%an earlier \cmd{\maketitle} are printed out as normal.
+\cmd{\saythanks} 명령은 직전의 \cmd{\maketitle} 텍스트에서
+사용된 \cmd{\thanks} 명령들이 제대로 인쇄되도록 한다.
 
-    If you want, you can use the \Ie{onecolabstract} environment in place
-of the \Ie{abstract} environment --- it doesn't have to be within the 
-optional argument of the \cmd{\twocolumn} command. In fact, 
-\Ie{onecolabstract} internally uses \Ie{abstract} for the typesetting.
+%
+%    If you want, you can use the \Ie{onecolabstract} environment in place
+%of the \Ie{abstract} environment --- it doesn't have to be within the 
+%optional argument of the \cmd{\twocolumn} command. In fact, 
+%\Ie{onecolabstract} internally uses \Ie{abstract} for the typesetting.
+\Ie{onecolabstract} 환경은 \Ie{abstract}를 써야 할 곳에 마음대로 사용할 수 있다.
+\cmd{\twocolumn} 명령의 옵션 인자 안에 있어야 할 필요도 없다. 실제로
+\Ie{onecolabstract}는 내부적으로 \Ie{abstract}를 사용하여 식자한다.
 
-
+%
+%
 \index{abstract!one column|)}
-
-
-%#% extend
-%#% extstart include document-divisions.tex
+%
+%
+%%#% extend
+%%#% extstart include document-divisions.tex

@@ -659,16 +659,16 @@
 % are visible. The macro \cmd{\makeheadfootruleprefix} is intended for
 % adding alternative colors to the head/foot rules, e.g.
 머릿글\tidx{header,머릿글}은 조판 영역\tidx{typeblock,조판 영역}의 위와 자신
-사이에 선이 그려질 수 있으며, 비슷하게 조판 영역\tidx{typeblock,조판 영역}
-아래와 바닥글\tidx{footer,바닥글} 위에 선이 그려질 수 있다.
+사이에 괘선이 그려질 수 있으며, 비슷하게 조판 영역\tidx{typeblock,조판 영역}
+아래와 바닥글\tidx{footer,바닥글} 위에 괘선이 그려질 수 있다.
 \cmd{\makeheadrule} 매크로는 \meta{style} 페이지 양식
-머릿글\tidx{header,머릿글} 아래 선의  \meta{width}와 \meta{thickness}를
+머릿글\tidx{header,머릿글} 아래 괘선의 \meta{width}와 \meta{thickness}를
 지정한다.
-추가적 인자 \meta{skip}은 바닥 선의 세로 위치를 지정하는 길이이다
+추가적 인자 \meta{skip}은 바닥 괘선의 세로 위치를 지정하는 길이이다
 (\cmd{\footruleskip}을 보라).
 \cmd{\makepagestyle} 매크로는 \meta{width}를 \lnc{\textwidth}로 초기화하고
-\meta{thickness}를 0pt로 초기화해서, 기본적으로는 선이 보이지 않는다.
-매크로 \cmd{\makeheadfootruleprefix}는 머리/바닥 선의 대체 색상을 추가할 수
+\meta{thickness}를 0pt로 초기화해서, 기본적으로는 괘선이 보이지 않는다.
+매크로 \cmd{\makeheadfootruleprefix}는 머리/바닥 괘선의 대체 색상을 추가할 수
 있도록 하는데, 예를 들어 다음과 같다.
 \begin{lcode}
   \makeheadfootruleprefix{mystyle}{\color{red}}{\color{blue}}
@@ -686,7 +686,7 @@
 % default 0.4pt. It can be changed using \cmd{\setlength}, although I suggest
 % that you do not unless perhaps when using at least the \Lopt{14pt} class
 % option.
-\lnc{\normalrulethickness}는 보이는 선의 기본\tidx{rule!thickness,선!두께}
+\lnc{\normalrulethickness}는 보이는 괘선의 기본\tidx{rule!thickness,선!두께}
 두께로, 0.4pt이다.
 이는 \cmd{\setlength}를 통해 바꿀 수 있지만, 필자는 여러분이 적어도 \Lopt{14pt}
 클래스 옵션을 사용하지 않는 이상 그렇게 하지 않기를 권장한다.
@@ -1107,7 +1107,7 @@
 이 예시는 대부분의 페이지 양식 명령을 보여준다.
 \textit{\ltx\ Companion} 시리즈~\cite{COMPANION,GCOMPANION,WCOMPANION}에는
 머릿글\tidx{header,머릿글}이 조판 영역\tidx{typeblock,조판 영역}보다 넓어 바깥
-여백\tidx{margin!outer,여백!바깥}으로 삐져 나와 있고, 아래에 선이 있다.
+여백\tidx{margin!outer,여백!바깥}으로 삐져 나와 있고, 아래에 괘선이 있다.
 페이지 번호는 볼드체로 머릿글 바깥쪽에 있다.
 장 제목은 왼쪽 머릿글\tidx{header,머릿글}에 있고 절 제목은 오른쪽
 머릿글\tidx{header,머릿글}에 둘 다 볼드체로 안쪽
@@ -1135,7 +1135,7 @@
 \end{lcode}
 % and specify the width and thickness for the header\index{header} rule,
 % otherwise it will be invisible.
-그리고 머릿글\tidx{header,머릿글} 선의 너비와 두께를 설정해야 보일 것이다.
+그리고 머릿글\tidx{header,머릿글} 괘선의 너비와 두께를 설정해야 보일 것이다.
 \begin{lcode}
 \makeheadrule{companion}{\headwidth}{\normalrulethickness}
 \end{lcode}
@@ -1266,10 +1266,14 @@ ruled 페이지 양식은 이와 같다.
 \makeevenhead {ruled}{\scshape\leftmark}{}{} % small caps
 \makeoddhead  {ruled}{}{}{\rightmark}
 \end{lcode}
-The other part of the specification has to ensure that the \cmd{\chapter}
-and \cmd{\section} commands make the appropriate marks for the headers.
-I wanted the numbers to appear in the headers, but not those for sections. The following
-code sets these up, as well as the marks for the other document elements.
+% The other part of the specification has to ensure that the \cmd{\chapter}
+% and \cmd{\section} commands make the appropriate marks for the headers.
+% I wanted the numbers to appear in the headers, but not those for sections. The following
+% code sets these up, as well as the marks for the other document elements.
+설정의 나머지 부분은 \cmd{\chapter}와 \cmd{\section} 명령어가 머릿글에 대해서
+적절한 표지를 남기도록 한다.
+필자는 머릿글에 장 번호는 나오지만 절 번호는 그렇지 않도록 하고 싶었다.
+다음 코드는 이와 더불어 다른 문서 요소에 대한 표지를 설정한다.
 \begin{lcode}
 \makepsmarks{ruled}{%
   \nouppercaseheads
@@ -1284,36 +1288,52 @@ code sets these up, as well as the marks for the other document elements.
 }
 \end{lcode}
 
-\index{pagestyle!specifying|)}
+% \index{pagestyle!specifying|)}
+\tidx{pagestyle!specifying|),페이지 양식!지정|)}
 
 
 
-\subsection{Index headers}
+% \subsection{Index headers}
+\subsection{색인 머릿글}
 
-\index{pagestyle!index pages|(}
+% \index{pagestyle!index pages|(}
+\tidx{pagestyle!index pages|(,페이지 양식!색인 페이지|(}
 
-    If you look at the Index\index{index} you will see that the header\index{header} 
-shows the first and last entries on the page.
-A main entry in the index\index{index} looks like:
+%     If you look at the Index\index{index} you will see that the header\index{header}
+% shows the first and last entries on the page.
+% A main entry in the index\index{index} looks like:
+여러분이 색인\tidx{index,인덱스}를 보면 머릿글\tidx{header,머릿글}이 해당
+페이지의 시작과 마지막 표제어를 보여주는 것을 확인할 수 있다.
+색인\tidx{index,색인}의 중심 표제어는 다음과 같다.
 \begin{lcode}
 \item \idxmark{entry}, page number(s)
 \end{lcode}
-and in the preamble\index{preamble} to this book \cmd{\idxmark} is defined as
+% and in the preamble\index{preamble} to this book \cmd{\idxmark} is defined as
+그리고 이 책의 프리앰블\tidx{preamble,프리앰블}에서 \cmd{\idxmark}는 다음과
+같이 정의되어 있다.
 \begin{lcode}
 \newcommand{\idxmark}[1]{#1\markboth{#1}{#1}}
 \end{lcode}
-This typesets the entry and also uses the entry as markers so that
-the first entry on a page is held in \cmd{\rightmark} and the last
-is in \cmd{\leftmark}.
+% This typesets the entry and also uses the entry as markers so that
+% the first entry on a page is held in \cmd{\rightmark} and the last
+% is in \cmd{\leftmark}.
+이는 표제어를 식자할 뿐만이 아니라, 표제어를 표지로 사용해 처음 표제어는
+\cmd{\rightmark}에, 마지막 표제어는 \cmd{\leftmark}에 넣도록 한다.
 
-    As index\index{index} entries are usually very short, the 
-Index\index{index} is set in two columns\index{column!double}. 
-Unfortunately \ltx's marking mechanism can be very
-fragile on twocolumn\index{column!double} pages.\footnote{This was
-  fixed in the \LaTeX{} kernel, but including the functionality from
-  the \Lpack{fixltx2e} package.}
+%     As index\index{index} entries are usually very short, the
+% Index\index{index} is set in two columns\index{column!double}.
+% Unfortunately \ltx's marking mechanism can be very
+% fragile on twocolumn\index{column!double} pages.\footnote{This was
+%   fixed in the \LaTeX{} kernel, but including the functionality from
+%   the \Lpack{fixltx2e} package.}
+색인\tidx{index,색인} 표제어는 보통 매우 짧아서, 색인\tidx{index,색인}은 두
+단\tidx{column!double,단!두}으로 되어 있다.
+불행히도 \ltx의 표지 방식이 두 단\tidx{colummn!double} 페이지에서는 매우 깨지기
+쉽다.\footnote{이는 \LaTeX{} 커널에서 고쳐졌지만, \Lpack{fixltx2e} 패키지의
+기능을 포함한다.}
 
-    The index\index{index} itself is called by\index{indexing}
+    % The index\index{index} itself is called by\index{indexing}
+색인\tidx{index,색인}은 다음에 의해 불려진다.\tidx{indexing,색인화}
 \begin{lcode}
 \clearpage
 \pagestyle{index}
@@ -1331,8 +1351,9 @@ the indexed topic.\vskip\onelineskip}
   \makeevenfoot{index}{\thepage}{}{}
   \makeoddfoot{index}{}{}{\thepage}
 
-    The \pstyle{index} pagestyle, which is the crux of
-this example, is defined here as:
+%     The \pstyle{index} pagestyle, which is the crux of
+% this example, is defined here as:
+본 예시의 핵심인 \pstyle{index} 페이지 양식은 다음과 같이 정의된다.
 \begin{lcode}
 \makepagestyle{index}
   \makeheadrule{index}{\textwidth}{\normalrulethickness}
@@ -1341,17 +1362,25 @@ this example, is defined here as:
   \makeevenfoot{index}{\thepage}{}{}
   \makeoddfoot{index}{}{}{\thepage}
 \end{lcode}
-This, as you can hopefully see, puts the first and last index\index{index} 
-entries on the page into the header\index{header} at the left and right, 
-with the folios\index{folio} in the footers\index{footer} at the 
-outer margin\index{margin!outer}.
+% This, as you can hopefully see, puts the first and last index\index{index}
+% entries on the page into the header\index{header} at the left and right,
+% with the folios\index{folio} in the footers\index{footer} at the
+% outer margin\index{margin!outer}.
+여러분이 아마 볼 수 있듯 이는 페이지의 처음과 마지막
+색인\tidx{index,표제어} 표제어를 머릿글\tidx{header,머릿글}의 왼쪽과 오른쪽에
+넣고, 폴리오\tidx{folio,폴리오}를 바깥 여백\tidx{margin!outer,여백!바깥쪽}의
+바닥글\tidx{footer,바닥글}에 넣는다.
 
-\index{pagestyle!index pages|)}
+% \index{pagestyle!index pages|)}
+\tidx{pagestyle!index pages|),페이지 양식!색인 페이지|)}
 
-\subsection{Float pages}
+% \subsection{Float pages}
+\subsection{떠다니는 페이지}
 
-\index{pagestyle!float pages|(}
-\index{float!page|(}
+% \index{pagestyle!float pages|(}
+% \index{float!page|(}
+\tidx{pagestyle!float pages|(,페이지 양식!떠다니는 페이지|(}
+\tidx{float!page|(,떠다니는!페이지|(}
 
 \begin{syntax}
 \piif{ifonlyfloats}\marg{yes}\marg{no} \\
@@ -1360,18 +1389,30 @@ outer margin\index{margin!outer}.
   {\cs{ifonlyfloats}\marg{yes}\marg{no}}%
   {Processes \meta{yes} on a page containing only floats, otherwise process
   \meta{no}.}
-    There are occasions when it is desirable to have different 
-headers\index{header} on pages that only contain figures\index{figure} 
-or tables\index{table}. If the command \piif{ifonlyfloats}
-is issued on a page that contains no text and only floats then the \meta{yes}
-argument is processed, otherwise on a normal page the \meta{no} argument
-is processed. The command is most useful when defining a pagestyle that 
-should be different on a float-only page\index{page!of floats}.
+%     There are occasions when it is desirable to have different
+% headers\index{header} on pages that only contain figures\index{figure}
+% or tables\index{table}. If the command \piif{ifonlyfloats}
+% is issued on a page that contains no text and only floats then the \meta{yes}
+% argument is processed, otherwise on a normal page the \meta{no} argument
+% is processed. The command is most useful when defining a pagestyle that
+% should be different on a float-only page\index{page!of floats}.
+페이지가 글 없이 그림\tidx{figure,그림}이나 표\tidx{table,표}만을 담고 있을 때,
+다른 머릿글\tidx{header,머릿글}을 넣어야 할 때가 있다.
+만약 \piif{ifonlyfloats} 명령어가 글 없이 떠다니는 개체만 있는 페이지에 사용될
+경우, \meta{yes} 인자가 처리되며 그렇지 않은 일반적인 페이지의 경우 \meta{no}
+인자가 처리된다.
+해당 명령은 떠다니는 개체뿐인
+페이지\index{page!of floats,떠다니는 개체뿐인!페이지}에만 다르게 적용될 페이지
+양식을 정의할 때 유용하다.
 
-    For example, assume that the \pstyle{companion} pagestyle is to be
-generally used, but on float-only pages all that is required is a pagestyle
-similar to \pstyle{plain}. Borrowing some code from the \pstyle{companion}
-specification this can be accomplished like:
+%     For example, assume that the \pstyle{companion} pagestyle is to be
+% generally used, but on float-only pages all that is required is a pagestyle
+% similar to \pstyle{plain}. Borrowing some code from the \pstyle{companion}
+% specification this can be accomplished like:
+예컨대 \pstyle{companion} 페이지 양식을 주로 사용하지만, 떠다니는 개체뿐인
+페이지에서는 \pstyle{plain} 정도의 페이지 양식만 필요하다고 하자.
+\pstyle{companion}의 설정에서 일부 코드를 빌려다가 쓴다면 다음과 같이 할 수
+있다.
 \begin{lcode}
 \makepagestyle{floatcomp}
 % \headwidth has already been defined for the companion style
@@ -1390,62 +1431,98 @@ specification this can be accomplished like:
 \makeevenfoot{floatcomp}{}{\ifonlyfloats{\thepage}{}}{}
 \makeoddfoot{floatcomp}{}{\ifonlyfloats{\thepage}{}}{}
 \end{lcode}
-The code above for the \pstyle{floatcomp} style should be compared with 
-that for the earlier \pstyle{companion} style.
+% The code above for the \pstyle{floatcomp} style should be compared with
+% that for the earlier \pstyle{companion} style.
+\pstyle{floatcomp} 양식에 대한 위 코드를 앞서 나온 \pstyle{companion} 양식의
+것과 비교해보자.
 
-    The headrule is invisible\index{rule!thickness}\index{rule!invisible} 
-on float pages by giving it zero thickness, 
-otherwise it has the \cmd{\normalrulethickness}. The head position is 
-identical for both pagestyles. However, the headers\index{header} are empty for
-\pstyle{floatcomp} and the footers\index{footer} have centered page numbers 
-on float pages; on ordinary pages the footers\index{footer} are empty 
-while the headers\index{header}
-are the same as the \pstyle{companion} headers\index{header}.
+%     The headrule is invisible\index{rule!thickness}\index{rule!invisible}
+% on float pages by giving it zero thickness,
+% otherwise it has the \cmd{\normalrulethickness}. The head position is
+% identical for both pagestyles. However, the headers\index{header} are empty for
+% \pstyle{floatcomp} and the footers\index{footer} have centered page numbers
+% on float pages; on ordinary pages the footers\index{footer} are empty
+% while the headers\index{header}
+% are the same as the \pstyle{companion} headers\index{header}.
+머리괘선은 떠다니는 페이지에서 두께가 영이 되어 보이지
+않고\tidx{rule!thickness,괘선!두께}\tidx{rule!invisible,괘선!보이지 않는} 다른
+페이지에는 \cmd{\normalrulethickness}의 두께를 가진다.
+머리의 위치는 두 페이지 양식 모두 동일하다.
+그러나 \pstyle{floatcomp}에서 머릿글\tidx{header,머릿글}은 비어있고,
+떠다니는 페이지의 바닥글\tidx{footer,바닥글}은 가운데에 페이지 번호를 가진다.
+일반적인 페이지에서 바닥글\tidx{footer,바닥글}은 비어있지만
+머릿글\tidx{header,머릿글}은 \pstyle{companion}의 머릿글\tidx{header,머릿글}과
+같다.
 
-    The code includes one `trick'. The macro \cmd{\makepsmarks}\verb?{X}{code}?
-is equivalent to
+%     The code includes one `trick'. The macro \cmd{\makepsmarks}\verb?{X}{code}?
+% is equivalent to
+다음 코드는 `요령' 하나를 담고 있다.
+매크로 \cmd{\makepsmarks}\verb|{x}{code}|는
 \begin{lcode}
 \newcommand{\Xpshook}{code}
 \end{lcode}
-I have used this knowledge in the line:
+와 같다.
+% I have used this knowledge in the line:
+필자는 이를 다음 코드에 적용하였다.
 \begin{lcode}
 \makepsmarks{floatcomp}{\companionpshook}
 \end{lcode}
-which avoids retyping the code from 
+% which avoids retyping the code from
+이는
 \verb?\makepsmarks{companion}{...}?,
-and ensures that the code is actually the same for the two pagestyles.
+% and ensures that the code is actually the same for the two pagestyles.
+을 번복하지 않으면서도 코드가 두 페이지 양식에 대해 동일하도록 보장한다.
 
 \begin{syntax}
 \cmd{\mergepagefloatstyle}\marg{style}\marg{textstyle}\marg{floatstyle} \\
 \end{syntax}
-    If you have two pre-existing pagestyles, one that will be used for
-text pages and the other that can be used for float pages, then the
-\cmd{\mergepagefloatstyle} command provides a simpler means of 
-combining\index{pagestyle!combining}
-them than the above example code for \pstyle{floatcomp}. The argument
-\meta{style} is the name of the pagestyle being defined. The
-argument \meta{textstyle}
-is the name of the pagestyle for text pages and \meta{floatstyle} is the
-name of the pagestyle for float-only pages. Both of these must have been 
-defined before calling \cmd{\mergepagefloatstyle}. So, instead of the long
-winded, and possibly tricky, code I could have simply said:
+%     If you have two pre-existing pagestyles, one that will be used for
+% text pages and the other that can be used for float pages, then the
+% \cmd{\mergepagefloatstyle} command provides a simpler means of
+% combining\index{pagestyle!combining}
+% them than the above example code for \pstyle{floatcomp}. The argument
+% \meta{style} is the name of the pagestyle being defined. The
+% argument \meta{textstyle}
+% is the name of the pagestyle for text pages and \meta{floatstyle} is the
+% name of the pagestyle for float-only pages. Both of these must have been
+% defined before calling \cmd{\mergepagefloatstyle}. So, instead of the long
+% winded, and possibly tricky, code I could have simply said:
+여러분이 하나는 본문 페이지에, 다른 하나는 떠다니는 페이지에 적용할 두 개의
+페이지 양식을 이미 가지고 있다면, \cmd{\mergepagefloatstyle} 명령어는 위의
+\pstyle{floatcomp} 예시 코드보다 간단하게 페이지 양식을
+결합할\tidx{pagestyle!combining,페이지 양식!결합} 수 있도록 제공된다.
+\meta{style} 인자는 정의되고 있는 페이지 양식의 이름이다.
+\meta{textstyle} 인자는 본문 페이지에 대한 페이지 양식의 이름,
+\meta{floatstyle}은 떠다니는 페이지에 적용될 페이지 양식의 이름이다.
+이들 둘 다 \cmd{\mergepagefloatstyle}을 부르기 전에 정의되어 있어야 한다.
+따라서, 필자는 길고 복잡할 수도 있는 코드 대신에 다음의 코드를 사용할 수
+있었다.
 \begin{lcode}
 \mergepagefloatstyle{floatcomp}{companion}{plain}
 \end{lcode}
 
 
-    One author thought it would be nice to be able to have different 
-page headings according
-to whether the page was a floatpage, or there was a float at the top of 
-the page, or a float at the bottom of a page or there was text at the 
-top and bottom.
+%     One author thought it would be nice to be able to have different
+% page headings according
+% to whether the page was a floatpage, or there was a float at the top of
+% the page, or a float at the bottom of a page or there was text at the
+% top and bottom.
+어떤 저자는 페이지가 떠다니는 페이지인지, 떠다니는 개체가 페이지의 꼭대기에
+있는지, 떠다니는 개체가 페이지의 바닥에 있는지, 혹은 본문이 꼭대기와 바닥에
+있는지에 따라서 페이지 머릿글을 다르게 하면 좋을 수 있을 것 같다고 생각하였다.
 
-    This, I think, is not a common requirement and, further, that to provide 
-this involves changing parts of the LaTeX output routine --- something only
-to be tackled by the bravest of the brave. If it were to be done then were
-best done in a package that could be easily ignored. The following is an
-outline of what might be done; I do not recommend it and if you try this 
-and all your work dissappears then on your own head be it.
+%     This, I think, is not a common requirement and, further, that to provide
+% this involves changing parts of the LaTeX output routine --- something only
+% to be tackled by the bravest of the brave. If it were to be done then were
+% best done in a package that could be easily ignored. The following is an
+% outline of what might be done; I do not recommend it and if you try this
+% and all your work dissappears then on your own head be it.
+필자는 이것이 통상적인 요구사항이 아니라고 생각할 뿐만이 아니라, 이를 가능하게
+하려면 LaTeX의 출력 과정을 손봐야 하는데, 이는 큰 용기를 필요로 하는 일이다.
+만약 이를 해야 한다면 쉽게 무시할 수 있는 패키지로 만들어야 할 것이다.
+다음은 이를 위해 해야하는 작업의 윤곽으로, 필자는 권장하지 않는다.
+혹여나 여러분이 시도하였는데 모든 작업이 사라져버리더라도 전적으로 여러분의
+책임이다.
 
 \begin{lcode}
 % notefloat.sty
@@ -1501,23 +1578,37 @@ and all your work dissappears then on your own head be it.
 
 \endinput
 \end{lcode}
-\cs{floatattop} is probably set \ptrue\ if there is a float at the 
-top of the page and
-\cs{floatatbot} is probably set \ptrue\ if there is a float at the bottom
-of the page.
+% \cs{floatattop} is probably set \ptrue\ if there is a float at the
+% top of the page and
+% \cs{floatatbot} is probably set \ptrue\ if there is a float at the bottom
+% of the page.
+만약 떠다니는 개체가 페이지의 꼭대기에 있다면 \cs{floatattop}은 아마도 \ptrue로
+설정될 것이고 떠다니는 개체가 페이지의 바닥에 있다면 \cs{floatatbot}은 아마도
+\ptrue로 설정될 것이다.
 
 
-\index{float!page|)}
-\index{pagestyle!float pages|)}
+% \index{float!page|)}
+% \index{pagestyle!float pages|)}
+\tidx{float!page|),떠다니는!페이지|)}
+\tidx{pagestyle!float pages|),페이지 양식!떠다니는 페이지|)}
 
-\section{The showlocs pagestyle}
+% \section{The showlocs pagestyle}
+\section{showlocs 페이지 양식}
 
-    The \pstyle{showlocs} pagestyle is somewhat special as it is meant to be
-used as an aid when designing a page layout. Lines are drawn showing the 
-vertical positions of the headers and footers and a box is drawn around
-the textblock. It is implemented using two 
-zero-sized\index{zero-sized picture} pictures.\verbfootnote{A
-zero-sized picture starts off with \verb?begin{picture}(0,0)...?.}
+%     The \pstyle{showlocs} pagestyle is somewhat special as it is meant to be
+% used as an aid when designing a page layout. Lines are drawn showing the
+% vertical positions of the headers and footers and a box is drawn around
+% the textblock. It is implemented using two
+% zero-sized\index{zero-sized picture} pictures.\verbfootnote{A
+% zero-sized picture starts off with \verb?begin{picture}(0,0)...?.}
+\pstyle{showlocs} 페이지 양식은 다소 특수하다고 볼 수 있는데, 이는 페이지 판매김
+설계를 돕기 위해 만들어졌기 때문이다.
+머릿글과 바닥글의 세로 위치를 표시하기 위한 선이 그어지며, 본문 영역 주변으로
+상자가 그려진다.
+이는 크기가 영인 그림\tidx{zero-sized picture,크기가 영인 그림} 두 개를 통해
+구현하였다.\verbfootnote{크기가 영인 그림은 \verb|begin{picture}(0,0)...|으로
+시작된다.}
+
 \begin{syntax}
 \cmd{\framepichead} \\
 \cmd{\framepictextfoot} \\
@@ -1545,17 +1636,29 @@ zero-sized picture starts off with \verb?begin{picture}(0,0)...?.}
   {Prevents \cs{framepichead} and \cs{framepictextfoot} from drawing
    lines at the header and footer locations.}
 %
-The macro \cmd{\framepichead} creates a zero-sized\index{zero-sized picture} 
-picture that draws a line at the header location, and the macro 
-\cmd{\framepictextfoot} creates a zero-sized\index{zero-sized picture} 
-picture that draws a line at the footer location
-and also draws a box around the typeblock. Following the declaration
-\cmd{\showheadfootlocoff} the macros \cmd{\framepichead} and 
-\cmd{\framepictextfoot} do not draw lines showing the header and footer
-locations. The declaration \cmd{\showtextblockoff} prevents
-\cmd{\framepictextfoot} from drawing a box around the textblock.
+% The macro \cmd{\framepichead} creates a zero-sized\index{zero-sized picture}
+% picture that draws a line at the header location, and the macro
+% \cmd{\framepictextfoot} creates a zero-sized\index{zero-sized picture}
+% picture that draws a line at the footer location
+% and also draws a box around the typeblock. Following the declaration
+% \cmd{\showheadfootlocoff} the macros \cmd{\framepichead} and
+% \cmd{\framepictextfoot} do not draw lines showing the header and footer
+% locations. The declaration \cmd{\showtextblockoff} prevents
+% \cmd{\framepictextfoot} from drawing a box around the textblock.
+\cmd{\framepichead} 매크로는 머릿글 위치에 선을 그리는, 크기가 영인
+그림\tidx{zero-sized picture,크기가 영인 그림}을 생성하며,
+\cmd{\framepictextfoot} 매크로는 바닥글 위치에 선을 그리고 조판 영역 주위에
+상자를 그리는, 크기가 영인 그림\tidx{zero-sized picture,크기가 영인 그림}을
+생성한다.
+매크로 \cmd{\framepichead}와 \cmd{\framepictextfoot}은,
+\cmd{\showheadfootlocoff} 정의 후에는 머릿글과 바닥글 위치에 선을 그리지
+않는다.
+\cmd{\showtextblockoff}의 정의는 \cmd{\framepictextfoot}가 본문 영역 주변에
+상자 그리는 것을 방지한다.
 
-In case you want to change the color of the \pstyle{showlocs}, simply do
+% In case you want to change the color of the \pstyle{showlocs}, simply do
+만약 여러분이 \pstyle{showlocs}의 색상을 바꾸고 싶다면, 다음과 같이 간단히 할
+수 있다.
 \begin{lcode}
   \renewcommand\framepichook{\color{red}}
 \end{lcode}
@@ -1565,24 +1668,40 @@ In case you want to change the color of the \pstyle{showlocs}, simply do
     If you generally want a box around the textblock you may want to create
 your own pagestyle using \cmd{\framepictextfoot} and the \pstyle{showlocs}
 code as a starting point, see \path{memoir.cls} for details.
+만약 여러분이 본문 영역 주위에 상자를 추가하는 일반적인 방법이 필요하다면,
+\cmd{\framepictextfoot}와 \pstyle{showlocs} 코드를 발판삼아 직접 페이지 양식을
+만들어야 할 것인데, 자세한 내용은 \path{memoir.cls}를 참고하자.
 
 
-\section{Other things to do with page styles}
+% \section{Other things to do with page styles}
+\section{페이지 양식으로 할 수 있는 다른 일들}
 \label{sec:other-things-do}
 
-Back on \pref{ex:draft.pagestyle} we presented a way of adding some
-draft information. Here is a more advanced example of this.
+% Back on \pref{ex:draft.pagestyle} we presented a way of adding some
+% draft information. Here is a more advanced example of this.
+이전에 \pref{ex:draft.pagestyle}에서 우리는 초고 정보를 추가하는 방법에 대해
+살펴보았다.
+여기에 더 자세한 예시가 나와 있다.
 
-One interesting use for page styles is to provide extra information
-below the footer. This might be some kind of copyright information. Or
-if your document is under version control with a system like
-Subversion, and you have all your chapter laying in seperate files,
-then why not add information at the start of very chapter, specifying
-who did the last change to this chapter at which time. See the
-\texttt{svn-multi} package (\cite{svn-multi}) and the Prac\TeX{}
-Journal article \cite{practex-2007-3-ms} by the same author. Then this
-information can be added to the start of every chapter using something
-like:
+% One interesting use for page styles is to provide extra information
+% below the footer. This might be some kind of copyright information. Or
+% if your document is under version control with a system like
+% Subversion, and you have all your chapter laying in seperate files,
+% then why not add information at the start of very chapter, specifying
+% who did the last change to this chapter at which time. See the
+% \texttt{svn-multi} package (\cite{svn-multi}) and the Prac\TeX{}
+% Journal article \cite{practex-2007-3-ms} by the same author. Then this
+% information can be added to the start of every chapter using something
+% like:
+페이지 양식의 흥미로운 사용 중 하나는 바닥글 아래에 추가 정보를 제시하는
+것이다.
+저작권 정보와 같은 것이 될 수 있다.
+혹은 여러분의 문서가 Subversion과 같은 시스템으로 버전 관리가 되고 있고, 모든
+단원이 서로 분리된 파일에 담겨 있다면, 단원의 맨 앞에 누가 해당 단원을 언제
+수정하였는지에 대한 정보를 추가할 수도 있다.
+\texttt{svn-multi} 패키지(\cite{svn-multi})와 동일 저자의 Prac\TeX{} 저널의
+논문\cite{practex-2007-3-ms}을 보라.
+이 정보는 다음과 같이 매 단원의 시작에 더해질 수 있다.
 \begin{lcode}
 \usepackage[filehooks]{svn-multi}
 \makeatletter

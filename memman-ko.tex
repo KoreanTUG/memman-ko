@@ -2,7 +2,8 @@
 % arara: xelatex: {synctex: yes}
 % arara: xelatex: {synctex: yes}
 % arara: komkindex: {style: memman, koreanfirst: yes}
-% arara: xelatex: {synctex: yes}
+% arara: makeindex: {input: glo, output: gls, style: memman.gst}
+% arara: makeindex: {files: [lines]}
 % arara: xelatex: {synctex: yes}
 %#% extstart input preamble.tex
 %
@@ -335,6 +336,21 @@ Manual last changed \svnyear/\svnmonth/\svnday
 \hspace*{\fill} With apologies to Ambrose Bierce % and Reuben Thomas
 \end{quote}
 
+%%%% translator’s addition
+\vspace{2\baselineskip}
+
+\makeatletter
+\def\ATonum{\@onum}
+\makeatother
+
+\begin{quote}
+% \textbf{memoir} [{\fontspec{Gentium}mémwɑ:\textit{r}}], \textit{n.} \ATonum1 \textsf{전기}; 실록; (보통 \emph{pl.}) 추억의 기록; 회상(회고)록; 자서전; \ATonum2 연구, 보고, 논문 (monograph); (\emph{pl.}) 학회지, 기요(記要); \ATonum3 도서; 단행본.
+\textbf{memoir} [{mémwɑ:\textit{r}}], \textit{n.} \ATonum1 \textsf{전기}; 실록; (보통 \emph{pl.}) 추억의 기록; 회상(회고)록; 자서전; \ATonum2 연구, 보고, 논문 (monograph); (\emph{pl.}) 학회지, 기요(記要); \ATonum3 도서; 단행본.
+\\[0.5\baselineskip]
+\hspace*{\fill} <<엣센스 英韓辭典>>
+\end{quote}
+%%%%
+
 \vspace*{\fill}
 
 \cleardoublepage
@@ -657,6 +673,13 @@ access CTAN is available at \url{http://www.tug.org}.
 
 \include{chs/22-bib}
 
+%\end{document}
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+
+
+
 \clearpage
 \twocolindex
 \pagestyle{index}
@@ -671,7 +694,8 @@ the indexed topic.\vskip\onelineskip}
 
 \onecolindex
 \renewcommand*{\preindexhook}{}
-\renewcommand*{\indexname}{Index of first lines}
+%\renewcommand*{\indexname}{Index of first lines}
+\renewcommand*{\indexname}{첫 행 색인}
 %%% \indexintoc
 
 
@@ -702,16 +726,36 @@ the indexed topic.\vskip\onelineskip}
 \begin{center}
 {\Large\textsf{Colophon}}
 \end{center}
-\begin{center}
-This manual was typeset using the \ltx\ typesetting system
-created by Leslie Lamport and the \Mname\ class. 
-The body text is set 10/12pt on a
-33pc measure with Palatino designed by Hermann Zapf, which includes 
-italics and small caps. Other fonts include
-Sans, Slanted and Typewriter from Donald Knuth's 
-Computer Modern family.
 
+%%%% translator’s addition
+\vskip\onelineskip
+
+\begin{center}
+%This manual was typeset using the \ltx\ typesetting system
+%created by Leslie Lamport and the \Mname\ class. 
+%The body text is set 10/12pt on a
+%33pc measure with Palatino designed by Hermann Zapf, which includes 
+%italics and small caps. Other fonts include
+%Sans, Slanted and Typewriter from Donald Knuth's 
+%Computer Modern family.
+\begin{minipage}{25em}
+이 사용안내서는 Leslie Lamport가 처음 만든 \ltx\ 시스템과
+\Mname\ 클래스로 조판하였다.
+원본(영문)은 Hermann Zapf가 디자인한 Palatino
+글꼴(이탤릭 및 작은대문자 포함)로 33pc에 10/12포인트를 본문 텍스트로
+삼았으며, Sans, Slanted, Typewriter 글꼴은 Donald Knuth의
+Computer Modern 글꼴가족을 사용하였다. 
+
+\bigskip
+
+한글 번역본은 원본의 레이아웃을 그대로 유지하였으며 한글과
+한자를 Noto Serif CJK와 Noto Sans CJK 폰트로 식자하고
+라틴 문자에 TeX Gyre Pagella 글꼴과 Latin Modern Sans,
+Typewriter를 적용하였으며 한글 처리를 위하여 \hologo{XeLaTeX}과
+\koTeX (\textsf{xetexko})을 썼다.
+\end{minipage}
 \end{center}
+%%%%
 
 
 \end{adjustwidth}

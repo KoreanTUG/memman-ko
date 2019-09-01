@@ -57,7 +57,8 @@
 \changeglossnum{\@currentlabel} 
 \changeglossnum{\thepage}
 \changeglossnumformat{|hyperpage} %|
-\renewcommand*{\glossaryname}{Command summary}
+%\renewcommand*{\glossaryname}{Command summary}
+\renewcommand*{\glossaryname}{명령 조견표}
 \renewcommand{\glossitem}[4]{%
   \sbox\@tempboxa{#1 \space #2 #3 \makebox[2em]{#4}}%
 \par\hangindent 2em
@@ -1218,6 +1219,7 @@ it to use the new width for the  margin par}
 \renewcommand\listfigurename{圖 목차}
 \renewcommand\listtablename{表 목차}
 
+\RequirePackage{kotex-logo}
 
 \endinput
 
