@@ -769,12 +769,14 @@ Book의 제목은 \cmd{\printbooktitle}로 식자할 수 있으며, 사용되는
 % The \cmd{\book} code includes \cmd{\bookpagemark}\marg{title} for capturing
 % the \meta{title} of the book division if it is going to be used,
 % for example, in page headers. Its definition is simply:
-\cmd{\book} 코드는
+\cmd{\book} 코드는 페이지 헤더와 같이 book \meta{제목}이 사용되면 그것을 캡처하기
+위해 \cmd{\bookpagemark}\marg{title}을 포함한다. 이것의 정의는 간단하다.
 \begin{lcode}
 \newcommand*{\bookpagemark}[1]{}
 \end{lcode}
-There is the corresponding \cmd{\partmark} for the title of \cmd{\part}
-divisions.
+% There is the corresponding \cmd{\partmark} for the title of \cmd{\part}
+% divisions.
+\cmd{\part} 제목을 위한 \cmd{\partmark}도 존재한다.
 
 \begin{syntax}
 \cmd{\bookpageend} \cmd{\bookblankpage} \cmd{\nobookblankpage} \\
@@ -799,20 +801,29 @@ divisions.
   {\cs{nopartblankpage}}%
   {Do not follow a part title page with a blank page.}
 
-The macro \cmd{\bookpageend} finishes off a book title page. It first
-calls \cmd{\afterbookskip}. If the \cmd{\nobookblankpage} is in effect
-it does nothing more. If the declaration \cmd{\bookblankpage} (the default)
-is in effect then it finishes the current page, outputs a blank page and then,
-if twocolumn typesetting was in effect before \cmd{\book} then it restores
-twocolumn typesetting. The macro \cmd{\partpageend} performs similar
-functions for \cmd{\part} pages.
+% The macro \cmd{\bookpageend} finishes off a book title page. It first
+% calls \cmd{\afterbookskip}. If the \cmd{\nobookblankpage} is in effect
+% it does nothing more. If the declaration \cmd{\bookblankpage} (the default)
+% is in effect then it finishes the current page, outputs a blank page and then,
+% if twocolumn typesetting was in effect before \cmd{\book} then it restores
+% twocolumn typesetting. The macro \cmd{\partpageend} performs similar
+% functions for \cmd{\part} pages.
+\cmd{\bookpageend} 매크로는 book 제목 페이지를 종료한다. 제일 처음에는
+\cmd{\afterbookskip}을 호출한다. 만약 \cmd{\nobookblankpage} 효과가 적용 중이면
+아무런 일도 일어나지 않는다. 만약 \cmd{\bookblankpage} 선언의 효과가 적용 중이면
+(기본값) 현재 페이지를 끝내고 빈 페이지를 출력한 다음 twocolumn 효과가 \cmd{\book}
+이전에 적용 중이었을 경우 다시 twocolumn으로 되돌린다. \cmd{\partpageend} 매크로는
+\cmd{\part} 페이지에 비슷한 기능을 한다.
 
 \LMnote{2011/02/06}{This now uncommented text is wrong!}
 %     If, for example, you wish to put something on a \cmd{\part} page, and maybe
 % something on the following normally blank page, then this is a possible way
 % of doing it:\index{text on a part page}
-So to add something on the back side of a \cmd{\part} page (assuming
-twoside) use something similar to
+
+% So to add something on the back side of a \cmd{\part} page (assuming
+% twoside) use something similar to
+그래서 \cmd{\part} 페이지 반대편에 무언가를 넣고 싶으면(twoside를 가정) 아래와
+비슷한 코드를 사용하면 된다.
 \begin{lcode}
 ...
 \nopartblankpage
@@ -825,10 +836,14 @@ Text on the following (normally blank page)
     % Alternatively you can redefine \cmd{\partpageend}.
 다르게는 \cmd{\partpageend}를 재정의 할 수도 있다.
 
-   If you use the declaration \cmd{\nopartblankpage} (or \cmd{\nobookblankpage})
-then you are responsible for setting everything correctly to end off the
-\cmd{\part} (or \cmd{\book}) page. This is the default definition of
-\cmd{\partpageend} (that for \cmd{\bookpageend} is similar):
+%    If you use the declaration \cmd{\nopartblankpage} (or \cmd{\nobookblankpage})
+% then you are responsible for setting everything correctly to end off the
+% \cmd{\part} (or \cmd{\book}) page. This is the default definition of
+% \cmd{\partpageend} (that for \cmd{\bookpageend} is similar):
+\cmd{\nopartblankpage} (또는 \cmd{\nobookblankpage}) 선언을 쓰고 싶다면 모든 것을
+\cmd{\part} (또는 \cmd{\book}) 페이지를 끝낼 때 모든 것을 제대로 설정해야 한다.
+다음은 \cmd{\partpageend}의 기본 설정이다(\cmd{\bookpageend}도 유사함).
+
 \begin{lcode}
 \newcommand{\partpageend}{%
   \afterpartskip
@@ -846,22 +861,29 @@ then you are responsible for setting everything correctly to end off the
     \twocolumn
   \fi}
 \end{lcode}
-Here with the default definitions, \cmd{\afterpartskip} ends off the
-\cmd{\part} page, and then the rest of the code in \cmd{\partpageend}
-takes care of typesetting the blank back side of the \cmd{\part} page
-(or send us back to twocolumn mode).
+% Here with the default definitions, \cmd{\afterpartskip} ends off the
+% \cmd{\part} page, and then the rest of the code in \cmd{\partpageend}
+% takes care of typesetting the blank back side of the \cmd{\part} page
+% (or send us back to twocolumn mode).
+기본 정의에서 \cmd{\afterpartskip}은 \cmd{\part} 페이지를 끝내고
+\cmd{\partpageend}의 나머지 코드는 \cmd{\part} 페이지의 반대편 빈 페이지를
+식자한다 (또는 twocolumn 모드로 되돌린다).
 
 \LMnote{2011/02/06}{Added the example below}
-If on the other hand we actually want to write something below the
-part title on the \cmd{\part} page, then we need a different
-route. The `air' above and below the part title is by default defined as
+% If on the other hand we actually want to write something below the
+% part title on the \cmd{\part} page, then we need a different
+% route. The `air' above and below the part title is by default defined as
+반면에 \cmd{\part} 페이지에서 part 제목 아래에 뭔가 써넣고 싶다면 다른 방법이
+필요하다. part 제목 위와 아래에서 `air'는 기본적으로 다음과 같이 정의된다.
 \begin{lcode}
   \newcommand*{\beforepartskip}{\null\vfil}
   \newcommand*{\afterpartskip}{\vfil\newpage}
 \end{lcode}
-Thus we need to redefined this such that it does not change the page
-and such that it add useful spacing above and below the part
-titling. Something like this may do the trick
+% Thus we need to redefined this such that it does not change the page
+% and such that it add useful spacing above and below the part
+% titling. Something like this may do the trick
+따라서 페이지를 바꾸지 않으면서도 part 제목 위아래에 쓸만한 간격을 넣을 수 있도록
+이를 재정의해야 한다.
 \begin{lcode}
 \makeatletter
   \newcommand*{\beforepartskip}{\null\vskip4cm}
@@ -890,23 +912,33 @@ page. Very similar to \cs{appendixpage}.}
 \glossary(renewleadpage)%
 {\cs{renewleadpage}\oarg{page-style}\marg{cmdname}\marg{title}}%
 {Redefines an existing new lead page macro.}
-The \cmd{\newleadpage}\footnote{The suggestions for this came from
-Danie Els\index{Els, Danie} and Lars Madsen\index{Madsen, Lars}.}
-command defines a macro \verb?\cmdname? that when called
-will typeset an Appendixpage-like page (see \Sref{sec:appendices}) with a
-title \meta{title} using the \meta{page-style} as the pagestyle for
-the page. The default is the \pstyle{empty} pagestyle. The macro
-\cmd{\renewleadpage} redefines an existing leadpage command.
-\cmd{\cmdname} will add an entry to the TOC, the similarly defined
-\cmd{\cmdname*} will not.
+% The \cmd{\newleadpage}\footnote{The suggestions for this came from
+% Danie Els\index{Els, Danie} and Lars Madsen\index{Madsen, Lars}.}
+% command defines a macro \verb?\cmdname? that when called
+% will typeset an Appendixpage-like page (see \Sref{sec:appendices}) with a
+% title \meta{title} using the \meta{page-style} as the pagestyle for
+% the page. The default is the \pstyle{empty} pagestyle. The macro
+\cmd{\newleadpage}\footnote{이것은 Danie Els\index{Els, Danie}와 Lars Madsen
+\index{Madsen, Lars}가 제안한 것이다.} 명령은 매크로 \verb?\cmdname?을 정의한다.
+이것은 부록과 같은 페이지를 식자할 때 호출되며(\Sref{sec:appendices} 참조),
+\meta{title}이 \meta{page-style}을 페이지스타일로 사용하게 된다. 기본값은
+\pstyle{empty} 페이지 스타일이다.
+% \cmd{\renewleadpage} redefines an existing leadpage command.
+% \cmd{\cmdname} will add an entry to the TOC, the similarly defined
+% \cmd{\cmdname*} will not.
+\cmd{\renewleadpage} 매크로는 이미 존재하는 leadpage 명령을 재정의한다.
+\cmd{\cmdname}은 항목을 TOC에 추가하고, 비슷하게 정의된 \cmd{\cmdname*}은 그러지
+않는다.
 
-
-As an example:
+% As an example:
+예를 들어,
 \begin{lcode}
 \newleadpage{plates}{Picture Gallery}
 \end{lcode}
-creates the new command \cs{plates} which when called generates an unnumbered
-part-like page with the title \textbf{Picture Gallery}.
+% creates the new command \cs{plates} which when called generates an unnumbered
+% part-like page with the title \textbf{Picture Gallery}.
+는 불렸을 때 번호가 붙지 않고 제목으로 \textbf{Picture Gallery}가 붙은 part와
+같은 페이지를 생성하는 새 명령 \cs{plates}를 만든다.
 
 \begin{syntax}
 \cmd{\leadpagetoclevel} \\
@@ -915,9 +947,12 @@ part-like page with the title \textbf{Picture Gallery}.
 {\cs{leadpagetoclevel}}%
 {Holds the default toc level for \cs{newleadpage} generated macros,
 default is \texttt{chapter}.}
-When \cs{(re)newleadpage} is used the resulting command adds \meta{title}
-to the \toc\ as though it was an unnumbered \cmd{\leadpagetoclevel} entry,
-whose definition is
+% When \cs{(re)newleadpage} is used the resulting command adds \meta{title}
+% to the \toc\ as though it was an unnumbered \cmd{\leadpagetoclevel} entry,
+% whose definition is
+\cs{(re)newleadpage}가 사용되면 명령은 마치 번호가 붙지 않는
+\cmd{\leadpagetoclevel}과 같이 \meta{title}을 \toc\ 에 추가한다. 그 정의는 다음과
+같다.
 \begin{lcode}
 \newcommand*{\leadpagetoclevel}{chapter}
 \end{lcode}
@@ -927,9 +962,12 @@ If you wished them to be entered like a \cmd{\part} header then simply:
 \end{lcode}
 
 
-    The layout of the page matches that for unnumbered \cmd{\part} pages, and
-internally the resulting commands use \cmd{\partmark} in case you
-wish to capture the \meta{title} to use in running headers.
+%     The layout of the page matches that for unnumbered \cmd{\part} pages, and
+% internally the resulting commands use \cmd{\partmark} in case you
+% wish to capture the \meta{title} to use in running headers.
+페이지 레이아웃은 번호가 붙지 않는 \cmd{\part} 페이지와 일치하고, 내부적으로는
+러닝 헤더 안에서 사용하기 위해 \meta{title}을 캡처하고 싶은 경우 명령은
+\cmd{\partmark}를 사용한다.
 
 
 
